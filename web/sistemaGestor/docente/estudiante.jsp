@@ -157,6 +157,74 @@
                 <!-- Modal Structure -->
                 <div id="new" class="modal modal-fixed-footer blue darken-3 yellow-text">
 
+                    <div class="modal-content blue darken-3">
+                        <div class="row">
+                            <h1 class="center yellow-text">Nuevo Estudiante</h1>
+                        </div>
+                        <div class="row">
+                            <form method="post" id="nuevoest" action="../estudiante.do" class="col s12 yellow-text" enctype="multipart/form-data">
+                                <div class="row">
+                                    <div class="input-field col s6">
+                                        <i class="material-icons prefix yellow-text">assignment_ind</i>
+                                        <input id="primerNombre" type="text" class="validate">
+                                        <label class="yellow-text" for="Primer Nombre">Primer Nombre</label>
+                                    </div>
+                                    <div class="input-field col s6">
+                                        <i class="material-icons prefix yellow-text">assignment_ind</i>
+                                        <input id="segundoNombre" type="text" >
+                                        <label class="yellow-text" for="Segundo Nombre">Segundo Nombre</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s6">
+                                        <i class="material-icons prefix yellow-text">wc</i>
+                                        <input id="primerApellido" type="text" class="validate">
+                                        <label class="yellow-text" for="Primer Apellido">Primer Apellido</label>
+                                    </div>
+                                    <div class="input-field col s6">
+                                        <i class="material-icons prefix yellow-text">wc</i>
+                                        <input id="segundoApellido" type="text" class="validate">
+                                        <label class="yellow-text" for="Segundo Apellido">Segundo Apellido</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s6">
+                                        <i class="material-icons prefix yellow-text">fingerprint</i>
+                                        <input id="ci" type="text" class="validate">
+                                        <label class="yellow-text" for="ci"># de Carnet</label>
+                                    </div>
+                                    <div class="input-field col s6">
+                                        <i class="material-icons prefix yellow-text">contact_phone</i>
+                                        <input id="celular" type="text" class="validate">
+                                        <label class="yellow-text" for="celular">Telefono - Celular</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="file-field input-field col s6">
+                                        <div class="btn blue yellow-text">
+                                            <span>Foto</span>
+                                            <input type="file" id="foto">
+                                        </div>
+                                        <div class="file-path-wrapper">
+                                            <input class="file-path validate" type="text"  placeholder="Seleccione una Foto">
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+
+                    </div>
+
+                    <div class="modal-footer blue darken-3 yellow-text">
+                        <div class="col s6">
+                            <button class="btn waves-effect waves-light yellow accent-2 blue-text left" type="button" id="nuevoestudiante">
+                                Validar y Guardar<i class="material-icons right">save</i>
+                            </button>
+                        </div>
+                        <div id="notificacionnewEstudiante">
+                        </div>
+                    </div>
 
                 </div>
                 <div id="update" class="modal modal-fixed-footer blue darken-3 yellow-text ">
@@ -215,6 +283,45 @@
                         </div>
                     </div>
                 </div>
+
+                <div id="search" class="modal modal-fixed-footer blue darken-3 yellow-text ">
+                     <div class="modal-content blue darken-3">
+                        <div class="row">
+                            <h1 class="center yellow-text">Buscar Estudiante</h1>
+                            <form method="post" class="col s12 yellow-text" >
+                                <div class="row">
+                                    <div class="input-field col s4">
+                                        <i class="material-icons prefix">account_circle</i>
+                                        <input id="apellido_estudiante" type="text">
+                                        <label for="apellido_estudiante">Apellido</label>
+                                    </div>
+                                    <div class="input-field col s4">
+                                        <i class="material-icons prefix">contact_mail</i>
+                                        <input id="ci_estudiante" type="text">
+                                        <label for="ci_estudiante"># de Carnet</label>
+                                    </div>
+                                    <div class="input-field col s4">
+                                        <a id="buscar_estudiante" data-id="<%=usuario%>" class="waves-effect waves-light waves-teal yellow accent-2 blue-text text-darken-3 btn-large"> 
+                                            <i class="material-icons right">search</i>Buscar
+                                        </a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="row">
+                            <div id="ver_estudiante_buscado"></div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="modal-footer blue darken-3 yellow-text">
+                        <button class="modal-action modal-close waves-effect waves-teal yellow accent-2 blue-text text-darken-3 waves-yellow btn-flat">
+                            Cerrar<i class="material-icons right">clear_all</i>
+                        </button>
+                    </div>
+                </div>
+
             </div>
             <!-- Final del MENU -->
 

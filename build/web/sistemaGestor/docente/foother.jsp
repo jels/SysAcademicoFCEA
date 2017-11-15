@@ -26,6 +26,7 @@ Scripts
 <script type="text/javascript" src="../../js/jquery-3.2.1.min.js"></script>
 <script src="../../js/materialize.min.js"></script>
 <script src="../../js/actualizaciones.js"></script>
+<script src="../../js/docente.js"></script>
 
 <script type="text/javascript">
     $(document).ready(function () {

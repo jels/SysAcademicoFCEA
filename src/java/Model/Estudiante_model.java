@@ -92,6 +92,28 @@ public class Estudiante_model extends Conexion {
         }
     }
 
+    public ResultSet buscarAllEstudiantexCI(String CI_estudiante) {
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        try {
+            String consulta = "SELECT fotoEstudiante, primerNombreEstudiante, "
+                    + "segundoNombreEstudiante, primerApellidoEstudiante, "
+                    + "segundoApellidoEstudiante, ciEstudiante, telefonoEstudiante "
+                    + "FROM estudiante "
+                    + "WHERE ciEstudiante = ? "
+                    + "ORDER BY estadoEstudiante DESC, "
+                    + "primerApellidoEstudiante ASC, segundoApellidoEstudiante ASC ";
+            pst = getConnection().prepareStatement(consulta);
+            pst.setString(1, CI_estudiante);
+            rs = pst.executeQuery();
+            return rs;
+
+        } catch (Exception ex) {
+            System.err.println("Error buscarAllEstudiantexCI: " + ex);
+            return null;
+        }
+    }
+
     public ResultSet buscarEstudiantexNombre(String nombre, String tutor) {
         PreparedStatement pst = null;
         ResultSet rs = null;
@@ -112,6 +134,29 @@ public class Estudiante_model extends Conexion {
             pst.setString(1, nombre);
             pst.setString(2, tutor);
             rs = pst.executeQuery();
+            return rs;
+
+        } catch (Exception ex) {
+            System.err.println("Error buscarEstudiantexNombre: " + ex);
+            return null;
+        }
+    }
+
+    public ResultSet buscarAllEstudiantexNombre(String nombre) {
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        try {
+            String consulta = "SELECT fotoEstudiante, primerNombreEstudiante, "
+                    + "segundoNombreEstudiante, primerApellidoEstudiante, "
+                    + "segundoApellidoEstudiante, ciEstudiante, telefonoEstudiante "
+                    + "FROM estudiante "
+                    + "WHERE primerApellidoEstudiante = ? "
+                    + "ORDER BY estadoEstudiante DESC, "
+                    + "primerApellidoEstudiante ASC, segundoApellidoEstudiante ASC ";
+            pst = getConnection().prepareStatement(consulta);
+            pst.setString(1, nombre);
+            rs = pst.executeQuery();
+            System.out.println("Consulta: " + consulta);
             return rs;
 
         } catch (Exception ex) {

@@ -8,6 +8,7 @@ package Controller;
 import Model.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import jdk.nashorn.internal.objects.NativeArray;
 
 /**
  *
@@ -109,6 +110,7 @@ public class ControladorEstudiante extends Conexion {
                 + "                                    <th>Carrera</th>\n"
                 + "                                    <th class=\"center-align\">Asignar Nota</th>\n"
                 + "                                    <th class=\"center-align\">Ver Notas</th>\n"
+                + "                                    <th class=\"center-align\">Imprimir Evaluacion</th>\n"
                 + "                                </tr>\n"
                 + "                            </thead>\n"
                 + "                            <tbody>\n";
@@ -128,7 +130,8 @@ public class ControladorEstudiante extends Conexion {
                             + "                    <td>" + rs.getString(8) + "</td>\n"
                             + "                    <td>" + rs.getString(9) + "</td>\n"
                             + "                    <td><div class=\"center-align\"><a data-id=\"" + rs.getString(6) + "\" id=\"asignar_nota_estudiante\" class=\"btn-floating btn tooltipped waves-effect waves-light blue yellow-text\" data-position=\"button\" data-tooltip=\"Asignar Nota\"><i class=\"material-icons yellow-text\">event_note</i></a></div></td>\n"
-                            + "                    <td><div class=\"center-align\"><a data-id=\"" + rs.getString(6) + "\" id=\"ver_nota_estudiante\" class=\"btn-floating btn tooltipped waves-effect waves-light blue yellow-text\" data-position=\"button\" data-tooltip=\"Ver Nota\"><i class=\"material-icons yellow-text\">event_note</i></a></div></td>\n";
+                            + "                    <td><div class=\"center-align\"><a data-id=\"" + rs.getString(6) + "\" id=\"ver_nota_estudiante\" class=\"btn-floating btn tooltipped waves-effect waves-light blue yellow-text\" data-position=\"button\" data-tooltip=\"Ver Nota\"><i class=\"material-icons yellow-text\">event_note</i></a></div></td>\n"
+                            + "                    <td><div class=\"center-align\"><a data-id=\"" + rs.getString(6) + "\" id=\"ver_reporte\" class=\"btn-floating btn tooltipped waves-effect waves-light blue yellow-text\" data-position=\"button\" data-tooltip=\"Imprimir Evaluacion\"><i class=\"material-icons yellow-text\">description</i></a></div></td>\n";
                     i++;
 
                 }
@@ -187,8 +190,8 @@ public class ControladorEstudiante extends Conexion {
                 while (rs.next()) {
                     htmlcode += "                <tr>\n"
                             + "                    <td>" + i + "</td>\n"
-                            + "                    <td><img class=\"responsive-img materialboxed\" src=\"" + rs.getString(9) + "\" alt=\"" + rs.getString(2) + "\" width=\"50\"></td>\n"
-                            + "                    <td>" + rs.getString(2) + " " + rs.getString(3) + " " + rs.getString(4) + " " + rs.getString(5) + "</td>\n"
+                            + "                    <td><img class=\"responsive-img materialboxed\" src=\"../../img/fcea/estudiantes/" + rs.getString(9) + "\" alt=\"" + rs.getString(2) + "\" width=\"50\"></td>\n"
+                            + "                    <td>" + rs.getString(4) + " " + rs.getString(5) + ", " + rs.getString(2) + " " + rs.getString(3) + "</td>\n"
                             + "                    <td id=\"CI_estudiante\">" + rs.getString(6) + "</td>\n"
                             + "                    <td>" + rs.getString(7) + "</td>\n";
                     if (rs.getInt(8) == 1) {
@@ -401,60 +404,126 @@ public class ControladorEstudiante extends Conexion {
     }
 
     public String modalBuscarEstudiante(String nombre, String CI_estudiante, String tutor) {
-
+        String htmlcode;
+        ControladorUsuarios conUs = new ControladorUsuarios();
         Estudiante_model estmo = new Estudiante_model();
         ResultSet rs;
-        String htmlcode;
         int i = 0;
-        if (nombre.equals("")) {
-            System.out.println("CI_estudiante: " + CI_estudiante);
-            rs = estmo.buscarEstudiantexCI(CI_estudiante, tutor);
-        } else {
-            System.out.println("nombre: " + nombre);
-            rs = estmo.buscarEstudiantexNombre(nombre, tutor);
-        }
-        if (rs != null) {
+        String rol = conUs.getRol(tutor);
 
-            htmlcode = "<table class=\"highlight responsive-table\">\n"
-                    + "  <thead>\n"
-                    + "    <tr>\n"
-                    + "      <th>#</th>\n"
-                    + "      <th>Foto</th>\n"
-                    + "      <th>Nombre Completo</th>\n"
-                    + "      <th># de Carnet</th>\n"
-                    + "      <th>Celular</th>\n"
-                    + "      <th>Materia</th>\n"
-                    + "    </tr>\n"
-                    + "  </thead>\n"
-                    + "  <tbody>";
-            try {
-                while (rs.next()) {
-                    i++;
-                    htmlcode += "      <tr>\n"
-                            + "          <td>" + i + "</td>\n"
-                            + "          <td><img class=\"responsive-img\" src=\"../../img/fcea/estudiantes/" + rs.getString(1) + "\" alt=\"" + rs.getString(2) + "\" width=\"50\"></td>\n"
-                            + "          <td>" + rs.getString(4) + " " + rs.getString(5) + ", " + rs.getString(2) + " " + rs.getString(3) + "</td>\n"
-                            + "          <td id=\"CI_estudiante\">" + rs.getString(6) + "</td>\n"
-                            + "          <td>" + rs.getString(7) + "</td>\n"
-                            + "          <td>" + rs.getString(8) + "</td>\n"
-                            + "        </tr>";
+        switch (rol) {
+            case "Root":
+                htmlcode = "";
+                break;
+            case "Docente":
+                if (nombre.equals("")) {
+                    System.out.println("CI_estudiante: " + CI_estudiante);
+                    rs = estmo.buscarAllEstudiantexCI(CI_estudiante);
+                } else {
+                    System.out.println("nombre: " + nombre);
+                    rs = estmo.buscarAllEstudiantexNombre(nombre);
                 }
+                if (rs != null) {
 
-            } catch (Exception e) {
-                System.out.println("Error en modalBuscarEstudiante " + e);
-            }
-            htmlcode += "   </tbody>\n"
-                    + "</table>";
-        } else {
-            htmlcode = "    <div class=\"row\">\n"
-                    + "        <div class=\"card-panel red center\">\n"
-                    + "          <span class=\"white-text\">\n"
-                    + "             El estudiante Solicitado no existe..."
-                    + "          </span>\n"
-                    + "        </div>\n"
-                    + "    </div>\n"
-                    + "            ";
+                    htmlcode = "<table class=\"highlight responsive-table\">\n"
+                            + "  <thead>\n"
+                            + "    <tr>\n"
+                            + "      <th>#</th>\n"
+                            + "      <th>Foto</th>\n"
+                            + "      <th>Nombre Completo</th>\n"
+                            + "      <th># de Carnet</th>\n"
+                            + "      <th>Celular</th>\n"
+                            + "    </tr>\n"
+                            + "  </thead>\n"
+                            + "  <tbody>";
+                    try {
+                        while (rs.next()) {
+                            System.out.println("nombre: " + rs.getString(1));
+                            i++;
+                            htmlcode += "      <tr>\n"
+                                    + "          <td>" + i + "</td>\n"
+                                    + "          <td><img class=\"responsive-img\" src=\"../../img/fcea/estudiantes/" + rs.getString(1) + "\" alt=\"" + rs.getString(2) + "\" width=\"50\"></td>\n"
+                                    + "          <td>" + rs.getString(4) + " " + rs.getString(5) + ", " + rs.getString(2) + " " + rs.getString(3) + "</td>\n"
+                                    + "          <td id=\"CI_estudiante\">" + rs.getString(6) + "</td>\n"
+                                    + "          <td>" + rs.getString(7) + "</td>\n"
+                                    + "        </tr>";
+                        }
+
+                    } catch (Exception e) {
+                        System.out.println("Error en modalBuscarEstudiante " + e);
+                    }
+                    htmlcode += "   </tbody>\n"
+                            + "</table>";
+                } else {
+                    htmlcode = "    <div class=\"row\">\n"
+                            + "        <div class=\"card-panel red center\">\n"
+                            + "          <span class=\"white-text\">\n"
+                            + "             El estudiante Solicitado no existe..."
+                            + "          </span>\n"
+                            + "        </div>\n"
+                            + "    </div>\n"
+                            + "            ";
+                }
+                break;
+            case "Tutor":
+
+                if (nombre.equals("")) {
+                    System.out.println("CI_estudiante: " + CI_estudiante);
+                    rs = estmo.buscarEstudiantexCI(CI_estudiante, tutor);
+                } else {
+                    System.out.println("nombre: " + nombre);
+                    rs = estmo.buscarEstudiantexNombre(nombre, tutor);
+                }
+                if (rs != null) {
+
+                    htmlcode = "<table class=\"highlight responsive-table\">\n"
+                            + "  <thead>\n"
+                            + "    <tr>\n"
+                            + "      <th>#</th>\n"
+                            + "      <th>Foto</th>\n"
+                            + "      <th>Nombre Completo</th>\n"
+                            + "      <th># de Carnet</th>\n"
+                            + "      <th>Celular</th>\n"
+                            + "      <th>Materia</th>\n"
+                            + "    </tr>\n"
+                            + "  </thead>\n"
+                            + "  <tbody>";
+                    try {
+                        while (rs.next()) {
+                            System.out.println("nombre: " + rs.getString(1));
+                            i++;
+                            htmlcode += "      <tr>\n"
+                                    + "          <td>" + i + "</td>\n"
+                                    + "          <td><img class=\"responsive-img\" src=\"../../img/fcea/estudiantes/" + rs.getString(1) + "\" alt=\"" + rs.getString(2) + "\" width=\"50\"></td>\n"
+                                    + "          <td>" + rs.getString(4) + " " + rs.getString(5) + ", " + rs.getString(2) + " " + rs.getString(3) + "</td>\n"
+                                    + "          <td id=\"CI_estudiante\">" + rs.getString(6) + "</td>\n"
+                                    + "          <td>" + rs.getString(7) + "</td>\n"
+                                    + "          <td>" + rs.getString(8) + "</td>\n"
+                                    + "        </tr>";
+                        }
+
+                    } catch (Exception e) {
+                        System.out.println("Error en modalBuscarEstudiante " + e);
+                    }
+                    htmlcode += "   </tbody>\n"
+                            + "</table>";
+                } else {
+                    htmlcode = "    <div class=\"row\">\n"
+                            + "        <div class=\"card-panel red center\">\n"
+                            + "          <span class=\"white-text\">\n"
+                            + "             El estudiante Solicitado no existe..."
+                            + "          </span>\n"
+                            + "        </div>\n"
+                            + "    </div>\n"
+                            + "            ";
+                }
+                break;
+            default:
+                htmlcode = "";
+                break;
         }
+
+        System.out.println("htmlcode: " + htmlcode);
         try {
             getCloseConexion();
         } catch (Exception e) {

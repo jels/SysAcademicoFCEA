@@ -192,6 +192,7 @@ public class EstudianteCRUD extends HttpServlet {
                 out.print("true");
                 break;
             case "verNotaAsignada":
+                System.out.println("CI_estudiante: " + CI_estudiante);
                 htmlcode = conNot.getModalVerNota(CI_estudiante);
                 System.out.println("llega al verNotaAsignada");
                 out.print(htmlcode);

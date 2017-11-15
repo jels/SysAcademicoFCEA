@@ -54,4 +54,20 @@ public class ControladorUsuarios extends Conexion {
         return usm.encontrarID(us);
     }
 
+    public String getRol(String username) {
+
+        String rol = "";
+        Usuario_model usMo = new Usuario_model();
+        Usuario us = new Usuario();
+        us.setNombreUsuario(username);
+        rol = usMo.getRol(us);
+        try {
+            getCloseConexion();
+        } catch (Exception e) {
+            System.out.println("Error en getRol.getCloseConexion: " + e);
+        }
+
+        return rol;
+    }
+
 }

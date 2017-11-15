@@ -136,7 +136,7 @@
                                         <div class="input-field col s4">
                                             <i class="material-icons prefix">account_circle</i>
                                             <input id="apellido_estudiante" type="text">
-                                            <label for="apellido_estudiante">Apellido</label>
+                                            <label for="apellido_estudiante">Apellido Paterno</label>
                                         </div>
                                         <div class="input-field col s4">
                                             <i class="material-icons prefix">contact_mail</i>
@@ -192,39 +192,15 @@
 
                     <!-- Inicio del Modal Asignar Notas -->
                     <div id="verNotaAsignada" class="modal modal-fixed-footer blue darken-3 yellow-text">
-                        <div class="modal-content blue darken-3">
-                            <div class="row">
-                                <h3 class="yellow-text accent-2 center">Leonardi Sauer, Jonathan Elias</h3>
-                            </div>
-                            <div class="row">
-                                <div class="col s8">
-                                    <table class="bordered">
-                                        <thead>
-                                            <tr>
-                                                <th>Evaluacion</th>
-                                                <th>Nota</th>
-                                            </tr>
-                                        </thead>
 
-                                        <tbody>
-                                            <tr>
-                                                <td>Primer Parcial</td>
-                                                <td>90</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Segundo Parcial</td>
-                                                <td>88</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer blue darken-3">
-                            <div class="col s12 right-align">
-                                <a class="modal-action modal-close waves-effect waves-light waves-teal red yellow-text btn tooltipped" data-position="button" data-tooltip="Cerrar"><i class="material-icons left">clear_all</i>Cerrar</a>
-                            </div>
-                        </div>
+                        <div id="ver_Nota_Asignada_estudiante"></div> 
+
+                    </div>
+                    <!-- Final del Modal --> 
+
+                    <!-- Inicio del Modal Asignar Notas -->
+                    <div id="verReporte" class="modal modal-fixed-footer blue darken-3 yellow-text">
+
                         <div id="ver_Nota_Asignada_estudiante"></div> 
 
                     </div>

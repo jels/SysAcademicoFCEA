@@ -65,11 +65,50 @@ public class ControladorNotas extends Conexion {
 
         try {
             primerParcial = notMo.getTotalNotasPrimerParcial(CI_estudiante);
+            primerParcial.next();
+            nombreEstudiante.next();
+            if (primerParcial.getInt(1) != 0 || primerParcial.getInt(2) == 20) {
+                System.out.println("nota: " + primerParcial.getString(1));
 
-            if (primerParcial.next()) {
-
+                htmlcode += "<div class=\"modal-content blue darken-3\">\n"
+                        + "                            <div class=\"row\">\n"
+                        + "                                <h3 class=\"yellow-text accent-2 center\">" + nombreEstudiante.getString(3) + " " + nombreEstudiante.getString(4) + ", " + nombreEstudiante.getString(1) + " " + nombreEstudiante.getString(2) + "</h3>\n"
+                        + "                            </div>\n"
+                        + "                            <div class=\"row\">\n"
+                        + "                                <div class=\"col s8\">\n"
+                        + "                                    <table class=\"bordered\">\n"
+                        + "                                        <thead>\n"
+                        + "                                            <tr>\n"
+                        + "                                                <th>Evaluacion</th>\n"
+                        + "                                                <th>Nota</th>\n"
+                        + "                                            </tr>\n"
+                        + "                                        </thead>\n"
+                        + "\n"
+                        + "                                        <tbody>\n"
+                        + "                                            <tr>\n"
+                        + "                                                <td>Primer Parcial</td>\n"
+                        + "                                                <td>" + primerParcial.getInt(2) + "</td>\n"
+                        + "                                            </tr>\n";
+                segundoParcial = notMo.getTotalNotasSegundoParcial(CI_estudiante);
+                segundoParcial.next();
+                if (segundoParcial.getInt(1) != 0 || segundoParcial.getInt(2) == 20) {
+                    htmlcode += "                                            <tr>\n"
+                            + "                                                <td>Segundo Parcial</td>\n"
+                            + "                                                <td>" + segundoParcial.getInt(2) + "</td>\n"
+                            + "                                            </tr>\n";
+                }
+                htmlcode += "                                        </tbody>\n"
+                        + "                                    </table>\n"
+                        + "                                </div>\n"
+                        + "                            </div>\n"
+                        + "                        </div>\n"
+                        + "                        <div class=\"modal-footer blue darken-3\">\n"
+                        + "                            <div class=\"col s12 right-align\">\n"
+                        + "                                <a class=\"modal-action modal-close waves-effect waves-light waves-teal red yellow-text btn tooltipped\" data-position=\"button\" data-tooltip=\"Cerrar\"><i class=\"material-icons left\">clear_all</i>Cerrar</a>\n"
+                        + "                            </div>\n"
+                        + "                        </div>";
             } else {
-                nombreEstudiante.next();
+
                 htmlcode += "  <div class=\"modal-content blue darken-3\">\n"
                         + "        <div class=\"row\">\n"
                         + "            <h3 class=\"yellow-text accent-2 center\">" + nombreEstudiante.getString(3) + " " + nombreEstudiante.getString(4) + ", " + nombreEstudiante.getString(1) + " " + nombreEstudiante.getString(2) + "</h3>\n"
