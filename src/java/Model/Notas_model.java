@@ -19,13 +19,12 @@ public class Notas_model extends Conexion {
         ResultSet rs = null;
         try {
             String consulta = "SELECT COUNT(n.parcial) "
-                    + "FROM notas n, estudiante e, asignacionpracticas asp, materia m "
+                    + "FROM notas n, asignacionpracticas asp, estudiante e "
                     + "WHERE e.idEstudiante = asp.idEstudiante "
-                    + "AND m.idMateria = asp.idMateria "
-                    + "AND e.idEstudiante = n.idEstudiante "
-                    + "AND m.idMateria = n.idMateria "
-                    + "AND e.ciEstudiante = ? "
-                    + "AND n.parcial = 1 ";
+                    + "AND asp.idAsignacionPractica = n.idAsignacionPractica "
+                    + "AND n.parcial = 1 "
+                    + "AND asp.estadoPractica = 1 "
+                    + "AND e.ciEstudiante = ?";
             pst = getConnection().prepareStatement(consulta);
             pst.setString(1, CI_estudiante);
             rs = pst.executeQuery();
@@ -42,13 +41,12 @@ public class Notas_model extends Conexion {
         ResultSet rs = null;
         try {
             String consulta = "SELECT COUNT(n.parcial) "
-                    + "FROM notas n, estudiante e, asignacionpracticas asp, materia m "
+                    + "FROM notas n, asignacionpracticas asp, estudiante e "
                     + "WHERE e.idEstudiante = asp.idEstudiante "
-                    + "AND m.idMateria = asp.idMateria "
-                    + "AND e.idEstudiante = n.idEstudiante "
-                    + "AND m.idMateria = n.idMateria "
-                    + "AND e.ciEstudiante = ? "
-                    + "AND n.parcial = 2 ";
+                    + "AND asp.idAsignacionPractica = n.idAsignacionPractica "
+                    + "AND n.parcial = 2 "
+                    + "AND asp.estadoPractica = 1 "
+                    + "AND e.ciEstudiante = ?";
             pst = getConnection().prepareStatement(consulta);
             pst.setString(1, CI_estudiante);
             rs = pst.executeQuery();
@@ -65,13 +63,12 @@ public class Notas_model extends Conexion {
         ResultSet rs = null;
         try {
             String consulta = "SELECT COUNT(n.parcial) "
-                    + "FROM notas n, estudiante e, asignacionpracticas asp, materia m "
+                    + "FROM notas n, asignacionpracticas asp, estudiante e "
                     + "WHERE e.idEstudiante = asp.idEstudiante "
-                    + "AND m.idMateria = asp.idMateria "
-                    + "AND e.idEstudiante = n.idEstudiante "
-                    + "AND m.idMateria = n.idMateria "
-                    + "AND e.ciEstudiante = ? "
-                    + "AND n.parcial = 3 ";
+                    + "AND asp.idAsignacionPractica = n.idAsignacionPractica "
+                    + "AND n.parcial = 3 "
+                    + "AND asp.estadoPractica = 1 "
+                    + "AND e.ciEstudiante = ?";
             pst = getConnection().prepareStatement(consulta);
             pst.setString(1, CI_estudiante);
             rs = pst.executeQuery();
@@ -85,6 +82,10 @@ public class Notas_model extends Conexion {
 
     public boolean evaluacionCompletaTutor(String CI_estudiante) {
         return llenoPrimerParcial(CI_estudiante) && llenoSegundoParcial(CI_estudiante);
+    }
+
+    public boolean evaluacionCompletaDocente(String CI_estudiante) {
+        return llenoPrimerParcial(CI_estudiante) && llenoSegundoParcial(CI_estudiante) && llenoFinal(CI_estudiante);
     }
 
     public int getParcial(String CI_estudiante) {
@@ -106,18 +107,19 @@ public class Notas_model extends Conexion {
         ResultSet rs = null;
         try {
             String consulta = "SELECT COUNT(n.nota), SUM(n.nota) "
-                    + "FROM estudiante e, materia m, asignacionpracticas asp, "
-                    + "tutor t, docente d, dimensiones dim, criterios cri, notas n "
+                    + "FROM estudiante e, materia m, docente d, tutor t, "
+                    + "asignacionpracticas asp, dimensiones dim, criterios cri, notas n "
                     + "WHERE e.idEstudiante = asp.idEstudiante "
-                    + "AND t.idTutor = asp.idTutor "
                     + "AND d.idDocente = asp.idDocente "
+                    + "AND t.idTutor = asp.idTutor "
                     + "AND m.idMateria = asp.idMateria "
                     + "AND m.idMateria = dim.idMateria "
                     + "AND dim.idDimensiones = cri.idDimensiones "
                     + "AND cri.idCriterios = n.idCriterios "
-                    + "AND e.idEstudiante = n.idEstudiante "
+                    + "AND asp.idAsignacionPractica = n.idAsignacionPractica "
                     + "AND e.ciEstudiante = ? "
-                    + "AND n.parcial = 1";
+                    + "AND asp.estadoPractica = 1 "
+                    + "AND n.parcial = 1 ";
             pst = getConnection().prepareStatement(consulta);
             pst.setString(1, CI_estudiante);
             rs = pst.executeQuery();
@@ -135,17 +137,18 @@ public class Notas_model extends Conexion {
         ResultSet rs = null;
         try {
             String consulta = "SELECT COUNT(n.nota), SUM(n.nota) "
-                    + "FROM estudiante e, materia m, asignacionpracticas asp, "
-                    + "tutor t, docente d, dimensiones dim, criterios cri, notas n "
+                    + "FROM estudiante e, materia m, docente d, tutor t, "
+                    + "asignacionpracticas asp, dimensiones dim, criterios cri, notas n "
                     + "WHERE e.idEstudiante = asp.idEstudiante "
-                    + "AND t.idTutor = asp.idTutor "
                     + "AND d.idDocente = asp.idDocente "
+                    + "AND t.idTutor = asp.idTutor "
                     + "AND m.idMateria = asp.idMateria "
                     + "AND m.idMateria = dim.idMateria "
                     + "AND dim.idDimensiones = cri.idDimensiones "
                     + "AND cri.idCriterios = n.idCriterios "
-                    + "AND e.idEstudiante = n.idEstudiante "
+                    + "AND asp.idAsignacionPractica = n.idAsignacionPractica "
                     + "AND e.ciEstudiante = ? "
+                    + "AND asp.estadoPractica = 1 "
                     + "AND n.parcial = 2";
             pst = getConnection().prepareStatement(consulta);
             pst.setString(1, CI_estudiante);
@@ -164,18 +167,19 @@ public class Notas_model extends Conexion {
         ResultSet rs = null;
         try {
             String consulta = "SELECT COUNT(n.nota), SUM(n.nota) "
-                    + "FROM estudiante e, materia m, asignacionpracticas asp, "
-                    + "tutor t, docente d, dimensiones dim, criterios cri, notas n "
+                    + "FROM estudiante e, materia m, docente d, tutor t, "
+                    + "asignacionpracticas asp, dimensiones dim, criterios cri, notas n "
                     + "WHERE e.idEstudiante = asp.idEstudiante "
-                    + "AND t.idTutor = asp.idTutor "
                     + "AND d.idDocente = asp.idDocente "
+                    + "AND t.idTutor = asp.idTutor "
                     + "AND m.idMateria = asp.idMateria "
                     + "AND m.idMateria = dim.idMateria "
                     + "AND dim.idDimensiones = cri.idDimensiones "
                     + "AND cri.idCriterios = n.idCriterios "
-                    + "AND e.idEstudiante = n.idEstudiante "
+                    + "AND asp.idAsignacionPractica = n.idAsignacionPractica "
                     + "AND e.ciEstudiante = ? "
-                    + "AND n.parcial = 3";
+                    + "AND asp.estadoPractica = 1 "
+                    + "AND n.parcial = 3 ";
             pst = getConnection().prepareStatement(consulta);
             pst.setString(1, CI_estudiante);
             rs = pst.executeQuery();
@@ -185,10 +189,130 @@ public class Notas_model extends Conexion {
             System.err.println("Error getTotalNotasFinal: " + ex);
             return null;
         }
-
     }
 
-    public boolean newNota(Notas nota) {
+    public int getNotaPrimerParcial(String CI_estudiante) {
+
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        try {
+            String consulta = "SELECT COUNT(n.nota), SUM(n.nota) "
+                    + "FROM estudiante e, materia m, docente d, tutor t, "
+                    + "asignacionpracticas asp, dimensiones dim, criterios cri, notas n "
+                    + "WHERE e.idEstudiante = asp.idEstudiante "
+                    + "AND d.idDocente = asp.idDocente "
+                    + "AND t.idTutor = asp.idTutor "
+                    + "AND m.idMateria = asp.idMateria "
+                    + "AND m.idMateria = dim.idMateria "
+                    + "AND dim.idDimensiones = cri.idDimensiones "
+                    + "AND cri.idCriterios = n.idCriterios "
+                    + "AND asp.idAsignacionPractica = n.idAsignacionPractica "
+                    + "AND e.ciEstudiante = ? "
+                    + "AND asp.estadoPractica = 1 "
+                    + "AND n.parcial = 1 ";
+            pst = getConnection().prepareStatement(consulta);
+            pst.setString(1, CI_estudiante);
+            rs = pst.executeQuery();
+            rs.next();
+            return rs.getInt(2);
+
+        } catch (Exception ex) {
+            System.err.println("Error getNotaPrimerParcial: " + ex);
+            return 0;
+        }
+    }
+
+    public int getNotaSegundoParcial(String CI_estudiante) {
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        try {
+            String consulta = "SELECT COUNT(n.nota), SUM(n.nota) "
+                    + "FROM estudiante e, materia m, docente d, tutor t, "
+                    + "asignacionpracticas asp, dimensiones dim, criterios cri, notas n "
+                    + "WHERE e.idEstudiante = asp.idEstudiante "
+                    + "AND d.idDocente = asp.idDocente "
+                    + "AND t.idTutor = asp.idTutor "
+                    + "AND m.idMateria = asp.idMateria "
+                    + "AND m.idMateria = dim.idMateria "
+                    + "AND dim.idDimensiones = cri.idDimensiones "
+                    + "AND cri.idCriterios = n.idCriterios "
+                    + "AND asp.idAsignacionPractica = n.idAsignacionPractica "
+                    + "AND e.ciEstudiante = ? "
+                    + "AND asp.estadoPractica = 1 "
+                    + "AND n.parcial = 2 ";
+            pst = getConnection().prepareStatement(consulta);
+            pst.setString(1, CI_estudiante);
+            rs = pst.executeQuery();
+            rs.next();
+            return rs.getInt(2);
+
+        } catch (Exception ex) {
+            System.err.println("Error getNotaPrimerParcial: " + ex);
+            return 0;
+        }
+    }
+
+    public int getNotaExamenFinal(String CI_estudiante) {
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        try {
+            String consulta = "SELECT COUNT(n.nota), SUM(n.nota) "
+                    + "FROM estudiante e, materia m, docente d, tutor t, "
+                    + "asignacionpracticas asp, dimensiones dim, criterios cri, notas n "
+                    + "WHERE e.idEstudiante = asp.idEstudiante "
+                    + "AND d.idDocente = asp.idDocente "
+                    + "AND t.idTutor = asp.idTutor "
+                    + "AND m.idMateria = asp.idMateria "
+                    + "AND m.idMateria = dim.idMateria "
+                    + "AND dim.idDimensiones = cri.idDimensiones "
+                    + "AND cri.idCriterios = n.idCriterios "
+                    + "AND asp.idAsignacionPractica = n.idAsignacionPractica "
+                    + "AND e.ciEstudiante = ? "
+                    + "AND asp.estadoPractica = 1 "
+                    + "AND n.parcial = 3 ";
+            pst = getConnection().prepareStatement(consulta);
+            pst.setString(1, CI_estudiante);
+            rs = pst.executeQuery();
+            rs.next();
+            return rs.getInt(2);
+
+        } catch (Exception ex) {
+            System.err.println("Error getNotaPrimerParcial: " + ex);
+            return 0;
+        }
+    }
+
+    public int getNotaByPracticas(String CI_estudiante, int parcial, int idAsignacionPractica) {
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        try {
+            String consulta = "SELECT SUM(n.nota), COUNT(n.nota) "
+                    + "FROM estudiante e, asignacionpracticas asp, notas n "
+                    + "WHERE e.idEstudiante = asp.idEstudiante "
+                    + "AND asp.idAsignacionPractica = n.idAsignacionPractica "
+                    + "AND e.ciEstudiante = ? "
+                    + "AND n.parcial = ? "
+                    + "AND asp.idAsignacionPractica = ? ";
+            pst = getConnection().prepareStatement(consulta);
+            pst.setString(1, CI_estudiante);
+            pst.setInt(2, parcial);
+            pst.setInt(3, idAsignacionPractica);
+            rs = pst.executeQuery();
+            rs.next();
+            return rs.getInt(1);
+
+        } catch (Exception ex) {
+            System.err.println("Error getNotaPrimerParcial: " + ex);
+            return 0;
+        }
+    }
+
+    public boolean newNota(int IdAsignacionPractica, int idCriterio, int nota, int parcial) {
+
+        System.out.println("IDASP: " + IdAsignacionPractica);
+        System.out.println("IDCRI: " + idCriterio);
+        System.out.println("nota: " + nota);
+        System.out.println("parcial: " + parcial);
         return false;
     }
 

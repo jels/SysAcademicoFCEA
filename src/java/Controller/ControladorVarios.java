@@ -7,40 +7,71 @@ package Controller;
 
 import Model.*;
 import java.sql.ResultSet;
+import java.text.DecimalFormat;
 
 /**
  *
  * @author WarMachine
  */
-public class ControladorVarios extends Conexion{
+public class ControladorVarios extends Conexion {
 
     public int cantidadEstudiantes() {
         Estudiante_model estMo = new Estudiante_model();
+        try {
+            getCloseConexion();
+        } catch (Exception e) {
+            System.out.println("Error en cantidadEstudiantes.getCloseConexion: " + e);
+        }
         return estMo.contar_estudiantes();
     }
 
     public int cantidadDocentes() {
         Docente_model doc = new Docente_model();
+        try {
+            getCloseConexion();
+        } catch (Exception e) {
+            System.out.println("Error en cantidadDocentes.getCloseConexion: " + e);
+        }
         return doc.contar_docente();
     }
 
     public int cantidadTutores() {
         Tutor_model tut = new Tutor_model();
+        try {
+            getCloseConexion();
+        } catch (Exception e) {
+            System.out.println("Error en cantidadTutores.getCloseConexion: " + e);
+        }
         return tut.contar_tutor();
     }
 
     public int cantidadCarreras() {
         Carrera_model carr = new Carrera_model();
+        try {
+            getCloseConexion();
+        } catch (Exception e) {
+            System.out.println("Error en cantidadCarreras.getCloseConexion: " + e);
+        }
         return carr.contar_carrera();
     }
 
     public int cantidadMaterias() {
         Materia_model mamo = new Materia_model();
+        try {
+            getCloseConexion();
+        } catch (Exception e) {
+            System.out.println("Error en cantidadMaterias.getCloseConexion: " + e);
+        }
         return mamo.countMaterias();
     }
 
     public int cantidadEmpresas() {
         Empresa_model empr = new Empresa_model();
+        try {
+            getCloseConexion();
+        } catch (Exception e) {
+            System.out.println("Error en cantidadEmpresas.getCloseConexion: " + e);
+        }
         return empr.contar_empresa();
     }
 
@@ -48,6 +79,11 @@ public class ControladorVarios extends Conexion{
         String htmlcode = "Bienvenid@ Sr/a ";
         Tutor_model tutmo = new Tutor_model();
         htmlcode += tutmo.getNombreTutor(user);
+        try {
+            getCloseConexion();
+        } catch (Exception e) {
+            System.out.println("Error en getBienvenida.getCloseConexion: " + e);
+        }
         return htmlcode;
     }
 
@@ -56,128 +92,22 @@ public class ControladorVarios extends Conexion{
         Empresa_model emp = new Empresa_model();
         String nombreEmpresa = emp.nombre_empresa(user);
         if (nombreEmpresa.equals("")) {
+            try {
+                getCloseConexion();
+            } catch (Exception e) {
+                System.out.println("Error en getNombreEmpresa.getCloseConexion: " + e);
+            }
             return "no existe";
         } else {
             htmlcode = nombreEmpresa;
+            try {
+                getCloseConexion();
+            } catch (Exception e) {
+                System.out.println("Error en getNombreEmpresa.getCloseConexion: " + e);
+            }
             return htmlcode;
         }
 
-    }
-
-//    public String getHeaderEstudiante(String rol, String user) {
-//        String htmlcode = "";
-//        System.out.println("Rol:getHeaderEstudiante -" + rol);
-//
-//        switch (rol) {
-//            case "Coordinador":
-//                htmlcode += "";
-//                break;
-//            case "Tutor":
-//                htmlcode += "";
-//                break;
-//            default:
-//                htmlcode += "";
-//                break;
-//        }
-//
-//        return htmlcode;
-//    }
-    public String verMenuInicio(String rol, String user) {
-        String htmlcode = "";
-        ControladorVarios conV = new ControladorVarios();
-        Tutor_model tutmo = new Tutor_model();
-
-        switch (rol) {
-            case "Coordinador":
-                htmlcode += "<!-- aki empieza el menu -->"
-                        + "<div class=\"container\">\n"
-                        + "                <div class=\"row\">\n"
-                        + "                    <div class=\"col s4\">\n"
-                        + "                        <div class=\"card blue darken-3 yellow-text hoverable\">\n"
-                        + "                            <div class=\"card-content\">\n"
-                        + "                                <span class=\"card-title center\"><i class=\"medium material-icons\">face</i></span>\n"
-                        + "                                <h5 class=\"center\">Estudiantes</h5>\n"
-                        + "                                <p class=\"truncate\">Una descripcion de los la tabla estudiantes</p>\n"
-                        + "                            </div>\n"
-                        + "                            <div class=\"card-action center\">\n"
-                        + "                                <h5><a href=\"estudiante.jsp\" class=\"yellow-text\">" + conV.cantidadEstudiantes() + "</a></h5>\n"
-                        + "                            </div>\n"
-                        + "                        </div>\n"
-                        + "                    </div>\n"
-                        + "                    <div class=\"col s4\">\n"
-                        + "                        <div class=\"card blue darken-3 yellow-text hoverable\">\n"
-                        + "                            <div class=\"card-content\">\n"
-                        + "                                <span class=\"card-title center\"><i class=\"medium material-icons\">card_travel</i></span>\n"
-                        + "                                <h5 class=\"center\">Docentes</h5>\n"
-                        + "                                <p class=\"truncate\">Una descripcion de los la tabla Docentes</p>\n"
-                        + "                            </div>\n"
-                        + "                            <div class=\"card-action center\">\n"
-                        + "                                <h5><a href=\"docente.jsp\" class=\"yellow-text\">" + conV.cantidadDocentes() + "</a></h5>\n"
-                        + "                            </div>\n"
-                        + "                        </div>\n"
-                        + "                    </div>\n"
-                        + "                    <div class=\"col s4\">\n"
-                        + "                        <div class=\"card blue darken-3 yellow-text hoverable\">\n"
-                        + "                            <div class=\"card-content\">\n"
-                        + "                                <span class=\"card-title center\"><i class=\"medium material-icons\">contacts</i></span>\n"
-                        + "                                <h5 class=\"center\">Tutores</h5>\n"
-                        + "                                <p class=\"truncate\">Una descripcion de los la tabla Tutores</p>\n"
-                        + "                            </div>\n"
-                        + "                            <div class=\"card-action center\">\n"
-                        + "                                <h5><a href=\"tutor.jsp\" class=\"yellow-text\">" + conV.cantidadTutores() + "</a></h5>\n"
-                        + "                            </div>\n"
-                        + "                        </div>\n"
-                        + "                    </div>\n"
-                        + "                </div>\n"
-                        + "                <div class=\"row\">\n"
-                        + "                    <div class=\"col s4\">\n"
-                        + "                        <div class=\"card blue darken-3 yellow-text hoverable\">\n"
-                        + "                            <div class=\"card-content\">\n"
-                        + "                                <span class=\"card-title center\"><i class=\"medium material-icons\">format_list_bulleted</i></span>\n"
-                        + "                                <h5 class=\"center\">Carreras</h5>\n"
-                        + "                                <p class=\"truncate\">Una descripcion de los la tabla Carreras</p>\n"
-                        + "                            </div>\n"
-                        + "                            <div class=\"card-action center\">\n"
-                        + "                                <h5><a href=\"carrera.jsp\" class=\"yellow-text\">" + conV.cantidadCarreras() + "</a></h5>\n"
-                        + "                            </div>\n"
-                        + "                        </div>\n"
-                        + "                    </div>\n"
-                        + "                    <div class=\"col s4\">\n"
-                        + "                        <div class=\"card blue darken-3 yellow-text hoverable\">\n"
-                        + "                            <div class=\"card-content\">\n"
-                        + "                                <span class=\"card-title center\"><i class=\"medium material-icons\">storage</i></span>\n"
-                        + "                                <h5 class=\"center\">Materias</h5>\n"
-                        + "                                <p class=\"truncate\">Una descripcion de los la tabla Materias</p>\n"
-                        + "                            </div>\n"
-                        + "                            <div class=\"card-action center\">\n"
-                        + "                                <h5><a href=\"materia.jsp\" class=\"yellow-text\">" + conV.cantidadMaterias() + "</a></h5>\n"
-                        + "                            </div>\n"
-                        + "                        </div>\n"
-                        + "                    </div>\n"
-                        + "                    <div class=\"col s4\">\n"
-                        + "                        <div class=\"card blue darken-3 yellow-text hoverable\">\n"
-                        + "                            <div class=\"card-content\">\n"
-                        + "                                <span class=\"card-title center\"><i class=\"medium material-icons\">store</i></span>\n"
-                        + "                                <h5 class=\"center\">Empresas</h5>\n"
-                        + "                                <p class=\"truncate\">Una descripcion de los la tabla Empresas</p>\n"
-                        + "                            </div>\n"
-                        + "                            <div class=\"card-action center\">\n"
-                        + "                                <h5><a href=\"empresa.jsp\" class=\"yellow-text\">" + conV.cantidadEmpresas() + "</a></h5>\n"
-                        + "                            </div>\n"
-                        + "                        </div>\n"
-                        + "                    </div>\n"
-                        + "                </div>\n"
-                        + "            </div>";
-                break;
-            case "Tutor":
-                htmlcode += "";
-                break;
-            default:
-                htmlcode += " ";
-                break;
-        }
-
-        return htmlcode;
     }
 
     public String getUserViewDocente(String user) {
@@ -189,17 +119,51 @@ public class ControladorVarios extends Conexion{
         try {
             usuario.next();
             htmlcode += "<div class=\"background\">\n"
-                    + "     <img src = \"../../img/" + usuario.getString(2) + "\">\n"
+                    + "     <img src = \"../../img/fcea/docentes/" + usuario.getString(2) + "\">\n"
                     + "</div>\n"
-                    + "<a href =\"#!user\"><img class=\"circle\" src=\"../../img/" + usuario.getString(1) + "\"> </a>\n"
+                    + "<a href =\"#!user\"><img class=\"circle\" src=\"../../img/fcea/docentes/" + usuario.getString(1) + "\"> </a>\n"
                     + "<a href =\"#!name\"><span class=\"yellow-text name\">" + usuario.getString(4) + " " + usuario.getString(5) + " " + usuario.getString(6) + " " + usuario.getString(7) + "</span></a>\n"
-                    + "<a href =\"#!email\"><span class=\"yellow-text email\">" + usuario.getString(3) + "\"</span></a>\n";
+                    + "<a href =\"#!email\"><span class=\"yellow-text email\">" + usuario.getString(3) + "</span></a>\n";
 
         } catch (Exception e) {
             System.out.println("Error en getUserViewDocente: " + e);
 
         }
         System.out.println("htmlcode:------");
+        try {
+            getCloseConexion();
+        } catch (Exception e) {
+            System.out.println("Error en getUserViewDocente.getCloseConexion: " + e);
+        }
+        return htmlcode;
+
+    }
+
+    public String getUserViewRoot(String user) {
+        String htmlcode = "";
+        Usuario_model usm = new Usuario_model();
+        ResultSet usuario = null;
+        usuario = usm.getDatosRoot(user);
+        System.out.println("user: " + user);
+        try {
+            usuario.next();
+            htmlcode += "<div class=\"background\">\n"
+                    + "     <img src = \"../../img/root/" + usuario.getString(2) + "\">\n"
+                    + "</div>\n"
+                    + "<a href =\"#!user\"><img class=\"circle\" src=\"../../img/root/" + usuario.getString(1) + "\"> </a>\n"
+                    + "<a href =\"#!name\"><span class=\"yellow-text name\">Root</span></a>\n"
+                    + "<a href =\"#!email\"><span class=\"yellow-text email\">root@root.com</span></a>\n";
+
+        } catch (Exception e) {
+            System.out.println("Error en getUserViewDocente: " + e);
+
+        }
+        System.out.println("htmlcode:------");
+        try {
+            getCloseConexion();
+        } catch (Exception e) {
+            System.out.println("Error en getUserViewRoot.getCloseConexion: " + e);
+        }
         return htmlcode;
 
     }
@@ -213,47 +177,251 @@ public class ControladorVarios extends Conexion{
         try {
             usuario.next();
             htmlcode += "<div class=\"background\">\n"
-                    + "     <img src = \"../../img/" + usuario.getString(2) + "\">\n"
+                    + "     <img src = \"../../img/fcea/tutores/" + usuario.getString(2) + "\">\n"
                     + "</div>\n"
-                    + "<a href =\"#!user\"><img class=\"circle\" src=\"../../img/" + usuario.getString(1) + "\"> </a>\n"
+                    + "<a href =\"#!user\"><img class=\"circle\" src=\"../../img/fcea/tutores/" + usuario.getString(1) + "\"> </a>\n"
                     + "<a href =\"#!name\"><span class=\"yellow-text name\">" + usuario.getString(4) + " " + usuario.getString(5) + " " + usuario.getString(6) + " " + usuario.getString(7) + "</span></a>\n"
-                    + "<a href =\"#!email\"><span class=\"yellow-text email\">" + usuario.getString(3) + "\"</span></a>\n";
+                    + "<a href =\"#!email\"><span class=\"yellow-text email\">" + usuario.getString(3) + "</span></a>\n";
 
         } catch (Exception e) {
             System.out.println("Error en getUserViewTutor: " + e);
 
         }
         System.out.println("htmlcode:------");
+        try {
+            getCloseConexion();
+        } catch (Exception e) {
+            System.out.println("Error en getUserViewTutor.getCloseConexion: " + e);
+        }
         return htmlcode;
-
     }
 
-    public String getEvaluacionActivo(int band) {
+    public String getDatosEstudiante(String CI_estudiante) {
 
         String htmlcode = "";
-        boolean bandera = true;
-        if (band == 1) {
-            htmlcode += "<li class=\"tab col s3\"><a class=\"yellow-text active\" href=\"#primer_parcial\">Primer Parcial</a></li>\n"
-                    + "<li class=\"tab col s3 disabled\"><a class=\"yellow-text\" href=\"#segundo_parcial\">Segundo Parcial</a></li>";
-        } else {
-            htmlcode += "<li class=\"tab col s3 disabled\"><a class=\"yellow-text\" href=\"#primer_parcial\">Primer Parcial</a></li>\n"
-                    + "<li class=\"tab col s3\"><a class=\"yellow-text active\" href=\"#segundo_parcial\">Segundo Parcial</a></li>";
+        DecimalFormat df = new DecimalFormat("#.00");
 
+        Estudiante_model estMo = new Estudiante_model();
+        ResultSet datos = null;
+        datos = estMo.getDatosEst(CI_estudiante);
+        AsignacionPracticas_model aspMo = new AsignacionPracticas_model();
+        ResultSet practicasEstudiante;
+        double notaTotal = 0;
+        practicasEstudiante = aspMo.getAllPracticasEstudiante(CI_estudiante);
+        Notas_model notMo = new Notas_model();
+
+        try {
+            datos.next();
+            htmlcode += "<div class=\"container yellow-text\">\n"
+                    + "                        <div class=\"row\">\n"
+                    + "                            <br>\n"
+                    + "                            <div class=\"col s2\">\n"
+                    + "                                <img class=\"responsive-img materialboxed\" src=\"../../img/fcea/estudiantes/" + datos.getString(8) + "\" width=\"200\" alt=\"" + datos.getString(1) + "\" >\n"
+                    + "                            </div>\n"
+                    + "                            <div class=\"col s10\">\n"
+                    + "                                <h2 class=\"center\">" + datos.getString(3) + " " + datos.getString(4) + ", " + datos.getString(1) + " " + datos.getString(2) + "</h2>\n"
+                    + "                            </div>\n"
+                    + "                        </div>\n"
+                    + "                        <div class=\"row\">\n"
+                    + "                            <div class=\"col s6\">\n"
+                    + "                                <h4><i class=\"material-icons yellow-text small\">fingerprint</i>  CI:  " + datos.getString(5) + "</h4>\n"
+                    + "                            </div>\n"
+                    + "                            <div class=\"col s6\">\n"
+                    + "                                <h4><i class=\"material-icons yellow-text small\">contacts</i>  Telefono: " + datos.getString(6) + "</h4>\n"
+                    + "                            </div>\n"
+                    + "                        </div>\n"
+                    + "                        <div class=\"row\">\n"
+                    + "                            <div class=\"col s6\">\n";
+            if (datos.getInt(7) == 1) {
+                htmlcode += "                                <h4>Estado:  <span class=\"green-text\">Activo</span>  <i class=\"material-icons green-text small\">sentiment_very_satisfied</i></h4>\n";
+            } else {
+                htmlcode += "                                <h4>Estado:  <span class=\"red-text\">Inactivo</span>  <i class=\"material-icons red-text small\">sentiment_very_dissatisfied</i></h4>\n";
+            }
+            if (aspMo.getRealizoPracticas(CI_estudiante)) {
+                htmlcode += "                            </div>\n"
+                        + "                        </div>\n"
+                        + "                        <div class=\"row\">\n"
+                        + "                            <div class=\"col s12\">\n"
+                        + "                                 <table class=\"bordered responsive-table\">\n"
+                        + "                                     <thead>\n"
+                        + "                                         <tr>\n"
+                        + "                                             <th>Materia</th>\n"
+                        + "                                             <th>Primer Parcial</th>\n"
+                        + "                                             <th>Segundo Parcial</th>\n"
+                        + "                                             <th>Examen Final</th>\n"
+                        + "                                             <th>Nota Total</th>\n"
+                        + "                                         </tr>\n"
+                        + "                                     </thead>\n"
+                        + "                                     <tbody>\n";
+                while (practicasEstudiante.next()) {
+                    htmlcode += "                         <tr>\n"
+                            + "                                <td>" + practicasEstudiante.getString(1) + "</td>\n";
+                    int c = 0;
+                    double notaParcial = 0;
+                    while (c <= 3) {
+                        c++;
+                        switch (c) {
+                            case 1:
+                                notaParcial = (notMo.getNotaByPracticas(CI_estudiante, c, practicasEstudiante.getInt(2)) / 2) * 0.35;
+                                System.out.println("nota sin redondeo:_ " + notaParcial);
+                                htmlcode += "                                <td>" + df.format(notaParcial) + "</td>\n";
+                                notaTotal = notaTotal + notaParcial;
+                                break;
+                            case 2:
+                                notaParcial = (notMo.getNotaByPracticas(CI_estudiante, c, practicasEstudiante.getInt(2)) / 2) * 0.35;
+                                htmlcode += "                                <td>" + df.format(notaParcial) + "</td>\n";
+                                notaTotal = notaTotal + notaParcial;
+                                break;
+                            case 3:
+                                notaParcial = (notMo.getNotaByPracticas(CI_estudiante, c, practicasEstudiante.getInt(2)) / 2) * 0.30;
+                                htmlcode += "                                <td>" + df.format(notaParcial) + "</td>\n";
+                                notaTotal = notaTotal + notaParcial;
+                                break;
+                            default:
+                                break;
+                        }
+
+                    }
+
+                    htmlcode += "                                <td>" + df.format(notaTotal) + "</td>\n"
+                            + "                            </tr>\n";
+                    notaTotal = 0;
+                    notaParcial = 0;
+                }
+                htmlcode += "                         </tbody>\n"
+                        + "                    </table>\n"
+                        + "                            </div>\n"
+                        + "                        </div>\n"
+                        + "                    </div>\n";
+            } else {
+                htmlcode += "                            </div>\n"
+                        + "                        </div>\n"
+                        + "                        <div class=\"row\">\n"
+                        + "                            <div class=\"col s12 center-align\">\n"
+                        + "        <a href=\"asignar_practica.jsp?ci=" + CI_estudiante + "\" id=\"asignar_practica\" class=\"waves-effect waves-light waves-teal yellow accent-2 blue-text btn tooltipped\" data-position=\"button\" data-tooltip=\"Asignar Practica\"><i class=\"material-icons left\">clear_all</i>Asignar Practica</a>\n"
+                        + "         <br>\n"
+                        + "         <br>\n"
+                        + "         <br>\n"
+                        + "         <br>\n"
+                        + "                            </div>\n"
+                        + "                        </div>\n"
+                        + "                    </div>\n";
+
+            }
+
+        } catch (Exception e) {
+            System.out.println("Error en getNombreEstudiante: " + e);
+        }
+
+        try {
+            getCloseConexion();
+        } catch (Exception e) {
+            System.out.println("Error en getDatosEstudiante.getCloseConexion: " + e);
+        }
+
+        return htmlcode;
+    }
+
+    public String getDatosEstudianteTutor(String CI_estudiante) {
+
+        String htmlcode = "";
+        DecimalFormat df = new DecimalFormat("#.00");
+
+        Estudiante_model estMo = new Estudiante_model();
+        ResultSet datos = null;
+        datos = estMo.getDatosEst(CI_estudiante);
+        AsignacionPracticas_model aspMo = new AsignacionPracticas_model();
+        ResultSet practicasEstudiante;
+        double notaTotal = 0;
+        practicasEstudiante = aspMo.getPracticasEstudiante(CI_estudiante);
+        Notas_model notMo = new Notas_model();
+
+        try {
+            datos.next();
+            htmlcode += "<div class=\"container yellow-text\">\n"
+                    + "                        <div class=\"row\">\n"
+                    + "                            <br>\n"
+                    + "                            <div class=\"col s2\">\n"
+                    + "                                <img class=\"responsive-img materialboxed\" src=\"../../img/fcea/estudiantes/" + datos.getString(8) + "\" width=\"200\" alt=\"" + datos.getString(1) + "\" >\n"
+                    + "                            </div>\n"
+                    + "                            <div class=\"col s10\">\n"
+                    + "                                <h2 class=\"center\">" + datos.getString(3) + " " + datos.getString(4) + ", " + datos.getString(1) + " " + datos.getString(2) + "</h2>\n"
+                    + "                            </div>\n"
+                    + "                        </div>\n"
+                    + "                        <div class=\"row\">\n"
+                    + "                            <div class=\"col s6\">\n"
+                    + "                                <h4><i class=\"material-icons yellow-text small\">fingerprint</i>  CI:  " + datos.getString(5) + "</h4>\n"
+                    + "                            </div>\n"
+                    + "                            <div class=\"col s6\">\n"
+                    + "                                <h4><i class=\"material-icons yellow-text small\">contacts</i>  Telefono: " + datos.getString(6) + "</h4>\n"
+                    + "                            </div>\n"
+                    + "                        </div>\n"
+                    + "                        <div class=\"row\">\n"
+                    + "                            <div class=\"col s6\">\n";
+            if (datos.getInt(7) == 1) {
+                htmlcode += "                                <h4>Estado:  <span class=\"green-text\">Activo</span>  <i class=\"material-icons green-text small\">sentiment_very_satisfied</i></h4>\n";
+            } else {
+                htmlcode += "                                <h4>Estado:  <span class=\"red-text\">Inactivo</span>  <i class=\"material-icons red-text small\">sentiment_very_dissatisfied</i></h4>\n";
+            }
+            htmlcode += "                            </div>\n"
+                    + "                        </div>\n"
+                    + "                        <div class=\"row\">\n"
+                    + "                            <div class=\"col s12\">\n"
+                    + "                                 <table class=\"bordered responsive-table\">\n"
+                    + "                                     <thead>\n"
+                    + "                                         <tr>\n"
+                    + "                                             <th>Materia</th>\n"
+                    + "                                             <th>Primer Parcial</th>\n"
+                    + "                                             <th>Segundo Parcial</th>\n"
+                    + "                                         </tr>\n"
+                    + "                                     </thead>\n"
+                    + "                                     <tbody>\n";
+            while (practicasEstudiante.next()) {
+                htmlcode += "                         <tr>\n"
+                        + "                                <td>" + practicasEstudiante.getString(1) + "</td>\n";
+                int c = 0;
+                double notaParcial = 0;
+                while (c <= 3) {
+                    c++;
+                    switch (c) {
+                        case 1:
+                            notaParcial = (notMo.getNotaByPracticas(CI_estudiante, c, practicasEstudiante.getInt(2)) / 2) * 0.35;
+                            System.out.println("nota sin redondeo:_ " + notaParcial);
+                            htmlcode += "                                <td>" + df.format(notaParcial) + "</td>\n";
+                            notaTotal = notaTotal + notaParcial;
+                            break;
+                        case 2:
+                            notaParcial = (notMo.getNotaByPracticas(CI_estudiante, c, practicasEstudiante.getInt(2)) / 2) * 0.35;
+                            htmlcode += "                                <td>" + df.format(notaParcial) + "</td>\n";
+                            notaTotal = notaTotal + notaParcial;
+                            break;
+                        default:
+                            break;
+                    }
+
+                }
+
+                htmlcode += "                            </tr>\n";
+                notaTotal = 0;
+                notaParcial = 0;
+            }
+            htmlcode += "                         </tbody>\n"
+                    + "                    </table>\n"
+                    + "                            </div>\n"
+                    + "                        </div>\n"
+                    + "                    </div>\n";
+
+        } catch (Exception e) {
+            System.out.println("Error en getNombreEstudiante: " + e);
+        }
+
+        try {
+            getCloseConexion();
+        } catch (Exception e) {
+            System.out.println("Error en getDatosEstudiante.getCloseConexion: " + e);
         }
 
         return htmlcode;
     }
 
 }
-
-//      switch (rol) {
-//            case "Coordinador":
-//                
-//                break;
-//            case "Tutor":
-//                
-//                break;
-//            default:
-//                htmlcode += "";
-//                break;
-//        }

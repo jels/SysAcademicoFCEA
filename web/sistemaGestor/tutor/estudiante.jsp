@@ -4,6 +4,7 @@
     Author     : WarMachine
 --%>
 
+<%@page import="Controller.ControladorMateria"%>
 <%@page import="Controller.ControladorVarios"%>
 <%@page import="Controller.ControladorEstudiante"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="ISO-8859-1"%>
@@ -26,13 +27,14 @@
 %>
 <!DOCTYPE html>
 <html lang="en">
-
+    <% ControladorEstudiante conEst = new ControladorEstudiante();%>
+    <% ControladorVarios conVar = new ControladorVarios();%>
+    <% ControladorMateria conMat = new ControladorMateria();%>
 
     <%@include file="head.jsp" %>
 
     <body class="yellow accent-2">
-        <% ControladorEstudiante conEst = new ControladorEstudiante();%>
-        <% ControladorVarios conVar = new ControladorVarios();%>
+
 
         <header>
             <!-- Inicio HEADER -->
@@ -112,13 +114,23 @@
                     <div class="container">
                         <h1 class="center yellow-text">Estudiantes</h1>
                         <div class="row">
-                            <div class="col s6">
-                                <h2 class="center yellow-text"> <%=conEst.cantidadEstudiantes_tutor(usuario)%></h2>
+                            <div class="col s12">
+                                <h2 class="center yellow-text"><%=conEst.cantidadEstudiantes_tutor(usuario)%></h2>
                                 <h3 class="center yellow-text">Registrados en La Empresa <%=conVar.getNombreEmpresa(usuario)%></h3>
                             </div>
-                            <div class="col s6">
-                                <h2 class="center yellow-text">2</h2>
-                                <h3 class="center yellow-text">Los estudiantes que estan Evaluados</h3>
+                        </div>
+                        <div class="row">
+                            <div class="col s4">
+                                <h2 class="center yellow-text">1</h2>
+                                <h5 class="center yellow-text">Evaluados Primer Parcial</h5>
+                            </div>
+                            <div class="col s4">
+                                <h2 class="center yellow-text">1</h2>
+                                <h5 class="center yellow-text">Evaluados Segundo Parcial</h5>
+                            </div>
+                            <div class="col s4">
+                                <h2 class="center yellow-text">1</h2>
+                                <h5 class="center yellow-text">Faltan Evaluar</h5>
                             </div>
                         </div>
                     </div>
@@ -163,30 +175,6 @@
                                 Cerrar<i class="material-icons right">clear_all</i>
                             </button>
                         </div>
-                    </div>
-                    <!-- Final del Modal --> 
-
-                    <!-- Inicio del Modal Asignar Notas -->
-                    <div id="asignarNotas" class="modal modal-fixed-footer blue darken-3 yellow-text">
-
-                        <div id="cargarDatos_de_la_nota"></div> 
-
-
-                        <!--
-                        <div class="modal-footer blue darken-3">
-                            <div class="col s4 center-align">
-                                <a id="guardarNotas" class="waves-effect waves-light waves-teal green yellow-text btn tooltipped" data-position="button" data-tooltip="Aceptar y Guardar"><i class="material-icons right">save</i>Aceptar</a>
-                            </div>
-                            <div class="col s4 center-align" >
-                                <div id="notaGuardada">
-
-                                </div>
-                            </div>
-                            <div class="col s4 center-align">
-                                <a class="modal-action modal-close waves-effect waves-light waves-teal red yellow-text btn tooltipped" data-position="button" data-tooltip="Cancelar"><i class="material-icons left">clear_all</i>Cerrar</a>
-                            </div>
-                        </div>-->
-
                     </div>
                     <!-- Final del Modal --> 
 

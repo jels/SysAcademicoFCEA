@@ -34,6 +34,29 @@ public class Estudiante_model extends Conexion {
         }
     }
 
+    public ResultSet getDatosEst(String CI_estudiante) {
+
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        System.out.println("CI_estduianre: " + CI_estudiante);
+        try {
+            String consulta = "SELECT primerNombreEstudiante, segundoNombreEstudiante, "
+                    + "primerApellidoEstudiante, segundoApellidoEstudiante, ciEstudiante, "
+                    + "telefonoEstudiante, estadoEstudiante, fotoEstudiante "
+                    + "FROM estudiante "
+                    + "WHERE ciEstudiante = ?";
+            pst = getConnection().prepareStatement(consulta);
+            pst.setString(1, CI_estudiante);
+            rs = pst.executeQuery();
+            return rs;
+
+        } catch (Exception ex) {
+            System.err.println("Error getDatosEst: " + ex);
+            return null;
+        }
+
+    }
+
     public int getIDEstudiante(String CI_estudiante) {
         return 0;
     }
@@ -325,9 +348,34 @@ public class Estudiante_model extends Conexion {
 
     }
 
-    public boolean existeUnEstudiante(Estudiante est) {
+    public boolean actualizaEstudiante(Estudiante est) {
 
-        return false;
+        //UPDATE estudiante SET primerNombreEstudiante = ? ,segundoNombreEstudiante = ? ,primerApellidoEstudiante = ? ,segundoApellidoEstudiante = ? ,telefonoEstudiante = ? ,estadoEstudiante = ? ,fotoEstudiante = ? WHERE ciEstudiante = ?
+        PreparedStatement pst;
+
+        try {
+            String consulta = "UPDATE estudiante "
+                    + "SET primerNombreEstudiante = ?, "
+                    + "segundoNombreEstudiante = ?, "
+                    + "primerApellidoEstudiante = ?, "
+                    + "segundoApellidoEstudiante = ?, "
+                    + "telefonoEstudiante = ?, "
+                    + "fotoEstudiante = ? "
+                    + "WHERE ciEstudiante = ?";
+            pst = getConnection().prepareStatement(consulta);
+            pst.setString(1, est.getPrimerNombrePersona());
+            pst.setString(2, est.getSegundoNombrePersona());
+            pst.setString(3, est.getPrimerApellidoPersona());
+            pst.setString(4, est.getSegundoApellidoPersona());
+            pst.setString(5, est.getTelefonoPersona());
+            pst.setString(6, est.getFotoEstudiante());
+            pst.setString(7, est.getCiPersona());
+            return pst.executeUpdate() == 1;
+
+        } catch (Exception ex) {
+            System.err.println("Error newEstudiant: " + ex);
+            return false;
+        }
     }
 
     public ResultSet ver_estudiante_Tutor(String tutor) {

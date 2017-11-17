@@ -9,6 +9,8 @@ import Controller.*;
 import Model.*;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -39,6 +41,8 @@ public class EstudianteCRUD extends HttpServlet {
         ControladorEstudiante conEst = new ControladorEstudiante();
         Estudiante est = new Estudiante();
         ControladorNotas conNot = new ControladorNotas();
+
+        Notas nota = new Notas();
 
         String htmlcode;
         ControladorMateria conMat = new ControladorMateria();
@@ -128,15 +132,14 @@ public class EstudianteCRUD extends HttpServlet {
                 break;
             case "update":
 
-                est.setPrimerNombrePersona(ucFirst2(request.getParameter("primerNombreEstudiante").trim()));
-                est.setPrimerApellidoPersona(ucFirst2(request.getParameter("primerApellidoEstudiante").trim()));
-                est.setSegundoNombrePersona(ucFirst2(request.getParameter("segundoNombreEstudiante").trim()));
-                est.setSegundoApellidoPersona(ucFirst2(request.getParameter("segundoApellidoEstudiante").trim()));
-                est.setTelefonoPersona(request.getParameter("celularEstudiante").trim());
-                est.setCiPersona(request.getParameter("ciEstudiante").trim());
-                est.setEstadoPersona(1);
+                est.setPrimerNombrePersona(ucFirst2(request.getParameter("primerNombreEstudianteAc").trim()));
+                est.setPrimerApellidoPersona(ucFirst2(request.getParameter("primerApellidoEstudianteAc").trim()));
+                est.setSegundoNombrePersona(ucFirst2(request.getParameter("segundoNombreEstudianteAc").trim()));
+                est.setSegundoApellidoPersona(ucFirst2(request.getParameter("segundoApellidoEstudianteAc").trim()));
+                est.setTelefonoPersona(request.getParameter("celularEstudianteAc").trim());
+                est.setCiPersona(request.getParameter("ciEstudianteAc").trim());
 
-                est.setFotoEstudiante("../img/fcea/estudiantes/imagen4.jpg");
+                est.setFotoEstudiante("imagen4.jpg");
                 if (conEst.updateEstudiante(est)) {
                     out.print("true");
                 } else {
@@ -164,16 +167,17 @@ public class EstudianteCRUD extends HttpServlet {
                     out.print("false");
                 }
                 break;
-            case "asignar_nota":
-                System.out.println("aki esta el asignar nota..." + CI_estudiante);
-                htmlcode = conMat.getEvaluacion(CI_estudiante);
-                out.print(htmlcode);
-                break;
+//            case "asignar_nota":
+//                System.out.println("aki esta el asignar nota..." + CI_estudiante);
+//                htmlcode = conMat.getEvaluacion(CI_estudiante);
+//                out.print(htmlcode);
+//                break;
 
             case "actualizar":
                 System.out.println("CI_Estudiante ACtualizar: " + CI_estudiante);
-                htmlcode = conEst.modalUpdateEstudiante(CI_estudiante);
-                out.print(htmlcode);
+                htmlcode = "";
+//                htmlcode = conEst.modalUpdateEstudiante(CI_estudiante);
+//                out.print(htmlcode);
                 break;
             case "buscar_estudiante":
                 System.out.println("llego hasta aki...buscar_estudiante: " + apellido_estudiante + " " + CI_estudiante);
@@ -181,14 +185,21 @@ public class EstudianteCRUD extends HttpServlet {
                 out.print(htmlcode);
                 break;
             case "cargar_nota":
-                int nota = 0;
+                int notas = 0;
                 int count = 1;
-                while (count <= 20) {
-                    nota = Integer.parseInt(request.getParameter("nota" + count));
-                    System.out.println("la nota" + count + ": " + nota);
 
+                List<Notas> notes = new ArrayList<>();
+                System.out.println("llega a la nota...");
+                while (count <= 20) {
+                    notas = Integer.parseInt(request.getParameter("nota" + count));
+                    System.out.println("la nota" + count + ": " + notas);
+                    nota.setIdAsignacionPractica(conEst.getIdAsignacionPractica(CI_estudiante));
+                    nota.setIdCriterios(count);
+                    nota.setNota(notas);
+//                    notes.add(count, nota);
                     count++;
                 }
+//                boolean bandera = conNot.insertNotasNuevas(notes, CI_estudiante);
                 out.print("true");
                 break;
             case "verNotaAsignada":

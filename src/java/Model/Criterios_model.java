@@ -37,9 +37,35 @@ public class Criterios_model extends Conexion {
     }
 
     public ResultSet getListaCriterio(int idMateria) {
-        
+
         return null;
 
+    }
+
+    public ResultSet getListaCriterioXEst(String CI_estudiante) {
+        //SELECT cri.idCriterios FROM estudiante e, materia m, asignacionpracticas asp, dimensiones dim, criterios cri WHERE e.idEstudiante = asp.idEstudiante AND m.idMateria = asp.idMateria AND m.idMateria=dim.idMateria AND dim.idDimensiones=cri.idDimensiones AND asp.estadoPractica = 1 AND e.ciEstudiante = "E-10132446"
+
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        try {
+            String consulta = "SELECT cri.idCriterios "
+                    + "FROM estudiante e, materia m, asignacionpracticas asp, "
+                    + "dimensiones dim, criterios cri "
+                    + "WHERE e.idEstudiante = asp.idEstudiante "
+                    + "AND m.idMateria = asp.idMateria "
+                    + "AND m.idMateria = dim.idMateria "
+                    + "AND dim.idDimensiones = cri.idDimensiones "
+                    + "AND asp.estadoPractica = 1 "
+                    + "AND e.ciEstudiante = ? ";
+            pst = getConnection().prepareStatement(consulta);
+            pst.setString(1, CI_estudiante);
+            rs = pst.executeQuery();
+            return rs;
+
+        } catch (Exception ex) {
+            System.err.println("Error getViewCriterio: " + ex);
+            return null;
+        }
     }
 
     public ResultSet getViewCriterio(int id) {

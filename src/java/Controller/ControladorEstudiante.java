@@ -8,7 +8,6 @@ package Controller;
 import Model.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import jdk.nashorn.internal.objects.NativeArray;
 
 /**
  *
@@ -129,9 +128,9 @@ public class ControladorEstudiante extends Conexion {
                             + "                    <td>" + rs.getString(7) + "</td>\n"
                             + "                    <td>" + rs.getString(8) + "</td>\n"
                             + "                    <td>" + rs.getString(9) + "</td>\n"
-                            + "                    <td><div class=\"center-align\"><a data-id=\"" + rs.getString(6) + "\" id=\"asignar_nota_estudiante\" class=\"btn-floating btn tooltipped waves-effect waves-light blue yellow-text\" data-position=\"button\" data-tooltip=\"Asignar Nota\"><i class=\"material-icons yellow-text\">event_note</i></a></div></td>\n"
+                            + "                    <td><div class=\"center-align\"><a href=\"estudiante_ver.jsp?ci=" + rs.getString(6) + "\" id=\"asignar_nota_estudiante\" class=\"btn-floating btn tooltipped waves-effect waves-light blue yellow-text\" data-position=\"button\" data-tooltip=\"Asignar Nota\"><i class=\"material-icons yellow-text\">event_note</i></a></div></td>\n"
                             + "                    <td><div class=\"center-align\"><a data-id=\"" + rs.getString(6) + "\" id=\"ver_nota_estudiante\" class=\"btn-floating btn tooltipped waves-effect waves-light blue yellow-text\" data-position=\"button\" data-tooltip=\"Ver Nota\"><i class=\"material-icons yellow-text\">event_note</i></a></div></td>\n"
-                            + "                    <td><div class=\"center-align\"><a data-id=\"" + rs.getString(6) + "\" id=\"ver_reporte\" class=\"btn-floating btn tooltipped waves-effect waves-light blue yellow-text\" data-position=\"button\" data-tooltip=\"Imprimir Evaluacion\"><i class=\"material-icons yellow-text\">description</i></a></div></td>\n";
+                            + "                    <td><div class=\"center-align\"><a data-id=\"" + rs.getString(6) + "\" id=\"ver_reporte\" class=\"btn-floating btn tooltipped waves-effect waves-light blue yellow-text\" data-position=\"button\" data-tooltip=\"Imprimir Evaluacion\"><i class=\"material-icons yellow-text\">print</i></a></div></td>\n";
                     i++;
 
                 }
@@ -176,9 +175,10 @@ public class ControladorEstudiante extends Conexion {
                 + "                                    <th># de Carnet</th>\n"
                 + "                                    <th>Celular</th>\n"
                 + "                                    <th>Estado</th>\n"
-                + "                                    <th>Actualizar</th>\n"
-                + "                                    <th>Dar de Baja</th>\n"
-                + "                                    <th>Eliminar</th>\n"
+                + "                                    <th class=\"center-align\">Ver</th>\n"
+                + "                                    <th class=\"center-align\">Asignar Practicas</th>\n"
+                + "                                    <th class=\"center-align\">Dar de Baja</th>\n"
+                + "                                    <th class=\"center-align\">Eliminar</th>\n"
                 + "                                </tr>\n"
                 + "                            </thead>\n"
                 + "                            <tbody>\n";
@@ -201,9 +201,10 @@ public class ControladorEstudiante extends Conexion {
 
                     }
                     System.out.println("CI_Estudiante: " + rs.getString(6));
-                    htmlcode += "                  <td>  <a href=\"#update\" id=\"actualizar_estudiante\" data-id=\"" + rs.getString(6) + "\" class=\"btn-floating btn tooltipped waves-effect waves-light blue yellow-text modal-trigger\" data-position=\"button\" data-tooltip=\"Actualizar\"><i class=\"material-icons yellow-text\">refresh</i></a></td>\n"
-                            + "                    <td>  <a id=\"baja_estudiante\" class=\"btn-floating btn tooltipped waves-effect waves-light blue yellow-text\" data-position=\"button\" data-tooltip=\"Dar de Baja\"><i class=\"material-icons yellow-text\">redo</i></a></td>\n"
-                            + "                    <td>  <a id=\"eliminar_estudiante\" class=\"btn-floating btn tooltipped waves-effect waves-light blue yellow-text\" data-position=\"button\" data-tooltip=\"Eliminar\"><i class=\"material-icons yellow-text\">delete_forever</i></a></td>\n"
+                    htmlcode += "                  <td><div class=\"center-align\">  <a href=\"estudiante_ver.jsp?ci=" + rs.getString(6) + "\" class=\"btn-floating btn tooltipped waves-effect waves-light blue yellow-text\" data-position=\"button\" data-tooltip=\"Ver - Actualizar\"><i class=\"material-icons yellow-text\">visibility</i></a></div></td>\n"
+                            + "                    <td><div class=\"center-align\">  <a href=\"asignar_practica.jsp?ci=" + rs.getString(6) + "\" id=\"asignar_practica\" class=\"btn-floating btn tooltipped waves-effect waves-light blue yellow-text\" data-position=\"button\" data-tooltip=\"Asignar Practica\"><i class=\"material-icons yellow-text\">transfer_within_a_station</i></a></div></td>\n"
+                            + "                    <td><div class=\"center-align\">  <a id=\"baja_estudiante\" class=\"btn-floating btn tooltipped waves-effect waves-light blue yellow-text\" data-position=\"button\" data-tooltip=\"Dar de Baja\"><i class=\"material-icons yellow-text\">redo</i></a></div></td>\n"
+                            + "                    <td><div class=\"center-align\">  <a id=\"eliminar_estudiante\" class=\"btn-floating btn tooltipped waves-effect waves-light blue yellow-text\" data-position=\"button\" data-tooltip=\"Eliminar\"><i class=\"material-icons yellow-text\">delete_forever</i></a></div></td>\n"
                             + "                  </tr>"
                             + "";
                     i++;
@@ -227,13 +228,13 @@ public class ControladorEstudiante extends Conexion {
     public boolean updateEstudiante(Estudiante est) {
 
         Estudiante_model estm = new Estudiante_model();
-        if (estm.existeUnEstudiante(est)) {
+        if (estm.actualizaEstudiante(est)) {
             try {
                 getCloseConexion();
             } catch (Exception e) {
                 System.out.println("Error en updateEstudiante.getCloseConexion: " + e);
             }
-            return estm.crear_estudiante(est);
+            return true;
         } else {
             try {
                 getCloseConexion();
@@ -323,74 +324,73 @@ public class ControladorEstudiante extends Conexion {
         return htmlcode;
     }
 
-    public String modalUpdateEstudiante(String ci) {
-        System.out.println("ci..." + ci);
+    public String viewUpdateEstudiante(String CI_estudiante) {
+        System.out.println("ci..." + CI_estudiante);
         Estudiante_model estmo = new Estudiante_model();
-        ResultSet rs = estmo.editEstudiante(ci);
+        ResultSet datos = estmo.editEstudiante(CI_estudiante);
 
-        System.out.println("llego Update..." + ci);
+        System.out.println("llego Update..." + CI_estudiante);
         String htmlcode = " ";
 
         try {
-            if (!rs.next()) {
+            if (!datos.next()) {
                 return "";
             }
-            System.out.println("nombre= " + rs.getString(5));
-            htmlcode = "<div class=\"modal-content blue darken-3\">\n"
-                    + "                        <div class=\"row\">\n"
-                    + "                            <h1 class=\"center yellow-text\">Nuevo Estudiante</h1>\n"
-                    + "                        </div>\n"
-                    + "                        <div class=\"row\">\n"
-                    + "                            <form method=\"post\" id=\"nuevoestAc\" action=\"../estudiante.do\" class=\"col s12 yellow-text\" enctype=\"multipart/form-data\">\n"
+            System.out.println("nombre= " + datos.getString(5));
+            htmlcode = "               <div class=\"container\">\n"
+                    + "                        <form method=\"post\" id=\"estAc\" class=\"col s12 yellow-text\">\n"
+                    + "                            <div class=\"row\">\n"
+                    + "                                <h1 class=\"center yellow-text\">Actualizar Datos del Estudiante</h1>\n"
+                    + "                            </div>\n"
+                    + "                            <div class=\"row\">\n"
                     + "                                <div class=\"row\">\n"
                     + "                                    <div class=\"input-field col s6\">\n"
                     + "                                        <i class=\"material-icons prefix yellow-text\">assignment_ind</i>\n"
-                    + "                                        <input id=\"primerNombreAc\" type=\"text\" value=\"" + rs.getString(2) + "\" class=\"validate\">\n"
+                    + "                                        <input id=\"primerNombreAc\" type=\"text\" value=\"" + datos.getString(2) + "\" class=\"validate\">\n"
                     + "                                        <label class=\"yellow-text\" for=\"Primer Nombre\">Primer Nombre</label>\n"
                     + "                                    </div>\n"
                     + "                                    <div class=\"input-field col s6\">\n"
                     + "                                        <i class=\"material-icons prefix yellow-text\">assignment_ind</i>\n"
-                    + "                                        <input id=\"segundoNombreAc\" type=\"text\" value=\"" + rs.getString(3) + "\">\n"
+                    + "                                        <input id=\"segundoNombreAc\" type=\"text\" value=\"" + datos.getString(3) + "\">\n"
                     + "                                        <label class=\"yellow-text\" for=\"Segundo Nombre\">Segundo Nombre</label>\n"
                     + "                                    </div>\n"
                     + "                                </div>\n"
                     + "                                <div class=\"row\">\n"
                     + "                                    <div class=\"input-field col s6\">\n"
                     + "                                        <i class=\"material-icons prefix yellow-text\">wc</i>\n"
-                    + "                                        <input id=\"primerApellidoAc\" type=\"text\" value=\"" + rs.getString(4) + "\" class=\"validate\">\n"
+                    + "                                        <input id=\"primerApellidoAc\" type=\"text\" value=\"" + datos.getString(4) + "\" class=\"validate\">\n"
                     + "                                        <label class=\"yellow-text\" for=\"Primer Apellido\">Primer Apellido</label>\n"
                     + "                                    </div>\n"
                     + "                                    <div class=\"input-field col s6\">\n"
                     + "                                        <i class=\"material-icons prefix yellow-text\">wc</i>\n"
-                    + "                                        <input id=\"segundoApellidoAc\" type=\"text\" value=\"" + rs.getString(5) + "\" class=\"validate\">\n"
+                    + "                                        <input id=\"segundoApellidoAc\" type=\"text\" value=\"" + datos.getString(5) + "\" class=\"validate\">\n"
                     + "                                        <label class=\"yellow-text\" for=\"Segundo Apellido\">Segundo Apellido</label>\n"
                     + "                                    </div>\n"
                     + "                                </div>\n"
                     + "                                <div class=\"row\">\n"
                     + "                                    <div class=\"input-field col s6\">\n"
                     + "                                        <i class=\"material-icons prefix yellow-text\">fingerprint</i>\n"
-                    + "                                        <input id=\"ciAc\" type=\"text\" disabled value=\"" + rs.getString(6) + "\" class=\"validate\">\n"
+                    + "                                        <input id=\"ciAc\" type=\"text\" disabled value=\"" + datos.getString(6) + "\" class=\"validate\">\n"
                     + "                                        <label class=\"yellow-text\" for=\"ci\"># de Carnet</label>\n"
                     + "                                    </div>\n"
                     + "                                    <div class=\"input-field col s6\">\n"
                     + "                                        <i class=\"material-icons prefix yellow-text\">contact_phone</i>\n"
-                    + "                                        <input id=\"celularAc\" type=\"text\" value=\"" + rs.getString(7) + "\" class=\"validate\">\n"
+                    + "                                        <input id=\"celularAc\" type=\"text\" value=\"" + datos.getString(7) + "\" class=\"validate\">\n"
                     + "                                        <label class=\"yellow-text\" for=\"celular\">Telefono - Celular</label>\n"
                     + "                                    </div>\n"
                     + "                                </div>\n"
-                    + "                            </form>\n"
-                    + "                        </div>\n"
-                    + "                    </div>\n"
-                    + "                    <div class=\"modal-footer blue darken-3 yellow-text\">\n"
-                    + "                        <div class=\"col s6\">\n"
-                    + "                            <button class=\"btn waves-effect waves-light yellow accent-2 blue-text left\" type=\"button\" id=\"nuevoestudianteAc\">\n"
-                    + "                                Actualizar<i class=\"material-icons right\">save</i>\n"
-                    + "                            </button>\n"
-                    + "                        </div>\n"
-                    + "                        <div id=\"notificacionnewEstudianteAc\">\n"
-                    + "                        </div>\n"
+                    + "                            </div>\n"
+                    + "                            <div class=\"col s6\">\n"
+                    + "                                <a class=\"btn waves-effect waves-light yellow accent-2 blue-text left\" type=\"button\" id=\"estudianteAc\">\n"
+                    + "                                    Actualizar<i class=\"material-icons right\">save</i>\n"
+                    + "                                </a>\n"
+                    + "                            </div>\n"
+                    + "                            <div id=\"notificacionEstudianteAc\">\n"
+                    + "                            </div>\n"
+                    + "                            <br><br><br>\n"
+                    + "                        </form>\n"
                     + "                    </div>";
-            System.out.println("Nombre: " + rs.getString(2));
+            System.out.println("Nombre: " + datos.getString(2));
         } catch (SQLException ex) {
             System.out.println("Error en updateEstudiante: " + ex);
         }
@@ -530,6 +530,17 @@ public class ControladorEstudiante extends Conexion {
             System.out.println("Error en modalBuscarEstudiante.getCloseConexion: " + e);
         }
         return htmlcode;
+    }
+
+    public int getIdAsignacionPractica(String CI_estudiante) {
+        Estudiante_model estMo = new Estudiante_model();
+        int idEstudiante = estMo.getIDEstudiante(CI_estudiante);
+        try {
+            getCloseConexion();
+        } catch (Exception e) {
+            System.out.println("Error en modalBuscarEstudiante.getCloseConexion: " + e);
+        }
+        return idEstudiante;
     }
 
 }

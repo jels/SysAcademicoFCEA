@@ -261,34 +261,168 @@ public class ControladorMateria extends Conexion {
         Notas_model notMo = new Notas_model();
         Materia_model matMo = new Materia_model();
         Dimension_model dimMo = new Dimension_model();
-
         int idMateria = matMo.getIdMateria(CI_Estudiante);
-
         ResultSet nombreEstudiante = null;
         ResultSet dimensiones = null;
         nombreEstudiante = estMo.getNombreEstudiante(CI_Estudiante);
         boolean aproboPrimerParcial = notMo.llenoPrimerParcial(CI_Estudiante);
-        boolean evaluacionCompleta = notMo.evaluacionCompletaTutor(CI_Estudiante);
+        boolean aproboSegundoParcial = notMo.llenoSegundoParcial(CI_Estudiante);
+        boolean evaluacionCompleta = notMo.evaluacionCompletaDocente(CI_Estudiante);
         System.out.println("EvaluacionCompleta: " + evaluacionCompleta);
         ResultSet criterios;
         Criterios_model criMo = new Criterios_model();
         System.out.println("IDMAteria: " + idMateria);
+
         int i = 1;
         int c = 1;
+        double nota = 0;
         try {
             nombreEstudiante.next();
-            if (!evaluacionCompleta) {
-                htmlcode += "<div class=\"modal-content blue darken-3\">\n"
-                        + "                            <div class=\"row\">\n"
-                        + "                                <form>"
-                        + " <h3 class=\"center\" value=\"" + nombreEstudiante.getString(5) + "\" id=\"ciEstudiante\">" + nombreEstudiante.getString(3) + " " + nombreEstudiante.getString(4) + ", " + nombreEstudiante.getString(1) + " " + nombreEstudiante.getString(2) + "</h3>\n";
-
-                if (aproboPrimerParcial) {
-                    htmlcode += "<h5 class=\"center\">Evaluacion Segundo Parcial</h5>\n";
-
+            if (evaluacionCompleta) {
+                nota = (notMo.getNotaPrimerParcial(CI_Estudiante) / 2) * 0.35;
+                htmlcode += "<div class=\"container\">\n"
+                        + "     <div class=\"row\">\n"
+                        + "       <h3 class=\"center\">" + nombreEstudiante.getString(3) + " " + nombreEstudiante.getString(4) + ", " + nombreEstudiante.getString(1) + " " + nombreEstudiante.getString(2) + "</h3>\n"
+                        + "       <div class=\"col s6\">\n"
+                        + "              <h4 class=\"center\">Primer Parcial</h4>\n"
+                        + "              <h3 class=\"center\">" + nota + "</h3>\n"
+                        + "       </div>\n";
+                nota = (notMo.getNotaSegundoParcial(CI_Estudiante) / 2) * 0.35;
+                htmlcode += "       <div class=\"col s6\">\n"
+                        + "              <h4 class=\"center\">Segundo Parcial</h4>\n"
+                        + "              <h3 class=\"center\">" + nota + "</h3>\n"
+                        + "       </div>\n"
+                        + " </div>\n";
+            } else if (aproboPrimerParcial) {
+                nota = notMo.getNotaPrimerParcial(CI_Estudiante);
+                htmlcode += "<div class=\"container\">\n"
+                        + "<div class=\"row\">\n"
+                        + "       <h3 class=\"center\">" + nombreEstudiante.getString(3) + " " + nombreEstudiante.getString(4) + ", " + nombreEstudiante.getString(1) + " " + nombreEstudiante.getString(2) + "</h3>\n"
+                        + "       <div class=\"col s6\">\n"
+                        + "              <h4 class=\"center\">Primer Parcial</h4>\n"
+                        + "              <h3 class=\"center\">" + nota + "</h3>\n"
+                        + "       </div>\n";
+                if (aproboSegundoParcial) {
+                    nota = notMo.getNotaSegundoParcial(CI_Estudiante);
+                    htmlcode += "       <div class=\"col s6\">\n"
+                            + "              <h4 class=\"center\">Segundo Parcial</h4>\n"
+                            + "              <h3 class=\"center\">" + nota + "</h3>\n"
+                            + "       </div>\n";
                 } else {
-                    htmlcode += "<h5 class=\"center\">Evaluacion Primer Parcial</h5>\n";
+                    htmlcode += "      <div class=\"col s6\">\n"
+                            + " <div class=\"row\">\n"
+                            + "    <form>"
+                            + "       \n";
+                    htmlcode += "<h5 class=\"center\">Segundo Parcial</h5>\n";
+                    dimensiones = dimMo.getDimensiones(idMateria);
+                    while (dimensiones.next()) {
+
+                        switch (i) {
+                            case 1:
+                                htmlcode += "<div class=\"col s6\">\n"
+                                        + "    <table class=\"bordered\">\n"
+                                        + "         <thead>\n"
+                                        + "             <tr>\n"
+                                        + "                   <th>A - " + dimensiones.getString(2) + "</th>\n"
+                                        + "                   <th>Puntaje</th>\n"
+                                        + "             </tr>\n"
+                                        + "         </thead>\n"
+                                        + "         <tbody>\n";
+                                criterios = criMo.getCriterios(dimensiones.getInt(1));
+                                while (criterios.next()) {
+                                    System.out.println("Criterio: " + criterios.getString(1));
+                                    htmlcode += "             <tr>\n"
+                                            + "                   <td value=\"" + criterios.getInt(2) + "\" id=\"criterio" + c + "\">" + c + " - " + criterios.getString(1) + "</td>\n"
+                                            + "                   <td><input id=\"nota" + c + "\" type=\"number\" min=\"1\" max=\"10\" class=\"validate bold\" style=\"width: 60px; font-size: 30px\"></td>\n"
+                                            + "             </tr>\n";
+                                    c++;
+                                }
+                                htmlcode += "         </tbody>\n"
+                                        + "    </table>\n";
+                                break;
+                            case 2:
+                                htmlcode += "    <table class=\"bordered\">\n"
+                                        + "         <thead>\n"
+                                        + "             <tr>\n"
+                                        + "                    <th>B - " + dimensiones.getString(2) + "</th>\n"
+                                        + "                    <th>Puntaje</th>\n"
+                                        + "             </tr>\n"
+                                        + "         </thead>\n"
+                                        + "         <tbody>\n";
+                                criterios = criMo.getCriterios(dimensiones.getInt(1));
+                                while (criterios.next()) {
+                                    System.out.println("Criterio: " + criterios.getString(1));
+                                    htmlcode += "             <tr>\n"
+                                            + "                   <td value=\"" + criterios.getInt(2) + "\" id=\"criterio" + c + "\">" + c + " - " + criterios.getString(1) + "</td>\n"
+                                            + "                   <td><input id=\"nota" + c + "\" type=\"number\" min=\"1\" max=\"10\" class=\"validate bold\" style=\"width: 60px; font-size: 30px\"></td>\n"
+                                            + "             </tr>\n";
+                                    c++;
+                                }
+                                htmlcode += "         </tbody>\n"
+                                        + "    </table>\n"
+                                        + "</div>";
+                                break;
+                            case 3:
+                                htmlcode += "<div class=\"col s6\">\n"
+                                        + "    <table class=\"bordered\">\n"
+                                        + "         <thead>\n"
+                                        + "             <tr>\n"
+                                        + "                   <th>C - " + dimensiones.getString(2) + "</th>\n"
+                                        + "                   <th>Puntaje</th>\n"
+                                        + "             </tr>\n"
+                                        + "         </thead>\n"
+                                        + "         <tbody>\n";
+                                criterios = criMo.getCriterios(dimensiones.getInt(1));
+                                while (criterios.next()) {
+                                    System.out.println("Criterio: " + criterios.getString(1));
+                                    htmlcode += "             <tr>\n"
+                                            + "                   <td value=\"" + criterios.getInt(2) + "\" id=\"criterio" + c + "\">" + c + " - " + criterios.getString(1) + "</td>\n"
+                                            + "                   <td><input id=\"nota" + c + "\" type=\"number\" min=\"1\" max=\"10\" class=\"validate bold\" style=\"width: 60px; font-size: 30px\"></td>\n"
+                                            + "             </tr>\n";
+                                    c++;
+                                }
+                                htmlcode += "         </tbody>\n"
+                                        + "    </table>\n";
+                                break;
+                            case 4:
+                                htmlcode += "    <table class=\"bordered\">\n"
+                                        + "         <thead>\n"
+                                        + "             <tr>\n"
+                                        + "                   <th>D - " + dimensiones.getString(2) + "</th>\n"
+                                        + "                   <th>Puntaje</th>\n"
+                                        + "             </tr>\n"
+                                        + "         </thead>\n"
+                                        + "         <tbody>\n";
+                                criterios = criMo.getCriterios(dimensiones.getInt(1));
+                                while (criterios.next()) {
+                                    System.out.println("Criterio: " + criterios.getString(1));
+                                    htmlcode += "             <tr>\n"
+                                            + "                   <td value=\"" + criterios.getInt(2) + "\" id=\"criterio" + c + "\">" + c + " - " + criterios.getString(1) + "</td>\n"
+                                            + "                   <td><input id=\"nota" + c + "\" type=\"number\" min=\"1\" max=\"10\" class=\"validate bold\" style=\"width: 60px; font-size: 30px\"></td>\n"
+                                            + "             </tr>\n";
+                                    c++;
+                                }
+                                htmlcode += "         </tbody>\n"
+                                        + "    </table>\n"
+                                        + "</div>\n";
+                                break;
+                            default:
+                                break;
+                        }
+                        i++;
+                    }
+                    htmlcode += "        </form>\n"
+                            + "</div>\n"
+                            + "</div>\n"
+                            + "</div>\n"
+                            + "";
                 }
+            } else {
+                htmlcode += "      <div class=\"col s6\">\n"
+                        + " <div class=\"row\">\n"
+                        + "    <form>"
+                        + "       \n";
+                htmlcode += "<h4 class=\"center\">Primer Parcial</h4>\n";
                 dimensiones = dimMo.getDimensiones(idMateria);
                 while (dimensiones.next()) {
 
@@ -379,59 +513,274 @@ public class ControladorMateria extends Conexion {
                             }
                             htmlcode += "         </tbody>\n"
                                     + "    </table>\n"
-                                    + "</div>";
+                                    + "</div>\n";
                             break;
                         default:
                             break;
                     }
                     i++;
                 }
-                htmlcode += "                               </form>\n"
-                        + "                            </div>\n"
-                        + "                        </div>\n"
-                        + "                        <div class=\"modal-footer blue darken-3\">\n"
-                        + "                            <div class=\"col s4 center-align\">\n"
-                        + "                                <a type=\"submit\" name=\"guardarNotas\" id=\"guardarNotas\" data-id=\"" + nombreEstudiante.getString(5) + "\" class=\"waves-effect waves-light waves-teal green\n"
-                        + "                                   yellow-text btn tooltipped\" data-position=\"button\" data-tooltip=\"Aceptar y Guardar\"><i class=\"material-icons right\">save</i>Aceptar</a>\n"
-                        + "                            </div>\n"
-                        + "                            <div class=\"col s4 center-align\" >\n"
-                        + "                                <div id=\"notaGuardada\">\n"
-                        + "\n"
-                        + "                                </div>\n"
-                        + "                            </div>\n"
-                        + "                            <div class=\"col s4 center-align\">\n"
-                        + "                                <a class=\"modal-action modal-close waves-effect waves-light waves-teal\n"
-                        + "                                   red yellow-text btn tooltipped\" data-position=\"button\" data-tooltip=\"Cancelar\"><i class=\"material-icons left\">clear_all</i>Cerrar</a>\n"
-                        + "                            </div>\n"
-                        + "                        </div>";
-            } else {
-                htmlcode += "<div class=\"modal-content blue darken-3\">\n"
-                        + "    <div class=\"row\">\n"
-                        + "        <h3 class=\"center\">" + nombreEstudiante.getString(3) + " " + nombreEstudiante.getString(4) + ", " + nombreEstudiante.getString(1) + " " + nombreEstudiante.getString(2) + "</h3>\n"
-                        + "<br>"
-                        + "        <h5 class=\"left-align yellow-text\">Primer Parcial Evaluado<i class=\"material-icons green-text left\">done_all</i></h5>\n"
-                        + "<br>"
-                        + "        <h5 class=\"left-align yellow-text\">Segundo Parcial Evaluado<i class=\"material-icons green-text left\">done_all</i></h5>\n"
-                        + "    </div>\n"
+                htmlcode += "        </form>\n"
+                        + "     </div>\n"
+                        + "     <div class\"col s6 center-aling\">\n"
+                        + "         <button class=\"btn waves-effect waves-light yellow accent-2 blue-text left tooltipped\" data-position=\"button\" data-tooltip=\"Guardar\" type=\"button\" data-id=\"" + CI_Estudiante + "\" id=\"guardarNuevaNota\">\n"
+                        + "             Validar y Guardar<i class=\"material-icons right\">save</i>\n"
+                        + "         </button>\n"
+                        + "     <br><br><br><br>\n"
+                        + "     </div>\n"
+                        + "     <div id=\"notaGuardada\" class\"col s6 center-aling\">\n"
+                        + "     </div>\n"
                         + "</div>\n"
-                        + "<div class=\"modal-footer blue darken-3\">\n"
-                        + "    <div class=\"col s12 right-align\">\n"
-                        + "        <a class=\"modal-action modal-close waves-effect waves-light waves-teal\n"
-                        + "             yellow accent-2 blue-text btn tooltipped\" data-position=\"button\" data-tooltip=\"Cerrar\"><i class=\"material-icons left\">clear_all</i>Cerrar</a>\n"
-                        + "    </div>\n"
-                        + "</div>";
-
+                        + "\n"
+                        + ""
+                        + "         <div class=\"col s6\">\n"
+                        + "             <h4 class=\"center\">Segundo Parcial</h4>\n"
+                        + "             <h4 class=\"yellow accent-2 red-text center\">Aun sin Asignar Nota</h4>\n"
+                        + "         </div>\n"
+                        + "     \n"
+                        + "\n";
             }
 
         } catch (Exception e) {
             System.out.println("Error getEvaluacion: " + e);
         }
+
         try {
             getCloseConexion();
         } catch (Exception e) {
             System.out.println("Error en getEvaluacion.getCloseConexion: " + e);
         }
+        System.out.println("htmlcode: " + htmlcode);
+        return htmlcode;
+    }
 
+    public String getEvaluacionDocente(String CI_Estudiante) {
+        String htmlcode = "";
+
+        System.out.println("Estudiante _getEvaluacion: " + CI_Estudiante);
+
+        Estudiante_model estMo = new Estudiante_model();
+        Notas_model notMo = new Notas_model();
+        Materia_model matMo = new Materia_model();
+        Dimension_model dimMo = new Dimension_model();
+        int idMateria = matMo.getIdMateria(CI_Estudiante);
+        ResultSet nombreEstudiante = null;
+        ResultSet dimensiones = null;
+        nombreEstudiante = estMo.getNombreEstudiante(CI_Estudiante);
+        boolean aproboPrimerParcial = notMo.llenoPrimerParcial(CI_Estudiante);
+        boolean aproboSegundoParcial = notMo.llenoSegundoParcial(CI_Estudiante);
+        boolean evaluacionCompleta = notMo.evaluacionCompletaDocente(CI_Estudiante);
+        System.out.println("EvaluacionCompleta: " + evaluacionCompleta);
+        ResultSet criterios;
+        Criterios_model criMo = new Criterios_model();
+        System.out.println("IDMAteria: " + idMateria);
+        AsignacionPracticas_model aspMo = new AsignacionPracticas_model();
+
+        int i = 1;
+        int c = 1;
+        double nota = 0;
+        try {
+            nombreEstudiante.next();
+            if (aspMo.getRealizaPractica(CI_Estudiante)) {
+                if (evaluacionCompleta) {
+                    nota = (notMo.getNotaPrimerParcial(CI_Estudiante) / 2) * 0.35;
+                    htmlcode += "<div class=\"row\">\n"
+                            + "       <h3 class=\"center\">" + nombreEstudiante.getString(3) + " " + nombreEstudiante.getString(4) + ", " + nombreEstudiante.getString(1) + " " + nombreEstudiante.getString(2) + "</h3>\n"
+                            + "       <div class=\"col s4\">\n"
+                            + "              <h4 class=\"center\">Primer Parcial</h4>\n"
+                            + "              <h3 class=\"center\">" + nota + "</h3>\n"
+                            + "       </div>\n";
+                    nota = (notMo.getNotaSegundoParcial(CI_Estudiante) / 2) * 0.35;
+                    htmlcode += "       <div class=\"col s4\">\n"
+                            + "              <h4 class=\"center\">Segundo Parcial</h4>\n"
+                            + "              <h3 class=\"center\">" + nota + "</h3>\n"
+                            + "       </div>\n";
+                    nota = (notMo.getNotaExamenFinal(CI_Estudiante) / 2) * 0.30;
+                    htmlcode += "       <div class=\"col s4\">\n"
+                            + "             <h4 class=\"center\">Examen Final</h4>\n"
+                            + "             <h3 class=\"center\">" + nota + "</h3>\n"
+                            + "       </div>\n"
+                            + "</div>";
+                } else if (aproboPrimerParcial) {
+                    nota = notMo.getNotaPrimerParcial(CI_Estudiante);
+                    htmlcode += "<div class=\"row\">\n"
+                            + "       <h3 class=\"center\">" + nombreEstudiante.getString(3) + " " + nombreEstudiante.getString(4) + ", " + nombreEstudiante.getString(1) + " " + nombreEstudiante.getString(2) + "</h3>\n"
+                            + "       <div class=\"col s3\">\n"
+                            + "              <h4 class=\"center\">Primer Parcial</h4>\n"
+                            + "              <h3 class=\"center\">" + nota + "</h3>\n"
+                            + "       </div>\n";
+                    if (aproboSegundoParcial) {
+                        nota = notMo.getNotaSegundoParcial(CI_Estudiante);
+                        htmlcode += "       <div class=\"col s3\">\n"
+                                + "              <h4 class=\"center\">Segundo Parcial</h4>\n"
+                                + "              <h3 class=\"center\">" + nota + "</h3>\n"
+                                + "       </div>\n";
+                        if (evaluacionCompleta) {
+
+                        } else {
+                            htmlcode += "      <div class=\"col s6\">\n"
+                                    + " <div class=\"row\">\n"
+                                    + "    <form>"
+                                    + "       \n";
+                            htmlcode += "<h5 class=\"center\">Evaluacion Examen Final</h5>\n";
+                            dimensiones = dimMo.getDimensiones(idMateria);
+                            while (dimensiones.next()) {
+
+                                switch (i) {
+                                    case 1:
+                                        htmlcode += "<div class=\"col s6\">\n"
+                                                + "    <table class=\"bordered\">\n"
+                                                + "         <thead>\n"
+                                                + "             <tr>\n"
+                                                + "                   <th>A - " + dimensiones.getString(2) + "</th>\n"
+                                                + "                   <th>Puntaje</th>\n"
+                                                + "             </tr>\n"
+                                                + "         </thead>\n"
+                                                + "         <tbody>\n";
+                                        criterios = criMo.getCriterios(dimensiones.getInt(1));
+                                        while (criterios.next()) {
+                                            System.out.println("Criterio: " + criterios.getString(1));
+                                            htmlcode += "             <tr>\n"
+                                                    + "                   <td value=\"" + criterios.getInt(2) + "\" id=\"criterio" + c + "\">" + c + " - " + criterios.getString(1) + "</td>\n"
+                                                    + "                   <td><input id=\"nota" + c + "\" type=\"number\" min=\"1\" max=\"10\" class=\"validate bold\" style=\"width: 60px; font-size: 30px\"></td>\n"
+                                                    + "             </tr>\n";
+                                            c++;
+                                        }
+                                        htmlcode += "         </tbody>\n"
+                                                + "    </table>\n";
+                                        break;
+                                    case 2:
+                                        htmlcode += "    <table class=\"bordered\">\n"
+                                                + "         <thead>\n"
+                                                + "             <tr>\n"
+                                                + "                    <th>B - " + dimensiones.getString(2) + "</th>\n"
+                                                + "                    <th>Puntaje</th>\n"
+                                                + "             </tr>\n"
+                                                + "         </thead>\n"
+                                                + "         <tbody>\n";
+                                        criterios = criMo.getCriterios(dimensiones.getInt(1));
+                                        while (criterios.next()) {
+                                            System.out.println("Criterio: " + criterios.getString(1));
+                                            htmlcode += "             <tr>\n"
+                                                    + "                   <td value=\"" + criterios.getInt(2) + "\" id=\"criterio" + c + "\">" + c + " - " + criterios.getString(1) + "</td>\n"
+                                                    + "                   <td><input id=\"nota" + c + "\" type=\"number\" min=\"1\" max=\"10\" class=\"validate bold\" style=\"width: 60px; font-size: 30px\"></td>\n"
+                                                    + "             </tr>\n";
+                                            c++;
+                                        }
+                                        htmlcode += "         </tbody>\n"
+                                                + "    </table>\n"
+                                                + "</div>";
+                                        break;
+                                    case 3:
+                                        htmlcode += "<div class=\"col s6\">\n"
+                                                + "    <table class=\"bordered\">\n"
+                                                + "         <thead>\n"
+                                                + "             <tr>\n"
+                                                + "                   <th>C - " + dimensiones.getString(2) + "</th>\n"
+                                                + "                   <th>Puntaje</th>\n"
+                                                + "             </tr>\n"
+                                                + "         </thead>\n"
+                                                + "         <tbody>\n";
+                                        criterios = criMo.getCriterios(dimensiones.getInt(1));
+                                        while (criterios.next()) {
+                                            System.out.println("Criterio: " + criterios.getString(1));
+                                            htmlcode += "             <tr>\n"
+                                                    + "                   <td value=\"" + criterios.getInt(2) + "\" id=\"criterio" + c + "\">" + c + " - " + criterios.getString(1) + "</td>\n"
+                                                    + "                   <td><input id=\"nota" + c + "\" type=\"number\" min=\"1\" max=\"10\" class=\"validate bold\" style=\"width: 60px; font-size: 30px\"></td>\n"
+                                                    + "             </tr>\n";
+                                            c++;
+                                        }
+                                        htmlcode += "         </tbody>\n"
+                                                + "    </table>\n";
+                                        break;
+                                    case 4:
+                                        htmlcode += "    <table class=\"bordered\">\n"
+                                                + "         <thead>\n"
+                                                + "             <tr>\n"
+                                                + "                   <th>D - " + dimensiones.getString(2) + "</th>\n"
+                                                + "                   <th>Puntaje</th>\n"
+                                                + "             </tr>\n"
+                                                + "         </thead>\n"
+                                                + "         <tbody>\n";
+                                        criterios = criMo.getCriterios(dimensiones.getInt(1));
+                                        while (criterios.next()) {
+                                            System.out.println("Criterio: " + criterios.getString(1));
+                                            htmlcode += "             <tr>\n"
+                                                    + "                   <td value=\"" + criterios.getInt(2) + "\" id=\"criterio" + c + "\">" + c + " - " + criterios.getString(1) + "</td>\n"
+                                                    + "                   <td><input id=\"nota" + c + "\" type=\"number\" min=\"1\" max=\"10\" class=\"validate bold\" style=\"width: 60px; font-size: 30px\"></td>\n"
+                                                    + "             </tr>\n";
+                                            c++;
+                                        }
+                                        htmlcode += "         </tbody>\n"
+                                                + "    </table>\n"
+                                                + "</div>\n";
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                i++;
+                            }
+                            htmlcode += "        </form>\n"
+                                    + "</div>\n"
+                                    + "</div>\n"
+                                    + "</div>\n"
+                                    + "";
+
+                        }
+                    } else {
+                        htmlcode += "       <div class=\"col s4\">\n"
+                                + "              <h4 class=\"center\">Segundo Parcial</h4>\n"
+                                + "              <h4 class=\"yellow accent-2 red-text center\">Aun sin Asignar Nota</h4>\n"
+                                + "         </div>\n"
+                                + "         <div class=\"col s4\">\n"
+                                + "              <h4 class=\"center\">Examen Final</h4>\n"
+                                + "              <h4 class=\"yellow accent-2 red-text center\">Asignacion no Disponible Aun</h4>\n"
+                                + "          </div>\n"
+                                + "</div>";
+                    }
+                } else {
+                    htmlcode += "<div class=\"container\">\n"
+                            + "     <div class=\"row\">\n"
+                            + "             <h3 class=\"center\">" + nombreEstudiante.getString(3) + " " + nombreEstudiante.getString(4) + ", " + nombreEstudiante.getString(1) + " " + nombreEstudiante.getString(2) + "</h3>\n"
+                            + "         <div class=\"col s4\">\n"
+                            + "             <h4 class=\"center\">Primer Parcial</h4>\n"
+                            + "             <h4 class=\"yellow accent-2 red-text center\">Aun sin Asignar Nota</h4>\n"
+                            + "         </div>\n"
+                            + "         <div class=\"col s4\">\n"
+                            + "             <h4 class=\"center\">Segundo Parcial</h4>\n"
+                            + "             <h4 class=\"yellow accent-2 red-text center\">Aun sin Asignar Nota</h4>\n"
+                            + "         </div>\n"
+                            + "         <div class=\"col s4\">\n"
+                            + "             <h4 class=\"center\">Examen Final</h4>\n"
+                            + "             <h4 class=\"yellow accent-2 red-text center\">Asignacion no Disponible Aun</h4>\n"
+                            + "         </div>\n"
+                            + "     </div>\n"
+                            + "</div>\n";
+                }
+
+            } else {
+                htmlcode += "\n"
+                        + "    <div class=\"row\">\n"
+                        + "        <h3 class=\"center\">" + nombreEstudiante.getString(3) + " " + nombreEstudiante.getString(4) + ", " + nombreEstudiante.getString(1) + " " + nombreEstudiante.getString(2) + "</h3>\n"
+                        + "    </div>\n"
+                        + "    <div class=\"col s12 center-align\">\n"
+                        + "        <a href=\"asignar_practica.jsp?ci=" + nombreEstudiante.getString(5) + "\" id=\"asignar_practica\" class=\"waves-effect waves-light waves-teal yellow accent-2 blue-text btn tooltipped\" data-position=\"button\" data-tooltip=\"Asignar Practica\"><i class=\"material-icons left\">clear_all</i>Asignar Practica</a>\n"
+                        + "         <br>\n"
+                        + "         <br>\n"
+                        + "         <br>\n"
+                        + "         <br>\n"
+                        + "    </div>\n"
+                        + "";
+            }
+        } catch (Exception e) {
+            System.out.println("Error getEvaluacion: " + e);
+        }
+
+        try {
+            getCloseConexion();
+        } catch (Exception e) {
+            System.out.println("Error en getEvaluacion.getCloseConexion: " + e);
+        }
         return htmlcode;
     }
 

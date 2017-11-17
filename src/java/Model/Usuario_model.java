@@ -167,4 +167,23 @@ public class Usuario_model extends Conexion {
         }
     }
 
+    public ResultSet getDatosRoot(String user) {
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        System.out.println("id cons: " + user);
+        try {
+            String consulta = "SELECT imagenUsuario, fondoPerfilUser, "
+                    + "FROM usuarios "
+                    + "WHERE nombreUsuario = ?";
+            pst = getConnection().prepareStatement(consulta);
+            pst.setString(1, user);
+            rs = pst.executeQuery();
+            return rs;
+
+        } catch (Exception ex) {
+            System.err.println("Error getDatosRoot: " + ex);
+            return null;
+        }
+    }
+
 }

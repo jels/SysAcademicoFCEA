@@ -4,7 +4,7 @@
     Author     : WarMachine
 --%>
 
-<%@page import="Controller.ControladorUsuarios"%>
+<%@page import="Controller.ControladorVarios"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     HttpSession objsession = request.getSession(false);
@@ -20,7 +20,7 @@
 %>
 <!DOCTYPE html>
 <html lang="en">
-    <%ControladorUsuarios ctrluser = new ControladorUsuarios();%>
+    <% ControladorVarios conVar = new ControladorVarios();%>
 
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -71,12 +71,7 @@
                             <ul id="slide-out" class="side-nav orange darken-2" style="width: 240px">
                                 <li>
                                     <div class="user-view">
-                                        <div class="background">
-                                            <img src="<%=ctrluser.getFondoUser(usuario)%>">
-                                        </div>
-                                        <a href="#!user"><img class="circle" src="<%=ctrluser.getImagenUser(usuario)%>"></a>
-                                        <a href="#!name"><span class="brown-text name"><%=usuario%></span></a>
-                                        <a href="#!email"><span class="brown-text email">juanperez@gmail.com</span></a>
+                                        <%=conVar.getUserViewRoot(usuario)%>
                                     </div>
                                 </li>
                                 <li>

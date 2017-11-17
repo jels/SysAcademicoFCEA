@@ -24,3 +24,56 @@ window.addEventListener('load', function () {
 
     });
 });
+
+window.addEventListener('load', function () {
+    document.getElementById('estudianteAc').addEventListener('click', function () {
+
+        var primerNombreEstudianteAc = document.getElementById('primerNombreAc').value;
+        var primerApellidoEstudianteAc = document.getElementById('primerApellidoAc').value;
+        var segundoNombreEstudianteAc = document.getElementById('segundoNombreAc').value;
+        var segundoApellidoEstudianteAc = document.getElementById('segundoApellidoAc').value;
+        var celularEstudianteAc = document.getElementById('celularAc').value;
+        var ciEstudianteAc = document.getElementById('ciAc').value;
+        var bandera = false;
+        if (primerNombreEstudianteAc.length > 0 && primerApellidoEstudianteAc.length > 0 &&
+                segundoApellidoEstudianteAc.length > 0 &&
+                celularEstudianteAc.length > 0 && ciEstudianteAc.length > 0) {
+            bandera = true;
+        }
+        if (bandera) {
+            $.post('../../estudiante.do', {
+                accion: "update",
+                primerNombreEstudianteAc: primerNombreEstudianteAc,
+                primerApellidoEstudianteAc: primerApellidoEstudianteAc,
+                segundoNombreEstudianteAc: segundoNombreEstudianteAc,
+                segundoApellidoEstudianteAc: segundoApellidoEstudianteAc,
+                celularEstudianteAc: celularEstudianteAc,
+                ciEstudianteAc: ciEstudianteAc
+
+            }, function (responseText) {
+                if (responseText === "true") {
+                    $('#notificacionEstudianteAc').html("<div class=\"col s6\">\n\
+                                <button class=\"btn waves effect waves light green yellow-text right\" type=\"button\" id=\"nuevoestudiante\">\n\
+                                    Estudiante Actualizado..!<i class=\"material-icons right\">assignment_turned_in</i>\n\
+                                </button>\n\
+                            </div>");
+                    setTimeout(function () {
+                        window.location.href = "estudiante.jsp";
+                    }, 2000);
+                } else {
+                    $('#notificacionEstudianteAc').html("<div class=\"row\">\n\
+                                                        <div class=\"container\">\n\
+                                                        <div class=\"container\">\n\
+                                                        <h5 class=\"center-align yellow-text red accent-4\">\n\
+                                                        Error al Actualizar el Estudiante\n\
+                                                        </h5>\n\
+                                                        </div>\n\
+                                                        </div>\n\
+                                                        </div>");
+                }
+            });
+        } else {
+            alert('Rellene todos los campos...');
+        }
+    });
+});

@@ -12,17 +12,15 @@ package Model;
 public class Notas {
 
     private int idNotas;
-    private int idEstudiante;
+    private int idAsignacionPractica;
     private int idCriterios;
-    private int idMateria;
     private int nota;
     private int parcial;
 
-    public Notas(int idNotas, int idEstudiante, int idCriterios, int idMateria, int nota, int parcial) {
+    public Notas(int idNotas, int idAsignacionPractica, int idCriterios, int nota, int parcial) {
         this.idNotas = idNotas;
-        this.idEstudiante = idEstudiante;
+        this.idAsignacionPractica = idAsignacionPractica;
         this.idCriterios = idCriterios;
-        this.idMateria = idMateria;
         this.nota = nota;
         this.parcial = parcial;
     }
@@ -45,45 +43,31 @@ public class Notas {
     }
 
     /**
-     * @return the idEstudiante
+     * @return the idAsignacionPractica
      */
-    public int getIdEstudiante() {
-        return idEstudiante;
+    public int getIdAsignacionPractica() {
+        return idAsignacionPractica;
     }
 
     /**
-     * @param idEstudiante the idEstudiante to set
+     * @param idAsignacionPractica the idAsignacionPractica to set
      */
-    public void setIdEstudiante(int idEstudiante) {
-        this.idEstudiante = idEstudiante;
+    public void setIdAsignacionPractica(int idAsignacionPractica) {
+        this.idAsignacionPractica = idAsignacionPractica;
     }
 
     /**
-     * @return the idCriterios
+     * @return the idCriterio
      */
     public int getIdCriterios() {
         return idCriterios;
     }
 
     /**
-     * @param idCriterios the idCriterios to set
+     * @param idCriterios the idCriterio to set
      */
     public void setIdCriterios(int idCriterios) {
         this.idCriterios = idCriterios;
-    }
-
-    /**
-     * @return the idMateria
-     */
-    public int getIdMateria() {
-        return idMateria;
-    }
-
-    /**
-     * @param idMateria the idMateria to set
-     */
-    public void setIdMateria(int idMateria) {
-        this.idMateria = idMateria;
     }
 
     /**
