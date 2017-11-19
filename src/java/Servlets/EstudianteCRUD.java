@@ -9,6 +9,8 @@ import Controller.*;
 import Model.*;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.lang.invoke.MethodHandles;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -185,22 +187,34 @@ public class EstudianteCRUD extends HttpServlet {
                 out.print(htmlcode);
                 break;
             case "cargar_nota":
-                int notas = 0;
+                int contnotas = 0;
                 int count = 1;
-
-                List<Notas> notes = new ArrayList<>();
                 System.out.println("llega a la nota...");
-                while (count <= 20) {
-                    notas = Integer.parseInt(request.getParameter("nota" + count));
-                    System.out.println("la nota" + count + ": " + notas);
-                    nota.setIdAsignacionPractica(conEst.getIdAsignacionPractica(CI_estudiante));
-                    nota.setIdCriterios(count);
-                    nota.setNota(notas);
-//                    notes.add(count, nota);
-                    count++;
+                int idAsignacionPractica = conEst.getIdAsignacionPractica(CI_estudiante);
+                ResultSet idCriterio = conMat.getListaIDCriterioXEst(CI_estudiante);
+                int parcial = conEst.getPractica(CI_estudiante);
+                try {
+                    while (count <= 20) {
+                        idCriterio.next();
+                        int notas = Integer.parseInt(request.getParameter("nota" + count));
+                        System.out.println("la nota" + count + ": " + notas);
+                        System.out.println("CI_estudiante...!: " + CI_estudiante);
+                        System.out.println("IDcriterio: " + idCriterio.getInt(1));
+                        if (conNot.insertNewNota(idAsignacionPractica, idCriterio.getInt(1), notas, parcial)) {
+                            contnotas++;
+                        }
+                        count++;
+                    }
+                } catch (Exception e) {
+                    System.out.println("Error cargar_nota: " + e);
                 }
-//                boolean bandera = conNot.insertNotasNuevas(notes, CI_estudiante);
-                out.print("true");
+
+                if (contnotas == 20) {
+                    out.print("true");
+                } else {
+                    out.print("false");
+                }
+
                 break;
             case "verNotaAsignada":
                 System.out.println("CI_estudiante: " + CI_estudiante);

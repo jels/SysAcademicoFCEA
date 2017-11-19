@@ -15,7 +15,81 @@ import java.sql.ResultSet;
 public class AsignacionPracticas_model extends Conexion {
 
     public int getParcialEstudiante(String CI_estudiante) {
-        return 1;
+
+        int count = 1;
+        int parcial1 = 0;
+        int parcial2 = 0;
+        int parcial3 = 0;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        String consulta = "";
+        try {
+            while (count <= 3) {
+                switch (count) {
+                    case 1:
+                        consulta = "SELECT COUNT(n.parcial) "
+                                + "FROM asignacionpracticas asp, "
+                                + "estudiante e, notas n "
+                                + "WHERE e.idEstudiante = asp.idEstudiante "
+                                + "AND asp.idAsignacionPractica = n.idAsignacionPractica "
+                                + "AND asp.estadoPractica = 1 "
+                                + "AND n.parcial = 1 "
+                                + "AND e.ciEstudiante = ? ";
+                        pst = getConnection().prepareStatement(consulta);
+                        pst.setString(1, CI_estudiante);
+                        rs = pst.executeQuery();
+                        rs.next();
+                        parcial1 = rs.getInt(1);
+                        break;
+                    case 2:
+                        consulta = "SELECT COUNT(n.parcial) "
+                                + "FROM asignacionpracticas asp, "
+                                + "estudiante e, notas n "
+                                + "WHERE e.idEstudiante = asp.idEstudiante "
+                                + "AND asp.idAsignacionPractica = n.idAsignacionPractica "
+                                + "AND asp.estadoPractica = 1 "
+                                + "AND n.parcial = 2 "
+                                + "AND e.ciEstudiante = ? ";
+                        pst = getConnection().prepareStatement(consulta);
+                        pst.setString(1, CI_estudiante);
+                        rs = pst.executeQuery();
+                        rs.next();
+                        parcial1 = rs.getInt(1);
+                        break;
+                    case 3:
+                        consulta = "SELECT COUNT(n.parcial) "
+                                + "FROM asignacionpracticas asp, "
+                                + "estudiante e, notas n "
+                                + "WHERE e.idEstudiante = asp.idEstudiante "
+                                + "AND asp.idAsignacionPractica = n.idAsignacionPractica "
+                                + "AND asp.estadoPractica = 1 "
+                                + "AND n.parcial = 3 "
+                                + "AND e.ciEstudiante = ? ";
+                        pst = getConnection().prepareStatement(consulta);
+                        pst.setString(1, CI_estudiante);
+                        rs = pst.executeQuery();
+                        rs.next();
+                        parcial1 = rs.getInt(1);
+                        break;
+                    default:
+                        break;
+                }
+                count++;
+            }
+            if (parcial1 == 0) {
+                return 1;
+            } else if (parcial2 == 0) {
+                return 2;
+            } else if (parcial3 == 0) {
+                return 3;
+            } else {
+                return 0;
+            }
+
+        } catch (Exception ex) {
+            System.err.println("Error getParcialEstudiante: " + ex);
+            return 0;
+        }
     }
 
     public boolean newPractica(AsignacionPracticas as) {
@@ -24,9 +98,7 @@ public class AsignacionPracticas_model extends Conexion {
     }
 
     public int getIDMateria(String CI_estudiante) {
-        
-        
-        
+
         return 0;
     }
 
@@ -34,17 +106,17 @@ public class AsignacionPracticas_model extends Conexion {
         PreparedStatement pst = null;
         ResultSet rs = null;
         try {
-            String consulta = "SELECT asp.idMateria "
+            String consulta = "SELECT asp.idAsignacionPractica "
                     + "FROM estudiante e, asignacionpracticas asp "
                     + "WHERE e.idEstudiante = asp.idEstudiante "
-                    + "AND asp.estadoPractica = 1 "
-                    + "AND e.ciEstudiante = ?";
+                    + "AND e.ciEstudiante = ? "
+                    + "AND asp.estadoPractica = 1 ";
             pst = getConnection().prepareStatement(consulta);
             System.out.println("CI: " + CI_Estudiante);
             pst.setString(1, CI_Estudiante);
             rs = pst.executeQuery();
             rs.next();
-            System.out.println("idMateria: " + rs.getInt(1));
+            System.out.println("getIdAsignacionPractica: " + rs.getInt(1));
             return rs.getInt(1);
 
         } catch (Exception ex) {

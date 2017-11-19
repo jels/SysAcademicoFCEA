@@ -313,7 +313,23 @@ public class Notas_model extends Conexion {
         System.out.println("IDCRI: " + idCriterio);
         System.out.println("nota: " + nota);
         System.out.println("parcial: " + parcial);
-        return false;
-    }
 
+        PreparedStatement pst;
+
+        try {
+            String consulta = "INSERT INTO notas"
+                    + "(idAsignacionPractica, idCriterios, nota, parcial) "
+                    + "VALUES (?,?,?,?)";
+            pst = getConnection().prepareStatement(consulta);
+            pst.setInt(1, IdAsignacionPractica);
+            pst.setInt(2, idCriterio);
+            pst.setInt(3, nota);
+            pst.setInt(4, parcial);
+            return pst.executeUpdate() == 1;
+        } catch (Exception ex) {
+            System.err.println("Error newNota: " + ex);
+            return false;
+        }
+    }
+    
 }

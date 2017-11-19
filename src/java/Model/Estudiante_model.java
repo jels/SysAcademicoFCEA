@@ -58,7 +58,26 @@ public class Estudiante_model extends Conexion {
     }
 
     public int getIDEstudiante(String CI_estudiante) {
-        return 0;
+
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        try {
+            String consulta = "SELECT idEstudiante "
+                    + "FROM estudiante "
+                    + "WHERE ciEstudiante = ? ";
+            pst = getConnection().prepareStatement(consulta);
+            pst.setString(1, CI_estudiante);
+            rs = pst.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1);
+            } else {
+                return 0;
+            }
+        } catch (Exception ex) {
+            System.err.println("Error getIDEstudiante: " + ex);
+            return 0;
+        }
+
     }
 
     public boolean crear_estudiante(Estudiante est) {

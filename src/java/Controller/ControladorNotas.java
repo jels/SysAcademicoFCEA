@@ -238,36 +238,25 @@ public class ControladorNotas extends Conexion {
         return htmlcode;
     }
 
-    public boolean insertNotasNuevas(List<Notas> notes, String CI_estudiantes) {
-
-        int count = 0;
+    public boolean insertNewNota(int idAsignacionPractica, int idCriterio, int nota, int parcial) {
 
         Notas_model notMo = new Notas_model();
-        Notas nota = new Notas();
-        AsignacionPracticas_model aspMo = new AsignacionPracticas_model();
-        Criterios_model criMo = new Criterios_model();
         int cantidadTrue = 0;
-        int cantidadFalse = 0;
-        int parcial = aspMo.getParcialEstudiante(CI_estudiantes);
-        ResultSet idCriterios = criMo.getListaCriterioXEst(CI_estudiantes);
-        int idAsignacionPractica = aspMo.getIdAsignacionPractica(CI_estudiantes);
+
         try {
-            idCriterios.next();
-            while (count <= 20) {
-                int IdAsignacionPractica = idAsignacionPractica;
-                int criterio = idCriterios.getInt(1);
-                nota = notes.get(count);
-                int valor = nota.getNota();
-                if (notMo.newNota(IdAsignacionPractica, criterio, valor, parcial)) {
-                    cantidadTrue++;
-                } else {
-                    cantidadFalse++;
-                }
+            if (notMo.newNota(idAsignacionPractica, idCriterio, nota, parcial)) {
+                System.out.println("Inserto Correctamente: " + idAsignacionPractica + " " + idCriterio + " " + nota + " " + parcial);
+                System.out.println("True: " + cantidadTrue);
+            } else {
+                System.out.println("Inserto fallido : " + idAsignacionPractica + " " + idCriterio + " " + nota + " " + parcial);
             }
+            getCloseConexion();
+            return true;
         } catch (Exception e) {
-            System.out.println("Error en insertNotasNuevas: " + e);
+            System.out.println("Error en insertNewNota: " + e);
+            return false;
         }
-        return cantidadTrue == 20;
+
     }
 
 }

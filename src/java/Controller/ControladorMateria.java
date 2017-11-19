@@ -27,6 +27,13 @@ public class ControladorMateria extends Conexion {
         return mamo.countMaterias();
     }
 
+    public ResultSet getListaIDCriterioXEst(String CI_estudiante) {
+
+        Criterios_model criMo = new Criterios_model();
+
+        return criMo.getListaCriterioXEst(CI_estudiante);
+    }
+
     public String verMaterias() {
         String htmlcode = "          <div class=\"container\">\n"
                 + "                        <div class=\"row\">\n"
@@ -295,7 +302,7 @@ public class ControladorMateria extends Conexion {
                         + " </div>\n";
             } else if (aproboPrimerParcial) {
                 nota = notMo.getNotaPrimerParcial(CI_Estudiante);
-                htmlcode += "<div class=\"container\">\n"
+                htmlcode += ""
                         + "<div class=\"row\">\n"
                         + "       <h3 class=\"center\">" + nombreEstudiante.getString(3) + " " + nombreEstudiante.getString(4) + ", " + nombreEstudiante.getString(1) + " " + nombreEstudiante.getString(2) + "</h3>\n"
                         + "       <div class=\"col s6\">\n"
@@ -412,10 +419,17 @@ public class ControladorMateria extends Conexion {
                         i++;
                     }
                     htmlcode += "        </form>\n"
+                            + "     </div>\n"
+                            + "     <div class=\"col s6 center-aling\">\n"
+                            + "         <button class=\"btn waves-effect waves-light yellow accent-2 blue-text left tooltipped\" data-position=\"button\" data-tooltip=\"Guardar\" type=\"button\" data-id=\"" + CI_Estudiante + "\" id=\"guardarNuevaNota\">\n"
+                            + "             Validar y Guardar<i class=\"material-icons right\">save</i>\n"
+                            + "         </button>\n"
+                            + "     <br><br><br><br>\n"
+                            + "     </div>\n"
+                            + "     <div id=\"notaGuardada\" class\"col s6 center-aling\">\n"
+                            + "     </div>\n"
                             + "</div>\n"
-                            + "</div>\n"
-                            + "</div>\n"
-                            + "";
+                            + "\n";
                 }
             } else {
                 htmlcode += "      <div class=\"col s6\">\n"
@@ -522,13 +536,13 @@ public class ControladorMateria extends Conexion {
                 }
                 htmlcode += "        </form>\n"
                         + "     </div>\n"
-                        + "     <div class\"col s6 center-aling\">\n"
+                        + "     <div class=\"col s6 center-aling\">\n"
                         + "         <button class=\"btn waves-effect waves-light yellow accent-2 blue-text left tooltipped\" data-position=\"button\" data-tooltip=\"Guardar\" type=\"button\" data-id=\"" + CI_Estudiante + "\" id=\"guardarNuevaNota\">\n"
                         + "             Validar y Guardar<i class=\"material-icons right\">save</i>\n"
                         + "         </button>\n"
                         + "     <br><br><br><br>\n"
                         + "     </div>\n"
-                        + "     <div id=\"notaGuardada\" class\"col s6 center-aling\">\n"
+                        + "     <div id=\"notaGuardada\" class=\"col s6 center-aling\">\n"
                         + "     </div>\n"
                         + "</div>\n"
                         + "\n"
@@ -550,7 +564,6 @@ public class ControladorMateria extends Conexion {
         } catch (Exception e) {
             System.out.println("Error en getEvaluacion.getCloseConexion: " + e);
         }
-        System.out.println("htmlcode: " + htmlcode);
         return htmlcode;
     }
 
@@ -602,7 +615,7 @@ public class ControladorMateria extends Conexion {
                             + "       </div>\n"
                             + "</div>";
                 } else if (aproboPrimerParcial) {
-                    nota = notMo.getNotaPrimerParcial(CI_Estudiante);
+                    nota = (notMo.getNotaPrimerParcial(CI_Estudiante) / 2) * 0.35;
                     htmlcode += "<div class=\"row\">\n"
                             + "       <h3 class=\"center\">" + nombreEstudiante.getString(3) + " " + nombreEstudiante.getString(4) + ", " + nombreEstudiante.getString(1) + " " + nombreEstudiante.getString(2) + "</h3>\n"
                             + "       <div class=\"col s3\">\n"
@@ -610,7 +623,7 @@ public class ControladorMateria extends Conexion {
                             + "              <h3 class=\"center\">" + nota + "</h3>\n"
                             + "       </div>\n";
                     if (aproboSegundoParcial) {
-                        nota = notMo.getNotaSegundoParcial(CI_Estudiante);
+                        nota = (notMo.getNotaSegundoParcial(CI_Estudiante) / 2) * 0.35;
                         htmlcode += "       <div class=\"col s3\">\n"
                                 + "              <h4 class=\"center\">Segundo Parcial</h4>\n"
                                 + "              <h3 class=\"center\">" + nota + "</h3>\n"
@@ -721,10 +734,17 @@ public class ControladorMateria extends Conexion {
                                 i++;
                             }
                             htmlcode += "        </form>\n"
+                                    + "     </div>\n"
+                                    + "     <div class=\"col s6 center-aling\">\n"
+                                    + "         <button class=\"btn waves-effect waves-light yellow accent-2 blue-text left tooltipped\" data-position=\"button\" data-tooltip=\"Guardar\" type=\"button\" data-id=\"" + CI_Estudiante + "\" id=\"guardarNuevaNota\">\n"
+                                    + "             Validar y Guardar<i class=\"material-icons right\">save</i>\n"
+                                    + "         </button>\n"
+                                    + "     <br><br><br><br>\n"
+                                    + "     </div>\n"
+                                    + "     <div id=\"notaGuardada\" class=\"col s6 center-aling\">\n"
+                                    + "     </div>\n"
                                     + "</div>\n"
-                                    + "</div>\n"
-                                    + "</div>\n"
-                                    + "";
+                                    + "\n";
 
                         }
                     } else {
@@ -781,6 +801,8 @@ public class ControladorMateria extends Conexion {
         } catch (Exception e) {
             System.out.println("Error en getEvaluacion.getCloseConexion: " + e);
         }
+        System.out.println("htmlcode getEvaluacionDocente: ");
+        System.out.println(htmlcode);
         return htmlcode;
     }
 

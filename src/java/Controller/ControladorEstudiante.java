@@ -80,6 +80,49 @@ public class ControladorEstudiante extends Conexion {
 
     }
 
+    public int getPractica(String CI_estudiante) {
+        Notas_model notMo = new Notas_model();
+        return notMo.getParcial(CI_estudiante);
+    }
+
+    public int getEvaluadosPrimerParcial(String tutor) {
+
+        Notas_model notMo = new Notas_model();
+        Estudiante_model estMo = new Estudiante_model();
+        ResultSet estudiantes = estMo.ver_estudiante_Tutor(tutor);
+        int primerParcial = 0;
+        try {
+            while (estudiantes.next()) {
+                if (notMo.llenoPrimerParcial(estudiantes.getString(6))) {
+                    primerParcial++;
+                }
+            }
+            return primerParcial;
+        } catch (Exception e) {
+            System.out.println("Error en getEvaluadosPrimerParcial: " + e);
+            return 0;
+        }
+
+    }
+
+    public int getEvaluadosSegundoParcial(String tutor) {
+        Notas_model notMo = new Notas_model();
+        Estudiante_model estMo = new Estudiante_model();
+        ResultSet estudiantes = estMo.ver_estudiante_Tutor(tutor);
+        int primerParcial = 0;
+        try {
+            while (estudiantes.next()) {
+                if (notMo.llenoSegundoParcial(estudiantes.getString(6))) {
+                    primerParcial++;
+                }
+            }
+            return primerParcial;
+        } catch (Exception e) {
+            System.out.println("Error en getEvaluadosSegundoParcial: " + e);
+            return 0;
+        }
+    }
+
     public String verEstudiantesXTutor(String tutor) {
         String htmlcode;
         ResultSet rs;
@@ -394,12 +437,12 @@ public class ControladorEstudiante extends Conexion {
         } catch (SQLException ex) {
             System.out.println("Error en updateEstudiante: " + ex);
         }
-        System.out.println("htmlcode " + htmlcode);
         try {
             getCloseConexion();
         } catch (Exception e) {
             System.out.println("Error en modalUpdateEstudiante.getCloseConexion: " + e);
         }
+        System.out.println("htmlcode viewUpdateEstudiante: " + htmlcode);
         return htmlcode;
     }
 
@@ -533,14 +576,9 @@ public class ControladorEstudiante extends Conexion {
     }
 
     public int getIdAsignacionPractica(String CI_estudiante) {
-        Estudiante_model estMo = new Estudiante_model();
-        int idEstudiante = estMo.getIDEstudiante(CI_estudiante);
-        try {
-            getCloseConexion();
-        } catch (Exception e) {
-            System.out.println("Error en modalBuscarEstudiante.getCloseConexion: " + e);
-        }
-        return idEstudiante;
+        AsignacionPracticas_model aspMo = new AsignacionPracticas_model();
+        int idAsignacionPractica = aspMo.getIdAsignacionPractica(CI_estudiante);
+        return idAsignacionPractica;
     }
 
 }

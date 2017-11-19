@@ -1,56 +1,6 @@
-
-
-//window.addEventListener('load', function () {
-//    document.getElementById('asignar_nota_estudiante').addEventListener('click', function () {
-//
-//        var CI_estudiante = $(this).attr('data-id');
-//        alert("ciEstudiante: " + CI_estudiante);
-//        $.post('../../estudiante.do', {
-//            accion: "asignar_nota",
-//            CI_estudiante: CI_estudiante
-//        }, function (responseText) {
-//
-//            if (responseText !== "false") {
-//                alert("mmmmmm");
-//                $('#cargarDatos_de_la_nota').html(responseText);
-//
-//            } else {
-//                $('#cargarDatos_de_la_nota').html("<div class=\"panel-body\"><div class=\"alert alert-danger text-center\">Error...Creando Criterios por Dimensiones</div></div>");
-//            }
-//        });
-//
-//    });
-//});
-
-//$(function () {
-//    $('tr #asignar_nota_estudiante').click(function (e) {
-//        e.preventDefault();
-//        var opcion = confirm("Desea Cambiar la Nota del Estudiante?");
-//
-//        if (opcion) {
-//            $('#cargarDatos_de_la_nota').html("");
-//            $('#asignarNotas').modal('open');
-//            var CI_estudiante = $(this).attr('data-id');
-//            alert(CI_estudiante);
-//            $.post('../../estudiante.do', {
-////            $.post('../..', {
-//                accion: "asignar_nota",
-//                CI_estudiante: CI_estudiante
-//            }, function (responseText) {
-//                if (responseText !== "false") {
-//                    $('#cargarDatos_de_la_nota').html(responseText);
-//                } else {
-//                    $('#cargarDatos_de_la_nota').html("<div class=\"panel-body\"><div class=\"alert alert-danger text-center\">Error...Creando Criterios por Dimensiones</div></div>");
-//                }
-//            });
-//        }
-//        return false;
-//    });
-//});
-
-
-window.addEventListener('load', function () {
-    document.getElementById('buscar_estudiante').addEventListener('click', function () {
+$(function () {
+    $('#buscar_estudiante').click(function (e) {
+        e.preventDefault();
 
         var apellido_estudiante = document.getElementById('apellido_estudiante').value;
         var CI_estudiante = document.getElementById('ci_estudiante').value;
@@ -76,34 +26,9 @@ window.addEventListener('load', function () {
     });
 });
 
-//$(function () {
-//    $('tr #ver_nota_estudiante').click(function (e) {
-//        e.preventDefault();
-//        var opcion = confirm("Desea Cambiar El estado del Estudiante?");
-//
-//        if (opcion) {
-//            $('#cargarDatos_de_la_nota').html("");
-//            $('#asignarNotas').modal('open');
-//            var CI_estudiante = $(this).attr('data-id');
-//            alert(CI_estudiante);
-//            $.post('../../estudiante.do', {
-////            $.post('../..', {
-//                accion: "asignar_nota",
-//                CI_estudiante: CI_estudiante
-//            }, function (responseText) {
-//                if (responseText !== "false") {
-//                    $('#cargarDatos_de_la_nota').html(responseText);
-//                } else {
-//                    $('#cargarDatos_de_la_nota').html("<div class=\"panel-body\"><div class=\"alert alert-danger text-center\">Error...Creando Criterios por Dimensiones</div></div>");
-//                }
-//            });
-//        }
-//        return false;
-//    });
-//});
-
-window.addEventListener('load', function () {
-    document.getElementById('guardarNuevaNota').addEventListener('click', function () {
+$(function () {
+    $('#guardarNuevaNota').click(function (e) {
+        e.preventDefault();
 
         var nota1 = document.getElementById('nota1').value;
         var nota2 = document.getElementById('nota2').value;
@@ -126,9 +51,9 @@ window.addEventListener('load', function () {
         var nota19 = document.getElementById('nota19').value;
         var nota20 = document.getElementById('nota20').value;
 
-        var ciEstudiante = $(this).attr('data-id');
+        var CI_estudiante = $(this).attr('data-id');
 
-        alert(ciEstudiante);
+        alert(CI_estudiante);
         if (nota1 > 0 && nota2 > 0 && nota3 > 0 && nota4 > 0 &&
                 nota5 > 0 && nota6 > 0 && nota7 > 0 && nota8 > 0 &&
                 nota9 > 0 && nota10 > 0 && nota11 > 0 && nota12 > 0 &&
@@ -158,7 +83,7 @@ window.addEventListener('load', function () {
                     nota18: nota18,
                     nota19: nota19,
                     nota20: nota20,
-                    ciEstudiante: ciEstudiante
+                    CI_estudiante: CI_estudiante
                 }, function (responseText) {
                     if (responseText === "true") {
                         $('#notaGuardada').html("<a class=\"waves-effect waves-light waves-teal yellow green-text btn tooltipped\" data-position=\"button\" data-tooltip=\"Notas Guardadas Correctamente\">\n\

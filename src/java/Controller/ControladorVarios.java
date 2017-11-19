@@ -318,6 +318,7 @@ public class ControladorVarios extends Conexion {
         } catch (Exception e) {
             System.out.println("Error en getDatosEstudiante.getCloseConexion: " + e);
         }
+        System.out.println("htmlcode datos estudiantes: " + htmlcode);
 
         return htmlcode;
     }
@@ -325,8 +326,6 @@ public class ControladorVarios extends Conexion {
     public String getDatosEstudianteTutor(String CI_estudiante) {
 
         String htmlcode = "";
-        DecimalFormat df = new DecimalFormat("#.00");
-
         Estudiante_model estMo = new Estudiante_model();
         ResultSet datos = null;
         datos = estMo.getDatosEst(CI_estudiante);
@@ -380,19 +379,19 @@ public class ControladorVarios extends Conexion {
                 htmlcode += "                         <tr>\n"
                         + "                                <td>" + practicasEstudiante.getString(1) + "</td>\n";
                 int c = 0;
-                double notaParcial = 0;
+                int notaParcial = 0;
                 while (c <= 3) {
                     c++;
                     switch (c) {
                         case 1:
-                            notaParcial = (notMo.getNotaByPracticas(CI_estudiante, c, practicasEstudiante.getInt(2)) / 2) * 0.35;
+                            notaParcial = (notMo.getNotaByPracticas(CI_estudiante, c, practicasEstudiante.getInt(2)));
                             System.out.println("nota sin redondeo:_ " + notaParcial);
-                            htmlcode += "                                <td>" + df.format(notaParcial) + "</td>\n";
+                            htmlcode += "                                <td>" + notaParcial + "</td>\n";
                             notaTotal = notaTotal + notaParcial;
                             break;
                         case 2:
-                            notaParcial = (notMo.getNotaByPracticas(CI_estudiante, c, practicasEstudiante.getInt(2)) / 2) * 0.35;
-                            htmlcode += "                                <td>" + df.format(notaParcial) + "</td>\n";
+                            notaParcial = (notMo.getNotaByPracticas(CI_estudiante, c, practicasEstudiante.getInt(2)));
+                            htmlcode += "                                <td>" + notaParcial + "</td>\n";
                             notaTotal = notaTotal + notaParcial;
                             break;
                         default:

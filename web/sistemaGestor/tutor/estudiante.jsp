@@ -120,18 +120,15 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col s4">
-                                <h2 class="center yellow-text">1</h2>
+                            <div class="col s6">
+                                <h2 class="center yellow-text"><%=conEst.getEvaluadosPrimerParcial(usuario)%></h2>
                                 <h5 class="center yellow-text">Evaluados Primer Parcial</h5>
                             </div>
-                            <div class="col s4">
-                                <h2 class="center yellow-text">1</h2>
+                            <div class="col s6">
+                                <h2 class="center yellow-text"><%=conEst.getEvaluadosSegundoParcial(usuario)%></h2>
                                 <h5 class="center yellow-text">Evaluados Segundo Parcial</h5>
                             </div>
-                            <div class="col s4">
-                                <h2 class="center yellow-text">1</h2>
-                                <h5 class="center yellow-text">Faltan Evaluar</h5>
-                            </div>
+                            
                         </div>
                     </div>
                 </div>
