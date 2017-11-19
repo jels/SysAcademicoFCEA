@@ -429,6 +429,7 @@ public class ControladorMateria extends Conexion {
                             + "     <div id=\"notaGuardada\" class\"col s6 center-aling\">\n"
                             + "     </div>\n"
                             + "</div>\n"
+                            + "</div>\n"
                             + "\n";
                 }
             } else {
@@ -545,7 +546,7 @@ public class ControladorMateria extends Conexion {
                         + "     <div id=\"notaGuardada\" class=\"col s6 center-aling\">\n"
                         + "     </div>\n"
                         + "</div>\n"
-                        + "\n"
+                        + "</div>\n"
                         + ""
                         + "         <div class=\"col s6\">\n"
                         + "             <h4 class=\"center\">Segundo Parcial</h4>\n"
@@ -744,7 +745,7 @@ public class ControladorMateria extends Conexion {
                                     + "     <div id=\"notaGuardada\" class=\"col s6 center-aling\">\n"
                                     + "     </div>\n"
                                     + "</div>\n"
-                                    + "\n";
+                                    + "</div>\n";
 
                         }
                     } else {
