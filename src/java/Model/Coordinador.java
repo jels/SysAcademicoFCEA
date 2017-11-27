@@ -9,25 +9,30 @@ package Model;
  *
  * @author WarMachine
  */
-public class Coordinador {
+public class Coordinador extends Persona {
 
-    private Persona coordinador;
+    private String fotoCoordinador;
+
+    public Coordinador(String fotoCoordinador, int idPersona, String primerNombrePersona, String primerApellidoPersona, String segundoNombrePersona, String segundoApellidoPersona, String ciPersona, String telefonoPersona, int estadoPersona) {
+        super(idPersona, primerNombrePersona, primerApellidoPersona, segundoNombrePersona, segundoApellidoPersona, ciPersona, telefonoPersona, estadoPersona);
+        this.fotoCoordinador = fotoCoordinador;
+    }
 
     public Coordinador() {
     }
 
     /**
-     * @return the coordinador
+     * @return the fotoCoordinador
      */
-    public Persona getCoordinador() {
-        return coordinador;
+    public String getFotoCoordinador() {
+        return fotoCoordinador;
     }
 
     /**
-     * @param coordinador the coordinador to set
+     * @param fotoCoordinador the fotoCoordinador to set
      */
-    public void setCoordinador(Persona coordinador) {
-        this.coordinador = coordinador;
+    public void setFotoCoordinador(String fotoCoordinador) {
+        this.fotoCoordinador = fotoCoordinador;
     }
 
 }

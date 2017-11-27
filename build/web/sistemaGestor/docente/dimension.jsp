@@ -1,9 +1,11 @@
 <%-- 
-    Document   : carreras
-    Created on : 06/09/2017, 06:37:30 PM
+    Document   : dimension
+    Created on : 27/11/2017, 12:34:31 AM
     Author     : WarMachine
 --%>
 
+
+<%@page import="Controller.ControladorMateria"%>
 <%@page import="Controller.ControladorCarrera"%>
 <%@page import="Controller.ControladorVarios"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -24,12 +26,13 @@
     } else {
         response.sendRedirect("../../index.jsp");
     }
+    int idDimension = Integer.parseInt(request.getParameter("dimension"));
 %>
 
 <!DOCTYPE html>
 <html lang="en">
     <% ControladorVarios conVar = new ControladorVarios();%>
-    <% ControladorCarrera conCar = new ControladorCarrera();%>
+    <% ControladorMateria conMat = new ControladorMateria();%>
     <%@include file="head.jsp" %>
 
     <body class="yellow accent-2">
@@ -56,8 +59,9 @@
                         <div class="nav-content">
                             <div class="col s12">
                                 <ul class="tabs blue darken-3 tabs-fixed-width">
-                                    <li class="tab col s3"><a class="yellow-text" href="#cantidad">Resumen</a></li>
-                                    <li class="tab col s3"><a class="yellow-text" href="#show">Mostrar</a></li>
+                                    <li class="tab col s3"><a class="yellow-text" href="#resumen">Resumen</a></li>
+                                    <li class="tab col s3"><a class="yellow-text" href="#criterios">Criterios</a></li>
+                                    <li class="tab col s3"><a class="yellow-text" href="#editar">Editar</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -136,26 +140,27 @@
 
             <div class="row blue darken-3">
 
-                <!-- Inicio cantidad -->
+                <!-- Inicio resumen -->
 
-                <div id="cantidad" class="col s12">                    
-                    <div class="container">
-                        <h1 class="center yellow-text">Carreras</h1>
-                        <h2 class="center yellow-text"><%=conCar.cantidadCarreras(usuario)%></h2>
-                        <h3 class="center yellow-text">Todas las Carreras de FCEA </h3>
-                    </div>
+                <div id="resumen" class="col s12 blue darken-3 yellow-text">
 
+                    <%=conMat.viewDimension(idDimension)%>
 
                 </div>
-                <!-- Final cantidad-->
+                <!-- Final resumen-->
 
-                <!-- Inicio del show -->
-                <div id="show">
-                    <%=conCar.verCarreras(usuario)%>
+                <!-- Inicio del criterios -->
+                <div id="criterios" class="col s12 blue darken-3 yellow-text">
+                    
                 </div>
-                <!-- Final del show-->
+                <!-- Final del criterios-->
 
-                <!-- Inicio del MENU -->
+                <!-- Inicio del editar -->
+                <div id="editar" class="col s12 blue darken-3 yellow-text">
+                    <%=conMat.editarDimension(idDimension)%>
+                </div>
+                <!-- Final del editar-->
+
                 <!-- Modal Structure -->
                 <div id="new" class="modal modal-fixed-footer blue darken-3 yellow-text">
 
@@ -249,6 +254,7 @@
                     </div>
 
                 </div>
+                <!-- Final del Modal Structure-->
 
             </div>
 

@@ -218,10 +218,9 @@ public class ControladorEstudiante extends Conexion {
                 + "                                    <th># de Carnet</th>\n"
                 + "                                    <th>Celular</th>\n"
                 + "                                    <th>Estado</th>\n"
-                + "                                    <th class=\"center-align\">Ver</th>\n"
+                + "                                    <th class=\"center-align\">Ver - Actualizar</th>\n"
                 + "                                    <th class=\"center-align\">Asignar Practicas</th>\n"
                 + "                                    <th class=\"center-align\">Dar de Baja</th>\n"
-                + "                                    <th class=\"center-align\">Eliminar</th>\n"
                 + "                                </tr>\n"
                 + "                            </thead>\n"
                 + "                            <tbody>\n";
@@ -246,8 +245,7 @@ public class ControladorEstudiante extends Conexion {
                     System.out.println("CI_Estudiante: " + rs.getString(6));
                     htmlcode += "                  <td><div class=\"center-align\">  <a href=\"estudiante_ver.jsp?ci=" + rs.getString(6) + "\" class=\"btn-floating btn tooltipped waves-effect waves-light blue yellow-text\" data-position=\"button\" data-tooltip=\"Ver - Actualizar\"><i class=\"material-icons yellow-text\">visibility</i></a></div></td>\n"
                             + "                    <td><div class=\"center-align\">  <a href=\"asignar_practica.jsp?ci=" + rs.getString(6) + "\" id=\"asignar_practica\" class=\"btn-floating btn tooltipped waves-effect waves-light blue yellow-text\" data-position=\"button\" data-tooltip=\"Asignar Practica\"><i class=\"material-icons yellow-text\">transfer_within_a_station</i></a></div></td>\n"
-                            + "                    <td><div class=\"center-align\">  <a id=\"baja_estudiante\" class=\"btn-floating btn tooltipped waves-effect waves-light blue yellow-text\" data-position=\"button\" data-tooltip=\"Dar de Baja\"><i class=\"material-icons yellow-text\">redo</i></a></div></td>\n"
-                            + "                    <td><div class=\"center-align\">  <a id=\"eliminar_estudiante\" class=\"btn-floating btn tooltipped waves-effect waves-light blue yellow-text\" data-position=\"button\" data-tooltip=\"Eliminar\"><i class=\"material-icons yellow-text\">delete_forever</i></a></div></td>\n"
+                            + "                    <td><div class=\"center-align\">  <a id=\"baja_estudiante\" data-id=\"" + rs.getString(6) + "\" class=\"btn-floating btn tooltipped waves-effect waves-light blue yellow-text\" data-position=\"button\" data-tooltip=\"Dar de Baja\"><i class=\"material-icons yellow-text\">redo</i></a></div></td>\n"
                             + "                  </tr>"
                             + "";
                     i++;

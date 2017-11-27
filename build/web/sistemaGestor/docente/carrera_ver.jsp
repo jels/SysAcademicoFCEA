@@ -1,12 +1,12 @@
 <%-- 
-    Document   : carreras
-    Created on : 06/09/2017, 06:37:30 PM
+    Document   : carrera_ver
+    Created on : 26/11/2017, 08:10:16 AM
     Author     : WarMachine
 --%>
-
+<%@page import="Controller.ControladorMateria"%>
 <%@page import="Controller.ControladorCarrera"%>
 <%@page import="Controller.ControladorVarios"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="ISO-8859-1"%>
 
 <%
     HttpSession objsession = request.getSession(false);
@@ -24,12 +24,15 @@
     } else {
         response.sendRedirect("../../index.jsp");
     }
+    String carrera = request.getParameter("carrera");
+
 %>
 
 <!DOCTYPE html>
 <html lang="en">
     <% ControladorVarios conVar = new ControladorVarios();%>
     <% ControladorCarrera conCar = new ControladorCarrera();%>
+    <% ControladorMateria conMat = new ControladorMateria();%>
     <%@include file="head.jsp" %>
 
     <body class="yellow accent-2">
@@ -56,8 +59,10 @@
                         <div class="nav-content">
                             <div class="col s12">
                                 <ul class="tabs blue darken-3 tabs-fixed-width">
-                                    <li class="tab col s3"><a class="yellow-text" href="#cantidad">Resumen</a></li>
-                                    <li class="tab col s3"><a class="yellow-text" href="#show">Mostrar</a></li>
+                                    <li class="tab col s3"><a class="yellow-text" href="#resumen">Resumen</a></li>
+                                    <li class="tab col s3"><a class="yellow-text" href="#materias">Materias</a></li>
+                                    <li class="tab col s3"><a class="yellow-text" href="#editar">Editar</a></li>
+                                    <li class="tab col s3"><a class="yellow-text" href="#editarCoordinador">Coordinador</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -133,128 +138,85 @@
             <!-- Final del NAV-->
 
             <!-- Inicio del MENU -->
+            <div class="row blue darken-3 yellow-text">
 
-            <div class="row blue darken-3">
-
-                <!-- Inicio cantidad -->
-
-                <div id="cantidad" class="col s12">                    
-                    <div class="container">
-                        <h1 class="center yellow-text">Carreras</h1>
-                        <h2 class="center yellow-text"><%=conCar.cantidadCarreras(usuario)%></h2>
-                        <h3 class="center yellow-text">Todas las Carreras de FCEA </h3>
-                    </div>
-
-
+                <!-- Inicio del resumen-->
+                <div id="resumen" class="col s12 blue darken-3 yellow-text">                    
+                    <%=conCar.verCarrera(carrera)%>
                 </div>
-                <!-- Final cantidad-->
+                <!-- Final del resumen-->
 
-                <!-- Inicio del show -->
-                <div id="show">
-                    <%=conCar.verCarreras(usuario)%>
+                <!-- Inicio del materias-->
+                <div id="materias">
+                    <%=conMat.verMateriaXCarrera(carrera)%>
                 </div>
-                <!-- Final del show-->
+                <!-- Final del materias-->
 
-                <!-- Inicio del MENU -->
-                <!-- Modal Structure -->
+                <!-- Inicio Modal new -->
                 <div id="new" class="modal modal-fixed-footer blue darken-3 yellow-text">
 
                     <div class="modal-content blue darken-3">
                         <div class="row">
-                            <h1 class="center yellow-text">Nueva Carrera</h1>
+                            <h1 class="center yellow-text">Nueva Materia</h1>
                         </div>
                         <div class="row">
-                            <form method="POST" action="../../carrera.do" enctype="multipart/form-data" id="nuevacarrera" class="col s12 yellow-text">
-                                <!--Datos de la carrera -->
-                                <h4>Datos de la Carrera</h4>
+                            <form id="nuevamat" class="col s12 yellow-text">
                                 <div class="row">
                                     <div class="input-field col s6">
                                         <i class="material-icons prefix yellow-text">assignment_ind</i>
-                                        <input id="nombreCarrera" type="text" class="validate">
-                                        <label class="yellow-text" for="Nombre Carrera">Nombre Carrera</label>
+                                        <input id="nombreMat" type="text" class="validate">
+                                        <label class="yellow-text" for="Nombre Materia">Nombre Materia</label>
                                     </div>
                                     <div class="input-field col s6">
                                         <i class="material-icons prefix yellow-text">assignment_ind</i>
-                                        <input id="abreviaturaCarrera" type="text" >
-                                        <label class="yellow-text" for="Abreviatura">Abreviatura</label>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="input-field col s12">
-                                        <i class="material-icons prefix yellow-text">wc</i>
-                                        <textarea id="descripcionCarrera" class="materialize-textarea"></textarea>
-                                        <label for="Descripcion">Descripcion</label>
-                                    </div>
-                                </div>
-                                <h4>Datos del Coordinador</h4>
-                                <!--Datos del Coordinador -->
-                                <div class="row">
-                                    <div class="input-field col s6">
-                                        <i class="material-icons prefix yellow-text">assignment_ind</i>
-                                        <input id="primerNombreCoordinador" type="text" class="validate">
-                                        <label class="yellow-text" for="Primer Nombre">Primer Nombre</label>
-                                    </div>
-                                    <div class="input-field col s6">
-                                        <i class="material-icons prefix yellow-text">assignment_ind</i>
-                                        <input id="segundoNombreCoordinador" type="text" >
-                                        <label class="yellow-text" for="Segundo Nombre">Segundo Nombre</label>
+                                        <input id="semestreMat" type="text" >
+                                        <label class="yellow-text" for="Semestre">Semestre</label>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="input-field col s6">
                                         <i class="material-icons prefix yellow-text">wc</i>
-                                        <input id="primerApellidoCoordinador" type="text" class="validate">
-                                        <label class="yellow-text" for="Primer Apellido">Primer Apellido</label>
+                                        <input id="horasPracticas" type="number" class="validate">
+                                        <label class="yellow-text" for="Horas Practicas">Horas Practicas</label>
                                     </div>
                                     <div class="input-field col s6">
                                         <i class="material-icons prefix yellow-text">wc</i>
-                                        <input id="segundoApellidoCoordinador" type="text" >
-                                        <label class="yellow-text" for="Segundo Apellido">Segundo Apellido</label>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="input-field col s6">
-                                        <i class="material-icons prefix yellow-text">fingerprint</i>
-                                        <input id="ciCoordinador" type="text" class="validate">
-                                        <label class="yellow-text" for="# de Carnet"># de Carnet</label>
-                                    </div>
-                                    <div class="input-field col s6">
-                                        <i class="material-icons prefix yellow-text">contact_phone</i>
-                                        <input id="telefonoCoordinador" type="text" >
-                                        <label class="yellow-text" for="Telefono">Telefono</label>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="file-field input-field col s6">
-                                        <div class="btn blue yellow-text">
-                                            <span>Foto</span>
-                                            <input type="file" id="fotoCoordinador">
-                                        </div>
-                                        <div class="file-path-wrapper">
-                                            <input class="file-path validate" type="text"  placeholder="Seleccione una Foto">
-                                        </div>
+                                        <input id="descripcionMateria" type="text" class="validate">
+                                        <label class="yellow-text" for="Descripcion Materia">Descripcion Materia</label>
                                     </div>
                                 </div>
                             </form>
                         </div>
+
+
                     </div>
+
                     <div class="modal-footer blue darken-3 yellow-text">
                         <div class="col s6">
-                            <button class="btn waves-effect waves-light yellow accent-2 blue-text left tooltipped" type="button" id="newcarrera" data-id="<%=usuario%>" data-position="button" data-tooltip="Guardar y Validar">
+                            <button class="btn waves-effect waves-light yellow accent-2 blue-text left" type="button" id="nuevaMateria" data-id=<%=carrera%> >
                                 Validar y Guardar<i class="material-icons right">save</i>
                             </button>
                         </div>
-                        <div id="notificacionNewCarrera">
+                        <div id="notificacionNewMateria">
                         </div>
                     </div>
 
                 </div>
+                <!-- Final Modal new -->
+
+                <!-- Inicio del editar-->
+                <div id="editar" class="col s12">
+                    <%=conCar.editarCarrera(carrera)%>
+                </div>
+                <!-- Final del editar-->
+
+                <!-- Inicio del editarCoordinador-->
+                <div id="editarCoordinador" class="col s12">
+                    <%=conCar.editarCoordinador(carrera)%>
+                </div>
+                <!-- Final del editarCoordinador-->
 
             </div>
-
-
-            <!-- Final del NAV-->
-
             <!-- Final del MENU -->
 
 

@@ -77,6 +77,7 @@ $(function () {
         }
     });
 });
+
 $(function () {
     $('tr #baja_estudiante').click(function (e) {
         e.preventDefault();
@@ -98,6 +99,7 @@ $(function () {
         }
     });
 });
+
 //$(function () {
 //    $('tr #actualizar_estudiante').click(function (e) {
 //        e.preventDefault();
@@ -160,14 +162,7 @@ $(function () {
         });
     });
 });
-window.addEventListener('load', function () {
-    document.getElementById('actualizar_estudiante').addEventListener('click', function () {
 
-
-
-
-    });
-});
 
 //Estudiante---Fin...
 

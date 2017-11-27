@@ -71,6 +71,7 @@
 
         <main>
 
+
             <!-- Inicio del NAV-->
             <div class="container">
                 <div class="row">
@@ -108,11 +109,6 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="materia.jsp" class="waves-effect yellow-text">
-                                        <i class="material-icons yellow-text">storage</i>Materias
-                                    </a>
-                                </li>
-                                <li>
                                     <a href="carrera.jsp" class="waves-effect yellow-text">
                                         <i class="material-icons yellow-text">format_list_bulleted</i>Carreras
                                     </a>
@@ -142,6 +138,7 @@
             <!-- Inicio del MENU -->
             <div class="row blue darken-3">
 
+                <!-- Inicio del cantidad -->
                 <div id="cantidad" class="col s12">                    
                     <div class="container">
                         <h1 class="center yellow-text">Estudiantes</h1>
@@ -151,9 +148,15 @@
 
 
                 </div>
+                <!-- Final del cantidad-->
+
+                <!-- Inicio del show -->
                 <div id="show">
                     <%=conEst.verEstudiantes()%>
                 </div>
+                <!-- Final del show-->
+
+                <!-- Inicio del new -->
                 <!-- Modal Structure -->
                 <div id="new" class="modal modal-fixed-footer blue darken-3 yellow-text">
 
@@ -227,65 +230,11 @@
                     </div>
 
                 </div>
-                <div id="update" class="modal modal-fixed-footer blue darken-3 yellow-text ">
-                    <div class="modal-content blue darken-3">
-                        <div class="row">
-                            <h1 class="center yellow-text">Nuevo Estudiante</h1>
-                        </div>
-                        <div class="row">
-                            <form method="post" id="nuevoestAc" action="../estudiante.do" class="col s12 yellow-text" enctype="multipart/form-data">
-                                <div class="row">
-                                    <div class="input-field col s6">
-                                        <i class="material-icons prefix yellow-text">assignment_ind</i>
-                                        <input id="primerNombreAc" type="text" value="Martin" class="validate">
-                                        <label class="yellow-text" for="Primer Nombre">Primer Nombre</label>
-                                    </div>
-                                    <div class="input-field col s6">
-                                        <i class="material-icons prefix yellow-text">assignment_ind</i>
-                                        <input id="segundoNombreAc" type="text" value="">
-                                        <label class="yellow-text" for="Segundo Nombre">Segundo Nombre</label>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="input-field col s6">
-                                        <i class="material-icons prefix yellow-text">wc</i>
-                                        <input id="primerApellidoAc" type="text" value="Jimenez" class="validate">
-                                        <label class="yellow-text" for="Primer Apellido">Primer Apellido</label>
-                                    </div>
-                                    <div class="input-field col s6">
-                                        <i class="material-icons prefix yellow-text">wc</i>
-                                        <input id="segundoApellidoAc" type="text" value="Perez" class="validate">
-                                        <label class="yellow-text" for="Segundo Apellido">Segundo Apellido</label>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="input-field col s6">
-                                        <i class="material-icons prefix yellow-text">fingerprint</i>
-                                        <input id="ciAc" type="text" disabled value="2589685" class="validate">
-                                        <label class="yellow-text" for="ci"># de Carnet</label>
-                                    </div>
-                                    <div class="input-field col s6">
-                                        <i class="material-icons prefix yellow-text">contact_phone</i>
-                                        <input id="celularAc" type="text" value="71737601" class="validate">
-                                        <label class="yellow-text" for="celular">Telefono - Celular</label>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    <div class="modal-footer blue darken-3 yellow-text">
-                        <div class="col s6">
-                            <button class="btn waves-effect waves-light yellow accent-2 blue-text left" type="button" id="nuevoestudianteAc">
-                                Actualizar<i class="material-icons right">save</i>
-                            </button>
-                        </div>
-                        <div id="notificacionnewEstudianteAc">
-                        </div>
-                    </div>
-                </div>
+                <!-- Final del new-->
 
+                <!-- Inicio del search -->
                 <div id="search" class="modal modal-fixed-footer blue darken-3 yellow-text ">
-                     <div class="modal-content blue darken-3">
+                    <div class="modal-content blue darken-3">
                         <div class="row">
                             <h1 class="center yellow-text">Buscar Estudiante</h1>
                             <form method="post" class="col s12 yellow-text" >
@@ -321,6 +270,7 @@
                         </button>
                     </div>
                 </div>
+                <!-- Final del search-->
 
             </div>
             <!-- Final del MENU -->

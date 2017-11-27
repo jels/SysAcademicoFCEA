@@ -12,14 +12,14 @@ package Model;
 public class Materia {
 
     private int idMateria;
-    private int nombreMateria;
-    private int semestreMateria;
-    private int descripcionMateria;
+    private String nombreMateria;
+    private String semestreMateria;
+    private String descripcionMateria;
     private int horasPracticas;
     private int estadoMateria;
     private int idCarrera;
 
-    public Materia(int idMateria, int nombreMateria, int semestreMateria, int descripcionMateria, int horasPracticas, int estadoMateria, int idCarrera) {
+    public Materia(int idMateria, String nombreMateria, String semestreMateria, String descripcionMateria, int horasPracticas, int estadoMateria, int idCarrera) {
         this.idMateria = idMateria;
         this.nombreMateria = nombreMateria;
         this.semestreMateria = semestreMateria;
@@ -49,42 +49,42 @@ public class Materia {
     /**
      * @return the nombreMateria
      */
-    public int getNombreMateria() {
+    public String getNombreMateria() {
         return nombreMateria;
     }
 
     /**
      * @param nombreMateria the nombreMateria to set
      */
-    public void setNombreMateria(int nombreMateria) {
+    public void setNombreMateria(String nombreMateria) {
         this.nombreMateria = nombreMateria;
     }
 
     /**
      * @return the semestreMateria
      */
-    public int getSemestreMateria() {
+    public String getSemestreMateria() {
         return semestreMateria;
     }
 
     /**
      * @param semestreMateria the semestreMateria to set
      */
-    public void setSemestreMateria(int semestreMateria) {
+    public void setSemestreMateria(String semestreMateria) {
         this.semestreMateria = semestreMateria;
     }
 
     /**
      * @return the descripcionMateria
      */
-    public int getDescripcionMateria() {
+    public String getDescripcionMateria() {
         return descripcionMateria;
     }
 
     /**
      * @param descripcionMateria the descripcionMateria to set
      */
-    public void setDescripcionMateria(int descripcionMateria) {
+    public void setDescripcionMateria(String descripcionMateria) {
         this.descripcionMateria = descripcionMateria;
     }
 

@@ -24,6 +24,9 @@
     } else {
         response.sendRedirect("../../index.jsp");
     }
+
+    int idMateria = Integer.parseInt(request.getParameter("materia"));
+
 %>
 
 <!DOCTYPE html>
@@ -57,8 +60,9 @@
                         <div class="nav-content">
                             <div class="col s12">
                                 <ul class="tabs  blue darken-3 tabs-fixed-width">
-                                    <li class="tab col s3"><a class="yellow-text" href="#cantidad">Resumen</a></li>
-                                    <li class="tab col s3"><a class="yellow-text" href="#show">Mostrar</a></li>
+                                    <li class="tab col s3"><a class="yellow-text" href="#resumen">Resumen</a></li>
+                                    <li class="tab col s3"><a class="yellow-text" href="#dimensiones">Dimensiones</a></li>
+                                    <li class="tab col s3"><a class="yellow-text" href="#editar">Editar</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -107,11 +111,6 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="materia.jsp" class="waves-effect yellow-text">
-                                        <i class="material-icons yellow-text">storage</i>Materias
-                                    </a>
-                                </li>
-                                <li>
                                     <a href="carrera.jsp" class="waves-effect yellow-text">
                                         <i class="material-icons yellow-text">format_list_bulleted</i>Carreras
                                     </a>
@@ -141,41 +140,81 @@
             <!-- Inicio del MENU -->
             <div class="row blue darken-3">
 
-                <div id="cantidad" class="col s12">                    
-                    <div class="container">
-                        <h1 class="center yellow-text">Materias</h1>
-                        <h2 class="center yellow-text"><%=conMat.contarMateria()%></h2>
-                        <h3 class="center yellow-text">Materias activas durante esta gestión</h3>
-                    </div>
-
-
+                <!-- Inicio del resumen-->
+                <div id="resumen" class="col s12 blue darken-3 yellow-text">
+                    <%=conMat.getResumenMaterias(idMateria)%>
                 </div>
-                <div id="show">
-                    <%=conMat.verMaterias()%>
-                    <!-- Modal Structure -->
-                    <div id="new" class="modal modal-fixed-footer blue darken-3 yellow-text">
-                        <%=conMat.modalNewMateria()%>
-                    </div>
-                    <div id="update" class="modal modal-fixed-footer blue darken-3 yellow-text ">
-                    </div>
-                    <div id="show_mat" class="modal modal-fixed-footer blue darken-3 yellow-text ">                    
-                        <%=conMat.modal_show_materia()%>
+                <!-- Final del resumen-->
 
-                        <div id="show_criterio1" class="modal modal-fixed-footer blue darken-3 yellow-text ">
+                <!-- Inicio del dimensiones-->
+                <div id="dimensiones">
+                    <%=conMat.getViewDimensionesXMat(idMateria)%>
+                </div>
+                <!-- Final del dimensiones-->
 
+                <!-- Inicio del new-->
+                <div id="new" class="modal modal-fixed-footer blue darken-3 yellow-text">
+                    <%
+                        if (conMat.getCantidadDimensionesXMateria(idMateria) >= 4) {
+                    %>
+                    <div class="modal-content blue darken-3">
+                        <div class="col s12 center">
+                            <h3>No puede Crear Mas dimensiones hasta que de de baja a alguna de las que estan activas</h3>
                         </div>
+                    </div>
+                    <div class="modal-footer blue darken-3 yellow-text">
+                        <div class="col s12">
+                            <button class="btn waves-effect waves-light modal-close yellow accent-2 blue-text right tooltipped" type="button" data-position="button" data-tooltip="Cerrar">
+                                Cerrar<i class="material-icons right">clear_all</i>
+                            </button>
+                        </div>
+                    </div>
+                    <%
+                    } else {
+                    %>
+                    <div class="modal-content blue darken-3">
+                        <div class="row">
+                            <h1 class="center yellow-text">Nueva Dimension</h1>
+                        </div>
+                        <div class="row">
+                            <form method="POST" action="../../dimensiones.do" id="newdimension" class="col s12 yellow-text">
+                                <!--Datos de la carrera -->
+                                <h4>Nueva Dimension</h4>
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <i class="material-icons prefix yellow-text">library_add</i>
+                                        <input id="nombreDimension" type="text" class="validate">
+                                        <label class="yellow-text" for="Nombre Carrera">Nombre Dimension</label>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="modal-footer blue darken-3 yellow-text">
+                        <div class="col s6">
+                            <button class="btn waves-effect waves-light yellow accent-2 blue-text left tooltipped" type="button" id="nuevaDimension"  data-position="button" data-tooltip="Guardar y Validar" data-id=<%=idMateria%> >
+                                Validar y Guardar<i class="material-icons right">save</i>
+                            </button>
+                        </div>
+                        <div id="notificacionNewDimension">
+                        </div>
+                    </div>
+                    <%
+                        }
+                    %>
 
-                    </div>
-                    <div id="show_criterio" class="modal modal-fixed-footer blue darken-3 yellow-text " style="width: 30%;height: 50%">
-                        <%=conMat.modal_show_criterio()%>
-                    </div>
-                    <div id="search" class="modal modal-fixed-footer blue darken-3 yellow-text ">
-
-                    </div>
                 </div>
+                <!-- Final del dimensiones-->
+
+                <!-- Inicio del editar-->
+                <div id="editar" class="col s12">
+
+                    <%=conMat.getEditarMateria(idMateria)%>
+                </div>
+                <!-- Final del editar-->
+
             </div>
             <!-- Final del MENU -->
-
 
         </main>
 

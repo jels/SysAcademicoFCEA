@@ -96,11 +96,6 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="materia.jsp" class="waves-effect yellow-text">
-                                        <i class="material-icons yellow-text">storage</i>Materias
-                                    </a>
-                                </li>
-                                <li>
                                     <a href="carrera.jsp" class="waves-effect yellow-text">
                                         <i class="material-icons yellow-text">format_list_bulleted</i>Carreras
                                     </a>

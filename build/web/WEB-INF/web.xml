@@ -16,6 +16,22 @@
         <servlet-name>TutorCRUD</servlet-name>
         <servlet-class>Servlets.TutorCRUD</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CarreraCRUD</servlet-name>
+        <servlet-class>Servlets.CarreraCRUD</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MateriaCRUD</servlet-name>
+        <servlet-class>Servlets.MateriaCRUD</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DimensionesCRUD</servlet-name>
+        <servlet-class>Servlets.DimensionesCRUD</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CriteriosCRUD</servlet-name>
+        <servlet-class>Servlets.CriteriosCRUD</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/login.do</url-pattern>
@@ -31,6 +47,22 @@
     <servlet-mapping>
         <servlet-name>TutorCRUD</servlet-name>
         <url-pattern>/tutor.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CarreraCRUD</servlet-name>
+        <url-pattern>/carrera.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MateriaCRUD</servlet-name>
+        <url-pattern>/materia.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DimensionesCRUD</servlet-name>
+        <url-pattern>/dimensiones.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CriteriosCRUD</servlet-name>
+        <url-pattern>/criterios.do</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

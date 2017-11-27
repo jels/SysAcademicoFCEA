@@ -4,6 +4,7 @@
     Author     : WarMachine
 --%>
 
+<%@page import="Controller.ControladorCarrera"%>
 <%@page import="Controller.ControladorVarios"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
@@ -28,6 +29,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <% ControladorVarios conVar = new ControladorVarios();%>
+    <% ControladorCarrera conCar = new ControladorCarrera();%>
     <%@include file="head.jsp" %>
 
     <body class="yellow accent-2">
@@ -50,6 +52,16 @@
                             <li><a href="../../web-fcea/index.jsp" class="tooltipped" data-position="button" data-tooltip="Salir"><i class="material-icons yellow-text">directions_run</i></a></li>
                         </ul>
                     </div>
+                    <div class="container">
+                        <div class="nav-content">
+                            <div class="col s12">
+                                <ul class="tabs blue darken-3 tabs-fixed-width">
+                                    <li class="tab col s3"><a class="yellow-text" href="#cantidad">Resumen</a></li>
+                                    <li class="tab col s3"><a class="yellow-text" href="#show">Mostrar</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div> 
                 </nav>
             </div>
 
@@ -94,11 +106,6 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="materia.jsp" class="waves-effect yellow-text">
-                                        <i class="material-icons yellow-text">storage</i>Materias
-                                    </a>
-                                </li>
-                                <li>
                                     <a href="carrera.jsp" class="waves-effect yellow-text">
                                         <i class="material-icons yellow-text">format_list_bulleted</i>Carreras
                                     </a>
@@ -127,6 +134,126 @@
 
             <!-- Inicio del MENU -->
 
+            <div class="row blue darken-3">
+
+                <!-- Inicio cantidad -->
+
+                <div id="cantidad" class="col s12">                    
+                    <div class="container">
+                        <h1 class="center yellow-text">Carreras</h1>
+                        <h2 class="center yellow-text"><%=conCar.cantidadCarreras(usuario)%></h2>
+                        <h3 class="center yellow-text">Todas las Carreras de FCEA </h3>
+                    </div>
+
+
+                </div>
+                <!-- Final cantidad-->
+
+                <!-- Inicio del show -->
+                <div id="show">
+                    <%=conCar.verCarreras(usuario)%>
+                </div>
+                <!-- Final del show-->
+
+                <!-- Inicio del MENU -->
+                <!-- Modal Structure -->
+                <div id="new" class="modal modal-fixed-footer blue darken-3 yellow-text">
+
+                    <div class="modal-content blue darken-3">
+                        <div class="row">
+                            <h1 class="center yellow-text">Nueva Carrera</h1>
+                        </div>
+                        <div class="row">
+                            <form method="POST" action="../../carrera.do" enctype="multipart/form-data" id="nuevacarrera" class="col s12 yellow-text">
+                                <!--Datos de la carrera -->
+                                <h4>Datos de la Carrera</h4>
+                                <div class="row">
+                                    <div class="input-field col s6">
+                                        <i class="material-icons prefix yellow-text">assignment_ind</i>
+                                        <input id="nombreCarrera" type="text" class="validate">
+                                        <label class="yellow-text" for="Nombre Carrera">Nombre Carrera</label>
+                                    </div>
+                                    <div class="input-field col s6">
+                                        <i class="material-icons prefix yellow-text">assignment_ind</i>
+                                        <input id="abreviaturaCarrera" type="text" >
+                                        <label class="yellow-text" for="Abreviatura">Abreviatura</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <i class="material-icons prefix yellow-text">wc</i>
+                                        <textarea id="descripcionCarrera" class="materialize-textarea"></textarea>
+                                        <label for="Descripcion">Descripcion</label>
+                                    </div>
+                                </div>
+                                <h4>Datos del Coordinador</h4>
+                                <!--Datos del Coordinador -->
+                                <div class="row">
+                                    <div class="input-field col s6">
+                                        <i class="material-icons prefix yellow-text">assignment_ind</i>
+                                        <input id="primerNombreCoordinador" type="text" class="validate">
+                                        <label class="yellow-text" for="Primer Nombre">Primer Nombre</label>
+                                    </div>
+                                    <div class="input-field col s6">
+                                        <i class="material-icons prefix yellow-text">assignment_ind</i>
+                                        <input id="segundoNombreCoordinador" type="text" >
+                                        <label class="yellow-text" for="Segundo Nombre">Segundo Nombre</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s6">
+                                        <i class="material-icons prefix yellow-text">wc</i>
+                                        <input id="primerApellidoCoordinador" type="text" class="validate">
+                                        <label class="yellow-text" for="Primer Apellido">Primer Apellido</label>
+                                    </div>
+                                    <div class="input-field col s6">
+                                        <i class="material-icons prefix yellow-text">wc</i>
+                                        <input id="segundoApellidoCoordinador" type="text" >
+                                        <label class="yellow-text" for="Segundo Apellido">Segundo Apellido</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s6">
+                                        <i class="material-icons prefix yellow-text">fingerprint</i>
+                                        <input id="ciCoordinador" type="text" class="validate">
+                                        <label class="yellow-text" for="# de Carnet"># de Carnet</label>
+                                    </div>
+                                    <div class="input-field col s6">
+                                        <i class="material-icons prefix yellow-text">contact_phone</i>
+                                        <input id="telefonoCoordinador" type="text" >
+                                        <label class="yellow-text" for="Telefono">Telefono</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="file-field input-field col s6">
+                                        <div class="btn blue yellow-text">
+                                            <span>Foto</span>
+                                            <input type="file" id="fotoCoordinador">
+                                        </div>
+                                        <div class="file-path-wrapper">
+                                            <input class="file-path validate" type="text"  placeholder="Seleccione una Foto">
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="modal-footer blue darken-3 yellow-text">
+                        <div class="col s6">
+                            <button class="btn waves-effect waves-light yellow accent-2 blue-text left tooltipped" type="button" id="newcarrera" data-id="<%=usuario%>" data-position="button" data-tooltip="Guardar y Validar">
+                                Validar y Guardar<i class="material-icons right">save</i>
+                            </button>
+                        </div>
+                        <div id="notificacionNewCarrera">
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Final del NAV-->
 
             <!-- Final del MENU -->
 

@@ -96,11 +96,6 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="materia.jsp" class="waves-effect yellow-text">
-                                        <i class="material-icons yellow-text">storage</i>Materias
-                                    </a>
-                                </li>
-                                <li>
                                     <a href="carrera.jsp" class="waves-effect yellow-text">
                                         <i class="material-icons yellow-text">format_list_bulleted</i>Carreras
                                     </a>
@@ -130,22 +125,45 @@
             <!-- Inicio del MENU -->
             <div class="container">
                 <div class="row">
-                    <div class="col s4">
+
+                    <!-- Inicio del Estudiantes -->
+                    <div class="col s6">
                         <div class="card blue darken-3 yellow-text hoverable">
                             <div class="card-content">
                                 <span class="card-title center"><i class="medium material-icons">face</i></span>
                                 <h5 class="center">Estudiantes</h5>
-                                <p class="truncate">Una descripcion de los la tabla estudiantes</p>
+                                <p>Son todos los estudiantes que estan registrados en esta gestión academica</p>
                             </div>
                             <div class="card-action center">
                                 <h5><a href="estudiante.jsp" class="yellow-text"> <%=conVar.cantidadEstudiantes()%></a></h5>
                             </div>
                         </div>
                     </div>
+                    <!-- Final del Estudiantes-->
+
+                    <!-- Inicio del Tutores -->
+                    <div class="col s6">
+                        <div class="card blue darken-3 yellow-text hoverable">
+                            <div class="card-content">
+                                <span class="card-title center"><i class="medium material-icons">contacts</i></span>
+                                <h5 class="center">Tutores</h5>
+                                <p>Los tutores Activos que existen para poder asignar sus estudiantes</p>
+                            </div>
+                            <div class="card-action center">
+                                <h5><a href="tutor.jsp" class="yellow-text"><%=conVar.cantidadTutores()%></a></h5>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Final del Tutores-->
+
+                </div>
+                <div class="row">
+
+                    <!-- Inicio del Docentes -->
                     <div class="col s4">
                         <div class="card blue darken-3 yellow-text hoverable">
                             <div class="card-content">
-                                <span class="card-title center"><i class="medium material-icons">card_travel</i></span>
+                                <span class="card-title center"><i class="material-icons">card_travel</i></span>
                                 <h5 class="center">Docentes</h5>
                                 <p class="truncate">Una descripcion de los la tabla Docentes</p>
                             </div>
@@ -154,24 +172,13 @@
                             </div>
                         </div>
                     </div>
+                    <!-- Final del Docentes-->
+
+                    <!-- Inicio del Carreras -->
                     <div class="col s4">
                         <div class="card blue darken-3 yellow-text hoverable">
                             <div class="card-content">
-                                <span class="card-title center"><i class="medium material-icons">contacts</i></span>
-                                <h5 class="center">Tutores</h5>
-                                <p class="truncate">Una descripcion de los la tabla Tutores</p>
-                            </div>
-                            <div class="card-action center">
-                                <h5><a href="tutor.jsp" class="yellow-text"><%=conVar.cantidadTutores()%></a></h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col s4">
-                        <div class="card blue darken-3 yellow-text hoverable">
-                            <div class="card-content">
-                                <span class="card-title center"><i class="medium material-icons">format_list_bulleted</i></span>
+                                <span class="card-title center"><i class="material-icons">format_list_bulleted</i></span>
                                 <h5 class="center">Carreras</h5>
                                 <p class="truncate">Una descripcion de los la tabla Carreras</p>
                             </div>
@@ -180,22 +187,13 @@
                             </div>
                         </div>
                     </div>
+                    <!-- Final del Carreras-->
+
+                    <!-- Inicio del Empresas -->
                     <div class="col s4">
                         <div class="card blue darken-3 yellow-text hoverable">
                             <div class="card-content">
-                                <span class="card-title center"><i class="medium material-icons">storage</i></span>
-                                <h5 class="center">Materias</h5>
-                                <p class="truncate">Una descripcion de los la tabla Materias</p>
-                            </div>
-                            <div class="card-action center">
-                                <h5><a href="materia.jsp" class="yellow-text"><%=conVar.cantidadMaterias()%></a></h5>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col s4">
-                        <div class="card blue darken-3 yellow-text hoverable">
-                            <div class="card-content">
-                                <span class="card-title center"><i class="medium material-icons">store</i></span>
+                                <span class="card-title center"><i class="material-icons">store</i></span>
                                 <h5 class="center">Empresas</h5>
                                 <p class="truncate">Una descripcion de los la tabla Empresas</p>
                             </div>
@@ -204,11 +202,11 @@
                             </div>
                         </div>
                     </div>
+                    <!-- Final del Empresas-->
+
                 </div>
             </div>
             <!-- Final del MENU -->
-
-
 
         </main>
 

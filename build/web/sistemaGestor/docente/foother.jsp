@@ -34,6 +34,7 @@ Scripts
         $('.materialboxed').materialbox();
         $('.modal').modal();
         $('.tooltipped').tooltip({delay: 50});
+        $('#descripcionCarreraAC').trigger('autoresize');
     });
 </script>
 

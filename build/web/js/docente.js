@@ -1,7 +1,85 @@
+//Estudiante---Inicio...
+//Nuevo Estudiante...
+$(function () {
+    $('#nuevoestudiante').click(function (e) {
+        e.preventDefault();
+        var primerNombreEstudiante = document.getElementById('primerNombre').value;
+        var primerApellidoEstudiante = document.getElementById('primerApellido').value;
+        var segundoNombreEstudiante = document.getElementById('segundoNombre').value;
+        var segundoApellidoEstudiante = document.getElementById('segundoApellido').value;
+        var celularEstudiante = document.getElementById('celular').value;
+        var ciEstudiante = document.getElementById('ci').value;
+        var fotoEstudiante = document.getElementById('foto').value;
+        var bandera = false;
+        if (primerNombreEstudiante.length > 0 && primerApellidoEstudiante.length > 0 &&
+                segundoApellidoEstudiante.length > 0 &&
+                celularEstudiante.length > 0 && ciEstudiante.length > 0 && fotoEstudiante.length > 0) {
+            bandera = true;
+        }
+        if (bandera) {
+            $.post('../../estudiante.do', {
+                accion: "crear",
+                primerNombreEstudiante: primerNombreEstudiante,
+                primerApellidoEstudiante: primerApellidoEstudiante,
+                segundoNombreEstudiante: segundoNombreEstudiante,
+                segundoApellidoEstudiante: segundoApellidoEstudiante,
+                celularEstudiante: celularEstudiante,
+                ciEstudiante: ciEstudiante,
+                fotoEstudiante: fotoEstudiante
+
+            }, function (responseText) {
+                if (responseText === "true") {
+                    $('#notificacionnewEstudiante').html("<div class=\"col s6\">\n\
+                                <button class=\"btn waves effect waves light green yellow-text right\" type=\"button\" id=\"nuevoestudiante\">\n\
+                                    Estudiante Creado..!<i class=\"material-icons right\">assignment_turned_in</i>\n\
+                                </button>\n\
+                            </div>");
+                    setTimeout(function () {
+                        window.location.href = "estudiante.jsp";
+                    }, 2000);
+                } else {
+                    $('#notificacionnewEstudiante').html("<div class=\"row\">\n\
+                                                        <div class=\"container\">\n\
+                                                        <div class=\"container\">\n\
+                                                        <h5 class=\"center-align yellow-text red accent-4\">\n\
+                                                        Error al Creado Estudiante o Estudiante Existente\n\
+                                                        </h5>\n\
+                                                        </div>\n\
+                                                        </div>\n\
+                                                        </div>");
+                }
+            });
+        } else {
+            alert('Rellene todos los campos...');
+        }
+    });
+});
+//dar de Baja estudiante...
+$(function () {
+    $('tr #baja_estudiante').click(function (e) {
+        e.preventDefault();
+        var opcion = confirm("Desea Cambiar El estado del Estudiante?");
+        if (opcion) {
+            var CI_estudiante = $(this).attr('data-id');
+            alert(CI_estudiante);
+            $.post('../../estudiante.do', {
+                accion: "baja",
+                CI_estudiante: CI_estudiante
+            }, function (responseText) {
+                if (responseText === "true") {
+                    alert("Estudiante Actualizado");
+                    window.location.href = "estudiante.jsp";
+                } else {
+                    alert("Error al Actualizar Estudiante");
+                }
+            });
+        }
+    });
+});
+//buscar estudiante...
 $(function () {
     $('#buscar_estudiante').click(function (e) {
         e.preventDefault();
-
         var apellido_estudiante = document.getElementById('apellido_estudiante').value;
         var CI_estudiante = document.getElementById('ci_estudiante').value;
         var tutor = $(this).attr('data-id');
@@ -25,11 +103,10 @@ $(function () {
 
     });
 });
-
+//Actualizacion del estudiante...
 $(function () {
     $('#estudianteAc').click(function (e) {
         e.preventDefault();
-
         var primerNombreEstudianteAc = document.getElementById('primerNombreAc').value;
         var primerApellidoEstudianteAc = document.getElementById('primerApellidoAc').value;
         var segundoNombreEstudianteAc = document.getElementById('segundoNombreAc').value;
@@ -79,11 +156,10 @@ $(function () {
         }
     });
 });
-
+//guardar la nota del estudiante...
 $(function () {
     $('#guardarNuevaNota').click(function (e) {
         e.preventDefault();
-
         var nota1 = document.getElementById('nota1').value;
         var nota2 = document.getElementById('nota2').value;
         var nota3 = document.getElementById('nota3').value;
@@ -104,9 +180,7 @@ $(function () {
         var nota18 = document.getElementById('nota18').value;
         var nota19 = document.getElementById('nota19').value;
         var nota20 = document.getElementById('nota20').value;
-
         var CI_estudiante = $(this).attr('data-id');
-
         alert(CI_estudiante);
         if (nota1 > 0 && nota2 > 0 && nota3 > 0 && nota4 > 0 &&
                 nota5 > 0 && nota6 > 0 && nota7 > 0 && nota8 > 0 &&
@@ -147,7 +221,6 @@ $(function () {
                         setTimeout(function () {
                             window.location.href = "estudiante.jsp";
                         }, 2000);
-
                     } else {
                         $('#notaGuardada').html("<a class=\"waves-effect waves-light waves-teal yellow red-text btn tooltipped\" data-position=\"button\" data-tooltip=\"Error al Guardar Notas\">\n\
                                     <i class=\"material-icons right\">close</i>\n\
@@ -166,3 +239,498 @@ $(function () {
 
     });
 });
+//Estudiante---Fin...
+//
+//Carrera---Inicio...
+//Nueva Carrera...
+$(function () {
+    $('#newcarrera').click(function (e) {
+        e.preventDefault();
+        var docente = $(this).attr('data-id');
+        var nombreCarrera = document.getElementById('nombreCarrera').value;
+        var abreviaturaCarrera = document.getElementById('abreviaturaCarrera').value;
+        var descripcionCarrera = document.getElementById('descripcionCarrera').value;
+        var primerNombreCoordinador = document.getElementById('primerNombreCoordinador').value;
+        var segundoNombreCoordinador = document.getElementById('segundoNombreCoordinador').value;
+        var primerApellidoCoordinador = document.getElementById('primerApellidoCoordinador').value;
+        var segundoApellidoCoordinador = document.getElementById('segundoApellidoCoordinador').value;
+        var ciCoordinador = document.getElementById('ciCoordinador').value;
+        var telefonoCoordinador = document.getElementById('telefonoCoordinador').value;
+        var fotoCoordinador = document.getElementById('fotoCoordinador').value;
+        var bandera = false;
+        if (nombreCarrera.length > 0 && abreviaturaCarrera.length > 0 &&
+                descripcionCarrera.length > 0 &&
+                primerNombreCoordinador.length > 0 && primerApellidoCoordinador.length > 0 &&
+                segundoApellidoCoordinador.length > 0 && ciCoordinador.length > 0 &&
+                telefonoCoordinador.length > 0 && fotoCoordinador.length > 0) {
+            bandera = true;
+        }
+
+        if (bandera) {
+            var opcion = confirm("Seguro que Desea Crear Una nueva Carrera?");
+            if (opcion) {
+                $.post('../../carrera.do', {
+                    accion: "crear",
+                    nombreCarrera: nombreCarrera,
+                    abreviaturaCarrera: abreviaturaCarrera,
+                    descripcionCarrera: descripcionCarrera,
+                    primerNombreCoordinador: primerNombreCoordinador,
+                    segundoNombreCoordinador: segundoNombreCoordinador,
+                    primerApellidoCoordinador: primerApellidoCoordinador,
+                    segundoApellidoCoordinador: segundoApellidoCoordinador,
+                    ciCoordinador: ciCoordinador,
+                    telefonoCoordinador: telefonoCoordinador,
+                    fotoCoordinador: fotoCoordinador,
+                    docente: docente
+
+                }, function (responseText) {
+                    if (responseText === "true") {
+                        $('#notificacionNewCarrera').html("\
+                    <div class=\"col s6\">\n\
+                        <button class=\"btn waves-effect waves-light green yellow-text right tooltipped\" type=\"button\" data-position=\"button\" data-tooltip=\"Carrera Creada Correctamente...\">\n\
+                            <i class=\"material-icons left\">done_all</i>\n\
+                                Creado...!!!\n\
+                            <i class=\"material-icons right\">done_all</i>\n\
+                        </button>\n\
+                    </div>");
+                        setTimeout(function () {
+                            window.location.href = "carrera.jsp";
+                        }, 2000);
+                    } else {
+                        $('#notificacionNewCarrera').html("\
+                    <div class=\"col s6\">\n\
+                        <button class=\"btn waves-effect waves-light red yellow-text right tooltipped\" type=\"button\" data-position=\"button\" data-tooltip=\"Error al Crear La Carrera\">\n\
+                            <i class=\"material-icons left\">clear</i>\n\
+                                Error\n\
+                            <i class=\"material-icons right\">clear</i>\n\
+                        </button>\n\
+                    </div>");
+                    }
+                });
+            }
+        } else {
+            alert('Rellene todos los campos...');
+        }
+    });
+});
+//dar de Baja Carrera...
+$(function () {
+    $('tr #baja_carrera').click(function (e) {
+        e.preventDefault();
+        var opcion = confirm("Desea Cambiar El estado de la Carrera?");
+        if (opcion) {
+            var abreviatura = $(this).attr('data-id');
+            alert(abreviatura);
+            $.post('../../carrera.do', {
+                accion: "baja",
+                abreviatura: abreviatura
+            }, function (responseText) {
+                if (responseText === "true") {
+                    alert("Carrera Actualizada");
+                    window.location.href = "carrera.jsp";
+                } else {
+                    alert("Error al Actualizar la Carrera");
+                }
+            });
+        }
+    });
+});
+////Actualizacion del Carrera...
+$(function () {
+    $('#actualizarCarrera').click(function (e) {
+        e.preventDefault();
+        var idCarrera = $(this).attr('data-id');
+        alert(idCarrera);
+        var nombreCarrera = document.getElementById('nombreCarreraAC').value;
+        var abreviaturaCarrera = document.getElementById('abreviaturaCarreraAC').value;
+        var descripcionCarrera = document.getElementById('descripcionCarreraAC').value;
+        var bandera = false;
+        if (nombreCarrera.length > 0 && abreviaturaCarrera.length > 0 &&
+                descripcionCarrera.length > 0) {
+            bandera = true;
+        }
+        if (bandera) {
+            var opcion = confirm("Seguro que Desea Crear Una nueva Carrera?");
+            if (opcion) {
+                $.post('../../carrera.do', {
+                    accion: "update",
+                    nombreCarrera: nombreCarrera,
+                    abreviaturaCarrera: abreviaturaCarrera,
+                    descripcionCarrera: descripcionCarrera,
+                    idCarrera: idCarrera
+
+                }, function (responseText) {
+                    alert(responseText);
+                    if (responseText === "true") {
+                        $('#notificacionUpdateCarrera').html("\
+                    <div class=\"col s6\">\n\
+                        <button class=\"btn waves-effect waves-light green yellow-text right tooltipped\" type=\"button\" data-position=\"button\" data-tooltip=\"Carrera Creada Correctamente...\">\n\
+                            <i class=\"material-icons left\">done_all</i>\n\
+                                Actualizado...!!!\n\
+                            <i class=\"material-icons right\">done_all</i>\n\
+                        </button>\n\
+                    </div>");
+                        setTimeout(function () {
+                            window.location.href = "carrera.jsp";
+                        }, 2000);
+                    } else {
+                        $('#notificacionUpdateCarrera').html("\
+                    <div class=\"col s6\">\n\
+                        <button class=\"btn waves-effect waves-light red yellow-text right tooltipped\" type=\"button\" data-position=\"button\" data-tooltip=\"Error al Crear La Carrera\">\n\
+                            <i class=\"material-icons left\">clear</i>\n\
+                                Error\n\
+                            <i class=\"material-icons right\">clear</i>\n\
+                        </button>\n\
+                    </div>");
+                    }
+                });
+            }
+        } else {
+            alert('Rellene todos los campos...');
+        }
+    });
+});
+//actualizacion del coordinador
+$(function () {
+    $('#actualizarCoordinador').click(function (e) {
+        e.preventDefault();
+        var idCoordinador = $(this).attr('data-id');
+        var primerNombreCoordinador = document.getElementById('primerNombreCoordinadorAC').value;
+        var segundoNombreCoordinador = document.getElementById('segundoNombreCoordinadorAC').value;
+        var primerApellidoCoordinador = document.getElementById('primerApellidoCoordinadorAC').value;
+        var segundoApellidoCoordinador = document.getElementById('segundoApellidoCoordinadorAC').value;
+        var ciCoordinador = document.getElementById('ciCoordinadorAC').value;
+        var telefonoCoordinador = document.getElementById('telefonoCoordinadorAC').value;
+        var fotoCoordinador = document.getElementById('fotoCoordinadorAC').value;
+        var bandera = false;
+        if (primerNombreCoordinador.length > 0 && primerApellidoCoordinador.length > 0 &&
+                segundoApellidoCoordinador.length > 0 && ciCoordinador.length > 0 &&
+                telefonoCoordinador.length > 0) {
+            bandera = true;
+        }
+        if (bandera) {
+            var opcion = confirm("Seguro que Desea Crear Una nueva Carrera?");
+            if (opcion) {
+                $.post('../../carrera.do', {
+                    accion: "updateCoordinador",
+                    primerNombreCoordinador: primerNombreCoordinador,
+                    segundoNombreCoordinador: segundoNombreCoordinador,
+                    primerApellidoCoordinador: primerApellidoCoordinador,
+                    segundoApellidoCoordinador: segundoApellidoCoordinador,
+                    ciCoordinador: ciCoordinador,
+                    telefonoCoordinador: telefonoCoordinador,
+                    fotoCoordinador: fotoCoordinador,
+                    idCoordinador: idCoordinador
+
+                }, function (responseText) {
+                    if (responseText === "true") {
+                        $('#notificacionUpdateCoordinador').html("\
+                    <div class=\"col s6\">\n\
+                        <button class=\"btn waves-effect waves-light green yellow-text right tooltipped\" type=\"button\" data-position=\"button\" data-tooltip=\"Carrera Creada Correctamente...\">\n\
+                            <i class=\"material-icons left\">done_all</i>\n\
+                                Actualizado...!!!\n\
+                            <i class=\"material-icons right\">done_all</i>\n\
+                        </button>\n\
+                    </div>");
+                        setTimeout(function () {
+                            location.reload(true);
+                        }, 2000);
+                    } else {
+                        $('#notificacionUpdateCoordinador').html("\
+                    <div class=\"col s6\">\n\
+                        <button class=\"btn waves-effect waves-light red yellow-text right tooltipped\" type=\"button\" data-position=\"button\" data-tooltip=\"Error al Crear La Carrera\">\n\
+                            <i class=\"material-icons left\">clear</i>\n\
+                                Error\n\
+                            <i class=\"material-icons right\">clear</i>\n\
+                        </button>\n\
+                    </div>");
+                    }
+                });
+            }
+        } else {
+            alert('Rellene todos los campos...');
+        }
+    });
+});
+//Carrera---Fin...
+
+//Materia---Inicio...
+//Nueva Materia...
+$(function () {
+    $('#nuevaMateria').click(function (e) {
+        e.preventDefault();
+        var carrera = $(this).attr('data-id');
+        var nombreMateria = document.getElementById('nombreMat').value;
+        var semestreMateria = document.getElementById('semestreMat').value;
+        var descripcionMateria = document.getElementById('descripcionMateria').value;
+        var horasPracticas = document.getElementById('horasPracticas').value;
+        var estadoMateria = 1;
+        var bandera = false;
+        if (nombreMateria.length > 0 && semestreMateria.length > 0 &&
+                descripcionMateria.length > 0 &&
+                horasPracticas.length > 0) {
+            bandera = true;
+        }
+
+
+        if (bandera) {
+            var opcion = confirm("Desea Crear Una nueva Materia?");
+            if (opcion) {
+                alert("nombre: " + nombreMateria);
+                $.post('../../materia.do', {
+                    accion: "crear",
+                    nombreMateria: nombreMateria,
+                    semestreMateria: semestreMateria,
+                    descripcionMateria: descripcionMateria,
+                    horasPracticas: horasPracticas,
+                    estadoMateria: estadoMateria,
+                    carrera: carrera
+
+                }, function (responseText) {
+                    if (responseText === "true") {
+                        $('#notificacionNewMateria').html("\
+                    <div class=\"col s6\">\n\
+                        <button class=\"btn waves-effect waves-light green yellow-text right tooltipped\" type=\"button\" data-position=\"button\" data-tooltip=\"Carrera Creada Correctamente...\">\n\
+                            <i class=\"material-icons left\">done_all</i>\n\
+                                Creacion Exitosa.!\n\
+                            <i class=\"material-icons right\">done_all</i>\n\
+                        </button>\n\
+                    </div>");
+                        setTimeout(function () {
+                            window.location.href = "carrera_ver.jsp?carrera=" + carrera;
+                        }, 2000);
+                    } else {
+                        $('#notificacionNewMateria').html("\
+                    <div class=\"col s6\">\n\
+                        <button class=\"btn waves-effect waves-light red yellow-text right tooltipped\" type=\"button\" data-position=\"button\" data-tooltip=\"Error al Crear La Carrera\">\n\
+                            <i class=\"material-icons left\">clear</i>\n\
+                                Error..!!!\n\
+                            <i class=\"material-icons right\">clear</i>\n\
+                        </button>\n\
+                    </div>");
+                    }
+                });
+            }
+        } else {
+            alert('Rellene todos los campos...');
+        }
+
+    });
+});
+//dar de Baja Materia...
+$(function () {
+    $('tr #baja_materia').click(function (e) {
+        e.preventDefault();
+        var idMateria = $(this).attr('data-id');
+        var opcion = confirm("Desea Cambiar El estado de la Materia?");
+        if (opcion) {
+
+            alert(idMateria);
+            $.post('../../materia.do', {
+                accion: "baja",
+                idMateria: idMateria
+            }, function (responseText) {
+                if (responseText === "true") {
+                    alert("Materia Actualizado");
+                    setTimeout(function () {
+                        location.reload(true);
+                    }, 2000);
+                } else {
+                    alert("Error al Actualizar Materia");
+                }
+            });
+        }
+    });
+});
+//Actualizacion del Materia...
+$(function () {
+    $('#actualizarMateria').click(function (e) {
+        e.preventDefault();
+        var idMateria = $(this).attr('data-id');
+        var nombreMateria = document.getElementById('nombreMatAC').value;
+        var semestreMateria = document.getElementById('semestreMatAC').value;
+        var descripcionMateria = document.getElementById('descripcionMateriaAC').value;
+        var horasPracticas = document.getElementById('horasPracticasAC').value;
+        var estadoMateria = 1;
+        var bandera = false;
+        if (nombreMateria.length > 0 && semestreMateria.length > 0 &&
+                descripcionMateria.length > 0 &&
+                horasPracticas.length > 0) {
+            bandera = true;
+        }
+        if (bandera) {
+            var opcion = confirm("Desea Crear Una nueva Materia?");
+            if (opcion) {
+                $.post('../../materia.do', {
+                    accion: "update",
+                    nombreMateria: nombreMateria,
+                    semestreMateria: semestreMateria,
+                    descripcionMateria: descripcionMateria,
+                    horasPracticas: horasPracticas,
+                    estadoMateria: estadoMateria,
+                    idMateria: idMateria
+
+                }, function (responseText) {
+                    if (responseText === "true") {
+                        $('#notificacionACMateria').html("\
+                    <div class=\"col s6\">\n\
+                        <button class=\"btn waves-effect waves-light green yellow-text right tooltipped\" type=\"button\" data-position=\"button\" data-tooltip=\"Carrera Creada Correctamente...\">\n\
+                            <i class=\"material-icons left\">done_all</i>\n\
+                                Actualizada...!!!\n\
+                            <i class=\"material-icons right\">done_all</i>\n\
+                        </button>\n\
+                    </div>");
+                        setTimeout(function () {
+                            location.reload(true);
+                        }, 2000);
+                    } else {
+                        $('#notificacionACMateria').html("\
+                    <div class=\"col s6\">\n\
+                        <button class=\"btn waves-effect waves-light red yellow-text right tooltipped\" type=\"button\" data-position=\"button\" data-tooltip=\"Error al Crear La Carrera\">\n\
+                            <i class=\"material-icons left\">clear</i>\n\
+                                Error..!!\n\
+                            <i class=\"material-icons right\">clear</i>\n\
+                        </button>\n\
+                    </div>");
+                    }
+                });
+            }
+        } else {
+            alert('Rellene todos los campos...');
+        }
+
+    });
+});
+//Materia---Fin...
+
+//Dimensiones---Inicio...
+//Nueva Dimension nuevaDimension
+$(function () {
+    $('#nuevaDimension').click(function (e) {
+        e.preventDefault();
+        var idMateria = $(this).attr('data-id');
+        var nombreDimension = document.getElementById('nombreDimension').value;
+        var estadoDimension = 1;
+        var bandera = false;
+        if (nombreDimension.length > 0) {
+            bandera = true;
+        }
+        if (bandera) {
+            var opcion = confirm("Desea Crear Una nueva Dimension?");
+            if (opcion) {
+                $.post('../../dimensiones.do', {
+                    accion: "crear",
+                    nombreDimension: nombreDimension,
+                    estadoDimension: estadoDimension,
+                    idMateria: idMateria
+
+                }, function (responseText) {
+                    if (responseText === "true") {
+                        $('#notificacionNewDimension').html("\
+                    <div class=\"col s6\">\n\
+                        <button class=\"btn waves-effect waves-light green yellow-text right tooltipped\" type=\"button\" data-position=\"button\" data-tooltip=\"Carrera Creada Correctamente...\">\n\
+                            <i class=\"material-icons left\">done_all</i>\n\
+                                Creacion Exitosa.!\n\
+                            <i class=\"material-icons right\">done_all</i>\n\
+                        </button>\n\
+                    </div>");
+                        setTimeout(function () {
+                            location.reload(true);
+                        }, 2000);
+                    } else {
+                        $('#notificacionNewDimension').html("\
+                    <div class=\"col s6\">\n\
+                        <button class=\"btn waves-effect waves-light red yellow-text right tooltipped\" type=\"button\" data-position=\"button\" data-tooltip=\"Error al Crear La Carrera\">\n\
+                            <i class=\"material-icons left\">clear</i>\n\
+                                Error..!!!\n\
+                            <i class=\"material-icons right\">clear</i>\n\
+                        </button>\n\
+                    </div>");
+                    }
+                });
+            }
+        } else {
+            alert('Rellene todos los campos...');
+        }
+
+    });
+});
+
+//baja dimension
+$(function () {
+    $('tr #baja_dimension').click(function (e) {
+        e.preventDefault();
+        var idDimension = $(this).attr('data-id');
+        var opcion = confirm("Desea Cambiar El estado de la Dimension?");
+        if (opcion) {
+            $.post('../../dimensiones.do', {
+                accion: "baja",
+                idDimension: idDimension
+            }, function (responseText) {
+                if (responseText === "true") {
+                    alert("Dimension Actualizado");
+                    setTimeout(function () {
+                        location.reload(true);
+                    }, 2000);
+                } else {
+                    alert("Error al Actualizar la Dimension");
+                }
+            });
+        }
+    });
+});
+//Actualizar Dimension
+$(function () {
+    $('#actualizarDimension').click(function (e) {
+        e.preventDefault();
+        var idDimension = $(this).attr('data-id');
+        var nombreDimension = document.getElementById('nombreDimensionAC').value;
+        var estadoDimension = 1;
+        var bandera = false;
+        if (nombreDimension.length > 0) {
+            bandera = true;
+        }
+        if (bandera) {
+            var opcion = confirm("Seguro que Desea Actualizar?");
+            if (opcion) {
+                $.post('../../dimensiones.do', {
+                    accion: "update",
+                    nombreDimension: nombreDimension,
+                    estadoDimension: estadoDimension,
+                    idDimension: idDimension
+
+                }, function (responseText) {
+                    if (responseText === "true") {
+                        $('#notificacionActDimension').html("\
+                    <div class=\"col s6\">\n\
+                        <button class=\"btn waves-effect waves-light green yellow-text right tooltipped\" type=\"button\" data-position=\"button\" data-tooltip=\"Carrera Creada Correctamente...\">\n\
+                            <i class=\"material-icons left\">done_all</i>\n\
+                                Actualizacion Exitosa.!\n\
+                            <i class=\"material-icons right\">done_all</i>\n\
+                        </button>\n\
+                    </div>");
+                        setTimeout(function () {
+                            location.reload(true);
+                        }, 2000);
+                    } else {
+                        $('#notificacionActDimension').html("\
+                    <div class=\"col s6\">\n\
+                        <button class=\"btn waves-effect waves-light red yellow-text right tooltipped\" type=\"button\" data-position=\"button\" data-tooltip=\"Error al Crear La Carrera\">\n\
+                            <i class=\"material-icons left\">clear</i>\n\
+                                Error..!!!\n\
+                            <i class=\"material-icons right\">clear</i>\n\
+                        </button>\n\
+                    </div>");
+                    }
+                });
+            }
+        } else {
+            alert('Rellene todos los campos...');
+        }
+
+    });
+});
+
+
+//Dimensiones---Fin...
+

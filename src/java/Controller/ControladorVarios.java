@@ -52,7 +52,7 @@ public class ControladorVarios extends Conexion {
         } catch (Exception e) {
             System.out.println("Error en cantidadCarreras.getCloseConexion: " + e);
         }
-        return carr.contar_carrera();
+        return carr.contar_carrera(2);
     }
 
     public int cantidadMaterias() {

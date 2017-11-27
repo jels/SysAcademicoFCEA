@@ -19,27 +19,56 @@ public class ControladorMateria extends Conexion {
 
     public int contarMateria() {
         Materia_model mamo = new Materia_model();
+        int cantidad = mamo.countMaterias();
         try {
             getCloseConexion();
         } catch (Exception e) {
             System.out.println("Error en contarMateria.getCloseConexion: " + e);
         }
-        return mamo.countMaterias();
+        return cantidad;
     }
 
-    public ResultSet getListaIDCriterioXEst(String CI_estudiante) {
+    public boolean newDimension(Dimension dimension) {
 
-        Criterios_model criMo = new Criterios_model();
-
-        return criMo.getListaCriterioXEst(CI_estudiante);
+        Dimension_model dimMo = new Dimension_model();
+        boolean bandera = dimMo.new_dimension(dimension);
+        try {
+            getCloseConexion();
+        } catch (Exception e) {
+            System.out.println("Error en newDimension.getCloseConexion: " + e);
+        }
+        return bandera;
     }
 
-    public String verMaterias() {
+    public boolean updateDimension(Dimension dimension) {
+
+        Dimension_model dimMo = new Dimension_model();
+        boolean bandera = dimMo.getUpdateDimension(dimension);
+        try {
+            getCloseConexion();
+        } catch (Exception e) {
+            System.out.println("Error en updateDimension.getCloseConexion: " + e);
+        }
+        return bandera;
+    }
+
+    public int getCantidadDimensionesXMateria(int idMateria) {
+        Dimension_model dimMo = new Dimension_model();
+        int cantidadDimensionesXMateria = dimMo.getCantidadDimensionesXMat(idMateria);
+        try {
+            getCloseConexion();
+        } catch (Exception e) {
+            System.out.println("Error en getCantidadDimensionesXMateria.getCloseConexion: " + e);
+        }
+        return cantidadDimensionesXMateria;
+    }
+
+    public String getViewDimensionesXMat(int idMateria) {
+
         String htmlcode = "          <div class=\"container\">\n"
                 + "                        <div class=\"row\">\n"
                 + "                            <div class=\"col s12\">\n"
-                + "                                <h1 class=\"center yellow-text\">Materias</h1>\n"
-                + "                                <a href=\"#search\" class=\"waves-effect waves-light yellow accent-2 blue-text text-darken-3 btn-large modal-trigger\"><i class=\"material-icons right\">search</i>Buscar</a>\n"
+                + "                                <h1 class=\"center yellow-text\">Dimensiones</h1>\n"
                 + "                                <a href=\"#new\" class=\"waves-effect waves-light yellow accent-2 blue-text text-darken-3 btn-large right modal-trigger\"><i class=\"material-icons left\">person_add</i>Nuevo</a>\n"
                 + "                            </div>\n"
                 + "                        </div>\n"
@@ -49,22 +78,83 @@ public class ControladorMateria extends Conexion {
                 + "                            <thead>\n"
                 + "                                <tr>\n"
                 + "                                    <th>#</th>\n"
-                + "                                    <th>Carrera</th>\n"
+                + "                                    <th>Nombre</th>\n"
+                + "                                    <th>Estado</th>\n"
+                + "                                    <th class=\"center-align\">Ver - Editar</th>\n"
+                + "                                    <th class=\"center-align\">Dar de Baja</th>\n"
+                + "                                </tr>\n"
+                + "                            </thead>\n"
+                + "                            <tbody>\n";
+        ResultSet dimension;
+        Dimension_model dimMo = new Dimension_model();
+        dimension = dimMo.ver_dimensionesxmateria(idMateria);
+        int i = 1;
+        if (dimension != null) {
+            try {
+                while (dimension.next()) {
+                    System.out.println(dimension.getString(2));
+                    htmlcode += "                <tr>\n"
+                            + "                    <td>" + i + "</td>\n"
+                            + "                    <td>" + dimension.getString(2) + "</td>\n";
+
+                    if (dimension.getInt(3) == 1) {
+                        htmlcode += "                    <td>Activo</td>\n";
+                    } else {
+                        htmlcode += "                    <td>Inactivo</td>\n";
+
+                    }
+                    htmlcode += "    <td><div class=\"center-align\"><a href=\"dimension.jsp?dimension=" + dimension.getInt(1) + "\" data-id=\"" + dimension.getInt(1) + "\" id=\"ver_materia\" class=\"btn-floating btn tooltipped waves-effect waves-light blue yellow-text modal-trigger\" data-position=\"button\" data-tooltip=\"Ver\"><i class=\"material-icons yellow-text\">description</i></a></div></td>\n"
+                            + "     <td><div class=\"center-align\"><a id=\"baja_dimension\" data-id=\"" + dimension.getInt(1) + "\" class=\"btn-floating btn tooltipped waves-effect waves-light blue yellow-text\" data-position=\"button\" data-tooltip=\"Dar de Baja\"><i class=\"material-icons yellow-text\">redo</i></a></div></td>\n"
+                            + "  </tr>"
+                            + "";
+                    i++;
+
+                }
+            } catch (SQLException ex) {
+                System.out.println("Error en getViewDimensionesXMat: " + ex);
+            }
+        } else {
+            htmlcode += "";
+
+        }
+        try {
+            getCloseConexion();
+        } catch (Exception e) {
+            System.out.println("Error en getViewDimensionesXMat.getCloseConexion: " + e);
+        }
+        return htmlcode += "                        </tbody>\n"
+                + "                        </table>\n"
+                + "                    </div>";
+    }
+
+    public String verMateriaXCarrera(String abreviatura) {
+
+        String htmlcode = "          <div class=\"container\">\n"
+                + "                        <div class=\"row\">\n"
+                + "                            <div class=\"col s12\">\n"
+                + "                                <h1 class=\"center yellow-text\">Materias</h1>\n"
+                + "                                <a href=\"#new\" class=\"waves-effect waves-light yellow accent-2 blue-text text-darken-3 btn-large right modal-trigger\"><i class=\"material-icons left\">person_add</i>Nuevo</a>\n"
+                + "                            </div>\n"
+                + "                        </div>\n"
+                + "                    </div>"
+                + "                 <div class=\"container\">\n"
+                + "                        <table class=\"highlight responsive-table blue darken-3 yellow-text\">\n"
+                + "                            <thead>\n"
+                + "                                <tr>\n"
+                + "                                    <th>#</th>\n"
                 + "                                    <th>Nombre</th>\n"
                 + "                                    <th>Descripcion</th>\n"
                 + "                                    <th>Semestre</th>\n"
                 + "                                    <th>Horas</th>\n"
                 + "                                    <th>Estado</th>\n"
-                + "                                    <th class=\"center-align\">Ver</th>\n"
-                + "                                    <th class=\"center-align\">Actualizar</th>\n"
+                + "                                    <th class=\"center-align\">Ver - Editar</th>\n"
                 + "                                    <th class=\"center-align\">Dar de Baja</th>\n"
-                + "                                    <th class=\"center-align\">Eliminar</th>\n"
                 + "                                </tr>\n"
                 + "                            </thead>\n"
                 + "                            <tbody>\n";
         ResultSet rs;
         Materia_model matm = new Materia_model();
-        rs = matm.ver_materias();
+        rs = matm.ver_materias(abreviatura);
         int i = 1;
         if (rs != null) {
             try {
@@ -72,7 +162,6 @@ public class ControladorMateria extends Conexion {
                     System.out.println(rs.getString(7));
                     htmlcode += "                <tr>\n"
                             + "                    <td>" + i + "</td>\n"
-                            + "                    <td>" + rs.getString(7) + "</td>\n"
                             + "                    <td>" + rs.getString(2) + "</td>\n";
                     if (rs.getString(3).length() > 20) {
                         htmlcode += "                    <td><p>" + rs.getString(3).substring(0, 20) + "</p></td>\n";
@@ -87,10 +176,8 @@ public class ControladorMateria extends Conexion {
                         htmlcode += "                    <td>Inactivo</td>\n";
 
                     }
-                    htmlcode += "    <td><div class=\"center-align\"><a href=\"#show_mat\" data-id=\"" + rs.getInt(1) + "\" id=\"ver_materia\" class=\"btn-floating btn tooltipped waves-effect waves-light blue yellow-text modal-trigger\" data-position=\"button\" data-tooltip=\"Ver\"><i class=\"material-icons yellow-text\">description</i></a></div></td>\n"
-                            + "     <td><div class=\"center-align\"><a data-id=\"" + rs.getInt(1) + "\" id=\"actualizar_materia\" class=\"btn-floating btn tooltipped waves-effect waves-light blue yellow-text modal-trigger\" data-position=\"button\" data-tooltip=\"Actualizar\"><i class=\"material-icons yellow-text\">border_color</i></a></div></td>\n"
-                            + "     <td><div class=\"center-align\"><a id=\"baja_materia\" class=\"btn-floating btn tooltipped waves-effect waves-light blue yellow-text\" data-position=\"button\" data-tooltip=\"Dar de Baja\"><i class=\"material-icons yellow-text\">redo</i></a></div></td>\n"
-                            + "     <td><div class=\"center-align\"><a id=\"eliminar_materia\" class=\"btn-floating btn tooltipped waves-effect waves-light blue yellow-text\" data-position=\"button\" data-tooltip=\"Eliminar\"><i class=\"material-icons yellow-text\">delete_forever</i></a></div></td>\n"
+                    htmlcode += "    <td><div class=\"center-align\"><a href=\"materia.jsp?materia=" + rs.getInt(1) + "\" data-id=\"" + rs.getInt(1) + "\" id=\"ver_materia\" class=\"btn-floating btn tooltipped waves-effect waves-light blue yellow-text modal-trigger\" data-position=\"button\" data-tooltip=\"Ver\"><i class=\"material-icons yellow-text\">description</i></a></div></td>\n"
+                            + "     <td><div class=\"center-align\"><a id=\"baja_materia\" data-id=\"" + rs.getInt(1) + "\" class=\"btn-floating btn tooltipped waves-effect waves-light blue yellow-text\" data-position=\"button\" data-tooltip=\"Dar de Baja\"><i class=\"material-icons yellow-text\">redo</i></a></div></td>\n"
                             + "  </tr>"
                             + "";
                     i++;
@@ -111,6 +198,13 @@ public class ControladorMateria extends Conexion {
         return htmlcode += "                        </tbody>\n"
                 + "                        </table>\n"
                 + "                    </div>";
+
+    }
+
+    public ResultSet getListaIDCriterioXEst(String CI_estudiante) {
+
+        Criterios_model criMo = new Criterios_model();
+        return criMo.getListaCriterioXEst(CI_estudiante);
     }
 
     public String modalNewMateria() {
@@ -282,11 +376,11 @@ public class ControladorMateria extends Conexion {
 
         int i = 1;
         int c = 1;
-        double nota = 0;
+        int nota = 0;
         try {
             nombreEstudiante.next();
             if (evaluacionCompleta) {
-                nota = (notMo.getNotaPrimerParcial(CI_Estudiante) / 2) * 0.35;
+                nota = notMo.getNotaPrimerParcial(CI_Estudiante) / 2;
                 htmlcode += "<div class=\"container\">\n"
                         + "     <div class=\"row\">\n"
                         + "       <h3 class=\"center\">" + nombreEstudiante.getString(3) + " " + nombreEstudiante.getString(4) + ", " + nombreEstudiante.getString(1) + " " + nombreEstudiante.getString(2) + "</h3>\n"
@@ -294,7 +388,7 @@ public class ControladorMateria extends Conexion {
                         + "              <h4 class=\"center\">Primer Parcial</h4>\n"
                         + "              <h3 class=\"center\">" + nota + "</h3>\n"
                         + "       </div>\n";
-                nota = (notMo.getNotaSegundoParcial(CI_Estudiante) / 2) * 0.35;
+                nota = notMo.getNotaSegundoParcial(CI_Estudiante) / 2;
                 htmlcode += "       <div class=\"col s6\">\n"
                         + "              <h4 class=\"center\">Segundo Parcial</h4>\n"
                         + "              <h3 class=\"center\">" + nota + "</h3>\n"
@@ -439,8 +533,8 @@ public class ControladorMateria extends Conexion {
                         + "       \n";
                 htmlcode += "<h4 class=\"center\">Primer Parcial</h4>\n";
                 dimensiones = dimMo.getDimensiones(idMateria);
+                System.out.println("idMateria: " + idMateria);
                 while (dimensiones.next()) {
-
                     switch (i) {
                         case 1:
                             htmlcode += "<div class=\"col s6\">\n"
@@ -546,13 +640,12 @@ public class ControladorMateria extends Conexion {
                         + "     <div id=\"notaGuardada\" class=\"col s6 center-aling\">\n"
                         + "     </div>\n"
                         + "</div>\n"
-                        + "</div>\n"
                         + ""
                         + "         <div class=\"col s6\">\n"
                         + "             <h4 class=\"center\">Segundo Parcial</h4>\n"
                         + "             <h4 class=\"yellow accent-2 red-text center\">Aun sin Asignar Nota</h4>\n"
                         + "         </div>\n"
-                        + "     \n"
+                        + "     </div>\n"
                         + "\n";
             }
 
@@ -565,6 +658,7 @@ public class ControladorMateria extends Conexion {
         } catch (Exception e) {
             System.out.println("Error en getEvaluacion.getCloseConexion: " + e);
         }
+        System.out.println("htmlcode: " + htmlcode);
         return htmlcode;
     }
 
@@ -804,6 +898,235 @@ public class ControladorMateria extends Conexion {
         }
         System.out.println("htmlcode getEvaluacionDocente: ");
         System.out.println(htmlcode);
+        return htmlcode;
+    }
+
+    public boolean bajaMateria(int idMateria) {
+
+        Materia_model matMo = new Materia_model();
+        boolean bandera;
+        if (matMo.getEstadoMateria(idMateria) == 1) {
+            bandera = matMo.baja_materia(idMateria, 0);
+            try {
+                getCloseConexion();
+            } catch (Exception e) {
+                System.out.println("Error en bajaMateria.getCloseConexion: " + e);
+            }
+        } else {
+            bandera = matMo.baja_materia(idMateria, 1);
+            try {
+                getCloseConexion();
+            } catch (Exception e) {
+                System.out.println("Error en bajaMateria.getCloseConexion: " + e);
+            }
+        }
+        return bandera;
+    }
+
+    public String getResumenMaterias(int idMateria) {
+
+        Materia_model matMo = new Materia_model();
+        String nombreMateria = matMo.getNombreMateria(idMateria);
+        try {
+            getCloseConexion();
+        } catch (Exception e) {
+            System.out.println("Error en getResumenMaterias.getCloseConexion: " + e);
+        }
+        Dimension_model dimMo = new Dimension_model();
+        int cantidadDimensionesXMateria = dimMo.getCantidadDimensionesXMat(idMateria);
+        try {
+            getCloseConexion();
+        } catch (Exception e) {
+            System.out.println("Error en getResumenMaterias.getCloseConexion: " + e);
+        }
+        String htmlcode = "                    <div class=\"container center\">\n"
+                + "                        <div class=\"row\">\n"
+                + "                            <div class=\"col s12\">\n"
+                + "                                <h5>Materia</h5>\n"
+                + "                                <h3>" + nombreMateria + "</h3>\n"
+                + "                            </div>\n"
+                + "                        </div>\n"
+                + "                        <div class=\"row\">\n"
+                + "                            <div class=\"col s12\">\n"
+                + "                                <h5>Dimensiones</h5>\n"
+                + "                                <h3>" + cantidadDimensionesXMateria + "</h3>\n"
+                + "                            </div>\n"
+                + "                        </div>\n"
+                + "                    </div>\n";
+
+        return htmlcode;
+    }
+
+    public String getEditarMateria(int idMateria) {
+
+        String htmlcode = "";
+        Materia_model matMo = new Materia_model();
+        ResultSet materia = matMo.getMateria(idMateria);
+
+        try {
+            materia.next();
+            htmlcode = "           <div class=\"container\">\n"
+                    + "                        <div class=\"row\">\n"
+                    + "                            <h1 class=\"center yellow-text\">Actualizar Materia</h1>\n"
+                    + "                        </div>\n"
+                    + "                        <div class=\"row\">\n"
+                    + "                            <form id=\"updateMateria\" class=\"col s12 yellow-text\">\n"
+                    + "                                <div class=\"row\">\n"
+                    + "                                    <div class=\"input-field col s6\">\n"
+                    + "                                        <i class=\"material-icons prefix yellow-text\">assignment_ind</i>\n"
+                    + "                                        <input id=\"nombreMatAC\" type=\"text\" value=\"" + materia.getString(3) + "\" class=\"validate\">\n"
+                    + "                                        <label class=\"yellow-text\" for=\"Nombre Materia\">Nombre Materia</label>\n"
+                    + "                                    </div>\n"
+                    + "                                    <div class=\"input-field col s6\">\n"
+                    + "                                        <i class=\"material-icons prefix yellow-text\">assignment_ind</i>\n"
+                    + "                                        <input id=\"semestreMatAC\" type=\"text\" value=\"" + materia.getString(5) + "\" >\n"
+                    + "                                        <label class=\"yellow-text\" for=\"Semestre\">Semestre</label>\n"
+                    + "                                    </div>\n"
+                    + "                                </div>\n"
+                    + "                                <div class=\"row\">\n"
+                    + "                                    <div class=\"input-field col s6\">\n"
+                    + "                                        <i class=\"material-icons prefix yellow-text\">wc</i>\n"
+                    + "                                        <input id=\"horasPracticasAC\" type=\"number\" value=\"" + materia.getInt(6) + "\" class=\"validate\">\n"
+                    + "                                        <label class=\"yellow-text\" for=\"Horas Practicas\">Horas Practicas</label>\n"
+                    + "                                    </div>\n"
+                    + "                                    <div class=\"input-field col s6\">\n"
+                    + "                                        <i class=\"material-icons prefix yellow-text\">wc</i>\n"
+                    + "                                        <input id=\"descripcionMateriaAC\" type=\"text\" value=\"" + materia.getString(4) + "\" class=\"validate\">\n"
+                    + "                                        <label class=\"yellow-text\" for=\"Descripcion Materia\">Descripcion Materia</label>\n"
+                    + "                                    </div>\n"
+                    + "                                </div>\n"
+                    + "                            </form>\n"
+                    + "                        </div>\n"
+                    + "                        <div class=\"col s6\">\n"
+                    + "                            <button class=\"btn waves-effect waves-light yellow accent-2 blue-text left\" type=\"button\" id=\"actualizarMateria\" data-id=\"" + materia.getInt(2) + "\" >\n"
+                    + "                                Validar y Guardar<i class=\"material-icons right\">save</i>\n"
+                    + "                            </button>\n"
+                    + "                            <br><br><br><br>\n"
+                    + "                        </div>\n"
+                    + "                        <div id=\"notificacionACMateria\">\n"
+                    + "                        </div>\n"
+                    + "                    </div>";
+
+        } catch (Exception e) {
+            System.out.println("Error en  getEditarMateria: " + e);
+        }
+        try {
+            getCloseConexion();
+        } catch (Exception e) {
+            System.out.println("Error en getEditarMateria.getCloseConexion: " + e);
+        }
+
+        return htmlcode;
+    }
+
+    public boolean updateMateria(Materia materia) {
+
+        Materia_model matMo = new Materia_model();
+        boolean bandera = matMo.actualizarMateria(materia);
+        try {
+            getCloseConexion();
+        } catch (Exception e) {
+            System.out.println("Error en updateMateria.getCloseConexion: " + e);
+        }
+        return bandera;
+    }
+
+    public boolean bajaDimension(int idDimension) {
+
+        Dimension_model dimMo = new Dimension_model();
+        boolean bandera;
+        Materia_model matMo = new Materia_model();
+        int idMateria = matMo.getIdMateriaDimension(idDimension);
+        int cantidadDimensionesActivas = dimMo.getCantidadDimensionesXMat(idMateria);
+        if (cantidadDimensionesActivas == 4) {
+            if (dimMo.getEstadoDimension(idDimension) == 1) {
+                bandera = dimMo.baja_dimension(idDimension, 0);
+                try {
+                    getCloseConexion();
+                } catch (Exception e) {
+                    System.out.println("Error en bajaDimension.getCloseConexion: " + e);
+                }
+            } else {
+                bandera = false;
+            }
+        } else if (dimMo.getEstadoDimension(idDimension) == 1) {
+            bandera = dimMo.baja_dimension(idDimension, 0);
+            try {
+                getCloseConexion();
+            } catch (Exception e) {
+                System.out.println("Error en bajaDimension.getCloseConexion: " + e);
+            }
+        } else {
+            bandera = dimMo.baja_dimension(idDimension, 1);
+            try {
+                getCloseConexion();
+            } catch (Exception e) {
+                System.out.println("Error en bajaDimension.getCloseConexion: " + e);
+            }
+        }
+        return bandera;
+    }
+
+    public String viewDimension(int idDimension) {
+
+        Dimension_model dimMo = new Dimension_model();
+        String nombreDimension = dimMo.getNombreDimension(idDimension);
+        int cantidadCriterios = dimMo.getCantidadCriteriosXDimension(idDimension);
+        String htmlcode = "<div class=\"container\">\n"
+                + "                        <div class=\"col s12 center\">\n"
+                + "                            <h5>Dimension</h5>\n"
+                + "                            <h3>" + nombreDimension + "</h3>\n"
+                + "                        </div>\n"
+                + "                        <div class=\"col s12 center\">\n"
+                + "                            <h5>Criterios Activos</h5>\n"
+                + "                            <h3>" + cantidadCriterios + "</h3>\n"
+                + "                        </div>\n"
+                + "                    </div>";
+
+        return htmlcode;
+    }
+
+    public String editarDimension(int idDimension) {
+        String htmlcode = "";
+        Dimension_model dimMo = new Dimension_model();
+        ResultSet dimension = dimMo.getDimensionActualizar(idDimension);
+
+        try {
+            dimension.next();
+            htmlcode = "           <div class=\"container\">\n"
+                    + "                        <div class=\"row\">\n"
+                    + "                            <h1 class=\"center yellow-text\">Actualizar Dimension</h1>\n"
+                    + "                        </div>\n"
+                    + "                        <div class=\"row\">\n"
+                    + "                            <form id=\"updateDimension\" class=\"col s12 yellow-text\">\n"
+                    + "                                <div class=\"row\">\n"
+                    + "                                    <div class=\"input-field col s6\">\n"
+                    + "                                        <i class=\"material-icons prefix yellow-text\">assignment_ind</i>\n"
+                    + "                                        <input id=\"nombreDimensionAC\" type=\"text\" value=\"" + dimension.getString(2) + "\" class=\"validate\">\n"
+                    + "                                        <label class=\"yellow-text\" for=\"Nombre Materia\">Nombre Dimension</label>\n"
+                    + "                                    </div>\n"
+                    + "                                </div>\n"
+                    + "                            </form>\n"
+                    + "                        </div>\n"
+                    + "                        <div class=\"col s6\">\n"
+                    + "                            <button class=\"btn waves-effect waves-light yellow accent-2 blue-text left\" type=\"button\" id=\"actualizarDimension\" data-id=\"" + dimension.getInt(1) + "\" >\n"
+                    + "                                Validar y Guardar<i class=\"material-icons right\">save</i>\n"
+                    + "                            </button>\n"
+                    + "                            <br><br><br><br>\n"
+                    + "                        </div>\n"
+                    + "                        <div id=\"notificacionActDimension\">\n"
+                    + "                        </div>\n"
+                    + "                    </div>";
+
+        } catch (Exception e) {
+            System.out.println("Error en  editarDimension: " + e);
+        }
+        try {
+            getCloseConexion();
+        } catch (Exception e) {
+            System.out.println("Error en editarDimension.getCloseConexion: " + e);
+        }
+
         return htmlcode;
     }
 
