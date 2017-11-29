@@ -10,7 +10,9 @@ import Model.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.invoke.MethodHandles;
+import java.sql.Date;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -40,14 +42,16 @@ public class EstudianteCRUD extends HttpServlet {
         String CI_estudiante = request.getParameter("CI_estudiante");
         String apellido_estudiante = request.getParameter("apellido_estudiante");
         String tutor = request.getParameter("tutor");
-        ControladorEstudiante conEst = new ControladorEstudiante();
-        Estudiante est = new Estudiante();
-        ControladorNotas conNot = new ControladorNotas();
 
+        //Controladores :
+        ControladorEstudiante conEst = new ControladorEstudiante();
+        ControladorNotas conNot = new ControladorNotas();
+        ControladorMateria conMat = new ControladorMateria();
+
+        Estudiante est = new Estudiante();
         Notas nota = new Notas();
 
         String htmlcode;
-        ControladorMateria conMat = new ControladorMateria();
 
         //Metodo creado para evitar el uso de muchos servlets 
         // aqui llegan todas las peticiones del usuario para realizar las funciones de:
@@ -205,7 +209,7 @@ public class EstudianteCRUD extends HttpServlet {
                         }
                         count++;
                     }
-                } catch (Exception e) {
+                } catch (SQLException | NumberFormatException e) {
                     System.out.println("Error cargar_nota: " + e);
                 }
 
@@ -223,7 +227,6 @@ public class EstudianteCRUD extends HttpServlet {
                 out.print(htmlcode);
 
                 break;
-
             default:
                 out.print("false");
                 break;

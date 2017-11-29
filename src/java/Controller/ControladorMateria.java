@@ -380,7 +380,7 @@ public class ControladorMateria extends Conexion {
         try {
             nombreEstudiante.next();
             if (evaluacionCompleta) {
-                nota = notMo.getNotaPrimerParcial(CI_Estudiante) / 2;
+                nota = notMo.getNotaPrimerParcial(CI_Estudiante);
                 htmlcode += "<div class=\"container\">\n"
                         + "     <div class=\"row\">\n"
                         + "       <h3 class=\"center\">" + nombreEstudiante.getString(3) + " " + nombreEstudiante.getString(4) + ", " + nombreEstudiante.getString(1) + " " + nombreEstudiante.getString(2) + "</h3>\n"
@@ -388,11 +388,12 @@ public class ControladorMateria extends Conexion {
                         + "              <h4 class=\"center\">Primer Parcial</h4>\n"
                         + "              <h3 class=\"center\">" + nota + "</h3>\n"
                         + "       </div>\n";
-                nota = notMo.getNotaSegundoParcial(CI_Estudiante) / 2;
+                nota = notMo.getNotaSegundoParcial(CI_Estudiante);
                 htmlcode += "       <div class=\"col s6\">\n"
                         + "              <h4 class=\"center\">Segundo Parcial</h4>\n"
                         + "              <h3 class=\"center\">" + nota + "</h3>\n"
                         + "       </div>\n"
+                        + " </div>\n"
                         + " </div>\n";
             } else if (aproboPrimerParcial) {
                 nota = notMo.getNotaPrimerParcial(CI_Estudiante);
@@ -658,7 +659,6 @@ public class ControladorMateria extends Conexion {
         } catch (Exception e) {
             System.out.println("Error en getEvaluacion.getCloseConexion: " + e);
         }
-        System.out.println("htmlcode: " + htmlcode);
         return htmlcode;
     }
 
@@ -896,8 +896,6 @@ public class ControladorMateria extends Conexion {
         } catch (Exception e) {
             System.out.println("Error en getEvaluacion.getCloseConexion: " + e);
         }
-        System.out.println("htmlcode getEvaluacionDocente: ");
-        System.out.println(htmlcode);
         return htmlcode;
     }
 

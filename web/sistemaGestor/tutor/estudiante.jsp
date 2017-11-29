@@ -35,9 +35,9 @@
 
     <body class="yellow accent-2">
 
-
+        <!-- Inicio HEADER -->
         <header>
-            <!-- Inicio HEADER -->
+
             <div class="fixed-action-btn vertical click-to-toggle">
                 <a href="#" class="btn tooltipped button-collapse btn-floating btn-large blue darken-4 pulse" data-activates="slide-out" data-position="left" data-tooltip="Menu">
                     <i class="material-icons yellow-text">apps</i>
@@ -106,10 +106,11 @@
                     </div>
                 </div>
             </div>
-
             <!-- Fin NAV -->
 
             <div class="row blue darken-3">
+
+                <!-- Inicio del cantidad -->
                 <div id="cantidad" class="col s12">                    
                     <div class="container">
                         <h1 class="center yellow-text">Estudiantes</h1>
@@ -128,107 +129,79 @@
                                 <h2 class="center yellow-text"><%=conEst.getEvaluadosSegundoParcial(usuario)%></h2>
                                 <h5 class="center yellow-text">Evaluados Segundo Parcial</h5>
                             </div>
-                            
+
                         </div>
                     </div>
                 </div>
+                <!-- Fin del cantidad -->
+
+                <!-- Inicio del show --> 
                 <div id="show">
                     <%=conEst.verEstudiantesXTutor(usuario)%>
+                </div>
+                <!-- Fin del show -->
 
-                    <!-- Inicio del Modal search -->
-                    <div id="search" class="modal modal-fixed-footer blue darken-3 yellow-text">
-                        <div class="modal-content blue darken-3">
-                            <div class="row">
-                                <h1 class="center yellow-text">Buscar Estudiante</h1>
-                                <form method="post" class="col s12 yellow-text" >
-                                    <div class="row">
-                                        <div class="input-field col s4">
-                                            <i class="material-icons prefix">account_circle</i>
-                                            <input id="apellido_estudiante" type="text">
-                                            <label for="apellido_estudiante">Apellido Paterno</label>
-                                        </div>
-                                        <div class="input-field col s4">
-                                            <i class="material-icons prefix">contact_mail</i>
-                                            <input id="ci_estudiante" type="text">
-                                            <label for="ci_estudiante"># de Carnet</label>
-                                        </div>
-                                        <div class="input-field col s4">
-                                            <a id="buscar_estudiante" data-id="<%=usuario%>" class="waves-effect waves-light waves-teal yellow accent-2 blue-text text-darken-3 btn-large"> 
-                                                <i class="material-icons right">search</i>Buscar
-                                            </a>
-                                        </div>
+                <!-- Inicio del search -->
+                <div id="search" class="modal modal-fixed-footer blue darken-3 yellow-text">
+                    <div class="modal-content blue darken-3">
+                        <div class="row">
+                            <h1 class="center yellow-text">Buscar Estudiante</h1>
+                            <form method="post" class="col s12 yellow-text" >
+                                <div class="row">
+                                    <div class="input-field col s4">
+                                        <i class="material-icons prefix">account_circle</i>
+                                        <input id="apellido_estudiante" type="text">
+                                        <label for="apellido_estudiante">Apellido Paterno</label>
                                     </div>
-                                </form>
-                            </div>
-                            <div class="row">
-                                <div id="ver_estudiante_buscado"></div>
-
-                            </div>
+                                    <div class="input-field col s4">
+                                        <i class="material-icons prefix">contact_mail</i>
+                                        <input id="ci_estudiante" type="text">
+                                        <label for="ci_estudiante"># de Carnet</label>
+                                    </div>
+                                    <div class="input-field col s4">
+                                        <a id="buscar_estudiante" data-id="<%=usuario%>" class="waves-effect waves-light waves-teal yellow accent-2 blue-text text-darken-3 btn-large"> 
+                                            <i class="material-icons right">search</i>Buscar
+                                        </a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="row">
+                            <div id="verNotaAsignada"></div>
 
                         </div>
 
-                        <div class="modal-footer blue darken-3 yellow-text">
-                            <button class="modal-action modal-close waves-effect waves-teal yellow accent-2 blue-text text-darken-3 waves-yellow btn-flat">
-                                Cerrar<i class="material-icons right">clear_all</i>
-                            </button>
-                        </div>
                     </div>
-                    <!-- Final del Modal --> 
 
-                    <!-- Inicio del Modal Asignar Notas -->
-                    <div id="verNotaAsignada" class="modal modal-fixed-footer blue darken-3 yellow-text">
-
-                        <div id="ver_Nota_Asignada_estudiante"></div> 
-
+                    <div class="modal-footer blue darken-3 yellow-text">
+                        <button class="modal-action modal-close waves-effect waves-teal yellow accent-2 blue-text text-darken-3 waves-yellow btn-flat">
+                            Cerrar<i class="material-icons right">clear_all</i>
+                        </button>
                     </div>
-                    <!-- Final del Modal --> 
+                </div>
+                <!-- Final del Modal search --> 
 
-                    <!-- Inicio del Modal Asignar Notas -->
-                    <div id="verReporte" class="modal modal-fixed-footer blue darken-3 yellow-text">
+                <!-- Inicio del Modal verNotaAsignada -->
+                <div id="verNotaAsignada" class="modal modal-fixed-footer blue darken-3 yellow-text">
 
-                        <div id="ver_Nota_Asignada_estudiante"></div> 
-
-                    </div>
-                    <!-- Final del Modal --> 
+                    <div id="ver_Nota_Asignada_estudiante"></div> 
 
                 </div>
+                <!-- Final del Modal verNotaAsignada --> 
+
+                <!-- Inicio del Modal verReporte -->
+                <div id="verReporte" class="modal modal-fixed-footer blue darken-3 yellow-text">
+
+                    <div id="ver_Nota_Asignada_estudiante"></div> 
+
+                </div>
+                <!-- Final del Modal verReporte -->  
 
             </div>
 
         </main>
 
+        <%@include file="foother.jsp" %>
 
-
-        <!-- //////////////////////////////////////////////////////////////////////////// -->
-        <!-- START FOOTER -->
-        <footer class="page-footer blue darken-3">
-            <div class="footer-copyright">
-                <div class="container orange-text text-lighten-4">
-                    © 2017 Copyright
-                    <a class="orange-text text-lighten-4 right" href="#">LynxLion.net</a>
-                </div>
-            </div>
-        </footer>
-        <!-- END FOOTER -->
-
-
-        <!-- ================================================
-        Scripts
-        ================================================ -->
-        <script type="text/javascript" src="../../js/jquery-3.2.1.min.js"></script>
-        <script src="../../js/materialize.min.js"></script>
-        <script src="../../js/tutor.js"></script>
-        <script src="../../../js/tutor.js"></script>
-
-        <script type="text/javascript">
-            $(document).ready(function () {
-                $('.slider').slider();
-                $('.button-collapse').sideNav();
-                $('.materialboxed').materialbox();
-                $('.modal').modal();
-                $('.tooltipped').tooltip({delay: 50});
-                $('.collapsible').collapsible();
-            });
-        </script>
     </body>
 </html>

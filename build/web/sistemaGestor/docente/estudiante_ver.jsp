@@ -57,7 +57,7 @@
                             <li><a href="#" class="tooltipped" data-position="button" data-tooltip="Ayuda"><i class="material-icons yellow-text">help</i></a></li>
                             <li><a href="#" class="tooltipped" data-position="button" data-tooltip="Foro"><i class="material-icons yellow-text">forum</i></a></li>
                             <li><a href="#" class="tooltipped" data-position="button" data-tooltip="Mi Cuenta"><i class="material-icons yellow-text">account_circle</i></a></li>
-                            <li><a href="../../index.jsp" class="tooltipped" data-position="button" data-tooltip="Salir"><i class="material-icons yellow-text">directions_run</i></a></li>
+                            <li><a href="../../web-fcea/index.jsp" class="tooltipped" data-position="button" data-tooltip="Salir"><i class="material-icons yellow-text">directions_run</i></a></li>
                         </ul>
                     </div>
                     <div class="container">
@@ -144,23 +144,25 @@
             <!-- Inicio del MENU -->
             <div class="row blue darken-3">
 
+                <!-- Inicio del datos -->
                 <div id="datos" class="col s12">
-
                     <%=conVar.getDatosEstudiante(CI_estudiante)%>
-
                 </div>
+                <!-- Final del datos-->
+
+                <!-- Inicio del notas -->
                 <div id="notas" class="blue darken-3 yellow-text">
-
                     <%=conMat.getEvaluacionDocente(CI_estudiante)%>
-
                 </div>
+                <!-- Final del notas-->
+
+                <!-- Inicio del update -->
                 <div id="update" class="blue darken-3 yellow-text">
-
                     <%=conEst.viewUpdateEstudiante(CI_estudiante)%>
-
                 </div>
+                <!-- Final del update-->
 
-
+                <!-- Inicio del search -->
                 <div id="search" class="modal modal-fixed-footer blue darken-3 yellow-text ">
                     <div class="modal-content blue darken-3">
                         <div class="row">
@@ -198,6 +200,7 @@
                         </button>
                     </div>
                 </div>
+                <!-- Final del search-->
 
             </div>
             <!-- Final del MENU -->
@@ -205,5 +208,7 @@
         </main>
 
         <%@include file="foother.jsp" %>
+
     </body>
+
 </html>

@@ -12,14 +12,14 @@ package Model;
 public class Empresa {
 
     private int idEmpresa;
-    private int nombreEmpresa;
-    private int direccionEmpresa;
-    private int telefonoEmpresa;
-    private int rubroEmpresa;
+    private String nombreEmpresa;
+    private String direccionEmpresa;
+    private String telefonoEmpresa;
+    private String rubroEmpresa;
     private int idRepresentante;
     private int estadoEmpresa;
 
-    public Empresa(int idEmpresa, int nombreEmpresa, int direccionEmpresa, int telefonoEmpresa, int rubroEmpresa, int idRepresentante, int estadoEmpresa) {
+    public Empresa(int idEmpresa, String nombreEmpresa, String direccionEmpresa, String telefonoEmpresa, String rubroEmpresa, int idRepresentante, int estadoEmpresa) {
         this.idEmpresa = idEmpresa;
         this.nombreEmpresa = nombreEmpresa;
         this.direccionEmpresa = direccionEmpresa;
@@ -49,56 +49,56 @@ public class Empresa {
     /**
      * @return the nombreEmpresa
      */
-    public int getNombreEmpresa() {
+    public String getNombreEmpresa() {
         return nombreEmpresa;
     }
 
     /**
      * @param nombreEmpresa the nombreEmpresa to set
      */
-    public void setNombreEmpresa(int nombreEmpresa) {
+    public void setNombreEmpresa(String nombreEmpresa) {
         this.nombreEmpresa = nombreEmpresa;
     }
 
     /**
      * @return the direccionEmpresa
      */
-    public int getDireccionEmpresa() {
+    public String getDireccionEmpresa() {
         return direccionEmpresa;
     }
 
     /**
      * @param direccionEmpresa the direccionEmpresa to set
      */
-    public void setDireccionEmpresa(int direccionEmpresa) {
+    public void setDireccionEmpresa(String direccionEmpresa) {
         this.direccionEmpresa = direccionEmpresa;
     }
 
     /**
      * @return the telefonoEmpresa
      */
-    public int getTelefonoEmpresa() {
+    public String getTelefonoEmpresa() {
         return telefonoEmpresa;
     }
 
     /**
      * @param telefonoEmpresa the telefonoEmpresa to set
      */
-    public void setTelefonoEmpresa(int telefonoEmpresa) {
+    public void setTelefonoEmpresa(String telefonoEmpresa) {
         this.telefonoEmpresa = telefonoEmpresa;
     }
 
     /**
      * @return the rubroEmpresa
      */
-    public int getRubroEmpresa() {
+    public String getRubroEmpresa() {
         return rubroEmpresa;
     }
 
     /**
      * @param rubroEmpresa the rubroEmpresa to set
      */
-    public void setRubroEmpresa(int rubroEmpresa) {
+    public void setRubroEmpresa(String rubroEmpresa) {
         this.rubroEmpresa = rubroEmpresa;
     }
 

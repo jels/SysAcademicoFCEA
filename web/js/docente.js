@@ -240,7 +240,7 @@ $(function () {
     });
 });
 //Estudiante---Fin...
-//
+
 //Carrera---Inicio...
 //Nueva Carrera...
 $(function () {
@@ -655,7 +655,6 @@ $(function () {
 
     });
 });
-
 //baja dimension
 $(function () {
     $('tr #baja_dimension').click(function (e) {
@@ -730,7 +729,183 @@ $(function () {
 
     });
 });
-
-
 //Dimensiones---Fin...
+
+//Empresas---Inicio...
+//Nueva empresa
+$(function () {
+    $('#nuevaEmpresa').click(function (e) {
+        e.preventDefault();
+
+        var nombreEmpresa = document.getElementById('nombreEmpresa').value;
+        alert(nombreEmpresa);
+        var direccionEmpresa = document.getElementById('direccionEmpresa').value;
+        var telefonoEmpresa = document.getElementById('telefonoEmpresa').value;
+        var rubroEmpresa = document.getElementById('rubroEmpresa').value;
+        var primerNombreRepresentante = document.getElementById('primerNombreRepresentante').value;
+        var segundoNombreRepresentante = document.getElementById('segundoNombreRepresentante').value;
+        var primerApellidoRepresentante = document.getElementById('primerApellidoRepresentante').value;
+        var segundoApellidoRepresentante = document.getElementById('segundoApellidoRepresentante').value;
+        var ciRepresentante = document.getElementById('ciRepresentante').value;
+        var celularRepresentante = document.getElementById('celularRepresentante').value;
+        var cargoRepresentante = document.getElementById('cargoRepresentante').value;
+        var estadoEmpresa = 1;
+        var estadoRepresentante = 1;
+        var bandera = false;
+        if (nombreEmpresa.length > 0 && direccionEmpresa.length > 0 &&
+                telefonoEmpresa.length > 0 && rubroEmpresa.length > 0 &&
+                primerNombreRepresentante.length > 0 && primerApellidoRepresentante.length > 0 &&
+                segundoApellidoRepresentante.length > 0 && ciRepresentante.length > 0 &&
+                celularRepresentante.length > 0 && cargoRepresentante.length > 0) {
+            bandera = true;
+        }
+        if (bandera) {
+            var opcion = confirm("Desea Crear Una nueva Dimension?");
+            if (opcion) {
+                $.post('../../empresa.do', {
+                    accion: "crear",
+                    nombreEmpresa: nombreEmpresa,
+                    direccionEmpresa: direccionEmpresa,
+                    telefonoEmpresa: telefonoEmpresa,
+                    rubroEmpresa: rubroEmpresa,
+                    primerNombreRepresentante: primerNombreRepresentante,
+                    segundoNombreRepresentante: segundoNombreRepresentante,
+                    primerApellidoRepresentante: primerApellidoRepresentante,
+                    segundoApellidoRepresentante: segundoApellidoRepresentante,
+                    ciRepresentante: ciRepresentante,
+                    celularRepresentante: celularRepresentante,
+                    cargoRepresentante: cargoRepresentante,
+                    estadoEmpresa: estadoEmpresa,
+                    estadoRepresentante: estadoRepresentante
+
+                }, function (responseText) {
+                    if (responseText === "true") {
+                        $('#notificacionNewEmpresa').html("\
+                    <div class=\"col s6\">\n\
+                        <button class=\"btn waves-effect waves-light green yellow-text right tooltipped\" type=\"button\" data-position=\"button\" data-tooltip=\"Carrera Creada Correctamente...\">\n\
+                            <i class=\"material-icons left\">done_all</i>\n\
+                                Creacion Exitosa.!\n\
+                            <i class=\"material-icons right\">done_all</i>\n\
+                        </button>\n\
+                    </div>");
+                        setTimeout(function () {
+                            location.reload(true);
+                        }, 2000);
+                    } else {
+                        $('#notificacionNewEmpresa').html("\
+                    <div class=\"col s6\">\n\
+                        <button class=\"btn waves-effect waves-light red yellow-text right tooltipped\" type=\"button\" data-position=\"button\" data-tooltip=\"Error al Crear La Carrera\">\n\
+                            <i class=\"material-icons left\">clear</i>\n\
+                                Error..!!!\n\
+                            <i class=\"material-icons right\">clear</i>\n\
+                        </button>\n\
+                    </div>");
+                    }
+                });
+            }
+        } else {
+            alert('Rellene todos los campos...');
+        }
+
+    });
+});
+//baja empresa
+$(function () {
+    $('tr #baja_empresa').click(function (e) {
+        e.preventDefault();
+        var idEmpresa = $(this).attr('data-id');
+        var opcion = confirm("Desea Cambiar El estado de la Empresa?");
+        if (opcion) {
+            $.post('../../empresa.do', {
+                accion: "baja",
+                idEmpresa: idEmpresa
+            }, function (responseText) {
+                if (responseText === "true") {
+                    alert("Empresa Actualizado");
+                    setTimeout(function () {
+                        location.reload(true);
+                    }, 2000);
+                } else {
+                    alert("Error al Actualizar la Empresa");
+                }
+            });
+        }
+    });
+});
+//Actualizar Dimension
+$(function () {
+    $('#actualizarDimension').click(function (e) {
+        e.preventDefault();
+        var idDimension = $(this).attr('data-id');
+        var nombreDimension = document.getElementById('nombreDimensionAC').value;
+        var estadoDimension = 1;
+        var bandera = false;
+        if (nombreDimension.length > 0) {
+            bandera = true;
+        }
+        if (bandera) {
+            var opcion = confirm("Seguro que Desea Actualizar?");
+            if (opcion) {
+                $.post('../../dimensiones.do', {
+                    accion: "update",
+                    nombreDimension: nombreDimension,
+                    estadoDimension: estadoDimension,
+                    idDimension: idDimension
+
+                }, function (responseText) {
+                    if (responseText === "true") {
+                        $('#notificacionActDimension').html("\
+                    <div class=\"col s6\">\n\
+                        <button class=\"btn waves-effect waves-light green yellow-text right tooltipped\" type=\"button\" data-position=\"button\" data-tooltip=\"Carrera Creada Correctamente...\">\n\
+                            <i class=\"material-icons left\">done_all</i>\n\
+                                Actualizacion Exitosa.!\n\
+                            <i class=\"material-icons right\">done_all</i>\n\
+                        </button>\n\
+                    </div>");
+                        setTimeout(function () {
+                            location.reload(true);
+                        }, 2000);
+                    } else {
+                        $('#notificacionActDimension').html("\
+                    <div class=\"col s6\">\n\
+                        <button class=\"btn waves-effect waves-light red yellow-text right tooltipped\" type=\"button\" data-position=\"button\" data-tooltip=\"Error al Crear La Carrera\">\n\
+                            <i class=\"material-icons left\">clear</i>\n\
+                                Error..!!!\n\
+                            <i class=\"material-icons right\">clear</i>\n\
+                        </button>\n\
+                    </div>");
+                    }
+                });
+            }
+        } else {
+            alert('Rellene todos los campos...');
+        }
+
+    });
+});
+//Empresas---Fin...
+
+//Practicas estado...
+$(function () {
+    $('tr #baja_parcial').click(function (e) {
+        e.preventDefault();
+        var idParcial = $(this).attr('data-id');
+        var opcion = confirm("Desea Cambiar El estado de este Parcial?");
+        if (opcion) {
+            $.post('../../practicas.do', {
+                accion: "parcial",
+                idParcial: idParcial
+            }, function (responseText) {
+                if (responseText === "true") {
+                    alert("Parcial Activado");
+                    setTimeout(function () {
+                        location.reload(true);
+                    }, 2000);
+                } else {
+                    alert("Error al Activar el Parcial");
+                }
+            });
+        }
+    });
+});
 

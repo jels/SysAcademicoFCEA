@@ -164,11 +164,11 @@
                         <div class="card blue darken-3 yellow-text hoverable">
                             <div class="card-content">
                                 <span class="card-title center"><i class="material-icons">card_travel</i></span>
-                                <h5 class="center">Docentes</h5>
-                                <p class="truncate">Una descripcion de los la tabla Docentes</p>
+                                <h5 class="center">Parciales</h5>
+                                <p class="truncate">Una descripcion de los la tabla Parciales</p>
                             </div>
                             <div class="card-action center">
-                                <h5><a href="docente.jsp" class="yellow-text"><%=conVar.cantidadDocentes()%></a></h5>
+                                <h5><a href="parciales.jsp" class="yellow-text"><%=conVar.cantidadParciales()%></a></h5>
                             </div>
                         </div>
                     </div>

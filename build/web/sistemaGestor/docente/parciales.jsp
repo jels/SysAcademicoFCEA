@@ -1,12 +1,10 @@
 <%-- 
-    Document   : menu
-    Created on : 23/08/2017, 05:04:45 PM
+    Document   : parciales
+    Created on : 29/11/2017, 06:10:03 PM
     Author     : WarMachine
 --%>
 
 <%@page import="Controller.ControladorVarios"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-
 <%
     HttpSession objsession = request.getSession(false);
     String usuario = (String) objsession.getAttribute("usuario");
@@ -28,6 +26,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <% ControladorVarios conVar = new ControladorVarios();%>
+
 
     <%@include file="head.jsp" %>
 
@@ -51,11 +50,20 @@
                             <li><a href="../../web-fcea/index.jsp" class="tooltipped" data-position="button" data-tooltip="Salir"><i class="material-icons yellow-text">directions_run</i></a></li>
                         </ul>
                     </div>
+                    <div class="container">
+                        <div class="nav-content">
+                            <div class="col s12">
+                                <ul class="tabs  blue darken-3 tabs-fixed-width">
+                                    <li class="tab col s3"><a class="yellow-text" href="#resumen">Parciales</a></li>
+                                    <li class="tab col s3"><a class="yellow-text" href="#editar">Mostrar</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </nav>
             </div>
-
+            <!-- Final HEADER nav-->
         </header>
-        <!-- Final HEADER -->
 
         <main>
 
@@ -71,7 +79,7 @@
                                     </div>
                                 </li>
                                 <li>
-                                    <a href="../../index.jsps" class="waves-effect yellow-text">
+                                    <a href="../../index.jsp" class="waves-effect yellow-text">
                                         <i class="material-icons yellow-text">home</i>Sitio Web
                                     </a>
                                 </li>
@@ -123,94 +131,42 @@
             <!-- Final del NAV-->
 
             <!-- Inicio del MENU -->
-            <div class="container">
-                <div class="row">
 
-                    <!-- Inicio del Estudiantes -->
-                    <div class="col s6">
-                        <div class="card blue darken-3 yellow-text hoverable">
-                            <div class="card-content">
-                                <span class="card-title center"><i class="medium material-icons">face</i></span>
-                                <h5 class="center">Estudiantes</h5>
-                                <p>Son todos los estudiantes que estan registrados en esta gestión academica</p>
-                            </div>
-                            <div class="card-action center">
-                                <h5><a href="estudiante.jsp" class="yellow-text"> <%=conVar.cantidadEstudiantes()%></a></h5>
-                            </div>
+            <!-- Inicio del resumen -->
+            <div id="resumen" class="blue darken-3 yellow-text">
+                <div class="container">
+                    <div class="row">
+                        <div class="col s12">
+                            <h3 class="center">Evaluaciones Actualmente Disponibles</h3>
+                            <h2 class="center"><%=conVar.cantidadParciales()%></h2>
                         </div>
                     </div>
-                    <!-- Final del Estudiantes-->
-
-                    <!-- Inicio del Tutores -->
-                    <div class="col s6">
-                        <div class="card blue darken-3 yellow-text hoverable">
-                            <div class="card-content">
-                                <span class="card-title center"><i class="medium material-icons">contacts</i></span>
-                                <h5 class="center">Tutores</h5>
-                                <p>Los tutores Activos que existen para poder asignar sus estudiantes</p>
-                            </div>
-                            <div class="card-action center">
-                                <h5><a href="tutor.jsp" class="yellow-text"><%=conVar.cantidadTutores()%></a></h5>
-                            </div>
+                    <div class="row">
+                        <div class="col s6">
+                            <h3 class="center">Evaluaciones Activas</h3>
+                            <h2 class="center"><%=conVar.cantidadParcialesXestado(1)%></h2>
+                        </div>
+                        <div class="col s6">
+                            <h3 class="center">Evaluaciones Inactivas</h3>
+                            <h2 class="center"><%=conVar.cantidadParcialesXestado(0)%></h2>
                         </div>
                     </div>
-                    <!-- Final del Tutores-->
-
-                </div>
-                <div class="row">
-
-                    <!-- Inicio del Docentes -->
-                    <div class="col s4">
-                        <div class="card blue darken-3 yellow-text hoverable">
-                            <div class="card-content">
-                                <span class="card-title center"><i class="material-icons">card_travel</i></span>
-                                <h5 class="center">Parciales</h5>
-                                <p class="truncate">Una descripcion de los la tabla Parciales</p>
-                            </div>
-                            <div class="card-action center">
-                                <h5><a href="parciales.jsp" class="yellow-text"><%=conVar.cantidadParciales()%></a></h5>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Final del Docentes-->
-
-                    <!-- Inicio del Carreras -->
-                    <div class="col s4">
-                        <div class="card blue darken-3 yellow-text hoverable">
-                            <div class="card-content">
-                                <span class="card-title center"><i class="material-icons">format_list_bulleted</i></span>
-                                <h5 class="center">Carreras</h5>
-                                <p class="truncate">Una descripcion de los la tabla Carreras</p>
-                            </div>
-                            <div class="card-action center">
-                                <h5><a href="carrera.jsp" class="yellow-text"><%=conVar.cantidadCarreras()%></a></h5>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Final del Carreras-->
-
-                    <!-- Inicio del Empresas -->
-                    <div class="col s4">
-                        <div class="card blue darken-3 yellow-text hoverable">
-                            <div class="card-content">
-                                <span class="card-title center"><i class="material-icons">store</i></span>
-                                <h5 class="center">Empresas</h5>
-                                <p class="truncate">Una descripcion de los la tabla Empresas</p>
-                            </div>
-                            <div class="card-action center">
-                                <h5><a href="empresa.jsp" class="yellow-text"><%=conVar.cantidadEmpresas()%></a></h5>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Final del Empresas-->
-
                 </div>
             </div>
+            <!-- Fin resumen -->
+
+            <!-- Inicio del editar -->
+            <div id="editar" class="blue darken-3 yellow-text">
+
+                <%=conVar.cambiarEstadoParciales()%>
+
+            </div>
+            <!-- Fin editar -->
             <!-- Final del MENU -->
+
 
         </main>
 
         <%@include file="foother.jsp" %>
-
     </body>
 </html>

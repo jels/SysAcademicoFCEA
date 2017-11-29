@@ -1,9 +1,10 @@
 <%-- 
-    Document   : menu
-    Created on : 23/08/2017, 05:04:45 PM
+    Document   : empresa_ver
+    Created on : 27/11/2017, 09:08:22 PM
     Author     : WarMachine
 --%>
 
+<%@page import="Controller.ControladorEmpresa"%>
 <%@page import="Controller.ControladorVarios"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
@@ -23,10 +24,12 @@
     } else {
         response.sendRedirect("../../index.jsp");
     }
+    
 %>
 
 <!DOCTYPE html>
 <html lang="en">
+    <% ControladorEmpresa conEmp = new ControladorEmpresa(); %>
     <% ControladorVarios conVar = new ControladorVarios();%>
 
     <%@include file="head.jsp" %>
@@ -51,6 +54,16 @@
                             <li><a href="../../web-fcea/index.jsp" class="tooltipped" data-position="button" data-tooltip="Salir"><i class="material-icons yellow-text">directions_run</i></a></li>
                         </ul>
                     </div>
+                    <div class="container">
+                        <div class="nav-content">
+                            <div class="col s12">
+                                <ul class="tabs  blue darken-3 tabs-fixed-width">
+                                    <li class="tab col s3"><a class="yellow-text" href="#cantidad">Resumen</a></li>
+                                    <li class="tab col s3"><a class="yellow-text" href="#show">Mostrar</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </nav>
             </div>
 
@@ -71,7 +84,7 @@
                                     </div>
                                 </li>
                                 <li>
-                                    <a href="../../index.jsps" class="waves-effect yellow-text">
+                                    <a href="../../index.jsp" class="waves-effect yellow-text">
                                         <i class="material-icons yellow-text">home</i>Sitio Web
                                     </a>
                                 </li>
@@ -123,90 +136,102 @@
             <!-- Final del NAV-->
 
             <!-- Inicio del MENU -->
-            <div class="container">
-                <div class="row">
 
-                    <!-- Inicio del Estudiantes -->
-                    <div class="col s6">
-                        <div class="card blue darken-3 yellow-text hoverable">
-                            <div class="card-content">
-                                <span class="card-title center"><i class="medium material-icons">face</i></span>
-                                <h5 class="center">Estudiantes</h5>
-                                <p>Son todos los estudiantes que estan registrados en esta gestión academica</p>
-                            </div>
-                            <div class="card-action center">
-                                <h5><a href="estudiante.jsp" class="yellow-text"> <%=conVar.cantidadEstudiantes()%></a></h5>
+            <div class="row blue darken-3">
+
+                <!-- Inicio del cantidad -->
+                <div id="cantidad" class="col s12">                    
+                    <div class="container">
+                        <h1 class="center yellow-text">Empresas</h1>
+                        <div class="row">
+                            <div class="col s12">
+                                <h2 class="center yellow-text"><%=conEmp.countEmpresas()%></h2>
+                                <h3 class="center yellow-text">Total de Empresas Almacenadas</h3>
                             </div>
                         </div>
-                    </div>
-                    <!-- Final del Estudiantes-->
+                        <div class="row">
+                            <div class="col s6">
+                                <h2 class="center yellow-text"><%=conEmp.countEmpresasActivas()%></h2>
+                                <h5 class="center yellow-text">Empresas Activas</h5>
+                            </div>
+                            <div class="col s6">
+                                <h2 class="center yellow-text"><%=conEmp.countEmpresasInactivas()%></h2>
+                                <h5 class="center yellow-text">Empresas Inactivas</h5>
+                            </div>
 
-                    <!-- Inicio del Tutores -->
-                    <div class="col s6">
-                        <div class="card blue darken-3 yellow-text hoverable">
-                            <div class="card-content">
-                                <span class="card-title center"><i class="medium material-icons">contacts</i></span>
-                                <h5 class="center">Tutores</h5>
-                                <p>Los tutores Activos que existen para poder asignar sus estudiantes</p>
-                            </div>
-                            <div class="card-action center">
-                                <h5><a href="tutor.jsp" class="yellow-text"><%=conVar.cantidadTutores()%></a></h5>
-                            </div>
                         </div>
                     </div>
-                    <!-- Final del Tutores-->
+                </div>
+                <!-- Final del cantidad-->
+
+                <!-- Inicio del show -->
+                <div id="show">
 
                 </div>
-                <div class="row">
+                <!-- Final del show -->
 
-                    <!-- Inicio del Docentes -->
-                    <div class="col s4">
-                        <div class="card blue darken-3 yellow-text hoverable">
-                            <div class="card-content">
-                                <span class="card-title center"><i class="material-icons">card_travel</i></span>
-                                <h5 class="center">Parciales</h5>
-                                <p class="truncate">Una descripcion de los la tabla Parciales</p>
-                            </div>
-                            <div class="card-action center">
-                                <h5><a href="parciales.jsp" class="yellow-text"><%=conVar.cantidadParciales()%></a></h5>
-                            </div>
+                <!-- Inicio del Modal search -->
+                <div id="search" class="modal modal-fixed-footer blue darken-3 yellow-text">
+                    <div class="modal-content blue darken-3">
+                        <div class="row">
+                            <h1 class="center yellow-text">Buscar Estudiante</h1>
+                            <form method="post" class="col s12 yellow-text" >
+                                <div class="row">
+                                    <div class="input-field col s4">
+                                        <i class="material-icons prefix">account_circle</i>
+                                        <input id="apellido_estudiante" type="text">
+                                        <label for="apellido_estudiante">Apellido Paterno</label>
+                                    </div>
+                                    <div class="input-field col s4">
+                                        <i class="material-icons prefix">contact_mail</i>
+                                        <input id="ci_estudiante" type="text">
+                                        <label for="ci_estudiante"># de Carnet</label>
+                                    </div>
+                                    <div class="input-field col s4">
+                                        <a id="buscar_estudiante" data-id="<%=usuario%>" class="waves-effect waves-light waves-teal yellow accent-2 blue-text text-darken-3 btn-large"> 
+                                            <i class="material-icons right">search</i>Buscar
+                                        </a>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
-                    </div>
-                    <!-- Final del Docentes-->
+                        <div class="row">
+                            <div id="ver_estudiante_buscado"></div>
 
-                    <!-- Inicio del Carreras -->
-                    <div class="col s4">
-                        <div class="card blue darken-3 yellow-text hoverable">
-                            <div class="card-content">
-                                <span class="card-title center"><i class="material-icons">format_list_bulleted</i></span>
-                                <h5 class="center">Carreras</h5>
-                                <p class="truncate">Una descripcion de los la tabla Carreras</p>
-                            </div>
-                            <div class="card-action center">
-                                <h5><a href="carrera.jsp" class="yellow-text"><%=conVar.cantidadCarreras()%></a></h5>
-                            </div>
                         </div>
-                    </div>
-                    <!-- Final del Carreras-->
 
-                    <!-- Inicio del Empresas -->
-                    <div class="col s4">
-                        <div class="card blue darken-3 yellow-text hoverable">
-                            <div class="card-content">
-                                <span class="card-title center"><i class="material-icons">store</i></span>
-                                <h5 class="center">Empresas</h5>
-                                <p class="truncate">Una descripcion de los la tabla Empresas</p>
-                            </div>
-                            <div class="card-action center">
-                                <h5><a href="empresa.jsp" class="yellow-text"><%=conVar.cantidadEmpresas()%></a></h5>
-                            </div>
-                        </div>
                     </div>
-                    <!-- Final del Empresas-->
+
+                    <div class="modal-footer blue darken-3 yellow-text">
+                        <button class="modal-action modal-close waves-effect waves-teal yellow accent-2 blue-text text-darken-3 waves-yellow btn-flat">
+                            Cerrar<i class="material-icons right">clear_all</i>
+                        </button>
+                    </div>
+                </div>
+                <!-- Final del Modal search --> 
+
+                <!-- Inicio del Modal verNotaAsignada -->
+                <div id="verNotaAsignada" class="modal modal-fixed-footer blue darken-3 yellow-text">
+
+                    <div id="ver_Nota_Asignada_estudiante"></div> 
 
                 </div>
+                <!-- Final del verNotaAsignada --> 
+
+                <!-- Inicio del Modal verReporte -->
+                <div id="verReporte" class="modal modal-fixed-footer blue darken-3 yellow-text">
+
+                    <div id="ver_Nota_Asignada_estudiante"></div> 
+
+                </div>
+                <!-- Final del verReporte --> 
+
+
             </div>
+
             <!-- Final del MENU -->
+
+
 
         </main>
 

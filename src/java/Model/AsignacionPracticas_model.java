@@ -92,16 +92,6 @@ public class AsignacionPracticas_model extends Conexion {
         }
     }
 
-    public boolean newPractica(AsignacionPracticas as) {
-
-        return false;
-    }
-
-    public int getIDMateria(String CI_estudiante) {
-
-        return 0;
-    }
-
     public int getIdAsignacionPractica(String CI_Estudiante) {
         PreparedStatement pst = null;
         ResultSet rs = null;

@@ -16,8 +16,8 @@ public class AsignacionPracticas {
     private int idAsignacionPractica;
     private String ingresoEstudiante;
     private String gestionAcademica;
-    private Date fechaInicioPractica;
-    private Date fechaFinPractica;
+    private String fechaInicioPractica;
+    private String fechaFinPractica;
     private String areaPactica;
     private int totalHoras;
     private int idDocente;
@@ -25,7 +25,7 @@ public class AsignacionPracticas {
     private int idTutor;
     private int idMateria;
 
-    public AsignacionPracticas(int idAsignacionPractica, String ingresoEstudiante, String gestionAcademica, Date fechaInicioPractica, Date fechaFinPractica, String areaPactica, int totalHoras, int idDocente, int idEstudiante, int idTutor, int idMateria) {
+    public AsignacionPracticas(int idAsignacionPractica, String ingresoEstudiante, String gestionAcademica, String fechaInicioPractica, String fechaFinPractica, String areaPactica, int totalHoras, int idDocente, int idEstudiante, int idTutor, int idMateria) {
         this.idAsignacionPractica = idAsignacionPractica;
         this.ingresoEstudiante = ingresoEstudiante;
         this.gestionAcademica = gestionAcademica;
@@ -52,7 +52,7 @@ public class AsignacionPracticas {
     /**
      * @param idAsignacionPractica the idAsignacionPractica to set
      */
-    public void setIdAsignacionPracticas(int idAsignacionPractica) {
+    public void setIdAsignacionPractica(int idAsignacionPractica) {
         this.idAsignacionPractica = idAsignacionPractica;
     }
 
@@ -87,28 +87,28 @@ public class AsignacionPracticas {
     /**
      * @return the fechaInicioPractica
      */
-    public Date getFechaInicioPractica() {
+    public String getFechaInicioPractica() {
         return fechaInicioPractica;
     }
 
     /**
      * @param fechaInicioPractica the fechaInicioPractica to set
      */
-    public void setFechaInicioPracticas(Date fechaInicioPractica) {
+    public void setFechaInicioPractica(String fechaInicioPractica) {
         this.fechaInicioPractica = fechaInicioPractica;
     }
 
     /**
      * @return the fechaFinPractica
      */
-    public Date getFechaFinPractica() {
+    public String getFechaFinPractica() {
         return fechaFinPractica;
     }
 
     /**
      * @param fechaFinPractica the fechaFinPractica to set
      */
-    public void setFechaFinPractica(Date fechaFinPractica) {
+    public void setFechaFinPractica(String fechaFinPractica) {
         this.fechaFinPractica = fechaFinPractica;
     }
 

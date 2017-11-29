@@ -1,3 +1,5 @@
+//Estudiante--Inicio
+//Buscar un estudiante
 $(function () {
     $('#buscar_estudiante').click(function (e) {
         e.preventDefault();
@@ -25,7 +27,7 @@ $(function () {
 
     });
 });
-
+//Guardar la nota del estudiante
 $(function () {
     $('#guardarNuevaNota').click(function (e) {
         e.preventDefault();
@@ -112,8 +114,7 @@ $(function () {
 
     });
 });
-
-
+//ver las notas de un estudiante
 $(function () {
     $('tr #ver_nota_estudiante').click(function (e) {
         e.preventDefault();
@@ -130,7 +131,7 @@ $(function () {
         return false;
     });
 });
-
+//Ver el reporte para imprimir
 $(function () {
     $('tr #ver_reporte').click(function (e) {
         e.preventDefault();
@@ -147,3 +148,59 @@ $(function () {
 //        return false;
     });
 });
+//guardar la practica por el parcial
+$(function () {
+    $('#guardarPractica').click(function (e) {
+        e.preventDefault();
+        var CI_estudiante = $(this).attr('data-id');
+        var fechaInicio = document.getElementById('fechaInicio').value;
+        var fechaFin = document.getElementById('fechaFin').value;
+        var funcionPracticante = document.getElementById('funcionPracticante').value;
+        var cantidadHoras = document.getElementById('horasDePractica').value;
+        var observacionEstudiante = document.getElementById('observacionEstudiante').value;
+        if (fechaInicio.length > 0 && fechaFin.length > 0 && funcionPracticante.length > 0 && cantidadHoras.length > 0 &&
+                observacionEstudiante.length > 0) {
+            var opcion = confirm("Seguro que desea guardar esta Nota?");
+            if (opcion) {
+                alert("Fecha Inicio: " + fechaInicio);
+                alert("Fecha Final: " + fechaFin);
+                $.post('../../practicas.do', {
+                    accion: "practicas",
+                    fechaInicio: fechaInicio,
+                    fechaFin: fechaFin,
+                    funcionPracticante: funcionPracticante,
+                    cantidadHoras: cantidadHoras,
+                    observacionEstudiante: observacionEstudiante,
+                    CI_estudiante: CI_estudiante
+                }, function (responseText) {
+                    if (responseText === "true") {
+                        $('#notificacionNewPractica').html("\
+                    <div class=\"col s6\">\n\
+                        <button class=\"btn waves-effect waves-light green yellow-text right tooltipped\" type=\"button\" data-position=\"button\" data-tooltip=\"Carrera Creada Correctamente...\">\n\
+                            <i class=\"material-icons left\">done_all</i>\n\
+                                Creacion Exitosa.!\n\
+                            <i class=\"material-icons right\">done_all</i>\n\
+                        </button>\n\
+                    </div>");
+                        setTimeout(function () {
+                            location.reload(true);
+                        }, 2000);
+                    } else {
+                        $('#notificacionNewPractica').html("\
+                    <div class=\"col s6\">\n\
+                        <button class=\"btn waves-effect waves-light red yellow-text right tooltipped\" type=\"button\" data-position=\"button\" data-tooltip=\"Error al Crear La Carrera\">\n\
+                            <i class=\"material-icons left\">clear</i>\n\
+                                Error..!!!\n\
+                            <i class=\"material-icons right\">clear</i>\n\
+                        </button>\n\
+                    </div>");
+                    }
+                });
+            }
+        } else {
+            alert("Rellene todos los campos");
+        }
+
+    });
+});
+//Estudiante--Fin

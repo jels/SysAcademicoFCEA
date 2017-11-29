@@ -14,22 +14,24 @@ import java.sql.Date;
 public class Practicas {
 
     private int idPracticas;
-    private Date fechaInicioEvaluacion;
-    private Date fechaFinEvaluacion;
+    private String fechaInicioEvaluacion;
+    private String fechaFinEvaluacion;
     private String funcionPractica;
     private int cantidadHoras;
     private int idAsignacionPractica;
+    private String observacionEstudiante;
 
-    public Practicas() {
-    }
-
-    public Practicas(int idPracticas, Date fechaInicioEvaluacion, Date fechaFinEvaluacion, String funcionPractica, int cantidadHoras, int idAsignacionPractica) {
+    public Practicas(int idPracticas, String fechaInicioEvaluacion, String fechaFinEvaluacion, String funcionPractica, int cantidadHoras, int idAsignacionPractica, String observacionEstudiante) {
         this.idPracticas = idPracticas;
         this.fechaInicioEvaluacion = fechaInicioEvaluacion;
         this.fechaFinEvaluacion = fechaFinEvaluacion;
         this.funcionPractica = funcionPractica;
         this.cantidadHoras = cantidadHoras;
         this.idAsignacionPractica = idAsignacionPractica;
+        this.observacionEstudiante = observacionEstudiante;
+    }
+
+    public Practicas() {
     }
 
     /**
@@ -49,28 +51,28 @@ public class Practicas {
     /**
      * @return the fechaInicioEvaluacion
      */
-    public Date getFechaInicioEvaluacion() {
+    public String getFechaInicioEvaluacion() {
         return fechaInicioEvaluacion;
     }
 
     /**
      * @param fechaInicioEvaluacion the fechaInicioEvaluacion to set
      */
-    public void setFechaInicioEvaluacion(Date fechaInicioEvaluacion) {
+    public void setFechaInicioEvaluacion(String fechaInicioEvaluacion) {
         this.fechaInicioEvaluacion = fechaInicioEvaluacion;
     }
 
     /**
      * @return the fechaFinEvaluacion
      */
-    public Date getFechaFinEvaluacion() {
+    public String getFechaFinEvaluacion() {
         return fechaFinEvaluacion;
     }
 
     /**
      * @param fechaFinEvaluacion the fechaFinEvaluacion to set
      */
-    public void setFechaFinEvaluacion(Date fechaFinEvaluacion) {
+    public void setFechaFinEvaluacion(String fechaFinEvaluacion) {
         this.fechaFinEvaluacion = fechaFinEvaluacion;
     }
 
@@ -114,6 +116,20 @@ public class Practicas {
      */
     public void setIdAsignacionPractica(int idAsignacionPractica) {
         this.idAsignacionPractica = idAsignacionPractica;
+    }
+
+    /**
+     * @return the observacionEstudiante
+     */
+    public String getObservacionEstudiante() {
+        return observacionEstudiante;
+    }
+
+    /**
+     * @param observacionEstudiante the observacionEstudiante to set
+     */
+    public void setObservacionEstudiante(String observacionEstudiante) {
+        this.observacionEstudiante = observacionEstudiante;
     }
 
 }

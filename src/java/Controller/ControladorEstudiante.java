@@ -150,7 +150,7 @@ public class ControladorEstudiante extends Conexion {
                 + "                                    <th>Celular</th>\n"
                 + "                                    <th>Materia</th>\n"
                 + "                                    <th>Carrera</th>\n"
-                + "                                    <th class=\"center-align\">Asignar Nota</th>\n"
+                + "                                    <th class=\"center-align\">Evaluar</th>\n"
                 + "                                    <th class=\"center-align\">Ver Notas</th>\n"
                 + "                                    <th class=\"center-align\">Imprimir Evaluacion</th>\n"
                 + "                                </tr>\n"

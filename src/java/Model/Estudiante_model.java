@@ -17,7 +17,6 @@ public class Estudiante_model extends Conexion {
     public ResultSet getNombreEstudiante(String CI_estudiante) {
         PreparedStatement pst = null;
         ResultSet rs = null;
-        System.out.println("CI_estduianre: " + CI_estudiante);
         try {
             String consulta = "SELECT primerNombreEstudiante, segundoNombreEstudiante, "
                     + "primerApellidoEstudiante, segundoApellidoEstudiante, ciEstudiante "
@@ -205,10 +204,6 @@ public class Estudiante_model extends Conexion {
             System.err.println("Error buscarEstudiantexNombre: " + ex);
             return null;
         }
-    }
-
-    public boolean actualizar_estudiante(String est) {
-        return false;
     }
 
     public int contar_estudiantes() {

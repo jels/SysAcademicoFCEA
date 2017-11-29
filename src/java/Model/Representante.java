@@ -9,31 +9,16 @@ package Model;
  *
  * @author WarMachine
  */
-public class Representante {
+public class Representante extends Persona {
 
-    private Persona representante;
     private String cargoRepresentante;
 
-    public Representante() {
-    }
-
-    public Representante(Persona representante, String cargoRepresentante) {
-        this.representante = representante;
+    public Representante(String cargoRepresentante, int idPersona, String primerNombrePersona, String primerApellidoPersona, String segundoNombrePersona, String segundoApellidoPersona, String ciPersona, String telefonoPersona, int estadoPersona) {
+        super(idPersona, primerNombrePersona, primerApellidoPersona, segundoNombrePersona, segundoApellidoPersona, ciPersona, telefonoPersona, estadoPersona);
         this.cargoRepresentante = cargoRepresentante;
     }
 
-    /**
-     * @return the representante
-     */
-    public Persona getRepresentante() {
-        return representante;
-    }
-
-    /**
-     * @param representante the representante to set
-     */
-    public void setRepresentante(Persona representante) {
-        this.representante = representante;
+    public Representante() {
     }
 
     /**

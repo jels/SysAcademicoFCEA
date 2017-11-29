@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 17-11-2017 a las 14:06:38
+-- Tiempo de generación: 30-11-2017 a las 00:53:11
 -- Versión del servidor: 10.1.21-MariaDB
 -- Versión de PHP: 7.1.1
 
@@ -50,9 +50,8 @@ CREATE TABLE `asignacionpracticas` (
 
 INSERT INTO `asignacionpracticas` (`idAsignacionPractica`, `idEstudiante`, `idDocente`, `idMateria`, `idTutor`, `ingresoEstudiante`, `gestionAcademica`, `fechaInicioPractica`, `fechaFinPractica`, `areaPractica`, `totalHoras`, `aprobadoMateria`, `estadoPractica`) VALUES
 (1, 1, 1, 1, 1, '2012-A', '2017-A', '2017-03-07', '2017-06-01', 'Facultad de Ciencias Economicas y Administrativas', 300, 1, 0),
-(2, 5, 1, 5, 1, '2014-B', '2017-B', '2017-08-07', '2017-12-01', 'Contabilidad', 150, 0, 1),
 (4, 1, 1, 5, 1, '2012-A', '2017-B', '2017-08-07', '2017-12-01', 'Facultad de Ingenieria', 350, 0, 1),
-(5, 7, 1, 5, 1, '2013-A', '2017-B', '2017-08-07', '2017-12-01', 'Facultad de Ingenieria', 250, 0, 1);
+(6, 6, 1, 1, 1, '2012-A', '2017-B', '2017-08-07', '2017-08-07', 'Sistemas', 200, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -78,7 +77,7 @@ INSERT INTO `carrera` (`idCarrera`, `idFacultad`, `idCoordinador`, `nombreCarrer
 (1, 2, 1, 'Licenciatura en Administracion de Empresas', 'Adm', 'La carrera de Administracion de Empresas', 1),
 (2, 2, 1, 'Licenciatura en Contaduria Publica', 'Con', 'La carrera de Contaduria Publica', 1),
 (3, 2, 1, 'Licenciatura en Ingenieria Comercial', 'Ico', 'La carrera de Ingenieria Comercial', 1),
-(4, 2, 1, 'Licenciatura en Ingenieria Financiera', 'Ifi', 'La carrera de Ingenieria Financiera', 1);
+(7, 2, 4, 'Licenciatura en Ingenieria', 'Ifi', 'es la licenciatura en ingenieria financiera....', 1);
 
 -- --------------------------------------------------------
 
@@ -94,15 +93,17 @@ CREATE TABLE `coordinador` (
   `segundoApellidoCoordinador` varchar(50) COLLATE latin1_spanish_ci NOT NULL,
   `ciCoordinador` varchar(20) COLLATE latin1_spanish_ci NOT NULL,
   `telefonoCoordinador` varchar(20) COLLATE latin1_spanish_ci NOT NULL,
-  `estadoCoordinador` int(11) NOT NULL
+  `estadoCoordinador` int(11) NOT NULL,
+  `fotoCoordinador` varchar(100) COLLATE latin1_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `coordinador`
 --
 
-INSERT INTO `coordinador` (`idCoordinador`, `primerNombreCoordinador`, `segundoNombreCoordinador`, `primerApellidoCoordinador`, `segundoApellidoCoordinador`, `ciCoordinador`, `telefonoCoordinador`, `estadoCoordinador`) VALUES
-(1, 'Jonathan', 'Elias', 'Leonardi', 'Sauer', '3968935', '69546746', 1);
+INSERT INTO `coordinador` (`idCoordinador`, `primerNombreCoordinador`, `segundoNombreCoordinador`, `primerApellidoCoordinador`, `segundoApellidoCoordinador`, `ciCoordinador`, `telefonoCoordinador`, `estadoCoordinador`, `fotoCoordinador`) VALUES
+(1, 'Juan', 'Elias', 'Rodriguez', 'Sauer', '3968935', '69546746', 1, 'Lindsay-VargasCarrasco.jpg'),
+(4, 'Elias', '', 'Estigarribia', 'Perez', '68547844', '69386875', 1, 'imagen7.jpg');
 
 -- --------------------------------------------------------
 
@@ -153,8 +154,7 @@ CREATE TABLE `detallepracticas` (
   `idDetalles` int(11) NOT NULL,
   `idPracticas` int(11) NOT NULL,
   `tareaAsignada` varchar(500) COLLATE latin1_spanish_ci NOT NULL,
-  `descripcionTarea` text COLLATE latin1_spanish_ci NOT NULL,
-  `observacionEstudiante` text COLLATE latin1_spanish_ci NOT NULL
+  `observacionTarea` text COLLATE latin1_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
 -- --------------------------------------------------------
@@ -178,10 +178,10 @@ INSERT INTO `dimensiones` (`idDimensiones`, `idMateria`, `nombreDimension`, `est
 (1, 5, 'Organizacion y Ejecucion del Trabajo', 1),
 (2, 2, 'Organizacion y Ejecucion del Trabajo', 1),
 (3, 3, 'Organizacion y Ejecucion del Trabajo', 1),
-(4, 4, 'Organizacion y Ejecucion del Trabajo', 1),
 (5, 5, 'Capacidad Empresarial', 1),
 (6, 5, 'Aspecto Actitudinal', 1),
-(7, 5, 'Proyeccion Educativa', 1);
+(7, 5, 'Proyeccion Educativa', 1),
+(8, 5, 'Proyectoasldkhash', 0);
 
 -- --------------------------------------------------------
 
@@ -192,6 +192,7 @@ INSERT INTO `dimensiones` (`idDimensiones`, `idMateria`, `nombreDimension`, `est
 CREATE TABLE `docente` (
   `idDocente` int(11) NOT NULL,
   `idUsuario` int(11) NOT NULL,
+  `idFacultad` int(11) NOT NULL,
   `primerNombreDocente` varchar(50) COLLATE latin1_spanish_ci NOT NULL,
   `segundoNombreDocente` varchar(50) COLLATE latin1_spanish_ci NOT NULL,
   `primerApellidoDocente` varchar(50) COLLATE latin1_spanish_ci NOT NULL,
@@ -207,8 +208,8 @@ CREATE TABLE `docente` (
 -- Volcado de datos para la tabla `docente`
 --
 
-INSERT INTO `docente` (`idDocente`, `idUsuario`, `primerNombreDocente`, `segundoNombreDocente`, `primerApellidoDocente`, `segundoApellidoDocente`, `ciDocente`, `telefonoDocente`, `estadoDocente`, `fotoDocente`, `fondoDocente`) VALUES
-(1, 1, 'Lindsay', '', 'Vargas', 'Carrazco', '39901291', '987986', 1, '../img/fcea/estudiantes/Lindsay-VargasCarrasco.jpg', '../img/fcea/estudiantes/lluvia.jpg');
+INSERT INTO `docente` (`idDocente`, `idUsuario`, `idFacultad`, `primerNombreDocente`, `segundoNombreDocente`, `primerApellidoDocente`, `segundoApellidoDocente`, `ciDocente`, `telefonoDocente`, `estadoDocente`, `fotoDocente`, `fondoDocente`) VALUES
+(1, 1, 2, 'Lindsay', '', 'Vargas', 'Carrazco', '39901291', '987986', 1, '../img/fcea/estudiantes/Lindsay-VargasCarrasco.jpg', '../img/fcea/estudiantes/lluvia.jpg');
 
 -- --------------------------------------------------------
 
@@ -231,7 +232,9 @@ CREATE TABLE `empresa` (
 --
 
 INSERT INTO `empresa` (`idEmpresa`, `idRepresentante`, `nombreEmpresa`, `direccionEmpresa`, `telefonoEmpresa`, `rubroEmpresa`, `estadoEmpresa`) VALUES
-(1, 1, 'Rico Pan', 'Vinto-pairumani', '9876876', 'Panaderia', 1);
+(1, 1, 'Rico Pan', 'Vinto-pairumani', '9876876', 'Panaderia', 1),
+(2, 2, 'Universidad Adventista de Bolivia', 'Av. Simon I. Patiño Km 1 1/2', '4263330', 'Universidad', 1),
+(3, 3, 'Consultor Y Logistica \"Teran\"', 'Av. Ernesto Cespedes y Sucre', '79360915', 'Consultora', 1);
 
 -- --------------------------------------------------------
 
@@ -257,11 +260,10 @@ CREATE TABLE `estudiante` (
 
 INSERT INTO `estudiante` (`idEstudiante`, `primerNombreEstudiante`, `segundoNombreEstudiante`, `primerApellidoEstudiante`, `segundoApellidoEstudiante`, `ciEstudiante`, `telefonoEstudiante`, `estadoEstudiante`, `fotoEstudiante`) VALUES
 (1, 'Elias', 'Jonathan', 'Leonardi', 'Sauer', 'E-10132446', '69546746', 1, 'imagen4.jpg'),
-(2, 'Lindsay', '', 'Vargas', 'Carrazco', '981371123', '2586347', 0, 'imagen4.jpg'),
-(4, 'Elias', 'Sauer', 'Leonardi', 'Vargas', '78274829', '91876773', 1, 'Hugo-Campos.jpg'),
-(5, 'Bruce', '', 'Martinez', 'Velazquez', '3845752', '71737619', 1, 'imagen4.jpg'),
 (6, 'Joel', '', 'Vargas', 'Carrasco', '76830293', '78678554', 1, 'imagen7.jpg'),
-(7, 'Juan', 'Mario', 'Arza', 'Perez', '9879872', '87687678', 1, 'imagen1.jpg');
+(8, 'Lizeth', '', 'Camacho', 'Rodriguez', '8812776', '69752621', 1, 'foto1.jpeg'),
+(9, 'Liseth', 'Dayana', 'Calderon', 'Castro', '7227586', '75168900', 1, 'foto2.jpg'),
+(10, 'Lucero', 'Neidy', 'Bustamante', 'Jaldin', '9301697', '76921770', 1, 'foto4.jpg');
 
 -- --------------------------------------------------------
 
@@ -311,15 +313,9 @@ INSERT INTO `materia` (`idMateria`, `idCarrera`, `nombreMateria`, `semestreMater
 (1, 1, 'Practica Empresarial I', 'VI', 'Aqui viene toda la descripcion de la materia de practica empresarial I correspondiente a la carrera de Licenciatura en Administracion de Empresas', 10, 1),
 (2, 2, 'Practica Empresarial I', 'VI', 'Descripcion', 10, 1),
 (3, 3, 'Practica Empresarial I', 'VI', 'Descripcion', 10, 1),
-(4, 4, 'Practica Empresarial I', 'VI', 'Descripcion', 10, 1),
-(5, 1, 'Practica Empresarial II', 'VII', 'Descripcion', 15, 1),
+(5, 1, 'Practica Empresarial II', 'VII', 'Descripcion diferente ahora', 30, 1),
 (6, 2, 'Practica Empresarial II', 'VII', 'Descripcion', 15, 1),
-(7, 3, 'Practica Empresarial II', 'VII', 'Descripcion', 15, 1),
-(8, 4, 'Practica Empresarial II', 'VII', 'Descripcion', 15, 1),
-(9, 1, 'Practica Empresarial III', 'VIII', 'Descripcion', 20, 1),
-(10, 2, 'Practica Empresarial III', 'VIII', 'Descripcion', 20, 1),
-(11, 3, 'Practica Empresarial III', 'VIII', 'Descripcion', 20, 1),
-(12, 4, 'Practica Empresarial III', 'VIII', 'Descripcion', 20, 1);
+(9, 1, 'Practica Empresarial III', 'VIII', 'Descripcion', 20, 1);
 
 -- --------------------------------------------------------
 
@@ -331,135 +327,96 @@ CREATE TABLE `notas` (
   `idNotas` int(11) NOT NULL,
   `idAsignacionPractica` int(11) NOT NULL,
   `idCriterios` int(11) NOT NULL,
-  `nota` int(11) NOT NULL,
-  `parcial` int(11) NOT NULL
+  `idParcial` int(11) NOT NULL,
+  `nota` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `notas`
 --
 
-INSERT INTO `notas` (`idNotas`, `idAsignacionPractica`, `idCriterios`, `nota`, `parcial`) VALUES
-(1, 4, 1, 10, 1),
-(2, 4, 3, 10, 1),
-(3, 4, 4, 5, 1),
-(4, 4, 5, 10, 1),
-(5, 4, 6, 10, 1),
-(6, 4, 18, 10, 1),
-(7, 4, 19, 7, 1),
-(8, 4, 20, 10, 1),
-(9, 4, 21, 10, 1),
-(10, 4, 22, 10, 1),
-(11, 4, 23, 10, 1),
-(12, 4, 24, 10, 1),
-(13, 4, 25, 10, 1),
-(14, 4, 26, 10, 1),
-(15, 4, 27, 10, 1),
-(16, 4, 28, 10, 1),
-(17, 4, 29, 10, 1),
-(18, 4, 30, 4, 1),
-(19, 4, 31, 10, 1),
-(20, 4, 32, 10, 1),
-(21, 4, 1, 10, 2),
-(22, 4, 3, 10, 2),
-(23, 4, 4, 10, 2),
-(24, 4, 5, 10, 2),
-(25, 4, 6, 10, 2),
-(26, 4, 18, 10, 2),
-(27, 4, 19, 10, 2),
-(28, 4, 20, 10, 2),
-(29, 4, 21, 10, 2),
-(30, 4, 22, 10, 2),
-(31, 4, 23, 10, 2),
-(32, 4, 24, 10, 2),
-(33, 4, 25, 10, 2),
-(34, 4, 26, 10, 2),
-(35, 4, 27, 10, 2),
-(36, 4, 28, 10, 2),
-(37, 4, 29, 10, 2),
-(38, 4, 30, 10, 2),
-(39, 4, 31, 10, 2),
-(40, 4, 32, 10, 2),
-(41, 2, 1, 5, 1),
-(42, 2, 3, 6, 1),
-(43, 2, 4, 8, 1),
-(44, 2, 5, 4, 1),
-(45, 2, 6, 9, 1),
-(46, 2, 18, 2, 1),
-(47, 2, 19, 10, 1),
-(48, 2, 20, 10, 1),
-(49, 2, 21, 10, 1),
-(50, 2, 22, 5, 1),
-(51, 2, 23, 8, 1),
-(52, 2, 24, 6, 1),
-(53, 2, 25, 4, 1),
-(54, 2, 26, 7, 1),
-(55, 2, 27, 3, 1),
-(56, 2, 28, 1, 1),
-(57, 2, 29, 10, 1),
-(58, 2, 30, 10, 1),
-(59, 2, 31, 5, 1),
-(60, 2, 32, 9, 1),
-(61, 4, 1, 5, 3),
-(62, 4, 3, 6, 3),
-(63, 4, 4, 8, 3),
-(64, 4, 5, 4, 3),
-(65, 4, 6, 9, 3),
-(66, 4, 18, 2, 3),
-(67, 4, 19, 10, 3),
-(68, 4, 20, 10, 3),
-(69, 4, 21, 10, 3),
-(70, 4, 22, 5, 3),
-(71, 4, 23, 8, 3),
-(72, 4, 24, 6, 3),
-(73, 4, 25, 4, 3),
-(74, 4, 26, 7, 3),
+INSERT INTO `notas` (`idNotas`, `idAsignacionPractica`, `idCriterios`, `idParcial`, `nota`) VALUES
+(1, 4, 1, 1, 10),
+(2, 4, 3, 1, 10),
+(3, 4, 4, 1, 5),
+(4, 4, 5, 1, 10),
+(5, 4, 6, 1, 10),
+(6, 4, 18, 1, 10),
+(7, 4, 19, 1, 7),
+(8, 4, 20, 1, 10),
+(9, 4, 21, 1, 10),
+(10, 4, 22, 1, 10),
+(11, 4, 23, 1, 10),
+(12, 4, 24, 1, 10),
+(13, 4, 25, 1, 10),
+(14, 4, 26, 1, 10),
+(15, 4, 27, 1, 10),
+(16, 4, 28, 1, 10),
+(17, 4, 29, 1, 10),
+(18, 4, 30, 1, 4),
+(19, 4, 31, 1, 10),
+(20, 4, 32, 1, 10),
+(21, 4, 1, 2, 10),
+(22, 4, 3, 2, 10),
+(23, 4, 4, 2, 10),
+(24, 4, 5, 2, 10),
+(25, 4, 6, 2, 10),
+(26, 4, 18, 2, 10),
+(27, 4, 19, 2, 10),
+(28, 4, 20, 2, 10),
+(29, 4, 21, 2, 10),
+(30, 4, 22, 2, 10),
+(31, 4, 23, 2, 10),
+(32, 4, 24, 2, 10),
+(33, 4, 25, 2, 10),
+(34, 4, 26, 2, 10),
+(35, 4, 27, 2, 10),
+(36, 4, 28, 2, 10),
+(37, 4, 29, 2, 10),
+(38, 4, 30, 2, 10),
+(39, 4, 31, 2, 10),
+(40, 4, 32, 2, 10),
+(61, 4, 1, 3, 5),
+(62, 4, 3, 3, 6),
+(63, 4, 4, 3, 8),
+(64, 4, 5, 3, 4),
+(65, 4, 6, 3, 9),
+(66, 4, 18, 3, 2),
+(67, 4, 19, 3, 10),
+(68, 4, 20, 3, 10),
+(69, 4, 21, 3, 10),
+(70, 4, 22, 3, 5),
+(71, 4, 23, 3, 8),
+(72, 4, 24, 3, 6),
+(73, 4, 25, 3, 4),
+(74, 4, 26, 3, 7),
 (75, 4, 27, 3, 3),
-(76, 4, 28, 1, 3),
-(77, 4, 29, 10, 3),
-(78, 4, 30, 10, 3),
-(79, 4, 31, 5, 3),
-(80, 4, 32, 9, 3),
-(81, 1, 1, 5, 3),
-(82, 1, 3, 6, 3),
-(83, 1, 4, 8, 3),
-(84, 1, 5, 4, 3),
-(85, 1, 6, 9, 3),
-(86, 1, 18, 2, 3),
-(87, 1, 19, 10, 3),
-(88, 1, 20, 10, 3),
-(89, 1, 21, 10, 3),
-(90, 1, 22, 5, 3),
-(91, 1, 23, 8, 3),
-(92, 1, 24, 6, 3),
-(93, 1, 25, 4, 3),
-(94, 1, 26, 7, 3),
-(95, 1, 27, 3, 3),
-(96, 1, 28, 1, 3),
-(97, 1, 29, 10, 3),
-(98, 1, 30, 10, 3),
-(99, 1, 31, 5, 3),
-(100, 1, 32, 9, 3),
-(101, 1, 1, 5, 1),
-(102, 1, 3, 10, 1),
-(103, 1, 4, 8, 1),
-(104, 1, 5, 4, 1),
-(105, 1, 6, 10, 1),
-(106, 1, 18, 2, 1),
-(107, 1, 19, 10, 1),
-(108, 1, 20, 10, 1),
-(109, 1, 21, 10, 1),
-(110, 1, 22, 10, 1),
-(111, 1, 23, 8, 1),
-(112, 1, 24, 6, 1),
-(113, 1, 25, 10, 1),
-(114, 1, 26, 7, 1),
-(115, 1, 27, 3, 1),
-(116, 1, 28, 10, 1),
-(117, 1, 29, 10, 1),
-(118, 1, 30, 10, 1),
-(119, 1, 31, 10, 1),
-(120, 1, 32, 9, 1);
+(76, 4, 28, 3, 1),
+(77, 4, 29, 3, 10),
+(78, 4, 30, 3, 10),
+(79, 4, 31, 3, 5),
+(80, 4, 32, 3, 9);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `parcial`
+--
+
+CREATE TABLE `parcial` (
+  `idParcial` int(11) NOT NULL,
+  `estadoParcial` int(2) NOT NULL,
+  `nombreParcial` varchar(30) COLLATE latin1_spanish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `parcial`
+--
+
+INSERT INTO `parcial` (`idParcial`, `estadoParcial`, `nombreParcial`) VALUES
+(1, 0, 'Primer Parcial'),
+(2, 0, 'Segundo Parcial'),
+(3, 0, 'Examen Final');
 
 -- --------------------------------------------------------
 
@@ -470,11 +427,20 @@ INSERT INTO `notas` (`idNotas`, `idAsignacionPractica`, `idCriterios`, `nota`, `
 CREATE TABLE `practicas` (
   `idPracticas` int(11) NOT NULL,
   `idAsignacionPractica` int(11) NOT NULL,
+  `idParcial` int(11) NOT NULL,
   `fechaInicioEvaluacion` date NOT NULL,
   `fechaFinEvaluacion` date NOT NULL,
   `funcionPractica` varchar(500) COLLATE latin1_spanish_ci NOT NULL,
-  `cantidadHoras` int(11) NOT NULL
+  `cantidadHoras` int(11) NOT NULL,
+  `observacionEstudiante` text COLLATE latin1_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `practicas`
+--
+
+INSERT INTO `practicas` (`idPracticas`, `idAsignacionPractica`, `idParcial`, `fechaInicioEvaluacion`, `fechaFinEvaluacion`, `funcionPractica`, `cantidadHoras`, `observacionEstudiante`) VALUES
+(1, 4, 1, '2017-11-01', '2017-11-30', 'Ayudante Varios', 80, 'Sin Observaciones');
 
 -- --------------------------------------------------------
 
@@ -484,8 +450,10 @@ CREATE TABLE `practicas` (
 
 CREATE TABLE `representante` (
   `idRepresentante` int(11) NOT NULL,
-  `nombreRepresentante` varchar(50) COLLATE latin1_spanish_ci NOT NULL,
-  `apellidoRepresentante` varchar(50) COLLATE latin1_spanish_ci NOT NULL,
+  `primerNombreRepresentante` varchar(50) COLLATE latin1_spanish_ci NOT NULL,
+  `segundoNombreRepresentante` varchar(50) COLLATE latin1_spanish_ci NOT NULL,
+  `primerApellidoRepresentante` varchar(50) COLLATE latin1_spanish_ci NOT NULL,
+  `seguntoApellidoRepresentante` varchar(50) COLLATE latin1_spanish_ci NOT NULL,
   `ciRepresentante` varchar(20) COLLATE latin1_spanish_ci NOT NULL,
   `telefonoRepresentante` varchar(20) COLLATE latin1_spanish_ci NOT NULL,
   `estadoRepresentante` int(11) NOT NULL,
@@ -496,8 +464,10 @@ CREATE TABLE `representante` (
 -- Volcado de datos para la tabla `representante`
 --
 
-INSERT INTO `representante` (`idRepresentante`, `nombreRepresentante`, `apellidoRepresentante`, `ciRepresentante`, `telefonoRepresentante`, `estadoRepresentante`, `cargoRepresentante`) VALUES
-(1, 'Juan', 'Ramon Leonardi', '1015809', '871263', 1, 'Administrador');
+INSERT INTO `representante` (`idRepresentante`, `primerNombreRepresentante`, `segundoNombreRepresentante`, `primerApellidoRepresentante`, `seguntoApellidoRepresentante`, `ciRepresentante`, `telefonoRepresentante`, `estadoRepresentante`, `cargoRepresentante`) VALUES
+(1, 'Juan', 'Ramon', 'Sauer', 'Leonardi', '1015809', '871263', 1, 'Administrador'),
+(2, 'Pablo', 'E', 'Paco', 'D', '5878457', '71737654', 1, 'Jefe Finanzas Alumnos'),
+(3, 'Ramiro', '', 'Teran', 'Encinas', '000000', '00000000', 1, 'Gerente General');
 
 -- --------------------------------------------------------
 
@@ -651,7 +621,8 @@ ALTER TABLE `dimensiones`
 --
 ALTER TABLE `docente`
   ADD PRIMARY KEY (`idDocente`),
-  ADD KEY `idUsuario` (`idUsuario`);
+  ADD KEY `idUsuario` (`idUsuario`),
+  ADD KEY `idFacultad` (`idFacultad`);
 
 --
 -- Indices de la tabla `empresa`
@@ -686,14 +657,22 @@ ALTER TABLE `materia`
 ALTER TABLE `notas`
   ADD PRIMARY KEY (`idNotas`),
   ADD KEY `idCriterios` (`idCriterios`),
-  ADD KEY `idAsignacionPractica` (`idAsignacionPractica`);
+  ADD KEY `idAsignacionPractica` (`idAsignacionPractica`),
+  ADD KEY `idParcial` (`idParcial`);
+
+--
+-- Indices de la tabla `parcial`
+--
+ALTER TABLE `parcial`
+  ADD PRIMARY KEY (`idParcial`);
 
 --
 -- Indices de la tabla `practicas`
 --
 ALTER TABLE `practicas`
   ADD PRIMARY KEY (`idPracticas`),
-  ADD KEY `idAsignacionPracticas` (`idAsignacionPractica`);
+  ADD KEY `idAsignacionPracticas` (`idAsignacionPractica`),
+  ADD KEY `idParcial` (`idParcial`);
 
 --
 -- Indices de la tabla `representante`
@@ -736,17 +715,17 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `asignacionpracticas`
 --
 ALTER TABLE `asignacionpracticas`
-  MODIFY `idAsignacionPractica` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `idAsignacionPractica` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT de la tabla `carrera`
 --
 ALTER TABLE `carrera`
-  MODIFY `idCarrera` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idCarrera` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT de la tabla `coordinador`
 --
 ALTER TABLE `coordinador`
-  MODIFY `idCoordinador` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idCoordinador` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT de la tabla `criterios`
 --
@@ -761,7 +740,7 @@ ALTER TABLE `detallepracticas`
 -- AUTO_INCREMENT de la tabla `dimensiones`
 --
 ALTER TABLE `dimensiones`
-  MODIFY `idDimensiones` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `idDimensiones` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT de la tabla `docente`
 --
@@ -771,12 +750,12 @@ ALTER TABLE `docente`
 -- AUTO_INCREMENT de la tabla `empresa`
 --
 ALTER TABLE `empresa`
-  MODIFY `idEmpresa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idEmpresa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT de la tabla `estudiante`
 --
 ALTER TABLE `estudiante`
-  MODIFY `idEstudiante` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `idEstudiante` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT de la tabla `facultad`
 --
@@ -786,22 +765,27 @@ ALTER TABLE `facultad`
 -- AUTO_INCREMENT de la tabla `materia`
 --
 ALTER TABLE `materia`
-  MODIFY `idMateria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `idMateria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT de la tabla `notas`
 --
 ALTER TABLE `notas`
-  MODIFY `idNotas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=121;
+  MODIFY `idNotas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
+--
+-- AUTO_INCREMENT de la tabla `parcial`
+--
+ALTER TABLE `parcial`
+  MODIFY `idParcial` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT de la tabla `practicas`
 --
 ALTER TABLE `practicas`
-  MODIFY `idPracticas` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idPracticas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT de la tabla `representante`
 --
 ALTER TABLE `representante`
-  MODIFY `idRepresentante` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idRepresentante` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT de la tabla `rol`
 --
@@ -864,7 +848,8 @@ ALTER TABLE `dimensiones`
 -- Filtros para la tabla `docente`
 --
 ALTER TABLE `docente`
-  ADD CONSTRAINT `docente_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `usuarios` (`idUsuario`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `docente_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `usuarios` (`idUsuario`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `docente_ibfk_2` FOREIGN KEY (`idFacultad`) REFERENCES `facultad` (`idFacultad`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `empresa`
@@ -889,13 +874,15 @@ ALTER TABLE `materia`
 --
 ALTER TABLE `notas`
   ADD CONSTRAINT `notas_ibfk_1` FOREIGN KEY (`idCriterios`) REFERENCES `criterios` (`idCriterios`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `notas_ibfk_2` FOREIGN KEY (`idAsignacionPractica`) REFERENCES `asignacionpracticas` (`idAsignacionPractica`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `notas_ibfk_2` FOREIGN KEY (`idAsignacionPractica`) REFERENCES `asignacionpracticas` (`idAsignacionPractica`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `notas_ibfk_3` FOREIGN KEY (`idParcial`) REFERENCES `parcial` (`idParcial`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `practicas`
 --
 ALTER TABLE `practicas`
-  ADD CONSTRAINT `practicas_ibfk_1` FOREIGN KEY (`idAsignacionPractica`) REFERENCES `asignacionpracticas` (`idAsignacionPractica`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `practicas_ibfk_1` FOREIGN KEY (`idAsignacionPractica`) REFERENCES `asignacionpracticas` (`idAsignacionPractica`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `practicas_ibfk_2` FOREIGN KEY (`idParcial`) REFERENCES `parcial` (`idParcial`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `tutor`

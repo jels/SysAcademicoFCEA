@@ -25,14 +25,26 @@ public class ControladorVarios extends Conexion {
         return estMo.contar_estudiantes();
     }
 
-    public int cantidadDocentes() {
-        Docente_model doc = new Docente_model();
+    public int cantidadParciales() {
+        Practicas_model pra = new Practicas_model();
+        int cantidad = pra.contar_parciales();
         try {
             getCloseConexion();
         } catch (Exception e) {
-            System.out.println("Error en cantidadDocentes.getCloseConexion: " + e);
+            System.out.println("Error en cantidadParciales.getCloseConexion: " + e);
         }
-        return doc.contar_docente();
+        return cantidad;
+    }
+
+    public int cantidadParcialesXestado(int estado) {
+        Practicas_model pra = new Practicas_model();
+        int cantidad = pra.contar_parciales_estado(estado);
+        try {
+            getCloseConexion();
+        } catch (Exception e) {
+            System.out.println("Error en cantidadParcialesXestado.getCloseConexion: " + e);
+        }
+        return cantidad;
     }
 
     public int cantidadTutores() {
@@ -193,6 +205,61 @@ public class ControladorVarios extends Conexion {
         } catch (Exception e) {
             System.out.println("Error en getUserViewTutor.getCloseConexion: " + e);
         }
+        return htmlcode;
+    }
+
+    public String cambiarEstadoParciales() {
+        String htmlcode = "";
+        int contador = 0;
+        Practicas_model praMo = new Practicas_model();
+        ResultSet parciales = praMo.verParciales();
+
+        try {
+
+            htmlcode += "           <div class=\"container\">\n"
+                    + "                    <div class=\"row\">\n"
+                    + "                        <div class=\"col s12\">\n"
+                    + "                            <h3 class=\"center\">Evaluaciones</h3>\n"
+                    + "                        </div>\n"
+                    + "                    </div>\n"
+                    + "                    <div class=\"row\">\n"
+                    + "                        <div class=\"col s3\"></div>\n"
+                    + "                        <div class=\"col s6\">\n"
+                    + "                            <table class=\"bordered\">\n"
+                    + "                                <thead>\n"
+                    + "                                    <tr>\n"
+                    + "                                        <th>#</th>\n"
+                    + "                                        <th>Evaluacion</th>\n"
+                    + "                                        <th>Estado</th>\n"
+                    + "                                        <th class=\"center\">Cambiar Estado</th>\n"
+                    + "                                    </tr>\n"
+                    + "                                </thead>\n"
+                    + "\n"
+                    + "                                <tbody>\n";
+            while (parciales.next()) {
+                contador++;
+                htmlcode += "                                    <tr>\n"
+                        + "                                        <td>" + contador + "</td>\n"
+                        + "                                        <td>" + parciales.getString(3) + "</td>\n";
+                if (parciales.getInt(2) == 1) {
+                    htmlcode += "                                        <td>Activo</td>\n";
+                } else {
+                    htmlcode += "                                        <td>Inactivo</td>\n";
+                }
+                htmlcode += "                                        <td><div class=\"center-align\"><a id=\"baja_parcial\" data-id=\"" + parciales.getInt(1) + "\" class=\"btn-floating btn tooltipped waves-effect waves-light blue yellow-text\" data-position=\"button\" data-tooltip=\"Dar de Baja\"><i class=\"material-icons yellow-text\">redo</i></a></div></td>\n"
+                        + "                                    </tr>\n";
+            }
+
+            htmlcode += "                                </tbody>\n"
+                    + "                            </table>\n"
+                    + "                        </div>\n"
+                    + "                    </div>\n"
+                    + "                </div>";
+
+        } catch (Exception e) {
+            System.out.println("error en cambiarEstadoParciales:" + e);
+        }
+
         return htmlcode;
     }
 
@@ -419,7 +486,6 @@ public class ControladorVarios extends Conexion {
         } catch (Exception e) {
             System.out.println("Error en getDatosEstudiante.getCloseConexion: " + e);
         }
-
         return htmlcode;
     }
 
