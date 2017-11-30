@@ -14,11 +14,13 @@ public class Criterios {
     private int idCriterio;
     private String nombreCriterio;
     private int estadoCriterio;
+    private int idDimension;
 
-    public Criterios(int idCriterio, String nombreCriterio, int estadoCriterio) {
+    public Criterios(int idCriterio, String nombreCriterio, int estadoCriterio, int idDimension) {
         this.idCriterio = idCriterio;
         this.nombreCriterio = nombreCriterio;
         this.estadoCriterio = estadoCriterio;
+        this.idDimension = idDimension;
     }
 
     public Criterios() {
@@ -64,6 +66,20 @@ public class Criterios {
      */
     public void setEstadoCriterio(int estadoCriterio) {
         this.estadoCriterio = estadoCriterio;
+    }
+
+    /**
+     * @return the idDimension
+     */
+    public int getIdDimension() {
+        return idDimension;
+    }
+
+    /**
+     * @param idDimension the idDimension to set
+     */
+    public void setIdDimension(int idDimension) {
+        this.idDimension = idDimension;
     }
 
 }

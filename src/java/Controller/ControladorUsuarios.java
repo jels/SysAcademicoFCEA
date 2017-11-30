@@ -13,20 +13,25 @@ import Model.*;
  */
 public class ControladorUsuarios extends Conexion {
 
+    boolean bandera;
+    Usuario_model usMo = new Usuario_model();
+    int numero;
+    String dato;
+    Usuario us = new Usuario();
+
     public boolean loginUser(Usuario us) {
-        Usuario_model usm = new Usuario_model();
+        bandera = usMo.existencia(us);
         try {
             getCloseConexion();
         } catch (Exception e) {
             System.out.println("Error en loginUser.getCloseConexion: " + e);
         }
-        return usm.existencia(us);
+        return bandera;
     }
 
     public boolean newUser(Usuario us) {
 
-        Usuario_model usm = new Usuario_model();
-        if (usm.existenciaUser(us)) {
+        if (usMo.existenciaUser(us)) {
             try {
                 getCloseConexion();
             } catch (Exception e) {
@@ -39,35 +44,60 @@ public class ControladorUsuarios extends Conexion {
             } catch (Exception e) {
                 System.out.println("Error en contarTutores.getCloseConexion: " + e);
             }
-            return usm.crear_usuario(us);
+            bandera = usMo.crear_usuario(us);
+            try {
+                getCloseConexion();
+            } catch (Exception e) {
+                System.out.println("Error en contarTutores.getCloseConexion: " + e);
+            }
+            return bandera;
         }
     }
 
     public int findID(Usuario us) {
 
-        Usuario_model usm = new Usuario_model();
+        numero = usMo.encontrarID(us);
         try {
             getCloseConexion();
         } catch (Exception e) {
             System.out.println("Error en findID.getCloseConexion: " + e);
         }
-        return usm.encontrarID(us);
+        return numero;
+    }
+
+    public int findRol(String rol) {
+        numero = usMo.getIdRol(rol);
+        try {
+            getCloseConexion();
+        } catch (Exception e) {
+            System.out.println("Error en findRol.getCloseConexion: " + e);
+        }
+        return numero;
     }
 
     public String getRol(String username) {
 
-        String rol = "";
-        Usuario_model usMo = new Usuario_model();
-        Usuario us = new Usuario();
         us.setNombreUsuario(username);
-        rol = usMo.getRol(us);
+        dato = usMo.getRol(us);
         try {
             getCloseConexion();
         } catch (Exception e) {
             System.out.println("Error en getRol.getCloseConexion: " + e);
         }
 
-        return rol;
+        return dato;
+    }
+
+    public boolean borrarUsuario(Usuario us) {
+
+        bandera = usMo.borrarUser(us);
+        try {
+            getCloseConexion();
+        } catch (Exception e) {
+            System.out.println("Error en borrarUsuario.getCloseConexion: " + e);
+        }
+
+        return false;
     }
 
 }

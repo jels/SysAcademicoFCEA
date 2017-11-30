@@ -18,11 +18,11 @@ public class Notas_model extends Conexion {
         PreparedStatement pst = null;
         ResultSet rs = null;
         try {
-            String consulta = "SELECT COUNT(n.parcial) "
+            String consulta = "SELECT COUNT(n.idParcial) "
                     + "FROM notas n, asignacionpracticas asp, estudiante e "
                     + "WHERE e.idEstudiante = asp.idEstudiante "
                     + "AND asp.idAsignacionPractica = n.idAsignacionPractica "
-                    + "AND n.parcial = 1 "
+                    + "AND n.idParcial = 1 "
                     + "AND asp.estadoPractica = 1 "
                     + "AND e.ciEstudiante = ?";
             pst = getConnection().prepareStatement(consulta);
@@ -40,11 +40,11 @@ public class Notas_model extends Conexion {
         PreparedStatement pst = null;
         ResultSet rs = null;
         try {
-            String consulta = "SELECT COUNT(n.parcial) "
+            String consulta = "SELECT COUNT(n.idParcial) "
                     + "FROM notas n, asignacionpracticas asp, estudiante e "
                     + "WHERE e.idEstudiante = asp.idEstudiante "
                     + "AND asp.idAsignacionPractica = n.idAsignacionPractica "
-                    + "AND n.parcial = 2 "
+                    + "AND n.idParcial = 2 "
                     + "AND asp.estadoPractica = 1 "
                     + "AND e.ciEstudiante = ?";
             pst = getConnection().prepareStatement(consulta);
@@ -62,11 +62,11 @@ public class Notas_model extends Conexion {
         PreparedStatement pst = null;
         ResultSet rs = null;
         try {
-            String consulta = "SELECT COUNT(n.parcial) "
+            String consulta = "SELECT COUNT(n.idParcial) "
                     + "FROM notas n, asignacionpracticas asp, estudiante e "
                     + "WHERE e.idEstudiante = asp.idEstudiante "
                     + "AND asp.idAsignacionPractica = n.idAsignacionPractica "
-                    + "AND n.parcial = 3 "
+                    + "AND n.idParcial = 3 "
                     + "AND asp.estadoPractica = 1 "
                     + "AND e.ciEstudiante = ?";
             pst = getConnection().prepareStatement(consulta);
@@ -119,7 +119,7 @@ public class Notas_model extends Conexion {
                     + "AND asp.idAsignacionPractica = n.idAsignacionPractica "
                     + "AND e.ciEstudiante = ? "
                     + "AND asp.estadoPractica = 1 "
-                    + "AND n.parcial = 1 ";
+                    + "AND n.idParcial = 1 ";
             pst = getConnection().prepareStatement(consulta);
             pst.setString(1, CI_estudiante);
             rs = pst.executeQuery();
@@ -149,7 +149,7 @@ public class Notas_model extends Conexion {
                     + "AND asp.idAsignacionPractica = n.idAsignacionPractica "
                     + "AND e.ciEstudiante = ? "
                     + "AND asp.estadoPractica = 1 "
-                    + "AND n.parcial = 2";
+                    + "AND n.idParcial = 2";
             pst = getConnection().prepareStatement(consulta);
             pst.setString(1, CI_estudiante);
             rs = pst.executeQuery();
@@ -179,7 +179,7 @@ public class Notas_model extends Conexion {
                     + "AND asp.idAsignacionPractica = n.idAsignacionPractica "
                     + "AND e.ciEstudiante = ? "
                     + "AND asp.estadoPractica = 1 "
-                    + "AND n.parcial = 3 ";
+                    + "AND n.idParcial = 3 ";
             pst = getConnection().prepareStatement(consulta);
             pst.setString(1, CI_estudiante);
             rs = pst.executeQuery();
@@ -209,7 +209,7 @@ public class Notas_model extends Conexion {
                     + "AND asp.idAsignacionPractica = n.idAsignacionPractica "
                     + "AND e.ciEstudiante = ? "
                     + "AND asp.estadoPractica = 1 "
-                    + "AND n.parcial = 1 ";
+                    + "AND n.idParcial = 1 ";
             pst = getConnection().prepareStatement(consulta);
             pst.setString(1, CI_estudiante);
             rs = pst.executeQuery();
@@ -239,7 +239,7 @@ public class Notas_model extends Conexion {
                     + "AND asp.idAsignacionPractica = n.idAsignacionPractica "
                     + "AND e.ciEstudiante = ? "
                     + "AND asp.estadoPractica = 1 "
-                    + "AND n.parcial = 2 ";
+                    + "AND n.idParcial = 2 ";
             pst = getConnection().prepareStatement(consulta);
             pst.setString(1, CI_estudiante);
             rs = pst.executeQuery();
@@ -269,7 +269,7 @@ public class Notas_model extends Conexion {
                     + "AND asp.idAsignacionPractica = n.idAsignacionPractica "
                     + "AND e.ciEstudiante = ? "
                     + "AND asp.estadoPractica = 1 "
-                    + "AND n.parcial = 3 ";
+                    + "AND n.idParcial = 3 ";
             pst = getConnection().prepareStatement(consulta);
             pst.setString(1, CI_estudiante);
             rs = pst.executeQuery();
@@ -291,7 +291,7 @@ public class Notas_model extends Conexion {
                     + "WHERE e.idEstudiante = asp.idEstudiante "
                     + "AND asp.idAsignacionPractica = n.idAsignacionPractica "
                     + "AND e.ciEstudiante = ? "
-                    + "AND n.parcial = ? "
+                    + "AND n.idParcial = ? "
                     + "AND asp.idAsignacionPractica = ? ";
             pst = getConnection().prepareStatement(consulta);
             pst.setString(1, CI_estudiante);
@@ -318,7 +318,7 @@ public class Notas_model extends Conexion {
 
         try {
             String consulta = "INSERT INTO notas"
-                    + "(idAsignacionPractica, idCriterios, nota, parcial) "
+                    + "(idAsignacionPractica, idCriterios, nota, idParcial) "
                     + "VALUES (?,?,?,?)";
             pst = getConnection().prepareStatement(consulta);
             pst.setInt(1, IdAsignacionPractica);
@@ -331,5 +331,5 @@ public class Notas_model extends Conexion {
             return false;
         }
     }
-    
+
 }

@@ -32,6 +32,27 @@ public class Empresa_model extends Conexion {
         }
     }
 
+    public String getNombreEmpresa(int idEmpresa) {
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        try {
+            String consulta = "SELECT nombreEmpresa "
+                    + "FROM empresa "
+                    + "WHERE idEmpresa = ? ";
+            pst = getConnection().prepareStatement(consulta);
+            pst.setInt(1, idEmpresa);
+            rs = pst.executeQuery();
+            if (rs.next()) {
+                return rs.getString(1);
+            } else {
+                return "";
+            }
+        } catch (Exception ex) {
+            System.err.println("Error getNombreEmpresa: " + ex);
+            return "";
+        }
+    }
+
     public String nombre_empresa(String tutor) {
         PreparedStatement pst = null;
         ResultSet rs = null;

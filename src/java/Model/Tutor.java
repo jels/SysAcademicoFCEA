@@ -15,16 +15,18 @@ public class Tutor extends Persona {
     private String fotoTutor;
     private String fondoTutor;
     private int idUsuario;
+    private int idEmpresa;
 
-    public Tutor() {
-    }
-
-    public Tutor(String cargoTutor, String fotoTutor, String fondoTutor, int idUsuario, int idPersona, String primerNombrePersona, String primerApellidoPersona, String segundoNombrePersona, String segundoApellidoPersona, String ciPersona, String telefonoPersona, int estadoPersona) {
+    public Tutor(String cargoTutor, String fotoTutor, String fondoTutor, int idUsuario, int idEmpresa, int idPersona, String primerNombrePersona, String primerApellidoPersona, String segundoNombrePersona, String segundoApellidoPersona, String ciPersona, String telefonoPersona, int estadoPersona) {
         super(idPersona, primerNombrePersona, primerApellidoPersona, segundoNombrePersona, segundoApellidoPersona, ciPersona, telefonoPersona, estadoPersona);
         this.cargoTutor = cargoTutor;
         this.fotoTutor = fotoTutor;
         this.fondoTutor = fondoTutor;
         this.idUsuario = idUsuario;
+        this.idEmpresa = idEmpresa;
+    }
+
+    public Tutor() {
     }
 
     /**
@@ -81,6 +83,20 @@ public class Tutor extends Persona {
      */
     public void setIdUsuario(int idUsuario) {
         this.idUsuario = idUsuario;
+    }
+
+    /**
+     * @return the idEmpresa
+     */
+    public int getIdEmpresa() {
+        return idEmpresa;
+    }
+
+    /**
+     * @param idEmpresa the idEmpresa to set
+     */
+    public void setIdEmpresa(int idEmpresa) {
+        this.idEmpresa = idEmpresa;
     }
 
 }

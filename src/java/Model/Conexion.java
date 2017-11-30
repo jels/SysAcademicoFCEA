@@ -45,14 +45,4 @@ public class Conexion {
         this.con.close();
         System.out.println("Conexion cerrada..!!");
     }
-
-//    public Connection getClose() {
-//        this.con.close();
-//    }
-//    public static void main(String[] args) {
-//        Conexion con=new Conexion();
-//    }
-    //        String saludo = "Hola Mundo";
-//        String cortado = saludo.substring(0, 6);
-//        System.out.println("saludo cortado: " + cortado);
 }

@@ -48,6 +48,7 @@ public class Practicas_model extends Conexion {
                     + "FROM practicas p, asignacionpracticas asp, estudiante e "
                     + "WHERE e.idEstudiante = asp.idEstudiante "
                     + "AND asp.idAsignacionPractica = p.idAsignacionPractica "
+                    + "AND asp.estadoPractica = 1 "
                     + "AND e.ciEstudiante = ? ";
             pst = getConnection().prepareStatement(consulta);
             pst.setString(1, CI_estudiante);
@@ -161,6 +162,105 @@ public class Practicas_model extends Conexion {
 
         } catch (Exception ex) {
             System.err.println("Error actualizarParcial: " + ex);
+            return false;
+        }
+    }
+
+    public ResultSet getDatosPracticaEstudiante(String CI_estudiante, int idPractica) {
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        try {
+            String consulta = "SELECT p.idPracticas, p.fechaInicioEvaluacion, "
+                    + "p.fechaFinEvaluacion, p.funcionPractica, "
+                    + "p.cantidadHoras, p.observacionEstudiante "
+                    + "FROM practicas p, asignacionpracticas asp, estudiante e "
+                    + "WHERE e.idEstudiante = asp.idEstudiante "
+                    + "AND asp.idAsignacionPractica = p.idAsignacionPractica "
+                    + "AND asp.estadoPractica = 1 "
+                    + "AND p.idParcial = ? "
+                    + "AND e.ciEstudiante = ? ";
+            pst = getConnection().prepareStatement(consulta);
+            pst.setInt(1, idPractica);
+            pst.setString(2, CI_estudiante);
+            rs = pst.executeQuery();
+            return rs;
+
+        } catch (Exception ex) {
+            System.err.println("Error getDatosPractica: " + ex);
+            return null;
+        }
+    }
+
+    public boolean activoParcial(int idParcial) {
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        try {
+            String consulta = "SELECT estadoParcial "
+                    + "FROM parcial "
+                    + "WHERE idParcial = ? ";
+            pst = getConnection().prepareStatement(consulta);
+            pst.setInt(1, idParcial);
+            rs = pst.executeQuery();
+            rs.next();
+            return rs.getInt(1) == 1;
+
+        } catch (Exception ex) {
+            System.err.println("Error activoParcial: " + ex);
+            return false;
+        }
+    }
+
+    public ResultSet getDetallesPractica(String CI_estudiante, int idPractica) {
+
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        try {
+            String consulta = "SELECT det.idDetalles, "
+                    + "det.tareaAsignada, det.observacionTarea "
+                    + "FROM asignacionpracticas asp, estudiante e, "
+                    + "practicas p, detallepracticas det "
+                    + "WHERE e.idEstudiante = asp.idEstudiante "
+                    + "AND asp.idAsignacionPractica = p.idAsignacionPractica "
+                    + "AND p.idPracticas = det.idPracticas "
+                    + "AND asp.estadoPractica = 1 "
+                    + "AND p.idParcial = ? "
+                    + "AND e.ciEstudiante = ? ";
+            pst = getConnection().prepareStatement(consulta);
+            pst.setInt(1, idPractica);
+            pst.setString(2, CI_estudiante);
+            rs = pst.executeQuery();
+            return rs;
+
+        } catch (Exception ex) {
+            System.err.println("Error getDetallesPractica: " + ex);
+            return null;
+        }
+    }
+
+    public boolean eliminarPractica(int idPractica) {
+        PreparedStatement pst = null;
+        try {
+            String consulta = "DELETE FROM practicas WHERE idPracticas = ?";
+            pst = getConnection().prepareStatement(consulta);
+            pst.setInt(1, idPractica);
+            return pst.executeUpdate() == 1;
+
+        } catch (Exception ex) {
+            System.err.println("Error eliminarPractica: " + ex);
+            return false;
+        }
+    }
+
+    public boolean eliminarDetalle(int idDetalle) {
+        PreparedStatement pst = null;
+        try {
+            String consulta = "DELETE FROM detallepracticas WHERE idDetalles = ?";
+            pst = getConnection().prepareStatement(consulta);
+            pst.setInt(1, idDetalle);
+            return pst.executeUpdate() == 1;
+
+        } catch (Exception ex) {
+            System.err.println("Error eliminarPractica: " + ex);
             return false;
         }
     }

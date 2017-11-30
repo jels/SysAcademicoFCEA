@@ -15,14 +15,14 @@ public class Notas {
     private int idAsignacionPractica;
     private int idCriterios;
     private int nota;
-    private int parcial;
+    private int idParcial;
 
-    public Notas(int idNotas, int idAsignacionPractica, int idCriterios, int nota, int parcial) {
+    public Notas(int idNotas, int idAsignacionPractica, int idCriterios, int nota, int idParcial) {
         this.idNotas = idNotas;
         this.idAsignacionPractica = idAsignacionPractica;
         this.idCriterios = idCriterios;
         this.nota = nota;
-        this.parcial = parcial;
+        this.idParcial = idParcial;
     }
 
     public Notas() {
@@ -85,17 +85,17 @@ public class Notas {
     }
 
     /**
-     * @return the parcial
+     * @return the idParcial
      */
-    public int getParcial() {
-        return parcial;
+    public int getIdParcial() {
+        return idParcial;
     }
 
     /**
-     * @param parcial the parcial to set
+     * @param idParcial the parcial to set
      */
-    public void setParcial(int parcial) {
-        this.parcial = parcial;
+    public void setIdParcial(int idParcial) {
+        this.idParcial = idParcial;
     }
 
 }

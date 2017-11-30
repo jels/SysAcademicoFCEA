@@ -5,6 +5,7 @@
  */
 package Servlets;
 
+import Controller.ControladorEmpresa;
 import Controller.ControladorTutor;
 import Controller.ControladorUsuarios;
 import Model.Tutor;
@@ -37,74 +38,73 @@ public class TutorCRUD extends HttpServlet {
         String accion = request.getParameter("accion");
         System.out.println("Accion: " + accion);
         String CI_tutor = request.getParameter("CI_tutor");
-        ControladorTutor conTut = new ControladorTutor();
+        ControladorEmpresa conEmp = new ControladorEmpresa();
         Tutor tut = new Tutor();
         ControladorUsuarios conUs = new ControladorUsuarios();
         Usuario us = new Usuario();
-
+        int idUsuario;
+        int idRol;
         //Metodo creado para evitar el uso de muchos servlets 
         // aqui llegan todas las peticiones del usuario para realizar las funciones de:
         // -Crear -Editar -Dar de Baja -Eliminar
         switch (accion) {
-            case "crear":
-                System.out.println("tutor..." + request.getParameter("primerNombreT"));
-                int id;
-
-                us.setIdRol(3);
-                us.setNombreUsuario(minuscula(request.getParameter("nombreUsuarioT")));
-                us.setPassUsuario(minuscula(request.getParameter("passUsuarioT")));
-                us.setImagenUsuario("imagenT");
-                us.setFondoUsuario("fondoT");
+            case "crear_tutor":
+                us.setImagenUsuario(request.getParameter("imagenT"));
+                us.setFondoUsuario(request.getParameter("imagenT"));
+                us.setNombreUsuario(request.getParameter("imagenT"));
+                us.setPassUsuario(request.getParameter("imagenT"));
+                idRol = conUs.findRol("Tutor");
+                System.out.println("Rol: " + idRol);
+                us.setIdRol(idRol);
 
                 if (conUs.newUser(us)) {
-                    id = conUs.findID(us);
-
+                    idUsuario = conUs.findID(us);
+                    tut.setIdUsuario(idUsuario);
+                    tut.setIdEmpresa(Integer.parseInt(request.getParameter("idEmpresa")));
                     tut.setPrimerNombrePersona(ucFirst2(request.getParameter("primerNombreT")));
                     tut.setSegundoNombrePersona(ucFirst2(request.getParameter("segundoNombreT")));
                     tut.setPrimerApellidoPersona(ucFirst2(request.getParameter("primerApellidoT")));
                     tut.setSegundoApellidoPersona(ucFirst2(request.getParameter("segundoApellidoT")));
-                    tut.setTelefonoPersona(request.getParameter("celularT"));
                     tut.setCiPersona(request.getParameter("ciT"));
+                    tut.setTelefonoPersona(request.getParameter("celularT"));
                     tut.setCargoTutor(ucFirst2(request.getParameter("cargoT")));
-                    tut.setEstadoPersona(1);
-                    tut.setFotoTutor("imagenT");
-                    tut.setFondoTutor("fondoT");
-                    tut.setIdUsuario(id);
-                    if (conTut.newTutor(tut)) {
+                    tut.setEstadoPersona(Integer.parseInt(request.getParameter("estado")));
+                    tut.setFotoTutor(request.getParameter("imagenT"));
+                    tut.setFondoTutor(request.getParameter("fondoT"));
+                    System.out.println("klasdjlaksjdl");
+                    if (conEmp.nuevoTutor(tut)) {
                         out.print("true");
                     } else {
-                        out.print("falseTutor");
+                        conUs.borrarUsuario(us);
+                        System.out.println("añlksjdlajdlkasjd");
+                        out.print("false");
                     }
 
                 } else {
-                    out.print("falseUser");
+                    out.print("false");
                 }
 
                 break;
             case "update":
 
                 break;
-            case "baja":
-
-                System.out.println("CI_Tutor: " + CI_tutor);
-                if (conTut.bajaTutor(CI_tutor)) {
+            case "baja_tutor":
+                if (conEmp.darBajaTutor(Integer.parseInt(request.getParameter("idTutor")))) {
                     out.print("true");
-
                 } else {
                     out.print("false");
                 }
-
                 break;
-            case "eliminar":
-                System.out.println("CI_Estudiante: " + CI_tutor);
-                if (conTut.eliminarTutor(CI_tutor)) {
-                    out.print("true");
-
-                } else {
-                    out.print("false");
-                }
-
-                break;
+//            case "eliminar":
+//                System.out.println("CI_Estudiante: " + CI_tutor);
+//                if (conTut.eliminarTutor(CI_tutor)) {
+//                    out.print("true");
+//
+//                } else {
+//                    out.print("false");
+//                }
+//
+//                break;
             default:
                 out.print("false");
                 break;

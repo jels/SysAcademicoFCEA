@@ -34,6 +34,30 @@ public class Materia_model extends Conexion {
         }
     }
 
+    public boolean newMateria(Materia mat) {
+        PreparedStatement pst;
+        ResultSet rs;
+        try {
+            String consulta = "INSERT INTO materia "
+                    + "(idCarrera, nombreMateria, "
+                    + "semestreMateria, descripcionMateria, "
+                    + "horasPracticas, estadoMateria) "
+                    + "VALUES ( ? , ? , ? , ? , ? , ? )";
+            pst = getConnection().prepareStatement(consulta);
+            pst.setInt(1, mat.getIdCarrera());
+            pst.setString(2, mat.getNombreMateria());
+            pst.setString(3, mat.getSemestreMateria());
+            pst.setString(4, mat.getDescripcionMateria());
+            pst.setInt(5, mat.getHorasPracticas());
+            pst.setInt(6, mat.getEstadoMateria());
+            return pst.executeUpdate() == 1;
+
+        } catch (Exception ex) {
+            System.err.println("Error newMateria: " + ex);
+            return false;
+        }
+    }
+
     public int getIdMateriaDimension(int idDimension) {
         PreparedStatement pst = null;
         ResultSet rs = null;

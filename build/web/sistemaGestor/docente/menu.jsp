@@ -91,11 +91,6 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="tutor.jsp" class="waves-effect yellow-text">
-                                        <i class="material-icons yellow-text">contacts</i>Tutor
-                                    </a>
-                                </li>
-                                <li>
                                     <a href="carrera.jsp" class="waves-effect yellow-text">
                                         <i class="material-icons yellow-text">format_list_bulleted</i>Carreras
                                     </a>
@@ -150,7 +145,7 @@
                                 <p>Los tutores Activos que existen para poder asignar sus estudiantes</p>
                             </div>
                             <div class="card-action center">
-                                <h5><a href="tutor.jsp" class="yellow-text"><%=conVar.cantidadTutores()%></a></h5>
+                                <h5><%=conVar.cantidadTutores()%></h5>
                             </div>
                         </div>
                     </div>

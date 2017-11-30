@@ -43,35 +43,27 @@ public class PracticasCRUD extends HttpServlet {
         // -Crear -Editar -Dar de Baja -Eliminar
         switch (accion) {
             case "practicas":
-                System.out.println("CI_estudiante: " + request.getParameter("CI_estudiante"));
                 practica.setFechaFinEvaluacion(request.getParameter("fechaFin"));
                 practica.setFechaInicioEvaluacion(request.getParameter("fechaInicio"));
                 practica.setCantidadHoras(Integer.parseInt(request.getParameter("cantidadHoras")));
                 practica.setFuncionPractica(request.getParameter("funcionPracticante"));
                 practica.setObservacionEstudiante(request.getParameter("observacionEstudiante"));
                 practica.setIdAsignacionPractica(conAsp.getIdPracitca(request.getParameter("CI_estudiante")));
-
                 if (conAsp.newPractica(practica)) {
                     out.print("true");
                 } else {
                     out.print("false");
                 }
-
                 break;
             case "detallePractica":
-
                 break;
-
             case "crear":
-                System.out.println("llegoooo....sSSSsaldhkasjdh");
                 out.print("false");
                 break;
             case "update":
-                System.out.println("llegoooo....sSSSsaldhkasjdh");
                 out.print("false");
                 break;
             case "baja":
-                System.out.println("llegoooo....sSSSsaldhkasjdh");
                 out.print("false");
                 break;
             case "parcial":
@@ -81,12 +73,22 @@ public class PracticasCRUD extends HttpServlet {
                     out.print("false");
                 }
                 break;
-//            case "buscar_estudiante":
-//
-//                break;
-//            case "cargar_nota":
-//
-//                break;
+            case "eliminar_registro":
+                if (conAsp.eliminarRegistroPractica(Integer.parseInt(request.getParameter("idRegistro")))) {
+                    out.print("true");
+                } else {
+                    out.print("false");
+                }
+
+                break;
+            case "eliminar_detalle":
+                if (conAsp.eliminarDetallePractica(Integer.parseInt(request.getParameter("idDetalle")))) {
+                    out.print("true");
+                } else {
+                    out.print("false");
+                }
+                
+                break;
 //            case "verNotaAsignada":
 //
 //                break;

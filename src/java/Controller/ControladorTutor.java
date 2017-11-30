@@ -17,21 +17,14 @@ import java.util.logging.Logger;
  */
 public class ControladorTutor extends Conexion {
 
-    public int contarTutores() {
+    String htmlcode;
+    int contador;
 
-        Tutor_model tutMo = new Tutor_model();
-        try {
-            getCloseConexion();
-        } catch (Exception e) {
-            System.out.println("Error en contarTutores.getCloseConexion: " + e);
-        }
-        return tutMo.contar_tutor();
-
-    }
+    Tutor_model tutMo = new Tutor_model();
 
     public String verTutores() {
 
-        String htmlcode = "          <div class=\"container\">\n"
+        htmlcode = "          <div class=\"container\">\n"
                 + "                        <div class=\"row\">\n"
                 + "                            <div class=\"col s12\">\n"
                 + "                                <h1 class=\"center yellow-text\">Tutores</h1>\n"
@@ -59,7 +52,6 @@ public class ControladorTutor extends Conexion {
                 + "                            </thead>\n"
                 + "                            <tbody>\n";
         ResultSet tut;
-        Tutor_model tutMo = new Tutor_model();
         tut = tutMo.ver_Tutores();
         int i = 1;
         if (tut == null) {
@@ -115,99 +107,7 @@ public class ControladorTutor extends Conexion {
 
     public String modal_newTutor() {
 
-        String htmlcode = "<div class=\"modal-content blue darken-3\">\n"
-                + "                        <div class=\"row\">\n"
-                + "                            <h1 class=\"center yellow-text\">Nuevo Tutor</h1>\n"
-                + "                        </div>\n"
-                + "                        <div class=\"row\">\n"
-                + "                            <form method=\"post\" id=\"nuevotut\" action=\"../tutor.do\" class=\"col s12 yellow-text\" enctype=\"multipart/form-data\">\n"
-                + "                                <div class=\"row\">\n"
-                + "                                    <div class=\"input-field col s4\">\n"
-                + "                                        <i class=\"material-icons prefix yellow-text\">assignment_ind</i>\n"
-                + "                                        <input id=\"primerNombreT\" type=\"text\" class=\"validate\">\n"
-                + "                                        <label class=\"yellow-text\" for=\"Primer Nombre\">Primer Nombre</label>\n"
-                + "                                    </div>\n"
-                + "                                    <div class=\"input-field col s4\">\n"
-                + "                                        <i class=\"material-icons prefix yellow-text\">assignment_ind</i>\n"
-                + "                                        <input id=\"segundoNombreT\" type=\"text\" >\n"
-                + "                                        <label class=\"yellow-text\" for=\"Segundo Nombre\">Segundo Nombre</label>\n"
-                + "                                    </div>\n"
-                + "                                    <div class=\"input-field col s4\">\n"
-                + "                                        <i class=\"material-icons prefix yellow-text\">wc</i>\n"
-                + "                                        <input id=\"primerApellidoT\" type=\"text\" class=\"validate\">\n"
-                + "                                        <label class=\"yellow-text\" for=\"Primer Apellido\">Primer Apellido</label>\n"
-                + "                                    </div>\n"
-                + "                                </div>\n"
-                + "                                <div class=\"row\">\n"
-                + "                                    <div class=\"input-field col s4\">\n"
-                + "                                        <i class=\"material-icons prefix yellow-text\">assignment_ind</i>\n"
-                + "                                        <input id=\"segundoApellidoT\" type=\"text\" class=\"validate\">\n"
-                + "                                        <label class=\"yellow-text\" for=\"Segundo Apellido\">Segundo Apellido</label>\n"
-                + "                                    </div>\n"
-                + "                                    <div class=\"input-field col s4\">\n"
-                + "                                        <i class=\"material-icons prefix yellow-text\">assignment_ind</i>\n"
-                + "                                        <input id=\"celularT\" type=\"text\" >\n"
-                + "                                        <label class=\"yellow-text\" for=\"celularT\">Celular</label>\n"
-                + "                                    </div>\n"
-                + "                                    <div class=\"input-field col s4\">\n"
-                + "                                        <i class=\"material-icons prefix yellow-text\">wc</i>\n"
-                + "                                        <input id=\"ciT\" type=\"text\" class=\"validate\">\n"
-                + "                                        <label class=\"yellow-text\" for=\"ciT\">CI</label>\n"
-                + "                                    </div>\n"
-                + "                                </div>\n"
-                + "                                <div class=\"row\">\n"
-                + "                                    <div class=\"input-field col s4\">\n"
-                + "                                        <i class=\"material-icons prefix yellow-text\">assignment_ind</i>\n"
-                + "                                        <input id=\"cargoT\" type=\"text\" class=\"validate\">\n"
-                + "                                        <label class=\"yellow-text\" for=\"cargoT\">Cargo</label>\n"
-                + "                                    </div>\n"
-                + "                                    <div class=\"input-field col s4\">\n"
-                + "                                        <i class=\"material-icons prefix yellow-text\">assignment_ind</i>\n"
-                + "                                        <input id=\"nombreUsuarioT\" type=\"text\" >\n"
-                + "                                        <label class=\"yellow-text\" for=\"nombreUsuarioT\">Usuario</label>\n"
-                + "                                    </div>\n"
-                + "                                    <div class=\"input-field col s4\">\n"
-                + "                                        <i class=\"material-icons prefix yellow-text\">wc</i>\n"
-                + "                                        <input id=\"passUsuarioT\" type=\"password\" class=\"validate\">\n"
-                + "                                        <label class=\"yellow-text\" for=\"passUsuarioT\">Contraceña</label>\n"
-                + "                                    </div>\n"
-                + "                                </div>\n"
-                + "                                <div class=\"row\">\n"
-                + "                                    <div class=\"file-field input-field col s6\">\n"
-                + "                                        <div class=\"btn blue yellow-text\">\n"
-                + "                                            <span>Perfil</span>\n"
-                + "                                            <input type=\"file\" id=\"imagenT\">\n"
-                + "                                        </div>\n"
-                + "                                        <div class=\"file-path-wrapper\">\n"
-                + "                                            <input class=\"file-path validate\" type=\"text\"  placeholder=\"Seleccione una Foto\">\n"
-                + "                                        </div>\n"
-                + "                                    </div>\n"
-                + "                                    <div class=\"file-field input-field col s6\">\n"
-                + "                                        <div class=\"btn blue yellow-text\">\n"
-                + "                                            <span>Fondo</span>\n"
-                + "                                            <input type=\"file\" id=\"fondoT\">\n"
-                + "                                        </div>\n"
-                + "                                        <div class=\"file-path-wrapper\">\n"
-                + "                                            <input class=\"file-path validate\" type=\"text\"  placeholder=\"Seleccione una Foto\">\n"
-                + "                                        </div>\n"
-                + "                                    </div>\n"
-                + "                                </div>\n"
-                + "                            </form>\n"
-                + "                        </div>\n"
-                + "\n"
-                + "\n"
-                + "                    </div>\n"
-                + "\n"
-                + "                    <div class=\"modal-footer blue darken-3 yellow-text\">\n"
-                + "                        <div class=\"col s6\">\n"
-                + "                            <button class=\"btn waves-effect waves-light yellow accent-2 blue-text left\" type=\"button\" id=\"nuevotutor\">\n"
-                + "                                Validar y Guardar<i class=\"material-icons right\">save</i>\n"
-                + "                            </button>\n"
-                + "                        </div>\n"
-                + "                        <div id=\"notificacionnewTutor\">\n"
-                + "\n"
-                + "                        </div>"
-                + "                    </div>";
+        
         try {
             getCloseConexion();
         } catch (Exception e) {
@@ -217,7 +117,8 @@ public class ControladorTutor extends Conexion {
 
     }
 
-    public boolean bajaTutor(String id) {
+    public boolean bajaTutor(String idTutor) {
+
         try {
             getCloseConexion();
         } catch (Exception e) {
@@ -237,7 +138,6 @@ public class ControladorTutor extends Conexion {
 
     public boolean newTutor(Tutor tut) {
 
-        Tutor_model tutMo = new Tutor_model();
         try {
             getCloseConexion();
         } catch (Exception e) {

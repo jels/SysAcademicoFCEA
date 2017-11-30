@@ -5,6 +5,7 @@
  */
 package Servlets;
 
+import Controller.ControladorCarrera;
 import Controller.ControladorMateria;
 import Model.Materia;
 import java.io.IOException;
@@ -37,14 +38,25 @@ public class MateriaCRUD extends HttpServlet {
         String htmlcode;
 
         ControladorMateria conMat = new ControladorMateria();
+        ControladorCarrera conCar = new ControladorCarrera();
         Materia materia = new Materia();
         //Metodo creado para evitar el uso de muchos servlets 
         // aqui llegan todas las peticiones del usuario para realizar las funciones de:
         // -Crear -Editar -Dar de Baja -Eliminar
         switch (accion) {
             case "crear":
-                System.out.println("llegoooo....sSSSsaldhkasjdh");
-                out.print("true");
+                int idCarrera = conCar.getIdCarrera(request.getParameter("carrera"));
+                materia.setIdCarrera(idCarrera);
+                materia.setNombreMateria(request.getParameter("nombreMateria"));
+                materia.setDescripcionMateria(request.getParameter("descripcionMateria"));
+                materia.setSemestreMateria(request.getParameter("semestreMateria"));
+                materia.setHorasPracticas(Integer.parseInt(request.getParameter("horasPracticas")));
+                materia.setEstadoMateria(1);
+                if (conMat.nuevaMateria(materia)) {
+                    out.print("true");
+                } else {
+                    out.print("true");
+                }
                 break;
             case "update":
                 materia.setIdMateria(Integer.parseInt(request.getParameter("idMateria")));

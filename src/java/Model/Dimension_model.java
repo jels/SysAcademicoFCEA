@@ -73,7 +73,6 @@ public class Dimension_model extends Conexion {
         }
     }
 
-    //
     public ResultSet ver_dimensionesxmateria(int idMateria) {
         PreparedStatement pst = null;
         ResultSet rs = null;
@@ -149,25 +148,6 @@ public class Dimension_model extends Conexion {
         }
     }
 
-    public int getCantidadCriteriosXDimension(int idDimension) {
-        PreparedStatement pst;
-        ResultSet rs;
-        try {
-            String consulta = "SELECT COUNT(c.idCriterios) "
-                    + "FROM dimensiones d, criterios c "
-                    + "WHERE d.idDimensiones = c.idDimensiones "
-                    + "AND d.idDimensiones = ? ";
-            pst = getConnection().prepareStatement(consulta);
-            pst.setInt(1, idDimension);
-            rs = pst.executeQuery();
-            rs.next();
-            return rs.getInt(1);
-        } catch (Exception ex) {
-            System.err.println("Error getCantidadCriteriosXDimension: " + ex);
-            return 0;
-        }
-    }
-
     public ResultSet getDimensionActualizar(int idDimension) {
         PreparedStatement pst = null;
         ResultSet rs = null;
@@ -201,6 +181,26 @@ public class Dimension_model extends Conexion {
         } catch (Exception ex) {
             System.err.println("Error getUpdateDimension: " + ex);
             return false;
+        }
+    }
+
+    public int getIdDimensionCriterio(int idCriterio) {
+
+        PreparedStatement pst;
+        ResultSet rs;
+        try {
+            String consulta = "SELECT d.idDimensiones "
+                    + "FROM dimensiones d, criterios c "
+                    + "WHERE d.idDimensiones = c.idDimensiones "
+                    + "AND c.idCriterios = ? ";
+            pst = getConnection().prepareStatement(consulta);
+            pst.setInt(1, idCriterio);
+            rs = pst.executeQuery();
+            rs.next();
+            return rs.getInt(1);
+        } catch (Exception ex) {
+            System.err.println("Error getIdDimensionCriterio: " + ex);
+            return 0;
         }
     }
 }

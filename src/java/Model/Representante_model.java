@@ -94,4 +94,29 @@ public class Representante_model extends Conexion {
 
     }
 
+    public String getNombreRepresentanteEmpresa(int idEmpresa) {
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        String nombre = "";
+        try {
+            String consulta = "SELECT r.primerNombreRepresentante, r.segundoNombreRepresentante, "
+                    + "r.primerApellidoRepresentante, r.seguntoApellidoRepresentante "
+                    + "FROM empresa e, representante r "
+                    + "WHERE r.idRepresentante = e.idRepresentante "
+                    + "AND e.idEmpresa = ? ";
+            pst = getConnection().prepareStatement(consulta);
+            pst.setInt(1, idEmpresa);
+            rs = pst.executeQuery();
+            if (rs.next()) {
+                nombre = rs.getString(3) + " " + rs.getString(4) + ", " + rs.getString(1) + " " + rs.getString(2);
+                return nombre;
+            } else {
+                return "";
+            }
+        } catch (Exception ex) {
+            System.err.println("Error getIdRepresentante: " + ex);
+            return "";
+        }
+    }
+
 }

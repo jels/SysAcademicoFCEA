@@ -121,7 +121,9 @@
 
                 <!-- Inicio del datos -->
                 <div id="datos" class="blue darken-3 yellow-text">
+
                     <%=conVar.getDatosEstudianteTutor(CI_estudiante)%>
+
                 </div>
                 <!-- Fin datos -->
 
@@ -136,7 +138,8 @@
                 <!-- Inicio del detalle -->
                 <div id="detalle" class="blue darken-3 yellow-text">
 
-                    <%=conAsp.verDetallePracticaXtutor(CI_estudiante)%>    
+                    <%=conAsp.verDetallePracticaXtutor(CI_estudiante) %>
+
 
                 </div>
                 <!-- Fin detalle -->
@@ -144,83 +147,7 @@
                 <!-- Inicio del newPractica  -->
                 <div id="newPractica" class="modal modal-fixed-footer blue darken-3 yellow-text">
 
-                    <%
-                        if (conAsp.getExistePractica(CI_estudiante) == 1) {
-                    %>
-                    <div class="modal-content blue darken-3">
-                        <div class="row">
-                            <h3 class="center">Ya Existe un registro guardado</h3>
-                            <h5 class="center">Si quiere cambiar algun dato Elimine previamente el registro anterior</h5>
-                        </div>
-                    </div>
-                    <div class="modal-footer blue darken-3 yellow-text">
-
-                        <button class="btn waves-effect modal-close waves-light yellow accent-2 blue-text left" type="button">
-                            Cerrar<i class="material-icons right">save</i>
-                        </button>
-
-                    </div>
-
-
-                    <%
-                    } else {
-                    %>
-
-                    <div class="modal-content blue darken-3">
-                        <div class="row">
-                            <h5 class="center">Ingresar los datos del periodo de practica a evaluar</h5>
-                        </div>
-                        <div class="row">
-                            <form method="post" id="newPrac" class="col s12 yellow-text">
-                                <div class="row">
-                                    <div class="col s6">
-                                        <i class="material-icons prefix yellow-text">date_range</i>
-                                        <label for="fechaInicio" class="yellow-text">Fecha Inicio</label>
-                                        <input id="fechaInicio" type="date" class="validate">
-                                    </div>
-                                    <div class="col s6">
-                                        <i class="material-icons prefix yellow-text">date_range</i>
-                                        <label for="fechaFin" class="yellow-text">Fecha Final</label>
-                                        <input id="fechaFin" type="date" class="validate">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="input-field col s6">
-                                        <i class="material-icons prefix yellow-text">assignment</i>
-                                        <input id="funcionPracticante" type="text" class="validate">
-                                        <label class="yellow-text" for="Funcion Practicante">Funcion Practicante</label>
-                                    </div>
-                                    <div class="input-field col s6">
-                                        <i class="material-icons prefix yellow-text">assessment</i>
-                                        <input id="horasDePractica" type="number" class="validate">
-                                        <label class="yellow-text" for="Final Practicas">Cantidad de Horas</label>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="input-field col s12">
-                                        <i class="material-icons prefix yellow-text">comment</i>
-                                        <input id="observacionEstudiante" type="text" class="validate" placeholder="Sin Observaciones">
-                                        <label class="yellow-text" for="Observacion Estudiante" >Observacion Estudiante</label>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    <div class="modal-footer blue darken-3 yellow-text">
-                        <div class="col s6">
-                            <a data-id="E-10132446" class="btn waves-effect waves-light yellow accent-2 blue-text left" type="button" id="guardarPractica">
-                                Validar y Guardar<i class="material-icons right">save</i>
-                            </a>
-                        </div>
-                        <div id="notificacionNewPractica">
-                        </div>
-                    </div>
-
-                    <%
-                        }
-
-                    %>
-
+                    <%=conAsp.modalNewPractica(CI_estudiante)%>
 
                 </div>
                 <!-- Fin newPractica -->

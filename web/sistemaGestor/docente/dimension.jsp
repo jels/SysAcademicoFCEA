@@ -85,7 +85,7 @@
                                     </div>
                                 </li>
                                 <li>
-                                    <a href="../../index.jsp" class="waves-effect yellow-text">
+                                    <a href="../../index.jsps" class="waves-effect yellow-text">
                                         <i class="material-icons yellow-text">home</i>Sitio Web
                                     </a>
                                 </li>
@@ -102,11 +102,6 @@
                                 <li>
                                     <a href="docente.jsp" class="waves-effect yellow-text">
                                         <i class="material-icons yellow-text">card_travel</i>Docente
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="tutor.jsp" class="waves-effect yellow-text">
-                                        <i class="material-icons yellow-text">contacts</i>Tutor
                                     </a>
                                 </li>
                                 <li>
@@ -151,7 +146,9 @@
 
                 <!-- Inicio del criterios -->
                 <div id="criterios" class="col s12 blue darken-3 yellow-text">
-                    
+
+                    <%=conMat.getViewCriteriosXDimension(idDimension)%>
+
                 </div>
                 <!-- Final del criterios-->
 
@@ -161,83 +158,38 @@
                 </div>
                 <!-- Final del editar-->
 
-                <!-- Modal Structure -->
+                <!-- Inicio del new-->
                 <div id="new" class="modal modal-fixed-footer blue darken-3 yellow-text">
-
+                    <%
+                        if (conMat.getCantidadCriteriosXDimension(idDimension) >= 5) {
+                    %>
+                    <div class="modal-content blue darken-3">
+                        <div class="col s12 center">
+                            <h3>No puede Crear Mas Criterios hasta que de de baja a alguno de los que estan activos</h3>
+                        </div>
+                    </div>
+                    <div class="modal-footer blue darken-3 yellow-text">
+                        <div class="col s12">
+                            <button class="btn waves-effect waves-light modal-close yellow accent-2 blue-text right tooltipped" type="button" data-position="button" data-tooltip="Cerrar">
+                                Cerrar<i class="material-icons right">clear_all</i>
+                            </button>
+                        </div>
+                    </div>
+                    <%
+                    } else {
+                    %>
                     <div class="modal-content blue darken-3">
                         <div class="row">
-                            <h1 class="center yellow-text">Nueva Carrera</h1>
+                            <h1 class="center yellow-text">Nuevo Criterio</h1>
                         </div>
                         <div class="row">
-                            <form method="POST" action="../../carrera.do" enctype="multipart/form-data" id="nuevacarrera" class="col s12 yellow-text">
-                                <!--Datos de la carrera -->
-                                <h4>Datos de la Carrera</h4>
-                                <div class="row">
-                                    <div class="input-field col s6">
-                                        <i class="material-icons prefix yellow-text">assignment_ind</i>
-                                        <input id="nombreCarrera" type="text" class="validate">
-                                        <label class="yellow-text" for="Nombre Carrera">Nombre Carrera</label>
-                                    </div>
-                                    <div class="input-field col s6">
-                                        <i class="material-icons prefix yellow-text">assignment_ind</i>
-                                        <input id="abreviaturaCarrera" type="text" >
-                                        <label class="yellow-text" for="Abreviatura">Abreviatura</label>
-                                    </div>
-                                </div>
+                            <form method="POST" id="newCrite" class="col s12 yellow-text">
+                                <!--Datos del Criterio -->
                                 <div class="row">
                                     <div class="input-field col s12">
-                                        <i class="material-icons prefix yellow-text">wc</i>
-                                        <textarea id="descripcionCarrera" class="materialize-textarea"></textarea>
-                                        <label for="Descripcion">Descripcion</label>
-                                    </div>
-                                </div>
-                                <h4>Datos del Coordinador</h4>
-                                <!--Datos del Coordinador -->
-                                <div class="row">
-                                    <div class="input-field col s6">
-                                        <i class="material-icons prefix yellow-text">assignment_ind</i>
-                                        <input id="primerNombreCoordinador" type="text" class="validate">
-                                        <label class="yellow-text" for="Primer Nombre">Primer Nombre</label>
-                                    </div>
-                                    <div class="input-field col s6">
-                                        <i class="material-icons prefix yellow-text">assignment_ind</i>
-                                        <input id="segundoNombreCoordinador" type="text" >
-                                        <label class="yellow-text" for="Segundo Nombre">Segundo Nombre</label>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="input-field col s6">
-                                        <i class="material-icons prefix yellow-text">wc</i>
-                                        <input id="primerApellidoCoordinador" type="text" class="validate">
-                                        <label class="yellow-text" for="Primer Apellido">Primer Apellido</label>
-                                    </div>
-                                    <div class="input-field col s6">
-                                        <i class="material-icons prefix yellow-text">wc</i>
-                                        <input id="segundoApellidoCoordinador" type="text" >
-                                        <label class="yellow-text" for="Segundo Apellido">Segundo Apellido</label>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="input-field col s6">
-                                        <i class="material-icons prefix yellow-text">fingerprint</i>
-                                        <input id="ciCoordinador" type="text" class="validate">
-                                        <label class="yellow-text" for="# de Carnet"># de Carnet</label>
-                                    </div>
-                                    <div class="input-field col s6">
-                                        <i class="material-icons prefix yellow-text">contact_phone</i>
-                                        <input id="telefonoCoordinador" type="text" >
-                                        <label class="yellow-text" for="Telefono">Telefono</label>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="file-field input-field col s6">
-                                        <div class="btn blue yellow-text">
-                                            <span>Foto</span>
-                                            <input type="file" id="fotoCoordinador">
-                                        </div>
-                                        <div class="file-path-wrapper">
-                                            <input class="file-path validate" type="text"  placeholder="Seleccione una Foto">
-                                        </div>
+                                        <i class="material-icons prefix yellow-text">library_add</i>
+                                        <input id="nombreCriterio" type="text" class="validate">
+                                        <label class="yellow-text" for="Nombre Criterio">Nombre Criterio</label>
                                     </div>
                                 </div>
                             </form>
@@ -245,28 +197,28 @@
                     </div>
                     <div class="modal-footer blue darken-3 yellow-text">
                         <div class="col s6">
-                            <button class="btn waves-effect waves-light yellow accent-2 blue-text left tooltipped" type="button" id="newcarrera" data-id="<%=usuario%>" data-position="button" data-tooltip="Guardar y Validar">
+                            <button class="btn waves-effect waves-light yellow accent-2 blue-text left tooltipped" type="button" id="nuevoCriterio"  data-position="button" data-tooltip="Guardar y Validar" data-id=<%=idDimension%> >
                                 Validar y Guardar<i class="material-icons right">save</i>
                             </button>
                         </div>
-                        <div id="notificacionNewCarrera">
+                        <div id="notificacionNewCriterio">
                         </div>
                     </div>
+                    <%
+                        }
+                    %>
 
                 </div>
-                <!-- Final del Modal Structure-->
+                <!-- Final del dimensiones-->
 
             </div>
 
-
-            <!-- Final del NAV-->
-
             <!-- Final del MENU -->
-
 
         </main>
 
         <%@include file="foother.jsp" %>
 
     </body>
+
 </html>

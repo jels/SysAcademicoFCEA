@@ -203,4 +203,58 @@ $(function () {
 
     });
 });
+
+$(function () {
+    $('#eliminar_registro').click(function (e) {
+        e.preventDefault();
+        var idRegistro = $(this).attr('data-id');
+        alert(idRegistro);
+        var opcion = confirm("Seguro que desea guardar esta Nota?");
+        if (opcion) {
+            $.post('../../practicas.do', {
+                accion: "eliminar_registro",
+                idRegistro: idRegistro
+            }, function (responseText) {
+                if (responseText === "true") {
+                    alert("Registro Eliminado");
+                    setTimeout(function () {
+                        location.reload(true);
+                    }, 2000);
+
+                } else {
+                    alert("Error al Eliminar el Registro");
+                }
+            });
+        }
+    });
+});
+
+$(function () {
+    $('#eliminar_detalle').click(function (e) {
+        e.preventDefault();
+        var idDetalle = $(this).attr('data-id');
+        alert(idDetalle);
+        var opcion = confirm("Seguro que desea guardar esta Nota?");
+        if (opcion) {
+            $.post('../../practicas.do', {
+                accion: "eliminar_detalle",
+                idDetalle: idDetalle
+            }, function (responseText) {
+                if (responseText === "true") {
+                    alert("Detalle Eliminado");
+                    setTimeout(function () {
+                        location.reload(true);
+                    }, 2000);
+
+                } else {
+                    alert("Error al Eliminar el Detalle");
+                }
+            });
+        }
+
+    });
+});
+
+
+
 //Estudiante--Fin

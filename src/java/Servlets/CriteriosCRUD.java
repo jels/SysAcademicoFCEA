@@ -5,6 +5,10 @@
  */
 package Servlets;
 
+import Controller.ControladorMateria;
+import Model.Criterios;
+import Model.Criterios_model;
+import com.sun.xml.rpc.processor.modeler.j2ee.xml.constructorParameterOrderType;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -33,21 +37,35 @@ public class CriteriosCRUD extends HttpServlet {
         System.out.println("Accion: " + accion);
         String htmlcode;
 
+        ControladorMateria conMat = new ControladorMateria();
+        Criterios criterio = new Criterios();
         //Metodo creado para evitar el uso de muchos servlets 
         // aqui llegan todas las peticiones del usuario para realizar las funciones de:
         // -Crear -Editar -Dar de Baja -Eliminar
         switch (accion) {
-            case "crear":
-                System.out.println("llegoooo....sSSSsaldhkasjdh");
-                out.print("false");
+            case "crear_criterio":
+                criterio.setIdDimension(Integer.parseInt(request.getParameter("idDimension")));
+                criterio.setNombreCriterio(request.getParameter("nombreCriterio"));
+                criterio.setEstadoCriterio(Integer.parseInt(request.getParameter("estadoCriterio")));
+                if (conMat.newCriterio(criterio)) {
+                    out.print("true");
+                } else {
+                    out.print("false");
+                }
+
                 break;
             case "update":
                 System.out.println("llegoooo....sSSSsaldhkasjdh");
                 out.print("false");
                 break;
-            case "baja":
-                System.out.println("llegoooo....sSSSsaldhkasjdh");
-                out.print("false");
+            case "baja_criterio":
+                
+                if (conMat.bajaCriterio(Integer.parseInt(request.getParameter("idCriterio")))) {
+                    out.print("true");
+                } else {
+                    out.print("false");
+                }
+                
                 break;
 //            case "actualizar":
 //

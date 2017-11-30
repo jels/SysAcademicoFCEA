@@ -33,6 +33,28 @@ public class Carrera_model extends Conexion {
         }
     }
 
+    public int findIdCarrera(String abreviatura) {
+
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        try {
+            String consulta = "SELECT idCarrera "
+                    + "FROM carrera "
+                    + "WHERE abreviaturaCarrera = ? ";
+            pst = getConnection().prepareStatement(consulta);
+            pst.setString(1, abreviatura);
+            rs = pst.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1);
+            } else {
+                return 0;
+            }
+        } catch (Exception ex) {
+            System.err.println("Error findIdCarrera: " + ex);
+            return 0;
+        }
+    }
+
     public ResultSet getCarreras(int idFacultad) {
 
         PreparedStatement pst = null;

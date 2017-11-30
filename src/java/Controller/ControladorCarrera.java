@@ -358,4 +358,15 @@ public class ControladorCarrera extends Conexion {
         return bandera;
     }
 
+    public int getIdCarrera(String abreviatura) {
+        Carrera_model carMo = new Carrera_model();
+        int idCarrera = carMo.findIdCarrera(abreviatura);
+        try {
+            getCloseConexion();
+        } catch (Exception e) {
+            System.out.println("Error en getIdCarrera.getCloseConexion: " + e);
+        }
+        return idCarrera;
+    }
+
 }

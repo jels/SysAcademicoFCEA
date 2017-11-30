@@ -86,7 +86,7 @@
                                     </div>
                                 </li>
                                 <li>
-                                    <a href="../../index.jsp" class="waves-effect yellow-text">
+                                    <a href="../../index.jsps" class="waves-effect yellow-text">
                                         <i class="material-icons yellow-text">home</i>Sitio Web
                                     </a>
                                 </li>
@@ -103,11 +103,6 @@
                                 <li>
                                     <a href="docente.jsp" class="waves-effect yellow-text">
                                         <i class="material-icons yellow-text">card_travel</i>Docente
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="tutor.jsp" class="waves-effect yellow-text">
-                                        <i class="material-icons yellow-text">contacts</i>Tutor
                                     </a>
                                 </li>
                                 <li>
@@ -178,13 +173,12 @@
                         </div>
                         <div class="row">
                             <form method="POST" action="../../dimensiones.do" id="newdimension" class="col s12 yellow-text">
-                                <!--Datos de la carrera -->
-                                <h4>Nueva Dimension</h4>
+                                <!--Datos de la Dimension -->
                                 <div class="row">
                                     <div class="input-field col s12">
                                         <i class="material-icons prefix yellow-text">library_add</i>
                                         <input id="nombreDimension" type="text" class="validate">
-                                        <label class="yellow-text" for="Nombre Carrera">Nombre Dimension</label>
+                                        <label class="yellow-text" for="Nombre Dimension">Nombre Dimension</label>
                                     </div>
                                 </div>
                             </form>

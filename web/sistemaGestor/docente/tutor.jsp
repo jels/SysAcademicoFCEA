@@ -26,6 +26,8 @@
     } else {
         response.sendRedirect("../../index.jsp");
     }
+
+    String idTutor = request.getParameter("tutor");
 %>
 
 <!DOCTYPE html>
@@ -101,11 +103,6 @@
                                 <li>
                                     <a href="docente.jsp" class="waves-effect yellow-text">
                                         <i class="material-icons yellow-text">card_travel</i>Docente
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="tutor.jsp" class="waves-effect yellow-text">
-                                        <i class="material-icons yellow-text">contacts</i>Tutor
                                     </a>
                                 </li>
                                 <li>

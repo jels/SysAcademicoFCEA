@@ -90,7 +90,7 @@
                                     </div>
                                 </li>
                                 <li>
-                                    <a href="../../index.jsp" class="waves-effect yellow-text">
+                                    <a href="../../index.jsps" class="waves-effect yellow-text">
                                         <i class="material-icons yellow-text">home</i>Sitio Web
                                     </a>
                                 </li>
@@ -107,11 +107,6 @@
                                 <li>
                                     <a href="docente.jsp" class="waves-effect yellow-text">
                                         <i class="material-icons yellow-text">card_travel</i>Docente
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="tutor.jsp" class="waves-effect yellow-text">
-                                        <i class="material-icons yellow-text">contacts</i>Tutor
                                     </a>
                                 </li>
                                 <li>

@@ -68,19 +68,6 @@ public class Usuario_model extends Conexion {
 
     }
 
-    public boolean actualizar_usuario(Usuario user) {
-        return false;
-    }
-
-    public int contar_usuario() {
-
-        return 0;
-    }
-
-    public ArrayList<Usuario> ver_usuario() {
-        return null;
-    }
-
     public int encontrarID(Usuario us) {
         PreparedStatement pst;
         ResultSet rs;
@@ -172,7 +159,7 @@ public class Usuario_model extends Conexion {
         ResultSet rs = null;
         System.out.println("id cons: " + user);
         try {
-            String consulta = "SELECT imagenUsuario, fondoPerfilUser, "
+            String consulta = "SELECT imagenUsuario, fondoPerfilUser "
                     + "FROM usuarios "
                     + "WHERE nombreUsuario = ?";
             pst = getConnection().prepareStatement(consulta);
@@ -183,6 +170,42 @@ public class Usuario_model extends Conexion {
         } catch (Exception ex) {
             System.err.println("Error getDatosRoot: " + ex);
             return null;
+        }
+    }
+
+    public boolean borrarUser(Usuario us) {
+        PreparedStatement pst = null;
+        int idUsuario = encontrarID(us);
+
+        try {
+            String consulta = "DELETE FROM usuarios WHERE idUsuario = ? ";
+            pst = getConnection().prepareStatement(consulta);
+            pst.setInt(1, idUsuario);
+            return pst.executeUpdate() == 1;
+
+        } catch (Exception ex) {
+            System.err.println("Error borrarUser: " + ex);
+            return false;
+        }
+    }
+
+    public int getIdRol(String rol) {
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        System.out.println("id cons: " + rol);
+        try {
+            String consulta = "SELECT idRol "
+                    + "FROM rol "
+                    + "WHERE nombreRol = ?";
+            pst = getConnection().prepareStatement(consulta);
+            pst.setString(1, rol);
+            rs = pst.executeQuery();
+            rs.next();
+            return rs.getInt(1);
+
+        } catch (Exception ex) {
+            System.err.println("Error getIdRol: " + ex);
+            return 0;
         }
     }
 
