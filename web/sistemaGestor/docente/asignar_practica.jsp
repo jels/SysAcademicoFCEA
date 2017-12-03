@@ -25,6 +25,7 @@
         response.sendRedirect("../../index.jsp");
     }
 
+    String CI_estudiante = request.getParameter("ci");
 
 %>
 
@@ -53,6 +54,15 @@
                             <li><a href="#" class="tooltipped" data-position="button" data-tooltip="Mi Cuenta"><i class="material-icons yellow-text">account_circle</i></a></li>
                             <li><a href="../../web-fcea/index.jsp" class="tooltipped" data-position="button" data-tooltip="Salir"><i class="material-icons yellow-text">directions_run</i></a></li>
                         </ul>
+                    </div>
+                    <div class="container">
+                        <div class="nav-content">
+                            <div class="col s12">
+                                <ul class="tabs blue darken-3 tabs-fixed-width">
+                                    <li class="tab col s12"><a class="yellow-text" href="#asignacion">Asignacion de Practica</a></li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </nav>
             </div>
@@ -120,11 +130,20 @@
             </div>
             <!-- Final del NAV-->
 
+
             <!-- Inicio del MENU -->
-            <div class="container">
-                <div class="row">
-                    <h2>Cada pagina tiene su ayuda...</h2>
+            <div class="row blue darken-3 yellow-text">
+
+                <!-- Inicio del resumen-->
+                <div id="asignacion" class="col s12 blue darken-3 yellow-text">
+                    <div class="container">
+                        <div class="row">
+                            
+                        </div>
+                    </div>
                 </div>
+                <!-- Final del resumen-->
+
             </div>
             <!-- Final del MENU -->
 

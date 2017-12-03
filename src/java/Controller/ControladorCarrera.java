@@ -15,60 +15,72 @@ import java.sql.SQLException;
  */
 public class ControladorCarrera extends Conexion {
 
+    int numero;
+    String htmlcode;
+    boolean bandera;
+    Carrera_model carMo = new Carrera_model();
+    Materia_model matMo = new Materia_model();
+    Coordinador_model coMo = new Coordinador_model();
+
     public int cantidadCarreras(String usuario) {
-        Carrera_model carMo = new Carrera_model();
-        int cantidad = carMo.contar_carrera(2);
-        return cantidad;
+        numero = carMo.contar_carrera(2);
+        try {
+            getCloseConexion();
+        } catch (Exception e) {
+            System.out.println("Error en cantidadCarreras.getCloseConexion: " + e);
+        }
+        return numero;
     }
 
     public String verCarrera(String abreviatura) {
 
-        Carrera_model carMo = new Carrera_model();
-        Materia_model matMo = new Materia_model();
-        String nombreCarrera = carMo.getNombreCarrera(abreviatura);
-        String nombreCoordinador = carMo.getNombreCoordinador(abreviatura);
-        String fotoCoordinador = carMo.getFotoCoordinador(abreviatura);
-        int cantidadMaterias = matMo.getMateriasXCarrera(abreviatura);
-        String htmlcode = "<div class=\"container\">\n"
-                + "                        <div class=\"row\">\n"
-                + "                            <div class=\"col s12 center\">\n"
-                + "                                <h4>Carrera</h4>\n"
-                + "                                <h3>" + nombreCarrera + "</h3> \n"
-                + "                            </div>\n"
-                + "                        </div>\n"
-                + "                        <div class=\"row\">\n"
-                + "                            <div class=\"col s12 center\">\n"
-                + "                                <h5>Coordinador</h5>\n"
-                + "                                <h4>" + nombreCoordinador + "</h4>\n"
-                + "                            </div>\n"
-                + "                        </div>\n"
-                + "                        <div class=\"row\">\n"
-                + "                            <div class=\"col s5\"></div>\n"
-                + "                            <div class=\"col s2\">\n"
-                + "                                <img class=\"center responsive-img materialboxed circle\" src=\"../../img/fcea/coordinadores/" + fotoCoordinador + "\" width=\"200\" alt=\"imagen\" >    \n"
-                + "                            </div>\n"
-                + "                            <div class=\"col s5\"></div>\n"
-                + "                        </div>\n"
-                + "                        <div class=\"row\">\n"
-                + "                            <div class=\"col s12 center\">\n"
-                + "                                <h4>Materias Activas</h4>\n"
-                + "                                <h2>" + cantidadMaterias + "</h2> \n"
-                + "                            </div>\n"
-                + "                        </div>\n"
-                + "                    </div>\n";
+        try {
+            String nombreCarrera = carMo.getNombreCarrera(abreviatura);
+            getCloseConexion();
+            String nombreCoordinador = carMo.getNombreCoordinador(abreviatura);
+            getCloseConexion();
+            String fotoCoordinador = carMo.getFotoCoordinador(abreviatura);
+            getCloseConexion();
+            numero = matMo.getMateriasXCarrera(abreviatura);
+            getCloseConexion();
+            htmlcode = "<div class=\"container\">\n"
+                    + "                        <div class=\"row\">\n"
+                    + "                            <div class=\"col s12 center\">\n"
+                    + "                                <h4>Carrera</h4>\n"
+                    + "                                <h3>" + nombreCarrera + "</h3> \n"
+                    + "                            </div>\n"
+                    + "                        </div>\n"
+                    + "                        <div class=\"row\">\n"
+                    + "                            <div class=\"col s12 center\">\n"
+                    + "                                <h5>Coordinador</h5>\n"
+                    + "                                <h4>" + nombreCoordinador + "</h4>\n"
+                    + "                            </div>\n"
+                    + "                        </div>\n"
+                    + "                        <div class=\"row\">\n"
+                    + "                            <div class=\"col s5\"></div>\n"
+                    + "                            <div class=\"col s2\">\n"
+                    + "                                <img class=\"center responsive-img materialboxed circle\" src=\"../../img/fcea/coordinadores/" + fotoCoordinador + "\" width=\"200\" alt=\"imagen\" >    \n"
+                    + "                            </div>\n"
+                    + "                            <div class=\"col s5\"></div>\n"
+                    + "                        </div>\n"
+                    + "                        <div class=\"row\">\n"
+                    + "                            <div class=\"col s12 center\">\n"
+                    + "                                <h4>Materias Activas</h4>\n"
+                    + "                                <h2>" + numero + "</h2> \n"
+                    + "                            </div>\n"
+                    + "                        </div>\n"
+                    + "                    </div>\n";
+        } catch (Exception e) {
+            System.out.println("Error en cantidadCarreras.getCloseConexion: " + e);
+        }
 
         return htmlcode;
     }
 
     public String verCarreras(String user) {
-
-        String htmlcode = "";
         ResultSet carreras;
-        Carrera_model carMo = new Carrera_model();
         carreras = carMo.getCarreras(2);
-
         int i = 1;
-
         htmlcode += "          <div class=\"container\">\n"
                 + "                        <div class=\"row\">\n"
                 + "                            <div class=\"col s12\">\n"
@@ -132,9 +144,7 @@ public class ControladorCarrera extends Conexion {
     }
 
     public boolean newCoordinador(Coordinador coordinador) {
-
-        Coordinador_model coMo = new Coordinador_model();
-        boolean bandera = coMo.crear_coordinador(coordinador);
+        bandera = coMo.crear_coordinador(coordinador);
         try {
             getCloseConexion();
         } catch (Exception e) {
@@ -144,19 +154,17 @@ public class ControladorCarrera extends Conexion {
     }
 
     public int getIdCoordinador(String ciCoordinador) {
-        Coordinador_model coMo = new Coordinador_model();
-        int id = coMo.findIDCoordinador(ciCoordinador);
+        numero = coMo.findIDCoordinador(ciCoordinador);
         try {
             getCloseConexion();
         } catch (Exception e) {
             System.out.println("Error en getIdCoordinador.getCloseConexion: " + e);
         }
-        return id;
+        return numero;
     }
 
     public boolean boorarCoordinador(String ciCoordinador) {
-        Coordinador_model coMo = new Coordinador_model();
-        boolean bandera = coMo.borrar_coordinador(ciCoordinador);
+        bandera = coMo.borrar_coordinador(ciCoordinador);
         try {
             getCloseConexion();
         } catch (Exception e) {
@@ -166,9 +174,7 @@ public class ControladorCarrera extends Conexion {
     }
 
     public boolean newCarrera(Carrera carrera) {
-
-        Carrera_model carMo = new Carrera_model();
-        boolean bandera = carMo.nuevaCarrera(carrera);
+        bandera = carMo.nuevaCarrera(carrera);
         try {
             getCloseConexion();
         } catch (Exception e) {
@@ -178,8 +184,6 @@ public class ControladorCarrera extends Conexion {
     }
 
     public boolean bajaCarrera(String abreviatura) {
-        Carrera_model carMo = new Carrera_model();
-        boolean bandera;
         if (carMo.getEstadoCarrera(abreviatura) == 1) {
             bandera = carMo.baja_carrera(abreviatura, 0);
             try {
@@ -199,10 +203,6 @@ public class ControladorCarrera extends Conexion {
     }
 
     public String editarCarrera(String carrera) {
-
-        String htmlcode = "";
-        Carrera_model carMo = new Carrera_model();
-
         ResultSet car = carMo.getDatosCarrera(carrera);
         try {
             car.next();
@@ -244,19 +244,14 @@ public class ControladorCarrera extends Conexion {
                     + "                        <div id=\"notificacionUpdateCarrera\">\n"
                     + "                        </div>\n"
                     + "                    </div>";
-
+            getCloseConexion();
         } catch (Exception e) {
             System.out.println("Error en editarCarrera: " + e);
         }
-
         return htmlcode;
     }
 
     public String editarCoordinador(String carrera) {
-
-        String htmlcode = "";
-        Carrera_model carMo = new Carrera_model();
-
         ResultSet car = carMo.getDatosCarrera(carrera);
         try {
             car.next();
@@ -326,18 +321,15 @@ public class ControladorCarrera extends Conexion {
                     + "                        <div id=\"notificacionUpdateCoordinador\">\n"
                     + "                        </div>\n"
                     + "                    </div>";
-
+            getCloseConexion();
         } catch (Exception e) {
             System.out.println("Error en editarCarrera: " + e);
         }
-
         return htmlcode;
     }
 
     public boolean actualizarCarrera(Carrera carrera) {
-
-        Carrera_model carMo = new Carrera_model();
-        boolean bandera = carMo.updateCarrera(carrera);
+        bandera = carMo.updateCarrera(carrera);
         try {
             getCloseConexion();
         } catch (Exception e) {
@@ -347,9 +339,7 @@ public class ControladorCarrera extends Conexion {
     }
 
     public boolean actualizarCoordinador(Coordinador coordinador) {
-
-        Coordinador_model corMo = new Coordinador_model();
-        boolean bandera = corMo.updateCoordinador(coordinador);
+        bandera = coMo.updateCoordinador(coordinador);
         try {
             getCloseConexion();
         } catch (Exception e) {
@@ -359,14 +349,13 @@ public class ControladorCarrera extends Conexion {
     }
 
     public int getIdCarrera(String abreviatura) {
-        Carrera_model carMo = new Carrera_model();
-        int idCarrera = carMo.findIdCarrera(abreviatura);
+        numero = carMo.findIdCarrera(abreviatura);
         try {
             getCloseConexion();
         } catch (Exception e) {
             System.out.println("Error en getIdCarrera.getCloseConexion: " + e);
         }
-        return idCarrera;
+        return numero;
     }
 
 }

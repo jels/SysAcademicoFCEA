@@ -15,80 +15,83 @@ import java.sql.SQLException;
  */
 public class ControladorEstudiante extends Conexion {
 
+    Estudiante_model estMo = new Estudiante_model();
+    Notas_model notMo = new Notas_model();
+    ControladorUsuarios conUs = new ControladorUsuarios();
+    Estudiante_model estmo = new Estudiante_model();
+    AsignacionPracticas_model aspMo = new AsignacionPracticas_model();
+
+    int numero;
+    boolean bandera;
+    String htmlcode;
+
     public int cantidadEstudiantes() {
-        Estudiante_model estm = new Estudiante_model();
-        System.out.println("Estudiantes: " + estm.contar_estudiantes());
+        numero = estMo.contar_estudiantes();
         try {
             getCloseConexion();
         } catch (Exception e) {
             System.out.println("Error en cantidadEstudiantes.getCloseConexion: " + e);
         }
-        return estm.contar_estudiantes();
+        return numero;
     }
 
     public int cantidadEstudiantes_tutor(String tutor) {
-        Estudiante_model estm = new Estudiante_model();
-        System.out.println("Estudiantes: " + estm.contar_estudiantes_tutor(tutor));
+        numero = estMo.contar_estudiantes_tutor(tutor);
         try {
             getCloseConexion();
         } catch (Exception e) {
             System.out.println("Error en cantidadEstudiantes_tutor.getCloseConexion: " + e);
         }
-        return estm.contar_estudiantes_tutor(tutor);
+        return numero;
     }
 
     public boolean newEstudiante(Estudiante est) {
-        Estudiante_model estm = new Estudiante_model();
-        if (!estm.existenciaEstudiante(est)) {
-            try {
+        try {
+            if (!estMo.existenciaEstudiante(est)) {
                 getCloseConexion();
-            } catch (Exception e) {
-                System.out.println("Error en newEstudiante.getCloseConexion: " + e);
-            }
-            return estm.crear_estudiante(est);
-        } else {
-            try {
+                bandera = estMo.crear_estudiante(est);
                 getCloseConexion();
-            } catch (Exception e) {
-                System.out.println("Error en newEstudiante.getCloseConexion: " + e);
+            } else {
+                getCloseConexion();
+                bandera = false;
             }
-            return false;
+        } catch (Exception e) {
+            System.out.println("Error en newEstudiante.getCloseConexion: " + e);
         }
+        return bandera;
     }
 
     public boolean eliminarEstudiante(String CI_estudiante) {
-
-        Estudiante_model estm = new Estudiante_model();
+        bandera = estMo.eliminar_estudiante(CI_estudiante);
         try {
             getCloseConexion();
         } catch (Exception e) {
             System.out.println("Error en eliminarEstudiante.getCloseConexion: " + e);
         }
-        return estm.eliminar_estudiante(CI_estudiante);
-
+        return bandera;
     }
 
     public boolean bajaEstudiante(String CI_estudiante) {
-
-        Estudiante_model estm = new Estudiante_model();
+        bandera = estMo.baja_estudiante(CI_estudiante);
         try {
             getCloseConexion();
         } catch (Exception e) {
             System.out.println("Error en bajaEstudiante.getCloseConexion: " + e);
         }
-        return estm.baja_estudiante(CI_estudiante);
-
+        return bandera;
     }
 
     public int getPractica(String CI_estudiante) {
-        Notas_model notMo = new Notas_model();
-        return notMo.getParcial(CI_estudiante);
+        numero = notMo.getParcial(CI_estudiante);
+        try {
+            getCloseConexion();
+        } catch (Exception e) {
+            System.out.println("Error en getPractica.getCloseConexion: " + e);
+        }
+        return numero;
     }
 
     public int getEvaluadosPrimerParcial(String tutor) {
-
-        Notas_model notMo = new Notas_model();
-        Estudiante_model estMo = new Estudiante_model();
         ResultSet estudiantes = estMo.ver_estudiante_Tutor(tutor);
         int primerParcial = 0;
         try {
@@ -97,17 +100,15 @@ public class ControladorEstudiante extends Conexion {
                     primerParcial++;
                 }
             }
+            getCloseConexion();
             return primerParcial;
         } catch (Exception e) {
             System.out.println("Error en getEvaluadosPrimerParcial: " + e);
             return 0;
         }
-
     }
 
     public int getEvaluadosSegundoParcial(String tutor) {
-        Notas_model notMo = new Notas_model();
-        Estudiante_model estMo = new Estudiante_model();
         ResultSet estudiantes = estMo.ver_estudiante_Tutor(tutor);
         int primerParcial = 0;
         try {
@@ -116,6 +117,7 @@ public class ControladorEstudiante extends Conexion {
                     primerParcial++;
                 }
             }
+            getCloseConexion();
             return primerParcial;
         } catch (Exception e) {
             System.out.println("Error en getEvaluadosSegundoParcial: " + e);
@@ -124,13 +126,9 @@ public class ControladorEstudiante extends Conexion {
     }
 
     public String verEstudiantesXTutor(String tutor) {
-        String htmlcode;
         ResultSet rs;
-        Estudiante_model estm = new Estudiante_model();
-        rs = estm.ver_estudiante_Tutor(tutor);
-
+        rs = estMo.ver_estudiante_Tutor(tutor);
         int i = 1;
-
         htmlcode = "          <div class=\"container\">\n"
                 + "                        <div class=\"row\">\n"
                 + "                            <div class=\"col s12\">\n"
@@ -156,11 +154,11 @@ public class ControladorEstudiante extends Conexion {
                 + "                                </tr>\n"
                 + "                            </thead>\n"
                 + "                            <tbody>\n";
+        try {
+            if (rs == null) {
 
-        if (rs == null) {
+            } else {
 
-        } else {
-            try {
                 while (rs.next()) {
                     System.out.println(rs.getString(6));
                     htmlcode += "                <tr>\n"
@@ -177,26 +175,21 @@ public class ControladorEstudiante extends Conexion {
                     i++;
 
                 }
-            } catch (SQLException ex) {
-                System.out.println("Error en verEstudiantesXTutor: " + ex);
+
             }
-        }
-        try {
             getCloseConexion();
-        } catch (Exception e) {
-            System.out.println("Error en verEstudiantesXTutor.getCloseConexion: " + e);
+        } catch (SQLException ex) {
+            System.out.println("Error en verEstudiantesXTutor: " + ex);
         }
-        return htmlcode += "                        </tbody>\n"
+        htmlcode += "                        </tbody>\n"
                 + "                        </table>\n"
                 + "                    </div>";
+        return htmlcode;
     }
 
     public String verEstudiantes() {
-
-        String htmlcode = "";
         ResultSet rs;
-        Estudiante_model estm = new Estudiante_model();
-        rs = estm.ver_estudiante();
+        rs = estMo.ver_estudiante();
         int i = 1;
 
         htmlcode += "          <div class=\"container\">\n"
@@ -224,11 +217,9 @@ public class ControladorEstudiante extends Conexion {
                 + "                                </tr>\n"
                 + "                            </thead>\n"
                 + "                            <tbody>\n";
-
-        if (rs == null) {
-
-        } else {
-            try {
+        try {
+            if (rs == null) {
+            } else {
                 while (rs.next()) {
                     htmlcode += "                <tr>\n"
                             + "                    <td>" + i + "</td>\n"
@@ -240,7 +231,6 @@ public class ControladorEstudiante extends Conexion {
                         htmlcode += "                    <td>Activo</td>\n";
                     } else {
                         htmlcode += "                    <td>Inactivo</td>\n";
-
                     }
                     System.out.println("CI_Estudiante: " + rs.getString(6));
                     htmlcode += "                  <td><div class=\"center-align\">  <a href=\"estudiante_ver.jsp?ci=" + rs.getString(6) + "\" class=\"btn-floating btn tooltipped waves-effect waves-light blue yellow-text\" data-position=\"button\" data-tooltip=\"Ver - Actualizar\"><i class=\"material-icons yellow-text\">visibility</i></a></div></td>\n"
@@ -249,46 +239,36 @@ public class ControladorEstudiante extends Conexion {
                             + "                  </tr>"
                             + "";
                     i++;
-
                 }
-            } catch (SQLException ex) {
-                System.out.println("Error en verEstudiantes: " + ex);
             }
-
-        }
-        try {
             getCloseConexion();
-        } catch (Exception e) {
-            System.out.println("Error en verEstudiantes.getCloseConexion: " + e);
+        } catch (SQLException ex) {
+            System.out.println("Error en verEstudiantes: " + ex);
         }
-        return htmlcode += "                        </tbody>\n"
+        htmlcode += "                        </tbody>\n"
                 + "                        </table>\n"
                 + "                    </div>";
+        return htmlcode;
     }
 
     public boolean updateEstudiante(Estudiante est) {
-
-        Estudiante_model estm = new Estudiante_model();
-        if (estm.actualizaEstudiante(est)) {
-            try {
+        try {
+            if (estMo.actualizaEstudiante(est)) {
                 getCloseConexion();
-            } catch (Exception e) {
-                System.out.println("Error en updateEstudiante.getCloseConexion: " + e);
-            }
-            return true;
-        } else {
-            try {
+                bandera = true;
+            } else {
                 getCloseConexion();
-            } catch (Exception e) {
-                System.out.println("Error en updateEstudiante.getCloseConexion: " + e);
+                bandera = false;
             }
-            return false;
+        } catch (Exception e) {
+            System.out.println("Error en updateEstudiante.getCloseConexion: " + e);
         }
+        return bandera;
     }
 
     public String modalNewEstudiante() {
 
-        String htmlcode = "<div class=\"modal-content blue darken-3\">\n"
+        htmlcode = "                <div class=\"modal-content blue darken-3\">\n"
                 + "                        <div class=\"row\">\n"
                 + "                            <h1 class=\"center yellow-text\">Nuevo Estudiante</h1>\n"
                 + "                        </div>\n"
@@ -343,10 +323,7 @@ public class ControladorEstudiante extends Conexion {
                 + "                                </div>\n"
                 + "                            </form>\n"
                 + "                        </div>\n"
-                + "\n"
-                + "\n"
                 + "                    </div>\n"
-                + "\n"
                 + "                    <div class=\"modal-footer blue darken-3 yellow-text\">\n"
                 + "                        <div class=\"col s6\">\n"
                 + "                            <button class=\"btn waves-effect waves-light yellow accent-2 blue-text left\" type=\"button\" id=\"nuevoestudiante\">\n"
@@ -356,28 +333,15 @@ public class ControladorEstudiante extends Conexion {
                 + "                        <div id=\"notificacionnewEstudiante\">\n"
                 + "                        </div>\n"
                 + "                    </div>";
-
-        try {
-            getCloseConexion();
-        } catch (Exception e) {
-            System.out.println("Error en modalNewEstudiante.getCloseConexion: " + e);
-        }
         return htmlcode;
     }
 
     public String viewUpdateEstudiante(String CI_estudiante) {
-        System.out.println("ci..." + CI_estudiante);
-        Estudiante_model estmo = new Estudiante_model();
-        ResultSet datos = estmo.editEstudiante(CI_estudiante);
-
-        System.out.println("llego Update..." + CI_estudiante);
-        String htmlcode = " ";
-
+        ResultSet datos = estMo.editEstudiante(CI_estudiante);
         try {
             if (!datos.next()) {
                 return "";
             }
-            System.out.println("nombre= " + datos.getString(5));
             htmlcode = "               <div class=\"container\">\n"
                     + "                        <form method=\"post\" id=\"estAc\" class=\"col s12 yellow-text\">\n"
                     + "                            <div class=\"row\">\n"
@@ -431,53 +395,40 @@ public class ControladorEstudiante extends Conexion {
                     + "                            <br><br><br>\n"
                     + "                        </form>\n"
                     + "                    </div>";
-            System.out.println("Nombre: " + datos.getString(2));
+            getCloseConexion();
         } catch (SQLException ex) {
             System.out.println("Error en updateEstudiante: " + ex);
         }
-        try {
-            getCloseConexion();
-        } catch (Exception e) {
-            System.out.println("Error en modalUpdateEstudiante.getCloseConexion: " + e);
-        }
-        System.out.println("htmlcode viewUpdateEstudiante: " + htmlcode);
         return htmlcode;
     }
 
-    public String modalBuscarEstudiante(String nombre, String CI_estudiante, String tutor) {
-        String htmlcode;
-        ControladorUsuarios conUs = new ControladorUsuarios();
-        Estudiante_model estmo = new Estudiante_model();
+    public String modalBuscarEstudiante(String nombre, String CI_estudiante, String user) {
         ResultSet rs;
         int i = 0;
-        String rol = conUs.getRol(tutor);
-
-        switch (rol) {
-            case "Root":
-                htmlcode = "";
-                break;
-            case "Docente":
-                if (nombre.equals("")) {
-                    System.out.println("CI_estudiante: " + CI_estudiante);
-                    rs = estmo.buscarAllEstudiantexCI(CI_estudiante);
-                } else {
-                    System.out.println("nombre: " + nombre);
-                    rs = estmo.buscarAllEstudiantexNombre(nombre);
-                }
-                if (rs != null) {
-
-                    htmlcode = "<table class=\"highlight responsive-table\">\n"
-                            + "  <thead>\n"
-                            + "    <tr>\n"
-                            + "      <th>#</th>\n"
-                            + "      <th>Foto</th>\n"
-                            + "      <th>Nombre Completo</th>\n"
-                            + "      <th># de Carnet</th>\n"
-                            + "      <th>Celular</th>\n"
-                            + "    </tr>\n"
-                            + "  </thead>\n"
-                            + "  <tbody>";
-                    try {
+        String rol = conUs.getRol(user);
+        try {
+            switch (rol) {
+                case "Root":
+                    htmlcode = "";
+                    break;
+                case "Docente":
+                    if (nombre.equals("")) {
+                        rs = estmo.buscarAllEstudiantexCI(CI_estudiante);
+                    } else {
+                        rs = estmo.buscarAllEstudiantexNombre(nombre);
+                    }
+                    if (rs != null) {
+                        htmlcode = "<table class=\"highlight responsive-table\">\n"
+                                + "  <thead>\n"
+                                + "    <tr>\n"
+                                + "      <th>#</th>\n"
+                                + "      <th>Foto</th>\n"
+                                + "      <th>Nombre Completo</th>\n"
+                                + "      <th># de Carnet</th>\n"
+                                + "      <th>Celular</th>\n"
+                                + "    </tr>\n"
+                                + "  </thead>\n"
+                                + "  <tbody>";
                         while (rs.next()) {
                             System.out.println("nombre: " + rs.getString(1));
                             i++;
@@ -489,47 +440,40 @@ public class ControladorEstudiante extends Conexion {
                                     + "          <td>" + rs.getString(7) + "</td>\n"
                                     + "        </tr>";
                         }
-
-                    } catch (Exception e) {
-                        System.out.println("Error en modalBuscarEstudiante " + e);
+                        htmlcode += "   </tbody>\n"
+                                + "</table>";
+                    } else {
+                        htmlcode = "    <div class=\"row\">\n"
+                                + "        <div class=\"card-panel red center\">\n"
+                                + "          <span class=\"white-text\">\n"
+                                + "             El estudiante Solicitado no existe..."
+                                + "          </span>\n"
+                                + "        </div>\n"
+                                + "    </div>\n"
+                                + "            ";
                     }
-                    htmlcode += "   </tbody>\n"
-                            + "</table>";
-                } else {
-                    htmlcode = "    <div class=\"row\">\n"
-                            + "        <div class=\"card-panel red center\">\n"
-                            + "          <span class=\"white-text\">\n"
-                            + "             El estudiante Solicitado no existe..."
-                            + "          </span>\n"
-                            + "        </div>\n"
-                            + "    </div>\n"
-                            + "            ";
-                }
-                break;
-            case "Tutor":
-
-                if (nombre.equals("")) {
-                    System.out.println("CI_estudiante: " + CI_estudiante);
-                    rs = estmo.buscarEstudiantexCI(CI_estudiante, tutor);
-                } else {
-                    System.out.println("nombre: " + nombre);
-                    rs = estmo.buscarEstudiantexNombre(nombre, tutor);
-                }
-                if (rs != null) {
-
-                    htmlcode = "<table class=\"highlight responsive-table\">\n"
-                            + "  <thead>\n"
-                            + "    <tr>\n"
-                            + "      <th>#</th>\n"
-                            + "      <th>Foto</th>\n"
-                            + "      <th>Nombre Completo</th>\n"
-                            + "      <th># de Carnet</th>\n"
-                            + "      <th>Celular</th>\n"
-                            + "      <th>Materia</th>\n"
-                            + "    </tr>\n"
-                            + "  </thead>\n"
-                            + "  <tbody>";
-                    try {
+                    break;
+                case "Tutor":
+                    if (nombre.equals("")) {
+                        System.out.println("CI_estudiante: " + CI_estudiante);
+                        rs = estmo.buscarEstudiantexCI(CI_estudiante, user);
+                    } else {
+                        System.out.println("nombre: " + nombre);
+                        rs = estmo.buscarEstudiantexNombre(nombre, user);
+                    }
+                    if (rs != null) {
+                        htmlcode = "<table class=\"highlight responsive-table\">\n"
+                                + "  <thead>\n"
+                                + "    <tr>\n"
+                                + "      <th>#</th>\n"
+                                + "      <th>Foto</th>\n"
+                                + "      <th>Nombre Completo</th>\n"
+                                + "      <th># de Carnet</th>\n"
+                                + "      <th>Celular</th>\n"
+                                + "      <th>Materia</th>\n"
+                                + "    </tr>\n"
+                                + "  </thead>\n"
+                                + "  <tbody>";
                         while (rs.next()) {
                             System.out.println("nombre: " + rs.getString(1));
                             i++;
@@ -542,41 +486,38 @@ public class ControladorEstudiante extends Conexion {
                                     + "          <td>" + rs.getString(8) + "</td>\n"
                                     + "        </tr>";
                         }
-
-                    } catch (Exception e) {
-                        System.out.println("Error en modalBuscarEstudiante " + e);
+                        htmlcode += "   </tbody>\n"
+                                + "</table>";
+                    } else {
+                        htmlcode = "    <div class=\"row\">\n"
+                                + "        <div class=\"card-panel red center\">\n"
+                                + "          <span class=\"white-text\">\n"
+                                + "             El estudiante Solicitado no existe..."
+                                + "          </span>\n"
+                                + "        </div>\n"
+                                + "    </div>\n"
+                                + "            ";
                     }
-                    htmlcode += "   </tbody>\n"
-                            + "</table>";
-                } else {
-                    htmlcode = "    <div class=\"row\">\n"
-                            + "        <div class=\"card-panel red center\">\n"
-                            + "          <span class=\"white-text\">\n"
-                            + "             El estudiante Solicitado no existe..."
-                            + "          </span>\n"
-                            + "        </div>\n"
-                            + "    </div>\n"
-                            + "            ";
-                }
-                break;
-            default:
-                htmlcode = "";
-                break;
-        }
-
-        System.out.println("htmlcode: " + htmlcode);
-        try {
+                    break;
+                default:
+                    htmlcode = "";
+                    break;
+            }
             getCloseConexion();
         } catch (Exception e) {
-            System.out.println("Error en modalBuscarEstudiante.getCloseConexion: " + e);
+            System.out.println("Error en modalBuscarEstudiante: " + e);
         }
         return htmlcode;
     }
 
     public int getIdAsignacionPractica(String CI_estudiante) {
-        AsignacionPracticas_model aspMo = new AsignacionPracticas_model();
-        int idAsignacionPractica = aspMo.getIdAsignacionPractica(CI_estudiante);
-        return idAsignacionPractica;
+        numero = aspMo.getIdAsignacionPractica(CI_estudiante);
+        try {
+            getCloseConexion();
+        } catch (Exception e) {
+            System.out.println("Error en cantidadEstudiantes_tutor.getCloseConexion: " + e);
+        }
+        return numero;
     }
 
 }

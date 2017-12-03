@@ -37,7 +37,7 @@ public class PracticasCRUD extends HttpServlet {
         ControladorAsignacionPractica conAsp = new ControladorAsignacionPractica();
 
         Practicas practica = new Practicas();
-
+        DetallesPracticas detalle = new DetallesPracticas();
         //Metodo creado para evitar el uso de muchos servlets 
         // aqui llegan todas las peticiones del usuario para realizar las funciones de:
         // -Crear -Editar -Dar de Baja -Eliminar
@@ -49,13 +49,27 @@ public class PracticasCRUD extends HttpServlet {
                 practica.setFuncionPractica(request.getParameter("funcionPracticante"));
                 practica.setObservacionEstudiante(request.getParameter("observacionEstudiante"));
                 practica.setIdAsignacionPractica(conAsp.getIdPracitca(request.getParameter("CI_estudiante")));
+                int idParcial = Integer.parseInt(request.getParameter("parcial"));
+                System.out.println("numero= " + idParcial);
+                practica.setIdParcial(idParcial);
                 if (conAsp.newPractica(practica)) {
                     out.print("true");
                 } else {
                     out.print("false");
                 }
                 break;
-            case "detallePractica":
+            case "detalle_practica":
+
+                detalle.setIdPracticas(Integer.parseInt(request.getParameter("idPractica")));
+                System.out.println("IDPractica: " + request.getParameter("idPractica"));
+                detalle.setTareaAsignada(request.getParameter("tareaAsignada"));
+                detalle.setObservacionesTareas(request.getParameter("observacionTarea"));
+
+                if (conAsp.newDetallePractica(detalle)) {
+                    out.print("true");
+                } else {
+                    out.print("false");
+                }
                 break;
             case "crear":
                 out.print("false");
@@ -87,7 +101,7 @@ public class PracticasCRUD extends HttpServlet {
                 } else {
                     out.print("false");
                 }
-                
+
                 break;
 //            case "verNotaAsignada":
 //

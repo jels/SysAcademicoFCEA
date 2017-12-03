@@ -20,8 +20,9 @@ public class Practicas {
     private int cantidadHoras;
     private int idAsignacionPractica;
     private String observacionEstudiante;
+    private int idParcial;
 
-    public Practicas(int idPracticas, String fechaInicioEvaluacion, String fechaFinEvaluacion, String funcionPractica, int cantidadHoras, int idAsignacionPractica, String observacionEstudiante) {
+    public Practicas(int idPracticas, String fechaInicioEvaluacion, String fechaFinEvaluacion, String funcionPractica, int cantidadHoras, int idAsignacionPractica, String observacionEstudiante, int idParcial) {
         this.idPracticas = idPracticas;
         this.fechaInicioEvaluacion = fechaInicioEvaluacion;
         this.fechaFinEvaluacion = fechaFinEvaluacion;
@@ -29,6 +30,7 @@ public class Practicas {
         this.cantidadHoras = cantidadHoras;
         this.idAsignacionPractica = idAsignacionPractica;
         this.observacionEstudiante = observacionEstudiante;
+        this.idParcial = idParcial;
     }
 
     public Practicas() {
@@ -130,6 +132,20 @@ public class Practicas {
      */
     public void setObservacionEstudiante(String observacionEstudiante) {
         this.observacionEstudiante = observacionEstudiante;
+    }
+
+    /**
+     * @return the idParcial
+     */
+    public int getIdParcial() {
+        return idParcial;
+    }
+
+    /**
+     * @param idParcial the idParcial to set
+     */
+    public void setIdParcial(int idParcial) {
+        this.idParcial = idParcial;
     }
 
 }

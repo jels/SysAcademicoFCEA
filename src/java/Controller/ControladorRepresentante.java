@@ -19,7 +19,6 @@ public class ControladorRepresentante extends Conexion {
     boolean bandera;
 
     public int getIdRepresentante(String ci) {
-
         contador = repMo.getIdRepresentante(ci);
         try {
             getCloseConexion();
@@ -30,21 +29,17 @@ public class ControladorRepresentante extends Conexion {
     }
 
     public boolean newRepresentante(Representante rep) {
-
         bandera = repMo.crear_representante(rep);
         try {
             getCloseConexion();
         } catch (Exception e) {
             System.out.println("Error en newRepresentante.getCloseConexion: " + e);
         }
-
         return bandera;
     }
 
     public boolean borrarRepresentante(String ci) {
-
         bandera = repMo.borrar_representante(ci);
-
         try {
             getCloseConexion();
         } catch (Exception e) {

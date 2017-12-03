@@ -8,8 +8,6 @@ package Controller;
 import Model.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -19,11 +17,10 @@ public class ControladorTutor extends Conexion {
 
     String htmlcode;
     int contador;
-
+    boolean bandera;
     Tutor_model tutMo = new Tutor_model();
 
     public String verTutores() {
-
         htmlcode = "          <div class=\"container\">\n"
                 + "                        <div class=\"row\">\n"
                 + "                            <div class=\"col s12\">\n"
@@ -54,13 +51,9 @@ public class ControladorTutor extends Conexion {
         ResultSet tut;
         tut = tutMo.ver_Tutores();
         int i = 1;
-        if (tut == null) {
-
-        } else {
-            try {
-                //SELECT idTutor, primerNombreTutor, segundoNombreTutor, 
-                //primerApellidoTutor, segundoApellidoTutor, ciTutor, telefonoTutor, 
-                //estadoTutor, cargoTutor, fotoTutor, fondoTutor
+        try {
+            if (tut == null) {
+            } else {
                 while (tut.next()) {
                     System.out.println("ci: " + tut.getString(7));
                     htmlcode += "                <tr>\n"
@@ -88,33 +81,16 @@ public class ControladorTutor extends Conexion {
                             + "                  </tr>"
                             + "";
                     i++;
-
                 }
-            } catch (SQLException ex) {
-                System.out.println("Error en verTutores: " + ex);
             }
-
-        }
-        try {
             getCloseConexion();
-        } catch (Exception e) {
-            System.out.println("Error en verTutores.getCloseConexion: " + e);
+        } catch (SQLException ex) {
+            System.out.println("Error en verTutores: " + ex);
         }
-        return htmlcode += "                        </tbody>\n"
+        htmlcode += "                        </tbody>\n"
                 + "                        </table>\n"
                 + "                    </div>";
-    }
-
-    public String modal_newTutor() {
-
-        
-        try {
-            getCloseConexion();
-        } catch (Exception e) {
-            System.out.println("Error en modal_newTutor.getCloseConexion: " + e);
-        }
         return htmlcode;
-
     }
 
     public boolean bajaTutor(String idTutor) {
@@ -128,6 +104,7 @@ public class ControladorTutor extends Conexion {
     }
 
     public boolean eliminarTutor(String id) {
+
         try {
             getCloseConexion();
         } catch (Exception e) {

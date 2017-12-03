@@ -138,76 +138,37 @@
                 <!-- Inicio del detalle -->
                 <div id="detalle" class="blue darken-3 yellow-text">
 
-                    <%=conAsp.verDetallePracticaXtutor(CI_estudiante) %>
-
+                    <%=conAsp.verDetallePracticaXtutor(CI_estudiante)%>
 
                 </div>
                 <!-- Fin detalle -->
 
                 <!-- Inicio del newPractica  -->
-                <div id="newPractica" class="modal modal-fixed-footer blue darken-3 yellow-text">
+                <div id="newPracticaPrimer" class="modal modal-fixed-footer blue darken-3 yellow-text">
 
-                    <%=conAsp.modalNewPractica(CI_estudiante)%>
+                    <%=conAsp.modalNewPractica(CI_estudiante, 1)%>
+
+                </div>
+
+                <div id="newPracticaSegundo" class="modal modal-fixed-footer blue darken-3 yellow-text">
+
+                    <%=conAsp.modalNewPractica(CI_estudiante, 2)%>
 
                 </div>
                 <!-- Fin newPractica -->
 
-                <!-- Inicio del newDetallePractica
-                <div id="newDetallePractica" class="modal modal-fixed-footer blue darken-3 yellow-text">
-                    <div class="modal-content blue darken-3">
-                        <div class="row">
-                            <h5 class="center">Ingresar los datos del periodo de practica a evaluar</h5>
-                        </div>
-                        <div class="row">
-                            <form method="post" id="newDetallePract" action="../estudiante.do" class="col s12 yellow-text" enctype="multipart/form-data">
-                                <div class="row">
-                                    <div class="col s6">
-                                        <div id="date-picker" class="section scrollspy">
-                                            <i class="material-icons prefix yellow-text">date_range</i>
-                                            <label for="fechaInicio" class="yellow-text">Fecha Inicio</label>
-                                            <input id="" class="datepicker picker__input" readonly="" tabindex="54" aria-haspopup="true" aria-expanded="false" aria-readonly="false" aria-owns="birthdate_root" type="text">
-                                        </div>
-                                    </div>
-                                    <div class="col s6">
-                                        <div id="date-picker" class="section scrollspy">
-                                            <i class="material-icons prefix yellow-text">date_range</i>
-                                            <label for="fechaFin" class="yellow-text">Fecha Final</label>
-                                            <input id="" class="datepicker picker__input" readonly="" tabindex="54" aria-haspopup="true" aria-expanded="false" aria-readonly="false" aria-owns="birthdate_root" type="text">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="input-field col s6">
-                                        <i class="material-icons prefix yellow-text">assignment</i>
-                                        <input id="" type="text" class="validate">
-                                        <label class="yellow-text" for="Funcion Practicante">Funcion Practicante</label>
-                                    </div>
-                                    <div class="input-field col s6">
-                                        <i class="material-icons prefix yellow-text">assessment</i>
-                                        <input id="" type="number" class="validate">
-                                        <label class="yellow-text" for="Final Practicas">Cantidad de Horas</label>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="input-field col s12">
-                                        <i class="material-icons prefix yellow-text">comment</i>
-                                        <input id="" type="text" class="validate">
-                                        <label class="yellow-text" for="Observacion Estudiante">Observacion Estudiante</label>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    <div class="modal-footer blue darken-3 yellow-text">
-                        <div class="col s6">
-                            <a data-id="E-10132446" class="btn waves-effect waves-light yellow accent-2 blue-text left" type="button" id="guardarPracticaDetalle">
-                                Validar y Guardar<i class="material-icons right">save</i>
-                            </a>
-                        </div>
-                        <div id="notificacionNewDetallePractica">
-                        </div>
-                    </div>
-                </div> -->
+                <!-- Inicio del newDetallePractica-->
+                <div id="newDetallePracticaPrimer" class="modal modal-fixed-footer blue darken-3 yellow-text">
+
+                    <%=conAsp.modalDetallePractica(CI_estudiante, 1)%>
+
+                </div> 
+
+                <div id="newDetallePracticaSegundo" class="modal modal-fixed-footer blue darken-3 yellow-text">
+
+                    <%=conAsp.modalDetallePractica(CI_estudiante, 2)%>
+
+                </div> 
                 <!-- Fin newDetallePractica -->
 
             </div>

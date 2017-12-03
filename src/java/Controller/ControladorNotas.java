@@ -15,26 +15,22 @@ import java.util.List;
  */
 public class ControladorNotas extends Conexion {
 
+    Notas_model notMo = new Notas_model();
+    Estudiante_model estMo = new Estudiante_model();
+
+    String htmlcode;
+    boolean bandera;
+    int numero;
+
     public String getModalVerNota(String CI_estudiante) {
-        String htmlcode = "";
-
-        Notas_model notMo = new Notas_model();
-
-        ResultSet primerParcial = null;
-        ResultSet segundoParcial = null;
-        //ResultSet notaFinal = null;
-
-        Estudiante_model estMo = new Estudiante_model();
-
+        ResultSet primerParcial;
+        ResultSet segundoParcial;
         ResultSet nombreEstudiante = estMo.getNombreEstudiante(CI_estudiante);
-
         try {
             primerParcial = notMo.getTotalNotasPrimerParcial(CI_estudiante);
             primerParcial.next();
             nombreEstudiante.next();
             if (primerParcial.getInt(1) != 0 || primerParcial.getInt(2) == 20) {
-                System.out.println("nota: " + primerParcial.getString(1));
-
                 htmlcode += "<div class=\"modal-content blue darken-3\">\n"
                         + "                            <div class=\"row\">\n"
                         + "                                <h3 class=\"yellow-text accent-2 center\">" + nombreEstudiante.getString(3) + " " + nombreEstudiante.getString(4) + ", " + nombreEstudiante.getString(1) + " " + nombreEstudiante.getString(2) + "</h3>\n"
@@ -78,7 +74,6 @@ public class ControladorNotas extends Conexion {
                         + "                            </div>\n"
                         + "                        </div>";
             } else {
-
                 htmlcode += "  <div class=\"modal-content blue darken-3\">\n"
                         + "        <div class=\"row\">\n"
                         + "            <h3 class=\"yellow-text accent-2 center\">" + nombreEstudiante.getString(3) + " " + nombreEstudiante.getString(4) + ", " + nombreEstudiante.getString(1) + " " + nombreEstudiante.getString(2) + "</h3>\n"
@@ -110,32 +105,19 @@ public class ControladorNotas extends Conexion {
                         + "        </div>\n"
                         + "    </div>";
             }
-
-        } catch (Exception e) {
-            System.out.println("Error en getModalVerNota: " + e);
-        }
-        System.out.println("htmlcode: " + htmlcode);
-        try {
             getCloseConexion();
         } catch (Exception e) {
-            System.out.println("Error en getModalVerNota.getCloseConexion: " + e);
+            System.out.println("Error en getModalVerNota: " + e);
         }
         return htmlcode;
     }
 
     public String getModalVerNotaDocente(String CI_estudiante) {
-        String htmlcode = "";
-
-        Notas_model notMo = new Notas_model();
-
         ResultSet primerParcial = null;
         ResultSet segundoParcial = null;
         ResultSet notaFinal = null;
         double calculo = 0;
-        Estudiante_model estMo = new Estudiante_model();
-
         ResultSet nombreEstudiante = estMo.getNombreEstudiante(CI_estudiante);
-
         try {
             primerParcial = notMo.getTotalNotasPrimerParcial(CI_estudiante);
             primerParcial.next();
@@ -225,38 +207,28 @@ public class ControladorNotas extends Conexion {
                         + "        </div>\n"
                         + "    </div>";
             }
-
-        } catch (Exception e) {
-            System.out.println("Error en getModalVerNota: " + e);
-        }
-        System.out.println("htmlcode: " + htmlcode);
-        try {
             getCloseConexion();
         } catch (Exception e) {
-            System.out.println("Error en getModalVerNota.getCloseConexion: " + e);
+            System.out.println("Error en getModalVerNota: " + e);
         }
         return htmlcode;
     }
 
     public boolean insertNewNota(int idAsignacionPractica, int idCriterio, int nota, int parcial) {
 
-        Notas_model notMo = new Notas_model();
-        int cantidadTrue = 0;
-
         try {
             if (notMo.newNota(idAsignacionPractica, idCriterio, nota, parcial)) {
-                System.out.println("Inserto Correctamente: " + idAsignacionPractica + " " + idCriterio + " " + nota + " " + parcial);
-                System.out.println("True: " + cantidadTrue);
+                bandera = true;
+                getCloseConexion();
             } else {
-                System.out.println("Inserto fallido : " + idAsignacionPractica + " " + idCriterio + " " + nota + " " + parcial);
+                getCloseConexion();
+                bandera = false;
             }
-            getCloseConexion();
-            return true;
         } catch (Exception e) {
             System.out.println("Error en insertNewNota: " + e);
-            return false;
+            bandera = false;
         }
-
+        return bandera;
     }
 
 }

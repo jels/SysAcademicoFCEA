@@ -25,13 +25,11 @@ public class Conexion {
     private Connection con;
 
     public Conexion() {
-
         try {
             Class.forName(CLASSNAME);
             con = DriverManager.getConnection(URL, USERNAME, PASSWORD);
         } catch (ClassNotFoundException e) {
             System.err.println("Error: " + e);
-
         } catch (SQLException ex) {
             System.err.println("Error sql: " + ex);
         }
@@ -42,7 +40,7 @@ public class Conexion {
     }
 
     public void getCloseConexion() throws SQLException {
-        this.con.close();
+        con.close();
         System.out.println("Conexion cerrada..!!");
     }
 }

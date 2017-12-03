@@ -9,7 +9,6 @@ import Controller.*;
 import Model.*;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.ResultSet;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -33,12 +32,9 @@ public class CarreraCRUD extends HttpServlet {
         PrintWriter out = response.getWriter();
         String accion = request.getParameter("accion");
         System.out.println("Accion: " + accion);
-        String htmlcode;
-
         String nombreCarrera = request.getParameter("nombreCarrera");
         String idCarrera = request.getParameter("abreviatura");
         String idCoordinador = request.getParameter("idCoordinador");
-
         ControladorCarrera conCar = new ControladorCarrera();
         Coordinador coordinador = new Coordinador();
         Carrera carrera = new Carrera();

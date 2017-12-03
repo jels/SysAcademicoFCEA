@@ -150,20 +150,19 @@ $(function () {
 });
 //guardar la practica por el parcial
 $(function () {
-    $('#guardarPractica').click(function (e) {
+    $('#guardarPractica1').click(function (e) {
         e.preventDefault();
         var CI_estudiante = $(this).attr('data-id');
-        var fechaInicio = document.getElementById('fechaInicio').value;
-        var fechaFin = document.getElementById('fechaFin').value;
-        var funcionPracticante = document.getElementById('funcionPracticante').value;
-        var cantidadHoras = document.getElementById('horasDePractica').value;
-        var observacionEstudiante = document.getElementById('observacionEstudiante').value;
+        var fechaInicio = document.getElementById('fechaInicio1').value;
+        var fechaFin = document.getElementById('fechaFin1').value;
+        var funcionPracticante = document.getElementById('funcionPracticante1').value;
+        var cantidadHoras = document.getElementById('horasDePractica1').value;
+        var observacionEstudiante = document.getElementById('observacionEstudiante1').value;
+        var parcial = 1;
         if (fechaInicio.length > 0 && fechaFin.length > 0 && funcionPracticante.length > 0 && cantidadHoras.length > 0 &&
                 observacionEstudiante.length > 0) {
-            var opcion = confirm("Seguro que desea guardar esta Nota?");
+            var opcion = confirm("Seguro que desea guardar estos datos?");
             if (opcion) {
-                alert("Fecha Inicio: " + fechaInicio);
-                alert("Fecha Final: " + fechaFin);
                 $.post('../../practicas.do', {
                     accion: "practicas",
                     fechaInicio: fechaInicio,
@@ -171,10 +170,11 @@ $(function () {
                     funcionPracticante: funcionPracticante,
                     cantidadHoras: cantidadHoras,
                     observacionEstudiante: observacionEstudiante,
-                    CI_estudiante: CI_estudiante
+                    CI_estudiante: CI_estudiante,
+                    parcial: parcial
                 }, function (responseText) {
                     if (responseText === "true") {
-                        $('#notificacionNewPractica').html("\
+                        $('#notificacionNewPractica1').html("\
                     <div class=\"col s6\">\n\
                         <button class=\"btn waves-effect waves-light green yellow-text right tooltipped\" type=\"button\" data-position=\"button\" data-tooltip=\"Carrera Creada Correctamente...\">\n\
                             <i class=\"material-icons left\">done_all</i>\n\
@@ -186,7 +186,7 @@ $(function () {
                             location.reload(true);
                         }, 2000);
                     } else {
-                        $('#notificacionNewPractica').html("\
+                        $('#notificacionNewPractica1').html("\
                     <div class=\"col s6\">\n\
                         <button class=\"btn waves-effect waves-light red yellow-text right tooltipped\" type=\"button\" data-position=\"button\" data-tooltip=\"Error al Crear La Carrera\">\n\
                             <i class=\"material-icons left\">clear</i>\n\
@@ -205,11 +205,65 @@ $(function () {
 });
 
 $(function () {
-    $('#eliminar_registro').click(function (e) {
+    $('#guardarPractica2').click(function (e) {
+        e.preventDefault();
+        var CI_estudiante = $(this).attr('data-id');
+        var fechaInicio = document.getElementById('fechaInicio2').value;
+        var fechaFin = document.getElementById('fechaFin2').value;
+        var funcionPracticante = document.getElementById('funcionPracticante2').value;
+        var cantidadHoras = document.getElementById('horasDePractica2').value;
+        var observacionEstudiante = document.getElementById('observacionEstudiante2').value;
+        var parcial = 2;
+        if (fechaInicio.length > 0 && fechaFin.length > 0 && funcionPracticante.length > 0 && cantidadHoras.length > 0 &&
+                observacionEstudiante.length > 0) {
+            var opcion = confirm("Seguro que desea guardar estos datos?");
+            if (opcion) {
+                $.post('../../practicas.do', {
+                    accion: "practicas",
+                    fechaInicio: fechaInicio,
+                    fechaFin: fechaFin,
+                    funcionPracticante: funcionPracticante,
+                    cantidadHoras: cantidadHoras,
+                    observacionEstudiante: observacionEstudiante,
+                    CI_estudiante: CI_estudiante,
+                    parcial: parcial
+                }, function (responseText) {
+                    if (responseText === "true") {
+                        $('#notificacionNewPractica2').html("\
+                    <div class=\"col s6\">\n\
+                        <button class=\"btn waves-effect waves-light green yellow-text right tooltipped\" type=\"button\" data-position=\"button\" data-tooltip=\"Carrera Creada Correctamente...\">\n\
+                            <i class=\"material-icons left\">done_all</i>\n\
+                                Creacion Exitosa.!\n\
+                            <i class=\"material-icons right\">done_all</i>\n\
+                        </button>\n\
+                    </div>");
+                        setTimeout(function () {
+                            location.reload(true);
+                        }, 2000);
+                    } else {
+                        $('#notificacionNewPractica2').html("\
+                    <div class=\"col s6\">\n\
+                        <button class=\"btn waves-effect waves-light red yellow-text right tooltipped\" type=\"button\" data-position=\"button\" data-tooltip=\"Error al Crear La Carrera\">\n\
+                            <i class=\"material-icons left\">clear</i>\n\
+                                Error..!!!\n\
+                            <i class=\"material-icons right\">clear</i>\n\
+                        </button>\n\
+                    </div>");
+                    }
+                });
+            }
+        } else {
+            alert("Rellene todos los campos");
+        }
+
+    });
+});
+
+$(function () {
+    $('#eliminar_registroPrimer').click(function (e) {
         e.preventDefault();
         var idRegistro = $(this).attr('data-id');
-        alert(idRegistro);
-        var opcion = confirm("Seguro que desea guardar esta Nota?");
+        var opcion = confirm("Seguro que desea Eliminar el Registro?");
         if (opcion) {
             $.post('../../practicas.do', {
                 accion: "eliminar_registro",
@@ -230,11 +284,34 @@ $(function () {
 });
 
 $(function () {
-    $('#eliminar_detalle').click(function (e) {
+    $('#eliminar_registroSegundo').click(function (e) {
+        e.preventDefault();
+        var idRegistro = $(this).attr('data-id');
+        var opcion = confirm("Seguro que desea Eliminar el Registro?");
+        if (opcion) {
+            $.post('../../practicas.do', {
+                accion: "eliminar_registro",
+                idRegistro: idRegistro
+            }, function (responseText) {
+                if (responseText === "true") {
+                    alert("Registro Eliminado");
+                    setTimeout(function () {
+                        location.reload(true);
+                    }, 2000);
+
+                } else {
+                    alert("Error al Eliminar el Registro");
+                }
+            });
+        }
+    });
+});
+
+$(function () {
+    $('tr #eliminar_detalle').click(function (e) {
         e.preventDefault();
         var idDetalle = $(this).attr('data-id');
-        alert(idDetalle);
-        var opcion = confirm("Seguro que desea guardar esta Nota?");
+        var opcion = confirm("Seguro que desea Eliminar el Registro?");
         if (opcion) {
             $.post('../../practicas.do', {
                 accion: "eliminar_detalle",
@@ -255,6 +332,97 @@ $(function () {
     });
 });
 
+$(function () {
+    $('#guardarPracticaDetalle1').click(function (e) {
+        e.preventDefault();
+        var idPractica = $(this).attr('data-id');
+        var tareaAsignada = document.getElementById('tareaAsignada1').value;
+        var observacionTarea = document.getElementById('observacionTarea1').value;
+        if (tareaAsignada.length > 0 && observacionTarea.length > 0) {
+            var opcion = confirm("Seguro que desea guardar este detalle?");
+            if (opcion) {
+                $.post('../../practicas.do', {
+                    accion: "detalle_practica",
+                    tareaAsignada: tareaAsignada,
+                    observacionTarea: observacionTarea,
+                    idPractica: idPractica
+                }, function (responseText) {
+                    if (responseText === "true") {
+                        $('#notificacionNewDetallePractica1').html("\
+                    <div class=\"col s6\">\n\
+                        <button class=\"btn waves-effect waves-light green yellow-text right tooltipped\" type=\"button\" data-position=\"button\" data-tooltip=\"Carrera Creada Correctamente...\">\n\
+                            <i class=\"material-icons left\">done_all</i>\n\
+                                Creacion Exitosa.!\n\
+                            <i class=\"material-icons right\">done_all</i>\n\
+                        </button>\n\
+                    </div>");
+                        setTimeout(function () {
+                            location.reload(true);
+                        }, 2000);
+                    } else {
+                        $('#notificacionNewDetallePractica1').html("\
+                    <div class=\"col s6\">\n\
+                        <button class=\"btn waves-effect waves-light red yellow-text right tooltipped\" type=\"button\" data-position=\"button\" data-tooltip=\"Error al Crear La Carrera\">\n\
+                            <i class=\"material-icons left\">clear</i>\n\
+                                Error..!!!\n\
+                            <i class=\"material-icons right\">clear</i>\n\
+                        </button>\n\
+                    </div>");
+                    }
+                });
+            }
+        } else {
+            alert("Rellene todos los campos");
+        }
+
+    });
+});
+
+$(function () {
+    $('#guardarPracticaDetalle2').click(function (e) {
+        e.preventDefault();
+        var idPractica = $(this).attr('data-id');
+        var tareaAsignada = document.getElementById('tareaAsignada2').value;
+        var observacionTarea = document.getElementById('observacionTarea2').value;
+        if (tareaAsignada.length > 0 && observacionTarea.length > 0) {
+            var opcion = confirm("Seguro que desea guardar este detalle?");
+            if (opcion) {
+                $.post('../../practicas.do', {
+                    accion: "detalle_practica",
+                    tareaAsignada: tareaAsignada,
+                    observacionTarea: observacionTarea,
+                    idPractica: idPractica
+                }, function (responseText) {
+                    if (responseText === "true") {
+                        $('#notificacionNewDetallePractica2').html("\
+                    <div class=\"col s6\">\n\
+                        <button class=\"btn waves-effect waves-light green yellow-text right tooltipped\" type=\"button\" data-position=\"button\" data-tooltip=\"Carrera Creada Correctamente...\">\n\
+                            <i class=\"material-icons left\">done_all</i>\n\
+                                Creacion Exitosa.!\n\
+                            <i class=\"material-icons right\">done_all</i>\n\
+                        </button>\n\
+                    </div>");
+                        setTimeout(function () {
+                            location.reload(true);
+                        }, 2000);
+                    } else {
+                        $('#notificacionNewDetallePractica2').html("\
+                    <div class=\"col s6\">\n\
+                        <button class=\"btn waves-effect waves-light red yellow-text right tooltipped\" type=\"button\" data-position=\"button\" data-tooltip=\"Error al Crear La Carrera\">\n\
+                            <i class=\"material-icons left\">clear</i>\n\
+                                Error..!!!\n\
+                            <i class=\"material-icons right\">clear</i>\n\
+                        </button>\n\
+                    </div>");
+                    }
+                });
+            }
+        } else {
+            alert("Rellene todos los campos");
+        }
+
+    });
+});
 
 
 //Estudiante--Fin

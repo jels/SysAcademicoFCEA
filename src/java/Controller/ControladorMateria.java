@@ -8,8 +8,6 @@ package Controller;
 import Model.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -17,21 +15,30 @@ import java.util.logging.Logger;
  */
 public class ControladorMateria extends Conexion {
 
+    Materia_model matMo = new Materia_model();
+    Dimension_model dimMo = new Dimension_model();
+    Criterios_model criMo = new Criterios_model();
+    Estudiante_model estMo = new Estudiante_model();
+    Notas_model notMo = new Notas_model();
+    Practicas_model praMo = new Practicas_model();
+    AsignacionPracticas_model aspMo = new AsignacionPracticas_model();
+
+    int numero;
+    boolean bandera;
+    String htmlcode;
+
     public int contarMateria() {
-        Materia_model mamo = new Materia_model();
-        int cantidad = mamo.countMaterias();
+        numero = matMo.countMaterias();
         try {
             getCloseConexion();
         } catch (Exception e) {
             System.out.println("Error en contarMateria.getCloseConexion: " + e);
         }
-        return cantidad;
+        return numero;
     }
 
     public boolean nuevaMateria(Materia materia) {
-
-        Materia_model matMo = new Materia_model();
-        boolean bandera = matMo.newMateria(materia);
+        bandera = matMo.newMateria(materia);
         try {
             getCloseConexion();
         } catch (Exception e) {
@@ -41,9 +48,7 @@ public class ControladorMateria extends Conexion {
     }
 
     public boolean newDimension(Dimension dimension) {
-
-        Dimension_model dimMo = new Dimension_model();
-        boolean bandera = dimMo.new_dimension(dimension);
+        bandera = dimMo.new_dimension(dimension);
         try {
             getCloseConexion();
         } catch (Exception e) {
@@ -53,9 +58,7 @@ public class ControladorMateria extends Conexion {
     }
 
     public boolean updateDimension(Dimension dimension) {
-
-        Dimension_model dimMo = new Dimension_model();
-        boolean bandera = dimMo.getUpdateDimension(dimension);
+        bandera = dimMo.getUpdateDimension(dimension);
         try {
             getCloseConexion();
         } catch (Exception e) {
@@ -65,66 +68,54 @@ public class ControladorMateria extends Conexion {
     }
 
     public boolean bajaDimension(int idDimension) {
-
-        Dimension_model dimMo = new Dimension_model();
-        boolean bandera;
-        Materia_model matMo = new Materia_model();
         int idMateria = matMo.getIdMateriaDimension(idDimension);
         int cantidadDimensionesActivas = dimMo.getCantidadDimensionesXMat(idMateria);
-        if (cantidadDimensionesActivas == 4) {
-            if (dimMo.getEstadoDimension(idDimension) == 1) {
-                bandera = dimMo.baja_dimension(idDimension, 0);
-                try {
+        try {
+            if (cantidadDimensionesActivas == 4) {
+                if (dimMo.getEstadoDimension(idDimension) == 1) {
+                    bandera = dimMo.baja_dimension(idDimension, 0);
                     getCloseConexion();
-                } catch (Exception e) {
-                    System.out.println("Error en bajaDimension.getCloseConexion: " + e);
+                } else {
+                    bandera = false;
                 }
+            } else if (dimMo.getEstadoDimension(idDimension) == 1) {
+                bandera = dimMo.baja_dimension(idDimension, 0);
+
             } else {
-                bandera = false;
+                bandera = dimMo.baja_dimension(idDimension, 1);
+
             }
-        } else if (dimMo.getEstadoDimension(idDimension) == 1) {
-            bandera = dimMo.baja_dimension(idDimension, 0);
-            try {
-                getCloseConexion();
-            } catch (Exception e) {
-                System.out.println("Error en bajaDimension.getCloseConexion: " + e);
-            }
-        } else {
-            bandera = dimMo.baja_dimension(idDimension, 1);
-            try {
-                getCloseConexion();
-            } catch (Exception e) {
-                System.out.println("Error en bajaDimension.getCloseConexion: " + e);
-            }
+            getCloseConexion();
+        } catch (Exception e) {
+            System.out.println("Error en bajaDimension.getCloseConexion: " + e);
         }
         return bandera;
     }
 
     public String viewDimension(int idDimension) {
-
-        Dimension_model dimMo = new Dimension_model();
-        Criterios_model criMo = new Criterios_model();
-        String nombreDimension = dimMo.getNombreDimension(idDimension);
-        int cantidadCriterios = criMo.getCantidadCriteriosXDimension(idDimension);
-        String htmlcode = "<div class=\"container\">\n"
-                + "                        <div class=\"col s12 center\">\n"
-                + "                            <h5>Dimension</h5>\n"
-                + "                            <h3>" + nombreDimension + "</h3>\n"
-                + "                        </div>\n"
-                + "                        <div class=\"col s12 center\">\n"
-                + "                            <h5>Criterios Activos</h5>\n"
-                + "                            <h3>" + cantidadCriterios + "</h3>\n"
-                + "                        </div>\n"
-                + "                    </div>";
-
+        try {
+            String nombreDimension = dimMo.getNombreDimension(idDimension);
+            getCloseConexion();
+            numero = criMo.getCantidadCriteriosXDimension(idDimension);
+            getCloseConexion();
+            htmlcode = "<div class=\"container\">\n"
+                    + "                        <div class=\"col s12 center\">\n"
+                    + "                            <h5>Dimension</h5>\n"
+                    + "                            <h3>" + nombreDimension + "</h3>\n"
+                    + "                        </div>\n"
+                    + "                        <div class=\"col s12 center\">\n"
+                    + "                            <h5>Criterios Activos</h5>\n"
+                    + "                            <h3>" + numero + "</h3>\n"
+                    + "                        </div>\n"
+                    + "                    </div>";
+        } catch (Exception e) {
+            System.out.println("Error en viewDimension.getCloseConexion: " + e);
+        }
         return htmlcode;
     }
 
     public String editarDimension(int idDimension) {
-        String htmlcode = "";
-        Dimension_model dimMo = new Dimension_model();
         ResultSet dimension = dimMo.getDimensionActualizar(idDimension);
-
         try {
             dimension.next();
             htmlcode = "           <div class=\"container\">\n"
@@ -151,23 +142,15 @@ public class ControladorMateria extends Conexion {
                     + "                        <div id=\"notificacionActDimension\">\n"
                     + "                        </div>\n"
                     + "                    </div>";
-
+            getCloseConexion();
         } catch (Exception e) {
             System.out.println("Error en  editarDimension: " + e);
         }
-        try {
-            getCloseConexion();
-        } catch (Exception e) {
-            System.out.println("Error en editarDimension.getCloseConexion: " + e);
-        }
-
         return htmlcode;
     }
 
     public boolean newCriterio(Criterios criterio) {
-
-        Criterios_model criMo = new Criterios_model();
-        boolean bandera = criMo.nuevo_criterio(criterio);
+        bandera = criMo.nuevo_criterio(criterio);
         try {
             getCloseConexion();
         } catch (Exception e) {
@@ -177,9 +160,7 @@ public class ControladorMateria extends Conexion {
     }
 
     public boolean updateCriterio(Criterios criterio) {
-
-        Criterios_model criMo = new Criterios_model();
-        boolean bandera = criMo.update_criterio(criterio);
+        bandera = criMo.update_criterio(criterio);
         try {
             getCloseConexion();
         } catch (Exception e) {
@@ -189,72 +170,55 @@ public class ControladorMateria extends Conexion {
     }
 
     public boolean bajaCriterio(int idCriterio) {
-
-        Criterios_model criMo = new Criterios_model();
-        Dimension_model dimMo = new Dimension_model();
-        boolean bandera;
-
-        int idDimension = dimMo.getIdDimensionCriterio(idCriterio);
-
-        int cantidadCriteriosActivas = criMo.getCantidadCriteriosXDimension(idDimension);
-
-        int estado = criMo.getEstadoCriterio(idCriterio);
-        System.out.println("Estado " + estado + " Criterio " + idCriterio);
-        System.out.println("Cantidad de Criterios activos: " + cantidadCriteriosActivas);
-        if (cantidadCriteriosActivas == 5) {
-            if (estado == 1) {
-                bandera = criMo.baja_criterio(idCriterio, 0);
-                try {
+        try {
+            int idDimension = dimMo.getIdDimensionCriterio(idCriterio);
+            getCloseConexion();
+            int cantidadCriteriosActivas = criMo.getCantidadCriteriosXDimension(idDimension);
+            getCloseConexion();
+            int estado = criMo.getEstadoCriterio(idCriterio);
+            getCloseConexion();
+            if (cantidadCriteriosActivas == 5) {
+                if (estado == 1) {
+                    bandera = criMo.baja_criterio(idCriterio, 0);
                     getCloseConexion();
-                } catch (Exception e) {
-                    System.out.println("Error en bajaCriterio.getCloseConexion: " + e);
+                } else {
+                    bandera = false;
                 }
+            } else if (estado == 1) {
+                bandera = criMo.baja_criterio(idCriterio, 0);
+                getCloseConexion();
             } else {
-                bandera = false;
-            }
-        } else if (estado == 1) {
-            bandera = criMo.baja_criterio(idCriterio, 0);
-            try {
+                bandera = criMo.baja_criterio(idCriterio, 1);
                 getCloseConexion();
-            } catch (Exception e) {
-                System.out.println("Error en bajaCriterio.getCloseConexion: " + e);
             }
-        } else {
-            bandera = criMo.baja_criterio(idCriterio, 1);
-            try {
-                getCloseConexion();
-            } catch (Exception e) {
-                System.out.println("Error en bajaCriterio.getCloseConexion: " + e);
-            }
+        } catch (Exception e) {
+            System.out.println("Error en bajaCriterio.getCloseConexion: " + e);
         }
         return bandera;
     }
 
     public int getCantidadDimensionesXMateria(int idMateria) {
-        Dimension_model dimMo = new Dimension_model();
-        int cantidadDimensionesXMateria = dimMo.getCantidadDimensionesXMat(idMateria);
+        numero = dimMo.getCantidadDimensionesXMat(idMateria);
         try {
             getCloseConexion();
         } catch (Exception e) {
             System.out.println("Error en getCantidadDimensionesXMateria.getCloseConexion: " + e);
         }
-        return cantidadDimensionesXMateria;
+        return numero;
     }
 
     public int getCantidadCriteriosXDimension(int idDimension) {
-        Criterios_model criMo = new Criterios_model();
-        int cantidadDimensionesXMateria = criMo.getCantidadCriteriosXDimension(idDimension);
+        numero = criMo.getCantidadCriteriosXDimension(idDimension);
         try {
             getCloseConexion();
         } catch (Exception e) {
             System.out.println("Error en getCantidadDimensionesXMateria.getCloseConexion: " + e);
         }
-        return cantidadDimensionesXMateria;
+        return numero;
     }
 
     public String getViewDimensionesXMat(int idMateria) {
-
-        String htmlcode = "          <div class=\"container\">\n"
+        htmlcode = "          <div class=\"container\">\n"
                 + "                        <div class=\"row\">\n"
                 + "                            <div class=\"col s12\">\n"
                 + "                                <h1 class=\"center yellow-text\">Dimensiones</h1>\n"
@@ -275,50 +239,41 @@ public class ControladorMateria extends Conexion {
                 + "                            </thead>\n"
                 + "                            <tbody>\n";
         ResultSet dimension;
-        Dimension_model dimMo = new Dimension_model();
         dimension = dimMo.ver_dimensionesxmateria(idMateria);
         int i = 1;
-        if (dimension != null) {
-            try {
+        try {
+            if (dimension != null) {
                 while (dimension.next()) {
                     System.out.println(dimension.getString(2));
                     htmlcode += "                <tr>\n"
                             + "                    <td>" + i + "</td>\n"
                             + "                    <td>" + dimension.getString(2) + "</td>\n";
-
                     if (dimension.getInt(3) == 1) {
                         htmlcode += "                    <td>Activo</td>\n";
                     } else {
                         htmlcode += "                    <td>Inactivo</td>\n";
-
                     }
                     htmlcode += "    <td><div class=\"center-align\"><a href=\"dimension.jsp?dimension=" + dimension.getInt(1) + "\" data-id=\"" + dimension.getInt(1) + "\" id=\"ver_materia\" class=\"btn-floating btn tooltipped waves-effect waves-light blue yellow-text modal-trigger\" data-position=\"button\" data-tooltip=\"Ver\"><i class=\"material-icons yellow-text\">description</i></a></div></td>\n"
                             + "     <td><div class=\"center-align\"><a id=\"baja_dimension\" data-id=\"" + dimension.getInt(1) + "\" class=\"btn-floating btn tooltipped waves-effect waves-light blue yellow-text\" data-position=\"button\" data-tooltip=\"Dar de Baja\"><i class=\"material-icons yellow-text\">redo</i></a></div></td>\n"
                             + "  </tr>"
                             + "";
                     i++;
-
                 }
-            } catch (SQLException ex) {
-                System.out.println("Error en getViewDimensionesXMat: " + ex);
+            } else {
+                htmlcode += "";
             }
-        } else {
-            htmlcode += "";
-
-        }
-        try {
             getCloseConexion();
-        } catch (Exception e) {
-            System.out.println("Error en getViewDimensionesXMat.getCloseConexion: " + e);
+        } catch (SQLException ex) {
+            System.out.println("Error en getViewDimensionesXMat: " + ex);
         }
-        return htmlcode += "                        </tbody>\n"
+        htmlcode += "                        </tbody>\n"
                 + "                        </table>\n"
                 + "                    </div>";
+        return htmlcode;
     }
 
     public String verMateriaXCarrera(String abreviatura) {
-
-        String htmlcode = "          <div class=\"container\">\n"
+        htmlcode = "          <div class=\"container\">\n"
                 + "                        <div class=\"row\">\n"
                 + "                            <div class=\"col s12\">\n"
                 + "                                <h1 class=\"center yellow-text\">Materias</h1>\n"
@@ -342,11 +297,10 @@ public class ControladorMateria extends Conexion {
                 + "                            </thead>\n"
                 + "                            <tbody>\n";
         ResultSet rs;
-        Materia_model matm = new Materia_model();
-        rs = matm.ver_materias(abreviatura);
+        rs = matMo.ver_materias(abreviatura);
         int i = 1;
-        if (rs != null) {
-            try {
+        try {
+            if (rs != null) {
                 while (rs.next()) {
                     System.out.println(rs.getString(7));
                     htmlcode += "                <tr>\n"
@@ -370,45 +324,30 @@ public class ControladorMateria extends Conexion {
                             + "  </tr>"
                             + "";
                     i++;
-
                 }
-            } catch (SQLException ex) {
-                System.out.println("Error en verMaterias: " + ex);
+            } else {
+                htmlcode += "";
             }
-        } else {
-            htmlcode += "";
-
-        }
-        try {
             getCloseConexion();
-        } catch (Exception e) {
-            System.out.println("Error en verMaterias.getCloseConexion: " + e);
+        } catch (SQLException ex) {
+            System.out.println("Error en verMaterias: " + ex);
         }
-        return htmlcode += "                        </tbody>\n"
+        htmlcode += "                        </tbody>\n"
                 + "                        </table>\n"
                 + "                    </div>";
-
+        return htmlcode;
     }
 
     public ResultSet getListaIDCriterioXEst(String CI_estudiante) {
-
-        Criterios_model criMo = new Criterios_model();
         return criMo.getListaCriterioXEst(CI_estudiante);
     }
 
-    public String modal_show_materia() {
-        System.out.println("ID: ");
-        String htmlcode = "";
-        Materia_model matMo = new Materia_model();
-        ResultSet mat = null;
-        Dimension_model dimMo = new Dimension_model();
-        mat = matMo.getMateria(1);
-        ResultSet dimen = null;
-        if (mat != null) {
-
-            try {
+    public String modal_show_materia() {//revisar el codigo porque solo un id mando?
+        ResultSet mat = matMo.getMateria(1);
+        ResultSet dimen;
+        try {
+            if (mat != null) {
                 mat.next();
-                System.out.println("nombre: " + mat.getString(3));
                 htmlcode += "<div class=\"modal-content\">"
                         + "     <h2>" + mat.getString(3) + "</h2>\n"
                         + "       <p>" + mat.getString(4) + "</p>\n"
@@ -416,7 +355,6 @@ public class ControladorMateria extends Conexion {
                         + "       <ul class=\"collapsible popout blue darken-3 yellow-text\" data-collapsible=\"accordion\">";
                 dimen = dimMo.getDimensiones(1);
                 while (dimen.next()) {
-                    System.out.println("id: " + dimen.getInt(1));
                     htmlcode += "       <li>\n"
                             + "             <div class=\"collapsible-header blue darken-3\">\n"
                             + "                 <i class=\"material-icons rigth\">details</i>"
@@ -430,35 +368,24 @@ public class ControladorMateria extends Conexion {
                             + "       </li>";
                 }
                 htmlcode += "  </ul>\n";
-
-            } catch (Exception e) {
-                System.out.println("Error en modal_show_materia: " + e);
+            } else {
+                htmlcode += "";
             }
-
-        } else {
-            htmlcode += "";
+            getCloseConexion();
+        } catch (Exception e) {
+            System.out.println("Error en modal_show_materia: " + e);
         }
         htmlcode += "    </div>\n"
                 + "    <div class=\"modal-footer blue darken-3\">\n"
                 + "      <a href=\"#!\" class=\"modal-action modal-close waves-effect waves-yellow yellow accent-2  btn-flat\">OK</a>\n"
                 + "    </div>\n"
                 + "          ";
-        try {
-            getCloseConexion();
-        } catch (Exception e) {
-            System.out.println("Error en modal_show_materia.getCloseConexion: " + e);
-        }
         return htmlcode;
     }
 
     private String verCriterios(int dimen) {
-        String htmlcode = "";
-        ResultSet crit = null;
-        Criterios_model criMo = new Criterios_model();
-        crit = criMo.getCriterios(dimen);
-        System.out.println("id: " + dimen);
+        ResultSet crit = criMo.getCriterios(dimen);
         int i = 0;
-
         htmlcode += "      <table class=\"highlight responsive-table blue darken-3 yellow-text\">\n"
                 + "        <thead>\n"
                 + "          <tr>\n"
@@ -469,7 +396,6 @@ public class ControladorMateria extends Conexion {
                 + "              <th>Dar de Baja</th>\n"
                 + "          </tr>\n"
                 + "        </thead>\n";
-
         try {
             while (crit.next()) {
                 i++;
@@ -483,6 +409,7 @@ public class ControladorMateria extends Conexion {
 
                 System.out.println("criterio..." + crit.getString(1));
             }
+            getCloseConexion();
         } catch (Exception e) {
             System.out.println("Error getCriterios: " + e);
         }
@@ -492,57 +419,37 @@ public class ControladorMateria extends Conexion {
                 + "      </table>\n"
                 + "            \n"
                 + "";
-        try {
-            getCloseConexion();
-        } catch (Exception e) {
-            System.out.println("Error en verCriterios.getCloseConexion: " + e);
-        }
         return htmlcode;
     }
 
     public String getEvaluacion(String CI_Estudiante) {
-        String htmlcode = "";
-
-        System.out.println("Estudiante _getEvaluacion: " + CI_Estudiante);
-
-        Estudiante_model estMo = new Estudiante_model();
-        Notas_model notMo = new Notas_model();
-        Materia_model matMo = new Materia_model();
-        Dimension_model dimMo = new Dimension_model();
-        AsignacionPracticas_model aspMo = new AsignacionPracticas_model();
-        Practicas_model praMo = new Practicas_model();
         int idMateria = matMo.getIdMateria(CI_Estudiante);
-        ResultSet nombreEstudiante = null;
-        ResultSet dimensiones = null;
-        nombreEstudiante = estMo.getNombreEstudiante(CI_Estudiante);
+        ResultSet nombreEstudiante = estMo.getNombreEstudiante(CI_Estudiante);
+        ResultSet dimensiones;
+        ResultSet criterios;
         boolean aproboPrimerParcial = notMo.llenoPrimerParcial(CI_Estudiante);
         boolean aproboSegundoParcial = notMo.llenoSegundoParcial(CI_Estudiante);
         boolean evaluacionCompleta = notMo.evaluacionCompletaDocente(CI_Estudiante);
-        System.out.println("EvaluacionCompleta: " + evaluacionCompleta);
-
         boolean primerParcial = praMo.activoParcial(1);
-        System.out.println("Primer PArcial activo?: " + primerParcial);
         boolean segundoParcial = praMo.activoParcial(2);
-        System.out.println("Segundo PArcial activo?: " + segundoParcial);
-
-        ResultSet criterios;
-        Criterios_model criMo = new Criterios_model();
-        System.out.println("IDMAteria: " + idMateria);
-
         int i = 1;
         int c = 1;
-        int nota = 0;
+        int nota;
         try {
             nombreEstudiante.next();
             if (evaluacionCompleta) {
                 nota = notMo.getNotaPrimerParcial(CI_Estudiante);
                 htmlcode += "<div class=\"container\">\n"
                         + "     <div class=\"row\">\n"
-                        + "       <div class=\"col s6\">\n"
+                        + "       <div class=\"col s12\">\n"
                         + "              <h3 class=\"center\">" + nombreEstudiante.getString(3) + " " + nombreEstudiante.getString(4) + ", " + nombreEstudiante.getString(1) + " " + nombreEstudiante.getString(2) + "</h3>\n"
+                        + "        </div>\n"
+                        + "     </div>\n"
+                        + "     <div class=\"row\">\n"
+                        + "         <div class=\"col s6\">\n"
                         + "              <h4 class=\"center\">Primer Parcial</h4>\n"
                         + "              <h3 class=\"center\">" + nota + "</h3>\n"
-                        + "       </div>\n";
+                        + "         </div>\n";
                 nota = notMo.getNotaSegundoParcial(CI_Estudiante);
                 htmlcode += "       <div class=\"col s6\">\n"
                         + "              <h4 class=\"center\">Segundo Parcial</h4>\n"
@@ -689,7 +596,6 @@ public class ControladorMateria extends Conexion {
                         + "       \n";
                 htmlcode += "<h4 class=\"center\">Primer Parcial</h4>\n";
                 dimensiones = dimMo.getDimensiones(idMateria);
-                System.out.println("idMateria: " + idMateria);
                 while (dimensiones.next()) {
                     switch (i) {
                         case 1:
@@ -818,44 +724,24 @@ public class ControladorMateria extends Conexion {
                         + "                        </div>\n"
                         + "                    </div>";
             }
-
-        } catch (Exception e) {
-            System.out.println("Error getEvaluacion: " + e);
-        }
-
-        try {
             getCloseConexion();
         } catch (Exception e) {
-            System.out.println("Error en getEvaluacion.getCloseConexion: " + e);
+            System.out.println("Error getEvaluacion: " + e);
         }
         return htmlcode;
     }
 
     public String getEvaluacionDocente(String CI_Estudiante) {
-        String htmlcode = "";
-
-        System.out.println("Estudiante _getEvaluacion: " + CI_Estudiante);
-
-        Estudiante_model estMo = new Estudiante_model();
-        Notas_model notMo = new Notas_model();
-        Materia_model matMo = new Materia_model();
-        Dimension_model dimMo = new Dimension_model();
         int idMateria = matMo.getIdMateria(CI_Estudiante);
-        ResultSet nombreEstudiante = null;
-        ResultSet dimensiones = null;
-        nombreEstudiante = estMo.getNombreEstudiante(CI_Estudiante);
+        ResultSet nombreEstudiante = estMo.getNombreEstudiante(CI_Estudiante);
+        ResultSet dimensiones;
+        ResultSet criterios;
         boolean aproboPrimerParcial = notMo.llenoPrimerParcial(CI_Estudiante);
         boolean aproboSegundoParcial = notMo.llenoSegundoParcial(CI_Estudiante);
         boolean evaluacionCompleta = notMo.evaluacionCompletaDocente(CI_Estudiante);
-        System.out.println("EvaluacionCompleta: " + evaluacionCompleta);
-        ResultSet criterios;
-        Criterios_model criMo = new Criterios_model();
-        System.out.println("IDMAteria: " + idMateria);
-        AsignacionPracticas_model aspMo = new AsignacionPracticas_model();
-
         int i = 1;
         int c = 1;
-        double nota = 0;
+        double nota;
         try {
             nombreEstudiante.next();
             if (aspMo.getRealizaPractica(CI_Estudiante)) {
@@ -893,7 +779,6 @@ public class ControladorMateria extends Conexion {
                                 + "              <h3 class=\"center\">" + nota + "</h3>\n"
                                 + "       </div>\n";
                         if (evaluacionCompleta) {
-
                         } else {
                             htmlcode += "      <div class=\"col s6\">\n"
                                     + " <div class=\"row\">\n"
@@ -902,7 +787,6 @@ public class ControladorMateria extends Conexion {
                             htmlcode += "<h5 class=\"center\">Evaluacion Examen Final</h5>\n";
                             dimensiones = dimMo.getDimensiones(idMateria);
                             while (dimensiones.next()) {
-
                                 switch (i) {
                                     case 1:
                                         htmlcode += "<div class=\"col s6\">\n"
@@ -1009,7 +893,6 @@ public class ControladorMateria extends Conexion {
                                     + "     </div>\n"
                                     + "</div>\n"
                                     + "</div>\n";
-
                         }
                     } else {
                         htmlcode += "       <div class=\"col s4\">\n"
@@ -1041,7 +924,6 @@ public class ControladorMateria extends Conexion {
                             + "     </div>\n"
                             + "</div>\n";
                 }
-
             } else {
                 htmlcode += "\n"
                         + "    <div class=\"row\">\n"
@@ -1056,80 +938,58 @@ public class ControladorMateria extends Conexion {
                         + "    </div>\n"
                         + "";
             }
-        } catch (Exception e) {
-            System.out.println("Error getEvaluacion: " + e);
-        }
-
-        try {
             getCloseConexion();
         } catch (Exception e) {
-            System.out.println("Error en getEvaluacion.getCloseConexion: " + e);
+            System.out.println("Error getEvaluacion: " + e);
         }
         return htmlcode;
     }
 
     public boolean bajaMateria(int idMateria) {
-
-        Materia_model matMo = new Materia_model();
-        boolean bandera;
-        if (matMo.getEstadoMateria(idMateria) == 1) {
-            bandera = matMo.baja_materia(idMateria, 0);
-            try {
+        try {
+            if (matMo.getEstadoMateria(idMateria) == 1) {
                 getCloseConexion();
-            } catch (Exception e) {
-                System.out.println("Error en bajaMateria.getCloseConexion: " + e);
-            }
-        } else {
-            bandera = matMo.baja_materia(idMateria, 1);
-            try {
+                bandera = matMo.baja_materia(idMateria, 0);
                 getCloseConexion();
-            } catch (Exception e) {
-                System.out.println("Error en bajaMateria.getCloseConexion: " + e);
+            } else {
+                getCloseConexion();
+                bandera = matMo.baja_materia(idMateria, 1);
+                getCloseConexion();
             }
+        } catch (Exception e) {
+            System.out.println("Error en bajaMateria.getCloseConexion: " + e);
         }
         return bandera;
     }
 
     public String getResumenMaterias(int idMateria) {
-
-        Materia_model matMo = new Materia_model();
-        String nombreMateria = matMo.getNombreMateria(idMateria);
         try {
+            String nombreMateria = matMo.getNombreMateria(idMateria);
             getCloseConexion();
+            int cantidadDimensionesXMateria = dimMo.getCantidadDimensionesXMat(idMateria);
+            getCloseConexion();
+            htmlcode = "                    <div class=\"container center\">\n"
+                    + "                        <div class=\"row\">\n"
+                    + "                            <div class=\"col s12\">\n"
+                    + "                                <h5>Materia</h5>\n"
+                    + "                                <h3>" + nombreMateria + "</h3>\n"
+                    + "                            </div>\n"
+                    + "                        </div>\n"
+                    + "                        <div class=\"row\">\n"
+                    + "                            <div class=\"col s12\">\n"
+                    + "                                <h5>Dimensiones</h5>\n"
+                    + "                                <h3>" + cantidadDimensionesXMateria + "</h3>\n"
+                    + "                            </div>\n"
+                    + "                        </div>\n"
+                    + "                    </div>\n";
         } catch (Exception e) {
             System.out.println("Error en getResumenMaterias.getCloseConexion: " + e);
         }
-        Dimension_model dimMo = new Dimension_model();
-        int cantidadDimensionesXMateria = dimMo.getCantidadDimensionesXMat(idMateria);
-        try {
-            getCloseConexion();
-        } catch (Exception e) {
-            System.out.println("Error en getResumenMaterias.getCloseConexion: " + e);
-        }
-        String htmlcode = "                    <div class=\"container center\">\n"
-                + "                        <div class=\"row\">\n"
-                + "                            <div class=\"col s12\">\n"
-                + "                                <h5>Materia</h5>\n"
-                + "                                <h3>" + nombreMateria + "</h3>\n"
-                + "                            </div>\n"
-                + "                        </div>\n"
-                + "                        <div class=\"row\">\n"
-                + "                            <div class=\"col s12\">\n"
-                + "                                <h5>Dimensiones</h5>\n"
-                + "                                <h3>" + cantidadDimensionesXMateria + "</h3>\n"
-                + "                            </div>\n"
-                + "                        </div>\n"
-                + "                    </div>\n";
-
         return htmlcode;
     }
 
     public String getEditarMateria(int idMateria) {
-
-        String htmlcode = "";
-        Materia_model matMo = new Materia_model();
         ResultSet materia = matMo.getMateria(idMateria);
-
         try {
             materia.next();
             htmlcode = "           <div class=\"container\">\n"
@@ -1173,23 +1033,15 @@ public class ControladorMateria extends Conexion {
                     + "                        <div id=\"notificacionACMateria\">\n"
                     + "                        </div>\n"
                     + "                    </div>";
-
+            getCloseConexion();
         } catch (Exception e) {
             System.out.println("Error en  getEditarMateria: " + e);
         }
-        try {
-            getCloseConexion();
-        } catch (Exception e) {
-            System.out.println("Error en getEditarMateria.getCloseConexion: " + e);
-        }
-
         return htmlcode;
     }
 
     public boolean updateMateria(Materia materia) {
-
-        Materia_model matMo = new Materia_model();
-        boolean bandera = matMo.actualizarMateria(materia);
+        bandera = matMo.actualizarMateria(materia);
         try {
             getCloseConexion();
         } catch (Exception e) {
@@ -1199,8 +1051,7 @@ public class ControladorMateria extends Conexion {
     }
 
     public String getViewCriteriosXDimension(int idDimension) {
-
-        String htmlcode = "          <div class=\"container\">\n"
+        htmlcode = "          <div class=\"container\">\n"
                 + "                        <div class=\"row\">\n"
                 + "                            <div class=\"col s12\">\n"
                 + "                                <h1 class=\"center yellow-text\">Criterios</h1>\n"
@@ -1220,45 +1071,36 @@ public class ControladorMateria extends Conexion {
                 + "                                </tr>\n"
                 + "                            </thead>\n"
                 + "                            <tbody>\n";
-        ResultSet criterio;
-        Criterios_model criMo = new Criterios_model();
-        criterio = criMo.getListaCriterioXDimnension(idDimension);
+        ResultSet criterio = criMo.getListaCriterioXDimnension(idDimension);
         int i = 1;
-        if (criterio != null) {
-            try {
+        try {
+            if (criterio != null) {
                 while (criterio.next()) {
                     System.out.println(criterio.getString(2));
                     htmlcode += "                <tr>\n"
                             + "                    <td>" + i + "</td>\n"
                             + "                    <td>" + criterio.getString(2) + "</td>\n";
-
                     if (criterio.getInt(3) == 1) {
                         htmlcode += "                    <td>Activo</td>\n";
                     } else {
                         htmlcode += "                    <td>Inactivo</td>\n";
-
                     }
                     htmlcode += "    <td><div class=\"center-align\"><a href=\"criterio.jsp?criterio=" + criterio.getInt(1) + "\" id=\"ver_criterio\" class=\"btn-floating btn tooltipped waves-effect waves-light blue yellow-text modal-trigger\" data-position=\"button\" data-tooltip=\"Ver\"><i class=\"material-icons yellow-text\">description</i></a></div></td>\n"
                             + "     <td><div class=\"center-align\"><a id=\"baja_criterio\" data-id=\"" + criterio.getInt(1) + "\" class=\"btn-floating btn tooltipped waves-effect waves-light blue yellow-text\" data-position=\"button\" data-tooltip=\"Dar de Baja\"><i class=\"material-icons yellow-text\">redo</i></a></div></td>\n"
                             + "  </tr>"
                             + "";
                     i++;
-
                 }
-            } catch (SQLException ex) {
-                System.out.println("Error en getViewCriteriosXDimension: " + ex);
+            } else {
+                htmlcode += "";
             }
-        } else {
-            htmlcode += "";
-
-        }
-        try {
             getCloseConexion();
-        } catch (Exception e) {
-            System.out.println("Error en getViewCriteriosXDimension.getCloseConexion: " + e);
+        } catch (SQLException ex) {
+            System.out.println("Error en getViewCriteriosXDimension: " + ex);
         }
-        return htmlcode += "                        </tbody>\n"
+        htmlcode += "                        </tbody>\n"
                 + "                        </table>\n"
                 + "                    </div>";
+        return htmlcode;
     }
 }

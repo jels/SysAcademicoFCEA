@@ -13,11 +13,11 @@ import Model.*;
  */
 public class ControladorUsuarios extends Conexion {
 
-    boolean bandera;
     Usuario_model usMo = new Usuario_model();
+    Usuario us = new Usuario();
+    boolean bandera;
     int numero;
     String dato;
-    Usuario us = new Usuario();
 
     public boolean loginUser(Usuario us) {
         bandera = usMo.existencia(us);
@@ -30,32 +30,22 @@ public class ControladorUsuarios extends Conexion {
     }
 
     public boolean newUser(Usuario us) {
-
-        if (usMo.existenciaUser(us)) {
-            try {
+        try {
+            if (usMo.existenciaUser(us)) {
                 getCloseConexion();
-            } catch (Exception e) {
-                System.out.println("Error en newUser.getCloseConexion: " + e);
-            }
-            return false;
-        } else {
-            try {
+                return false;
+            } else {
                 getCloseConexion();
-            } catch (Exception e) {
-                System.out.println("Error en contarTutores.getCloseConexion: " + e);
-            }
-            bandera = usMo.crear_usuario(us);
-            try {
+                bandera = usMo.crear_usuario(us);
                 getCloseConexion();
-            } catch (Exception e) {
-                System.out.println("Error en contarTutores.getCloseConexion: " + e);
             }
-            return bandera;
+        } catch (Exception e) {
+            System.out.println("Error en newUser.getCloseConexion: " + e);
         }
+        return bandera;
     }
 
     public int findID(Usuario us) {
-
         numero = usMo.encontrarID(us);
         try {
             getCloseConexion();
@@ -76,7 +66,6 @@ public class ControladorUsuarios extends Conexion {
     }
 
     public String getRol(String username) {
-
         us.setNombreUsuario(username);
         dato = usMo.getRol(us);
         try {
@@ -84,20 +73,17 @@ public class ControladorUsuarios extends Conexion {
         } catch (Exception e) {
             System.out.println("Error en getRol.getCloseConexion: " + e);
         }
-
         return dato;
     }
 
     public boolean borrarUsuario(Usuario us) {
-
         bandera = usMo.borrarUser(us);
         try {
             getCloseConexion();
         } catch (Exception e) {
             System.out.println("Error en borrarUsuario.getCloseConexion: " + e);
         }
-
-        return false;
+        return bandera;
     }
 
 }

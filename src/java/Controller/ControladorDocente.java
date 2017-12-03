@@ -14,18 +14,14 @@ import Model.*;
 public class ControladorDocente extends Conexion {
 
     public String crearDocente() {
-        String htmlcode="";
-        
-                
-        
-        
-        
+        String htmlcode = "";
+
         try {
             getCloseConexion();
         } catch (Exception e) {
             System.out.println("Error en crearDocente.getCloseConexion: " + e);
         }
-        
+
         return htmlcode;
     }
 

@@ -53,11 +53,8 @@ public class ControladorEmpresa extends Conexion {
     }
 
     public String verEmpresas() {
-
         ResultSet empresa = empMo.getEmpresas();
-
         int i = 1;
-
         htmlcode = "          <div class=\"container\">\n"
                 + "                        <div class=\"row\">\n"
                 + "                            <div class=\"col s12\">\n"
@@ -82,11 +79,11 @@ public class ControladorEmpresa extends Conexion {
                 + "                                </tr>\n"
                 + "                            </thead>\n"
                 + "                            <tbody>\n";
+        try {
+            if (empresa == null) {
 
-        if (empresa == null) {
+            } else {
 
-        } else {
-            try {
                 while (empresa.next()) {
                     System.out.println(empresa.getString(1));
                     htmlcode += "                <tr>\n"
@@ -107,35 +104,29 @@ public class ControladorEmpresa extends Conexion {
                     i++;
 
                 }
-            } catch (SQLException ex) {
-                System.out.println("Error en verEmpresas: " + ex);
+
             }
-        }
-        try {
             getCloseConexion();
-        } catch (Exception e) {
-            System.out.println("Error en verEmpresas.getCloseConexion: " + e);
+        } catch (SQLException ex) {
+            System.out.println("Error en verEmpresas: " + ex);
         }
-        return htmlcode += "                        </tbody>\n"
+        htmlcode += "                        </tbody>\n"
                 + "                        </table>\n"
                 + "                    </div>";
-
+        return htmlcode;
     }
 
     public boolean newEmpresa(Empresa emp) {
-
         bandera = empMo.nueva_empresa(emp);
         try {
             getCloseConexion();
         } catch (Exception e) {
             System.out.println("Error en newEmpresa.getCloseConexion: " + e);
         }
-
         return bandera;
     }
 
     public boolean bajaEmpresa(int idEmpresa) {
-
         bandera = empMo.darBajaEmpresa(idEmpresa);
         try {
             getCloseConexion();
@@ -146,74 +137,60 @@ public class ControladorEmpresa extends Conexion {
     }
 
     public int contarTutoresXempresaEstado(int idEmpresa, int estado) {
-
-        Tutor_model tutMo = new Tutor_model();
         cantidad = tutMo.contar_tutorEstado(idEmpresa, estado);
         try {
             getCloseConexion();
         } catch (Exception e) {
             System.out.println("Error en contarTutoresXempresaEstado.getCloseConexion: " + e);
         }
-
         return cantidad;
     }
 
     public int contarTutoresEmpresa(int idEmpresa) {
-
-        Tutor_model tutMo = new Tutor_model();
         cantidad = tutMo.contar_tutorEmpresa(idEmpresa);
         try {
             getCloseConexion();
         } catch (Exception e) {
             System.out.println("Error en contarTutoresEmpresa.getCloseConexion: " + e);
         }
-
         return cantidad;
     }
 
     public String verResumenXempresa(int idEmpresa) {
-
-        String nombreEmpresa = empMo.getNombreEmpresa(idEmpresa);
         try {
+            String nombreEmpresa = empMo.getNombreEmpresa(idEmpresa);
             getCloseConexion();
-        } catch (Exception e) {
-            System.out.println("Error en countEmpresasInactivas.getCloseConexion: " + e);
-        }
-        String representante = repMo.getNombreRepresentanteEmpresa(idEmpresa);
-        try {
+            String representante = repMo.getNombreRepresentanteEmpresa(idEmpresa);
             getCloseConexion();
+            htmlcode = "                <div class=\"container\">\n"
+                    + "                        <h1 class=\"center\">Empresa</h1>\n"
+                    + "                        <h3 class=\"center\">" + nombreEmpresa + "</h3>\n"
+                    + "                        <h2 class=\"center\">Representante</h2>\n"
+                    + "                        <h4 class=\"center\">" + representante + "</h4>\n"
+                    + "                        <div class=\"row\">\n"
+                    + "                            <div class=\"col s12\">\n"
+                    + "                                <h2 class=\"center\">" + contarTutoresEmpresa(idEmpresa) + "</h2>\n"
+                    + "                                <h3 class=\"center\">Total de Tutores Almacenados</h3>\n"
+                    + "                            </div>\n"
+                    + "                        </div>\n"
+                    + "                        <div class=\"row\">\n"
+                    + "                            <div class=\"col s6\">\n"
+                    + "                                <h2 class=\"center\">" + contarTutoresXempresaEstado(idEmpresa, 1) + "</h2>\n"
+                    + "                                <h5 class=\"center\">Tutores Activos</h5>\n"
+                    + "                            </div>\n"
+                    + "                            <div class=\"col s6\">\n"
+                    + "                                <h2 class=\"center\">" + contarTutoresXempresaEstado(idEmpresa, 0) + "</h2>\n"
+                    + "                                <h5 class=\"center\">Tutores Inactivos</h5>\n"
+                    + "                            </div>\n"
+                    + "                        </div>\n"
+                    + "                    </div>\n";
         } catch (Exception e) {
-            System.out.println("Error en countEmpresasInactivas.getCloseConexion: " + e);
+            System.out.println("Error en verResumenXempresa.getCloseConexion: " + e);
         }
-
-        htmlcode = "                <div class=\"container\">\n"
-                + "                        <h1 class=\"center\">Empresa</h1>\n"
-                + "                        <h3 class=\"center\">" + nombreEmpresa + "</h3>\n"
-                + "                        <h2 class=\"center\">Representante</h2>\n"
-                + "                        <h4 class=\"center\">" + representante + "</h4>\n"
-                + "                        <div class=\"row\">\n"
-                + "                            <div class=\"col s12\">\n"
-                + "                                <h2 class=\"center\">" + contarTutoresEmpresa(idEmpresa) + "</h2>\n"
-                + "                                <h3 class=\"center\">Total de Tutores Almacenados</h3>\n"
-                + "                            </div>\n"
-                + "                        </div>\n"
-                + "                        <div class=\"row\">\n"
-                + "                            <div class=\"col s6\">\n"
-                + "                                <h2 class=\"center\">" + contarTutoresXempresaEstado(idEmpresa, 1) + "</h2>\n"
-                + "                                <h5 class=\"center\">Tutores Activos</h5>\n"
-                + "                            </div>\n"
-                + "                            <div class=\"col s6\">\n"
-                + "                                <h2 class=\"center\">" + contarTutoresXempresaEstado(idEmpresa, 0) + "</h2>\n"
-                + "                                <h5 class=\"center\">Tutores Inactivos</h5>\n"
-                + "                            </div>\n"
-                + "                        </div>\n"
-                + "                    </div>\n";
-
         return htmlcode;
     }
 
     public String verTutoresXempresa(int idEmpresa) {
-
         htmlcode = "                <div class=\"container\">\n"
                 + "                        <div class=\"row\">\n"
                 + "                             <div class=\"col s12\">\n"
@@ -261,41 +238,34 @@ public class ControladorEmpresa extends Conexion {
                         + "                   <td><div class=\"center-align\">  <a id=\"baja_tutor\" data-id=\"" + tutores.getInt(1) + "\" class=\"btn-floating btn tooltipped waves-effect waves-light blue yellow-text\" data-position=\"button\" data-tooltip=\"Dar de Baja\"><i class=\"material-icons yellow-text\">redo</i></a></div></td>\n"
                         + "                </tr>\n";
             }
-            getConnection().close();
+            getCloseConexion();
         } catch (Exception e) {
             System.out.println("Error en verTutoresXempresa: " + e);
         }
-
         htmlcode += "                                </tbody>\n"
                 + "                            </table>\n"
                 + "                        </div>\n"
                 + "                    </div>";
-
         return htmlcode;
     }
 
     public boolean darBajaTutor(int idTutor) {
-        if (tutMo.getEstadoTutor(idTutor) == 1) {
-            bandera = tutMo.bajaTutor(idTutor, 0);
-            try {
+        try {
+            if (tutMo.getEstadoTutor(idTutor) == 1) {
+                bandera = tutMo.bajaTutor(idTutor, 0);
                 getCloseConexion();
-            } catch (Exception e) {
-                System.out.println("Error en darBajaTutor.getCloseConexion: " + e);
-            }
-        } else {
-            bandera = tutMo.bajaTutor(idTutor, 1);
-            try {
+            } else {
+                bandera = tutMo.bajaTutor(idTutor, 1);
                 getCloseConexion();
-            } catch (Exception e) {
-                System.out.println("Error en darBajaTutor.getCloseConexion: " + e);
             }
+            System.out.println("??" + bandera);
+        } catch (Exception e) {
+            System.out.println("Error en darBajaTutor.getCloseConexion: " + e);
         }
-        System.out.println("??" + bandera);
         return bandera;
     }
 
     public boolean nuevoTutor(Tutor tutor) {
-
         bandera = tutMo.crear_tutor(tutor);
         try {
             getCloseConexion();
@@ -304,4 +274,5 @@ public class ControladorEmpresa extends Conexion {
         }
         return bandera;
     }
+
 }
