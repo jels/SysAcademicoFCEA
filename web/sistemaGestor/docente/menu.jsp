@@ -105,11 +105,6 @@
                                         <i class="material-icons yellow-text">people</i>Usuarios
                                     </a>
                                 </li>
-                                <li>
-                                    <a href="ayuda.jsp" class="waves-effect yellow-text">
-                                        <i class="material-icons yellow-text">help</i>Ayuda
-                                    </a>
-                                </li>
                             </ul>
                         </div>
                     </div>

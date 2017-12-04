@@ -25,7 +25,7 @@ public class ControladorMateria extends Conexion {
 
     int numero;
     boolean bandera;
-    String htmlcode;
+    String htmlcode = "";
 
     public int contarMateria() {
         numero = matMo.countMaterias();
@@ -93,6 +93,7 @@ public class ControladorMateria extends Conexion {
     }
 
     public String viewDimension(int idDimension) {
+        htmlcode = "";
         try {
             String nombreDimension = dimMo.getNombreDimension(idDimension);
             getCloseConexion();
@@ -116,6 +117,7 @@ public class ControladorMateria extends Conexion {
 
     public String editarDimension(int idDimension) {
         ResultSet dimension = dimMo.getDimensionActualizar(idDimension);
+        htmlcode = "";
         try {
             dimension.next();
             htmlcode = "           <div class=\"container\">\n"
@@ -157,6 +159,42 @@ public class ControladorMateria extends Conexion {
             System.out.println("Error en newCriterio.getCloseConexion: " + e);
         }
         return bandera;
+    }
+
+    public String editarCriterio(int idCriterio) {
+        htmlcode = "";
+        ResultSet criterio = criMo.getDatosCriterio(idCriterio);
+        try {
+            criterio.next();
+            htmlcode = "                <div class=\"container\">\n"
+                    + "                        <div class=\"row\">\n"
+                    + "                            <h1 class=\"center yellow-text\">Actualizar Criterio</h1>\n"
+                    + "                        </div>\n"
+                    + "                        <div class=\"row\">\n"
+                    + "                            <form id=\"updateCriterio\" class=\"col s12 yellow-text\">\n"
+                    + "                                <div class=\"row\">\n"
+                    + "                                    <div class=\"input-field col s6\">\n"
+                    + "                                        <i class=\"material-icons prefix yellow-text\">assignment_ind</i>\n"
+                    + "                                        <input id=\"nombreCriterioAC\" type=\"text\" value=\"" + criterio.getString(2) + "\" class=\"validate\">\n"
+                    + "                                        <label class=\"yellow-text\" for=\"Nombre Criterio\">Nombre Criterio</label>\n"
+                    + "                                    </div>\n"
+                    + "                                </div>\n"
+                    + "                            </form>\n"
+                    + "                        </div>\n"
+                    + "                        <div class=\"col s6\">\n"
+                    + "                            <button class=\"btn waves-effect waves-light yellow accent-2 blue-text left\" type=\"button\" id=\"actualizarCriterio\" data-id=\"" + idCriterio + "\">\n"
+                    + "                                Validar y Guardar<i class=\"material-icons right\">save</i>\n"
+                    + "                            </button>\n"
+                    + "                            <br><br><br><br>\n"
+                    + "                        </div>\n"
+                    + "                        <div id=\"notificacionActCriterio\">\n"
+                    + "                        </div>\n"
+                    + "                    </div>";
+            getCloseConexion();
+        } catch (Exception e) {
+            System.out.println("Error en editarCriterio: " + e);
+        }
+        return htmlcode;
     }
 
     public boolean updateCriterio(Criterios criterio) {
@@ -217,7 +255,8 @@ public class ControladorMateria extends Conexion {
         return numero;
     }
 
-    public String getViewDimensionesXMat(int idMateria) {
+    public String getViewDimensionesXMat(int idMateria, String carrera) {
+        htmlcode = "";
         htmlcode = "          <div class=\"container\">\n"
                 + "                        <div class=\"row\">\n"
                 + "                            <div class=\"col s12\">\n"
@@ -253,7 +292,7 @@ public class ControladorMateria extends Conexion {
                     } else {
                         htmlcode += "                    <td>Inactivo</td>\n";
                     }
-                    htmlcode += "    <td><div class=\"center-align\"><a href=\"dimension.jsp?dimension=" + dimension.getInt(1) + "\" data-id=\"" + dimension.getInt(1) + "\" id=\"ver_materia\" class=\"btn-floating btn tooltipped waves-effect waves-light blue yellow-text modal-trigger\" data-position=\"button\" data-tooltip=\"Ver\"><i class=\"material-icons yellow-text\">description</i></a></div></td>\n"
+                    htmlcode += "    <td><div class=\"center-align\"><a href=\"dimension.jsp?dimension=" + dimension.getInt(1) + "&materia=" + idMateria + "&carrera=" + carrera + "\" data-id=\"" + dimension.getInt(1) + "\" id=\"ver_materia\" class=\"btn-floating btn tooltipped waves-effect waves-light blue yellow-text modal-trigger\" data-position=\"button\" data-tooltip=\"Ver\"><i class=\"material-icons yellow-text\">description</i></a></div></td>\n"
                             + "     <td><div class=\"center-align\"><a id=\"baja_dimension\" data-id=\"" + dimension.getInt(1) + "\" class=\"btn-floating btn tooltipped waves-effect waves-light blue yellow-text\" data-position=\"button\" data-tooltip=\"Dar de Baja\"><i class=\"material-icons yellow-text\">redo</i></a></div></td>\n"
                             + "  </tr>"
                             + "";
@@ -273,6 +312,7 @@ public class ControladorMateria extends Conexion {
     }
 
     public String verMateriaXCarrera(String abreviatura) {
+        htmlcode = "";
         htmlcode = "          <div class=\"container\">\n"
                 + "                        <div class=\"row\">\n"
                 + "                            <div class=\"col s12\">\n"
@@ -319,7 +359,7 @@ public class ControladorMateria extends Conexion {
                         htmlcode += "                    <td>Inactivo</td>\n";
 
                     }
-                    htmlcode += "    <td><div class=\"center-align\"><a href=\"materia.jsp?materia=" + rs.getInt(1) + "\" data-id=\"" + rs.getInt(1) + "\" id=\"ver_materia\" class=\"btn-floating btn tooltipped waves-effect waves-light blue yellow-text modal-trigger\" data-position=\"button\" data-tooltip=\"Ver\"><i class=\"material-icons yellow-text\">description</i></a></div></td>\n"
+                    htmlcode += "    <td><div class=\"center-align\"><a href=\"materia.jsp?materia=" + rs.getInt(1) + "&carrera=" + abreviatura + "\" data-id=\"" + rs.getInt(1) + "\" id=\"ver_materia\" class=\"btn-floating btn tooltipped waves-effect waves-light blue yellow-text modal-trigger\" data-position=\"button\" data-tooltip=\"Ver\"><i class=\"material-icons yellow-text\">description</i></a></div></td>\n"
                             + "     <td><div class=\"center-align\"><a id=\"baja_materia\" data-id=\"" + rs.getInt(1) + "\" class=\"btn-floating btn tooltipped waves-effect waves-light blue yellow-text\" data-position=\"button\" data-tooltip=\"Dar de Baja\"><i class=\"material-icons yellow-text\">redo</i></a></div></td>\n"
                             + "  </tr>"
                             + "";
@@ -345,10 +385,11 @@ public class ControladorMateria extends Conexion {
     public String modal_show_materia() {//revisar el codigo porque solo un id mando?
         ResultSet mat = matMo.getMateria(1);
         ResultSet dimen;
+        htmlcode = "";
         try {
             if (mat != null) {
                 mat.next();
-                htmlcode += "<div class=\"modal-content\">"
+                htmlcode = "<div class=\"modal-content\">"
                         + "     <h2>" + mat.getString(3) + "</h2>\n"
                         + "       <p>" + mat.getString(4) + "</p>\n"
                         + "     <h4>Las Dimensiones...</h4>"
@@ -386,7 +427,8 @@ public class ControladorMateria extends Conexion {
     private String verCriterios(int dimen) {
         ResultSet crit = criMo.getCriterios(dimen);
         int i = 0;
-        htmlcode += "      <table class=\"highlight responsive-table blue darken-3 yellow-text\">\n"
+        htmlcode = "";
+        htmlcode = "      <table class=\"highlight responsive-table blue darken-3 yellow-text\">\n"
                 + "        <thead>\n"
                 + "          <tr>\n"
                 + "              <th>#</th>\n"
@@ -435,6 +477,7 @@ public class ControladorMateria extends Conexion {
         int i = 1;
         int c = 1;
         int nota;
+        htmlcode = "";
         try {
             nombreEstudiante.next();
             if (evaluacionCompleta) {
@@ -742,6 +785,7 @@ public class ControladorMateria extends Conexion {
         int i = 1;
         int c = 1;
         double nota;
+        htmlcode = "";
         try {
             nombreEstudiante.next();
             if (aspMo.getRealizaPractica(CI_Estudiante)) {
@@ -963,6 +1007,7 @@ public class ControladorMateria extends Conexion {
     }
 
     public String getResumenMaterias(int idMateria) {
+        htmlcode = "";
         try {
             String nombreMateria = matMo.getNombreMateria(idMateria);
             getCloseConexion();
@@ -990,6 +1035,7 @@ public class ControladorMateria extends Conexion {
 
     public String getEditarMateria(int idMateria) {
         ResultSet materia = matMo.getMateria(idMateria);
+        htmlcode = "";
         try {
             materia.next();
             htmlcode = "           <div class=\"container\">\n"
@@ -1050,7 +1096,8 @@ public class ControladorMateria extends Conexion {
         return bandera;
     }
 
-    public String getViewCriteriosXDimension(int idDimension) {
+    public String getViewCriteriosXDimension(int idDimension, int idMateria, String carrera) {
+        htmlcode = "";
         htmlcode = "          <div class=\"container\">\n"
                 + "                        <div class=\"row\">\n"
                 + "                            <div class=\"col s12\">\n"
@@ -1085,7 +1132,7 @@ public class ControladorMateria extends Conexion {
                     } else {
                         htmlcode += "                    <td>Inactivo</td>\n";
                     }
-                    htmlcode += "    <td><div class=\"center-align\"><a href=\"criterio.jsp?criterio=" + criterio.getInt(1) + "\" id=\"ver_criterio\" class=\"btn-floating btn tooltipped waves-effect waves-light blue yellow-text modal-trigger\" data-position=\"button\" data-tooltip=\"Ver\"><i class=\"material-icons yellow-text\">description</i></a></div></td>\n"
+                    htmlcode += "    <td><div class=\"center-align\"><a href=\"criterio.jsp?criterio=" + criterio.getInt(1) + "&dimension=" + idDimension + "&materia=" + idMateria + "&carrera=" + carrera + "\" id=\"ver_criterio\" class=\"btn-floating btn tooltipped waves-effect waves-light blue yellow-text modal-trigger\" data-position=\"button\" data-tooltip=\"Ver\"><i class=\"material-icons yellow-text\">description</i></a></div></td>\n"
                             + "     <td><div class=\"center-align\"><a id=\"baja_criterio\" data-id=\"" + criterio.getInt(1) + "\" class=\"btn-floating btn tooltipped waves-effect waves-light blue yellow-text\" data-position=\"button\" data-tooltip=\"Dar de Baja\"><i class=\"material-icons yellow-text\">redo</i></a></div></td>\n"
                             + "  </tr>"
                             + "";
@@ -1103,4 +1150,5 @@ public class ControladorMateria extends Conexion {
                 + "                    </div>";
         return htmlcode;
     }
+
 }

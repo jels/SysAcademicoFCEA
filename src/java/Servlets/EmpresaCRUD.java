@@ -71,14 +71,22 @@ public class EmpresaCRUD extends HttpServlet {
                 System.out.println("NombreEmpresa...: " + request.getParameter("nombreEmpresa"));
                 break;
             case "update":
-                System.out.println("llegoooo....sSSSsaldhkasjdh");
-                out.print("false");
+                empresa.setNombreEmpresa(request.getParameter("nombreEmpresa"));
+                empresa.setDireccionEmpresa(request.getParameter("direccionEmpresa"));
+                empresa.setTelefonoEmpresa(request.getParameter("telefonoEmpresa"));
+                empresa.setRubroEmpresa(request.getParameter("rubroEmpresa"));
+                empresa.setIdEmpresa(Integer.parseInt(request.getParameter("idEmpresa")));
+
+                if (conEmp.updateEmpresa(empresa)) {
+                    out.print("true");
+                } else {
+                    out.print("false");
+                }
                 break;
             case "baja":
                 System.out.println("llegoooo....sSSSsaldhkasjdh");
                 if (conEmp.bajaEmpresa(Integer.parseInt(request.getParameter("idEmpresa")))) {
                     out.print("true");
-
                 } else {
                     out.print("false");
                 }

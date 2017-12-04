@@ -11,11 +11,11 @@ import Model.*;
  *
  * @author WarMachine
  */
-public class ControladorCoordinador extends Conexion {
+public class ControladorReportes extends Conexion {
 
-//   try {
-//            getCloseConexion();
-//        } catch (Exception e) {
-//            System.out.println("Error en nombreDe_la_Clase.getCloseConexion: " + e);
-//        }
+    
+    
+    
+    
+    
 }

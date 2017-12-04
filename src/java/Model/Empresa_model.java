@@ -205,4 +205,49 @@ public class Empresa_model extends Conexion {
 
     }
 
+    public ResultSet getEmpresaXID(int idEmpresa) {
+
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        try {
+            String consulta = "SELECT idEmpresa, nombreEmpresa, "
+                    + "direccionEmpresa, telefonoEmpresa, "
+                    + "rubroEmpresa "
+                    + "FROM empresa "
+                    + "WHERE idEmpresa = ? ";
+            pst = getConnection().prepareStatement(consulta);
+            pst.setInt(1, idEmpresa);
+            rs = pst.executeQuery();
+            return rs;
+
+        } catch (Exception ex) {
+            System.err.println("Error getEmpresas: " + ex);
+            return null;
+        }
+    }
+
+    public boolean actualizarEmpresa(Empresa emp) {
+        PreparedStatement pst;
+        ResultSet rs;
+        try {
+            String consulta = "UPDATE empresa "
+                    + "SET nombreEmpresa = ? , "
+                    + "direccionEmpresa = ? , "
+                    + "telefonoEmpresa = ? , "
+                    + "rubroEmpresa = ? "
+                    + "WHERE idEmpresa = ? ";
+            pst = getConnection().prepareStatement(consulta);
+            pst.setString(1, emp.getNombreEmpresa());
+            pst.setString(2, emp.getDireccionEmpresa());
+            pst.setString(3, emp.getTelefonoEmpresa());
+            pst.setString(4, emp.getRubroEmpresa());
+            pst.setInt(5, emp.getIdEmpresa());
+            return pst.executeUpdate() == 1;
+
+        } catch (Exception ex) {
+            System.err.println("Error actualizarEmpresa: " + ex);
+            return false;
+        }
+    }
+
 }

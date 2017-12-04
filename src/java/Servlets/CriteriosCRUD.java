@@ -52,20 +52,25 @@ public class CriteriosCRUD extends HttpServlet {
                 } else {
                     out.print("false");
                 }
-
                 break;
             case "update":
-                System.out.println("llegoooo....sSSSsaldhkasjdh");
-                out.print("false");
+                criterio.setIdCriterio(Integer.parseInt(request.getParameter("idCriterio")));
+                criterio.setNombreCriterio(request.getParameter("nombreCriterio"));
+
+                if (conMat.updateCriterio(criterio)) {
+                    out.print("true");
+                } else {
+                    out.print("false");
+                }
                 break;
             case "baja_criterio":
-                
+
                 if (conMat.bajaCriterio(Integer.parseInt(request.getParameter("idCriterio")))) {
                     out.print("true");
                 } else {
                     out.print("false");
                 }
-                
+
                 break;
 //            case "actualizar":
 //

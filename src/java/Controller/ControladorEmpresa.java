@@ -19,7 +19,7 @@ public class ControladorEmpresa extends Conexion {
     Representante_model repMo = new Representante_model();
     Tutor_model tutMo = new Tutor_model();
     int cantidad;
-    String htmlcode;
+    String htmlcode = " ";
     boolean bandera;
 
     public int countEmpresas() {
@@ -55,6 +55,7 @@ public class ControladorEmpresa extends Conexion {
     public String verEmpresas() {
         ResultSet empresa = empMo.getEmpresas();
         int i = 1;
+        htmlcode = "";
         htmlcode = "          <div class=\"container\">\n"
                 + "                        <div class=\"row\">\n"
                 + "                            <div class=\"col s12\">\n"
@@ -157,6 +158,7 @@ public class ControladorEmpresa extends Conexion {
     }
 
     public String verResumenXempresa(int idEmpresa) {
+        htmlcode = "";
         try {
             String nombreEmpresa = empMo.getNombreEmpresa(idEmpresa);
             getCloseConexion();
@@ -191,6 +193,7 @@ public class ControladorEmpresa extends Conexion {
     }
 
     public String verTutoresXempresa(int idEmpresa) {
+        htmlcode = "";
         htmlcode = "                <div class=\"container\">\n"
                 + "                        <div class=\"row\">\n"
                 + "                             <div class=\"col s12\">\n"
@@ -234,7 +237,7 @@ public class ControladorEmpresa extends Conexion {
                 } else {
                     htmlcode += "<td>Inactivo</td>\n";
                 }
-                htmlcode += "                 <td><div class=\"center-align\">  <a href=\"tutor.jsp?tutor=" + tutores.getInt(1) + "\" class=\"btn-floating btn tooltipped waves-effect waves-light blue yellow-text\" data-position=\"button\" data-tooltip=\"Ver - Actualizar\"><i class=\"material-icons yellow-text\">visibility</i></a></div></td>\n"
+                htmlcode += "                 <td><div class=\"center-align\">  <a href=\"tutor.jsp?tutor=" + tutores.getInt(1) + "&empresa=" + idEmpresa + "\" class=\"btn-floating btn tooltipped waves-effect waves-light blue yellow-text\" data-position=\"button\" data-tooltip=\"Ver - Actualizar\"><i class=\"material-icons yellow-text\">visibility</i></a></div></td>\n"
                         + "                   <td><div class=\"center-align\">  <a id=\"baja_tutor\" data-id=\"" + tutores.getInt(1) + "\" class=\"btn-floating btn tooltipped waves-effect waves-light blue yellow-text\" data-position=\"button\" data-tooltip=\"Dar de Baja\"><i class=\"material-icons yellow-text\">redo</i></a></div></td>\n"
                         + "                </tr>\n";
             }
@@ -249,28 +252,66 @@ public class ControladorEmpresa extends Conexion {
         return htmlcode;
     }
 
-    public boolean darBajaTutor(int idTutor) {
+    public String editarEmpresa(int idEmpresa) {
+
+        htmlcode = "";
+        ResultSet empresa = empMo.getEmpresaXID(idEmpresa);
         try {
-            if (tutMo.getEstadoTutor(idTutor) == 1) {
-                bandera = tutMo.bajaTutor(idTutor, 0);
-                getCloseConexion();
-            } else {
-                bandera = tutMo.bajaTutor(idTutor, 1);
-                getCloseConexion();
-            }
-            System.out.println("??" + bandera);
+            empresa.next();
+            htmlcode = "                 <div class=\"container\">\n"
+                    + "                        <div class=\"row\">\n"
+                    + "                            <h1 class=\"center yellow-text\">Actualizar Empresa</h1>\n"
+                    + "                        </div>\n"
+                    + "                        <div class=\"row\">\n"
+                    + "                            <form id=\"updateEmpresa\" class=\"col s12 yellow-text\">\n"
+                    + "                                <div class=\"row\">\n"
+                    + "                                    <div class=\"input-field col s6\">\n"
+                    + "                                        <i class=\"material-icons prefix yellow-text\">store</i>\n"
+                    + "                                        <input id=\"nombreEmpresaAC\" type=\"text\" value=\"" + empresa.getString(2) + "\" class=\"validate\">\n"
+                    + "                                        <label class=\"yellow-text\" for=\"Nombre\">Nombre</label>\n"
+                    + "                                    </div>\n"
+                    + "                                    <div class=\"input-field col s6\">\n"
+                    + "                                        <i class=\"material-icons prefix yellow-text\">directions</i>\n"
+                    + "                                        <input id=\"direccionEmpresaAC\" type=\"text\" value=\"" + empresa.getString(3) + "\" class=\"validate\">\n"
+                    + "                                        <label class=\"yellow-text\" for=\"Direccion\">Direccion</label>\n"
+                    + "                                    </div>\n"
+                    + "                                </div>\n"
+                    + "                                <div class=\"row\">\n"
+                    + "                                    <div class=\"input-field col s6\">\n"
+                    + "                                        <i class=\"material-icons prefix yellow-text\">contacts</i>\n"
+                    + "                                        <input id=\"telefonoEmpresaAC\" type=\"text\" value=\"" + empresa.getString(4) + "\" class=\"validate\">\n"
+                    + "                                        <label class=\"yellow-text\" for=\"Telefono\">Telefono</label>\n"
+                    + "                                    </div>\n"
+                    + "                                    <div class=\"input-field col s6\">\n"
+                    + "                                        <i class=\"material-icons prefix yellow-text\">description</i>\n"
+                    + "                                        <input id=\"rubroEmpresaAC\" type=\"text\" value=\"" + empresa.getString(5) + "\" class=\"validate\">\n"
+                    + "                                        <label class=\"yellow-text\" for=\"Rubro\">Rubro</label>\n"
+                    + "                                    </div>\n"
+                    + "                                </div>\n"
+                    + "                            </form>\n"
+                    + "                        </div>\n"
+                    + "                        <div class=\"col s6\">\n"
+                    + "                            <button class=\"btn waves-effect waves-light yellow accent-2 blue-text left\" type=\"button\" id=\"actualizarEmpresa\" data-id=\"" + idEmpresa + "\">\n"
+                    + "                                Validar y Guardar<i class=\"material-icons right\">save</i>\n"
+                    + "                            </button>\n"
+                    + "                            <br><br><br><br>\n"
+                    + "                        </div>\n"
+                    + "                        <div id=\"notificacionUPEmpresa\">\n"
+                    + "                        </div>\n"
+                    + "                    </div>";
+            getCloseConexion();
         } catch (Exception e) {
-            System.out.println("Error en darBajaTutor.getCloseConexion: " + e);
+            System.out.println("Error en editarEmpresa: " + e);
         }
-        return bandera;
+        return htmlcode;
     }
 
-    public boolean nuevoTutor(Tutor tutor) {
-        bandera = tutMo.crear_tutor(tutor);
+    public boolean updateEmpresa(Empresa emp) {
+        bandera = empMo.actualizarEmpresa(emp);
         try {
             getCloseConexion();
         } catch (Exception e) {
-            System.out.println("Error en nuevoTutor.getCloseConexion: " + e);
+            System.out.println("Error en updateEmpresa: " + e);
         }
         return bandera;
     }

@@ -34,7 +34,6 @@ public class Tutor_model extends Conexion {
     }
 
     public boolean crear_tutor(Tutor tutor) {
-
         if (existeTutor(tutor.getCiPersona())) {
             return false;
         } else {
@@ -60,13 +59,11 @@ public class Tutor_model extends Conexion {
                 pst.setString(11, tutor.getFotoTutor());
                 pst.setString(12, tutor.getFondoTutor());
                 return pst.executeUpdate() == 1;
-
             } catch (Exception ex) {
                 System.err.println("Error crear_tutor: " + ex);
                 return false;
             }
         }
-
     }
 
     public int getEstadoTutor(int idTutor) {
@@ -109,7 +106,7 @@ public class Tutor_model extends Conexion {
         }
     }
 
-    public boolean actualizar_tutor(Docente tutor) {
+    public boolean actualizar_tutor(Tutor tutor) {
         return false;
     }
 
@@ -238,6 +235,27 @@ public class Tutor_model extends Conexion {
         } catch (Exception ex) {
             System.err.println("Error getTutoresXempresa: " + ex);
             return rs;
+        }
+    }
+
+    public ResultSet getTutor(int idTutor) {
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        try {
+            String consulta = "SELECT idTutor, primerNombreTutor, "
+                    + "segundoNombreTutor, primerApellidoTutor, "
+                    + "segundoApellidoTutor, ciTutor, telefonoTutor, "
+                    + "cargoTutor ,fotoTutor, fondoTutor "
+                    + "FROM tutor t "
+                    + "WHERE idTutor = ? ";
+            pst = getConnection().prepareStatement(consulta);
+            pst.setInt(1, idTutor);
+            rs = pst.executeQuery();
+            return rs;
+
+        } catch (Exception ex) {
+            System.err.println("Error getTutor: " + ex);
+            return null;
         }
     }
 

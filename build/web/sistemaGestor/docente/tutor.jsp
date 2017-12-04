@@ -27,7 +27,9 @@
         response.sendRedirect("../../index.jsp");
     }
 
-    String idTutor = request.getParameter("tutor");
+    int idTutor = Integer.parseInt(request.getParameter("tutor"));
+    int idEmpresa = Integer.parseInt(request.getParameter("empresa"));
+
 %>
 
 <!DOCTYPE html>
@@ -61,8 +63,8 @@
                         <div class="nav-content">
                             <div class="col s12">
                                 <ul class="tabs  blue darken-3 tabs-fixed-width">
-                                    <li class="tab col s3"><a class="yellow-text" href="#cantidad">Resumen</a></li>
-                                    <li class="tab col s3"><a class="yellow-text" href="#show">Mostrar</a></li>
+                                    <li class="tab col s3"><a class="yellow-text" href="#datos">Resumen</a></li>
+                                    <li class="tab col s3"><a class="yellow-text" href="#editar">Actualizar</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -121,8 +123,8 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="ayuda.jsp" class="waves-effect yellow-text">
-                                        <i class="material-icons yellow-text">help</i>Ayuda
+                                    <a href="empresa_ver.jsp?empresa=<%=idEmpresa%>" class="waves-effect yellow-text">
+                                        <i class="material-icons yellow-text">fast_rewind</i>Regresar
                                     </a>
                                 </li>
                             </ul>
@@ -135,31 +137,26 @@
             <!-- Inicio del MENU -->
             <div class="row blue darken-3">
 
-                <div id="cantidad" class="col s12">                    
+                <div id="datos" class="col s12 blue darken-3 yellow-text">
+
                     <div class="container">
-                        <h1 class="center yellow-text">Tutores</h1>
-                        <h2 class="center yellow-text"><%=conTut.contarTutores()%></h2>
-                        <h3 class="center yellow-text">Matriculados durante esta Gestion Academica en las Materias de Practicas Empresariales</h3>
+                        <div class="row">
+                            <h3 class="center">Tutor</h3>
+                            <h2 class="center">Juan ramon leonardi</h2>
+
+                        </div>
+                        <div class="row">
+                            <h3 class="center">Estudiantes a su Cargo</h3>
+                            <h2 class="center">5</h2>
+                        </div>
                     </div>
 
+                </div>
+
+                <div id="editar" class="col s12 blue darken-3 yellow-text">
 
                 </div>
-                <div id="show">
-                    <%=conTut.verTutores()%>
-                </div>
-                <!-- Modal Structure -->
-                <div id="new" class="modal modal-fixed-footer blue darken-3 yellow-text">
-                    <%=conTut.modal_newTutor()%>
 
-                </div>
-                <div id="update" class="modal modal-fixed-footer blue darken-3 yellow-text ">
-                    <% String ci = request.getParameter("CI_tutor");%>
-                    <%=conTut.updateTutor()%>
-                </div>
-                <div id="search" class="modal modal-fixed-footer blue darken-3 yellow-text">
-
-
-                </div>
             </div>
             <!-- Final del MENU -->
 

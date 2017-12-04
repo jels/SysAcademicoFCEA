@@ -390,6 +390,8 @@ $(function () {
         }
     });
 });
+//Carrera---Fin...
+
 //actualizacion del coordinador
 $(function () {
     $('#actualizarCoordinador').click(function (e) {
@@ -452,7 +454,7 @@ $(function () {
         }
     });
 });
-//Carrera---Fin...
+
 
 //Materia---Inicio...
 //Nueva Materia...
@@ -809,11 +811,10 @@ $(function () {
 $(function () {
     $('#actualizarCriterio').click(function (e) {
         e.preventDefault();
-        var idDimension = $(this).attr('data-id');
-        var nombreDimension = document.getElementById('nombreDimensionAC').value;
-        var estadoDimension = 1;
+        var idCriterio = $(this).attr('data-id');
+        var nombreCriterio = document.getElementById('nombreCriterioAC').value;
         var bandera = false;
-        if (nombreDimension.length > 0) {
+        if (nombreCriterio.length > 0) {
             bandera = true;
         }
         if (bandera) {
@@ -821,13 +822,12 @@ $(function () {
             if (opcion) {
                 $.post('../../criterios.do', {
                     accion: "update",
-                    nombreDimension: nombreDimension,
-                    estadoDimension: estadoDimension,
-                    idDimension: idDimension
+                    nombreCriterio: nombreCriterio,
+                    idCriterio: idCriterio
 
                 }, function (responseText) {
                     if (responseText === "true") {
-                        $('#notificacionActDimension').html("\
+                        $('#notificacionActCriterio').html("\
                     <div class=\"col s6\">\n\
                         <button class=\"btn waves-effect waves-light green yellow-text right tooltipped\" type=\"button\" data-position=\"button\" data-tooltip=\"Carrera Creada Correctamente...\">\n\
                             <i class=\"material-icons left\">done_all</i>\n\
@@ -839,7 +839,7 @@ $(function () {
                             location.reload(true);
                         }, 2000);
                     } else {
-                        $('#notificacionActDimension').html("\
+                        $('#notificacionActCriterio').html("\
                     <div class=\"col s6\">\n\
                         <button class=\"btn waves-effect waves-light red yellow-text right tooltipped\" type=\"button\" data-position=\"button\" data-tooltip=\"Error al Crear La Carrera\">\n\
                             <i class=\"material-icons left\">clear</i>\n\
@@ -959,9 +959,67 @@ $(function () {
         }
     });
 });
-//Actualizar Dimension
+//Actualizar Empresa...
 $(function () {
     $('#actualizarEmpresa').click(function (e) {
+        e.preventDefault();
+        var idEmpresa = $(this).attr('data-id');
+        var nombreEmpresa = document.getElementById('nombreEmpresaAC').value;
+        var direccionEmpresa = document.getElementById('direccionEmpresaAC').value;
+        var telefonoEmpresa = document.getElementById('telefonoEmpresaAC').value;
+        var rubroEmpresa = document.getElementById('rubroEmpresaAC').value;
+        var bandera = false;
+        if (nombreEmpresa.length > 0 && direccionEmpresa.length > 0 &&
+                telefonoEmpresa.length > 0 && rubroEmpresa.length > 0) {
+            bandera = true;
+        }
+        if (bandera) {
+            var opcion = confirm("Desea Actualizar Los datos de la Empresa?");
+            if (opcion) {
+                $.post('../../empresa.do', {
+                    accion: "update",
+                    nombreEmpresa: nombreEmpresa,
+                    direccionEmpresa: direccionEmpresa,
+                    telefonoEmpresa: telefonoEmpresa,
+                    rubroEmpresa: rubroEmpresa,
+                    idEmpresa: idEmpresa
+
+                }, function (responseText) {
+                    if (responseText === "true") {
+                        $('#notificacionUPEmpresa').html("\
+                    <div class=\"col s6\">\n\
+                        <button class=\"btn waves-effect waves-light green yellow-text right tooltipped\" type=\"button\" data-position=\"button\" data-tooltip=\"Carrera Creada Correctamente...\">\n\
+                            <i class=\"material-icons left\">done_all</i>\n\
+                                Creacion Exitosa.!\n\
+                            <i class=\"material-icons right\">done_all</i>\n\
+                        </button>\n\
+                    </div>");
+                        setTimeout(function () {
+                            location.reload(true);
+                        }, 2000);
+                    } else {
+                        $('#notificacionUPEmpresa').html("\
+                    <div class=\"col s6\">\n\
+                        <button class=\"btn waves-effect waves-light red yellow-text right tooltipped\" type=\"button\" data-position=\"button\" data-tooltip=\"Error al Crear La Carrera\">\n\
+                            <i class=\"material-icons left\">clear</i>\n\
+                                Error..!!!\n\
+                            <i class=\"material-icons right\">clear</i>\n\
+                        </button>\n\
+                    </div>");
+                    }
+                });
+            }
+        } else {
+            alert('Rellene todos los campos...');
+        }
+
+    });
+});
+
+
+//Actualizar Dimension
+$(function () {
+    $('#actualizarDimension').click(function (e) {
         e.preventDefault();
         var idDimension = $(this).attr('data-id');
         var nombreDimension = document.getElementById('nombreDimensionAC').value;
@@ -1127,7 +1185,7 @@ $(function () {
         if (bandera) {
             var opcion = confirm("Seguro que Desea Actualizar?");
             if (opcion) {
-                $.post('../../dimensiones.do', {
+                $.post('../../tutor.do', {
                     accion: "update",
                     nombreDimension: nombreDimension,
                     estadoDimension: estadoDimension,
@@ -1135,7 +1193,7 @@ $(function () {
 
                 }, function (responseText) {
                     if (responseText === "true") {
-                        $('#notificacionActDimension').html("\
+                        $('#notificacionUPTutor').html("\
                     <div class=\"col s6\">\n\
                         <button class=\"btn waves-effect waves-light green yellow-text right tooltipped\" type=\"button\" data-position=\"button\" data-tooltip=\"Carrera Creada Correctamente...\">\n\
                             <i class=\"material-icons left\">done_all</i>\n\
@@ -1147,7 +1205,7 @@ $(function () {
                             location.reload(true);
                         }, 2000);
                     } else {
-                        $('#notificacionActDimension').html("\
+                        $('#notificacionUPTutor').html("\
                     <div class=\"col s6\">\n\
                         <button class=\"btn waves-effect waves-light red yellow-text right tooltipped\" type=\"button\" data-position=\"button\" data-tooltip=\"Error al Crear La Carrera\">\n\
                             <i class=\"material-icons left\">clear</i>\n\
@@ -1166,7 +1224,8 @@ $(function () {
 });
 //Tutores---Fin...
 
-//Practicas estado...
+//Parcial---Inicio...
+//parcial estado...
 $(function () {
     $('tr #baja_parcial').click(function (e) {
         e.preventDefault();
@@ -1189,4 +1248,82 @@ $(function () {
         }
     });
 });
+//Parcial---Fin...
+
+//Practicas---Inicio...
+$(function () {
+    $('#asignar_practicas').click(function (e) {
+        e.preventDefault();
+
+        var idEmpresa = $(this).attr('data-id');
+        var primerNombreT = document.getElementById('primerNombreT').value;
+        var segundoNombreT = document.getElementById('segundoNombreT').value;
+        var primerApellidoT = document.getElementById('primerApellidoT').value;
+        var segundoApellidoT = document.getElementById('segundoApellidoT').value;
+        var celularT = document.getElementById('celularT').value;
+        var estado = 1;
+        var imagenT = document.getElementById('imagenT').value;
+        var fondoT = document.getElementById('fondoT').value;
+        var bandera = false;
+        if (primerNombreT.length > 0 && primerApellidoT.length > 0 &&
+                segundoApellidoT.length > 0 && celularT.length > 0 &&
+                ciT.length > 0 && cargoT.length > 0 &&
+                nombreUsuarioT.length > 0 && passUsuarioT.length > 0 &&
+                imagenT.length > 0 && fondoT.length > 0) {
+            bandera = true;
+        }
+        if (bandera) {
+            var opcion = confirm("Desea Crear Un nuevo Tutor?");
+            if (opcion) {
+                $.post('../../tutor.do', {
+                    accion: "crear_tutor",
+                    primerNombreT: primerNombreT,
+                    segundoNombreT: segundoNombreT,
+                    primerApellidoT: primerApellidoT,
+                    segundoApellidoT: segundoApellidoT,
+                    celularT: celularT,
+                    ciT: ciT,
+                    cargoT: cargoT,
+                    nombreUsuarioT: nombreUsuarioT,
+                    passUsuarioT: passUsuarioT,
+                    estado: estado,
+                    imagenT: imagenT,
+                    fondoT: fondoT,
+                    idEmpresa: idEmpresa
+
+                }, function (responseText) {
+                    alert(responseText);
+                    if (responseText === "true") {
+                        $('#notificacionNewTutor').html("\
+                    <div class=\"col s6\">\n\
+                        <button class=\"btn waves-effect waves-light green yellow-text right tooltipped\" type=\"button\" data-position=\"button\" data-tooltip=\"Carrera Creada Correctamente...\">\n\
+                            <i class=\"material-icons left\">done_all</i>\n\
+                                Creacion Exitosa.!\n\
+                            <i class=\"material-icons right\">done_all</i>\n\
+                        </button>\n\
+                    </div>");
+                        setTimeout(function () {
+                            location.reload(true);
+                        }, 2000);
+                    } else {
+                        $('#notificacionNewTutor').html("\
+                    <div class=\"col s6\">\n\
+                        <button class=\"btn waves-effect waves-light red yellow-text right tooltipped\" type=\"button\" data-position=\"button\" data-tooltip=\"Error al Crear La Carrera\">\n\
+                            <i class=\"material-icons left\">clear</i>\n\
+                                Error..!!!\n\
+                            <i class=\"material-icons right\">clear</i>\n\
+                        </button>\n\
+                    </div>");
+                    }
+                });
+            }
+        } else {
+            alert('Rellene todos los campos...');
+        }
+
+    });
+});
+
+//Practicas---Fin...
+
 

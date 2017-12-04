@@ -25,7 +25,7 @@ public class ControladorVarios extends Conexion {
     AsignacionPracticas_model aspMo = new AsignacionPracticas_model();
     Notas_model notMo = new Notas_model();
 
-    String htmlcode;
+    String htmlcode = "";
     int numero;
     boolean bandera;
 
@@ -127,9 +127,10 @@ public class ControladorVarios extends Conexion {
 
     public String getUserViewDocente(String user) {
         ResultSet usuario = usMo.getDatosDocente(user);
+        htmlcode = "";
         try {
             usuario.next();
-            htmlcode += "<div class=\"background\">\n"
+            htmlcode = "<div class=\"background\">\n"
                     + "     <img src = \"../../img/fcea/docentes/" + usuario.getString(2) + "\">\n"
                     + "</div>\n"
                     + "<a href =\"#!user\"><img class=\"circle\" src=\"../../img/fcea/docentes/" + usuario.getString(1) + "\"> </a>\n"
@@ -144,9 +145,10 @@ public class ControladorVarios extends Conexion {
 
     public String getUserViewRoot(String user) {
         ResultSet usuario = usMo.getDatosRoot(user);
+        htmlcode = "";
         try {
             usuario.next();
-            htmlcode += "<div class=\"background\">\n"
+            htmlcode = "<div class=\"background\">\n"
                     + "     <img src = \"../../img/root/" + usuario.getString(2) + "\">\n"
                     + "</div>\n"
                     + "<a href =\"#!user\"><img class=\"circle\" src=\"../../img/root/" + usuario.getString(1) + "\"> </a>\n"
@@ -161,10 +163,10 @@ public class ControladorVarios extends Conexion {
 
     public String getUserViewTutor(String user) {
         ResultSet usuario = usMo.getDatosTutor(user);
-        System.out.println("user: " + user);
+        htmlcode = "";
         try {
             usuario.next();
-            htmlcode += "<div class=\"background\">\n"
+            htmlcode = "<div class=\"background\">\n"
                     + "     <img src = \"../../img/fcea/tutores/" + usuario.getString(2) + "\">\n"
                     + "</div>\n"
                     + "<a href =\"#!user\"><img class=\"circle\" src=\"../../img/fcea/tutores/" + usuario.getString(1) + "\"> </a>\n"
@@ -180,8 +182,9 @@ public class ControladorVarios extends Conexion {
     public String cambiarEstadoParciales() {
         int contador = 0;
         ResultSet parciales = praMo.verParciales();
+        htmlcode = "";
         try {
-            htmlcode += "           <div class=\"container\">\n"
+            htmlcode = "           <div class=\"container\">\n"
                     + "                    <div class=\"row\">\n"
                     + "                        <div class=\"col s12\">\n"
                     + "                            <h3 class=\"center\">Evaluaciones</h3>\n"
@@ -222,6 +225,7 @@ public class ControladorVarios extends Conexion {
         } catch (Exception e) {
             System.out.println("error en cambiarEstadoParciales:" + e);
         }
+        System.out.println("htmlcode " + htmlcode);
         return htmlcode;
     }
 
@@ -230,9 +234,10 @@ public class ControladorVarios extends Conexion {
         ResultSet datos = estMo.getDatosEst(CI_estudiante);
         ResultSet practicasEstudiante = aspMo.getAllPracticasEstudiante(CI_estudiante);
         double notaTotal = 0;
+        htmlcode = "";
         try {
             datos.next();
-            htmlcode += "<div class=\"container yellow-text\">\n"
+            htmlcode = "<div class=\"container yellow-text\">\n"
                     + "                        <div class=\"row\">\n"
                     + "                            <br>\n"
                     + "                            <div class=\"col s2\">\n"
@@ -335,9 +340,10 @@ public class ControladorVarios extends Conexion {
         ResultSet datos = estMo.getDatosEst(CI_estudiante);
         ResultSet practicasEstudiante = aspMo.getPracticasEstudiante(CI_estudiante);
         double notaTotal = 0;
+        htmlcode = "";
         try {
             datos.next();
-            htmlcode += "<div class=\"container yellow-text\">\n"
+            htmlcode = "<div class=\"container yellow-text\">\n"
                     + "                        <div class=\"row\">\n"
                     + "                            <br>\n"
                     + "                            <div class=\"col s2\">\n"
@@ -411,6 +417,12 @@ public class ControladorVarios extends Conexion {
         } catch (Exception e) {
             System.out.println("Error en getNombreEstudiante: " + e);
         }
+        return htmlcode;
+    }
+
+    public String getDatosTutor(String usuario) {
+        htmlcode = "";
+
         return htmlcode;
     }
 

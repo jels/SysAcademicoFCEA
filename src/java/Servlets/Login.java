@@ -44,6 +44,7 @@ public class Login extends HttpServlet {
             objsession.setAttribute("rol", rol);
             System.out.println("rol servlet: " + rol);
             objsession.setAttribute("httplocal", "C:\\Users\\WarMachine\\Documents\\NetBeansProjects\\academicopracticas\\web\\");
+            usm.max_connections();
             out.print("true");
         } else {
             out.print("false");

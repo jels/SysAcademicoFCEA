@@ -119,8 +119,8 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="ayuda.jsp" class="waves-effect yellow-text">
-                                        <i class="material-icons yellow-text">help</i>Ayuda
+                                    <a href="" class="waves-effect yellow-text">
+                                        <i class="material-icons yellow-text">fast_rewind</i>Regresar
                                     </a>
                                 </li>
                             </ul>
@@ -136,10 +136,16 @@
 
                 <!-- Inicio del resumen-->
                 <div id="asignacion" class="col s12 blue darken-3 yellow-text">
+                    <a href="javascript:imprimir(parent.contenido)">Impri mir</a>
                     <div class="container">
-                        <div class="row">
-                            
-                        </div>
+                        <form>
+                            <div class="row">
+                                <h3 class="center">Estudiante: Jonathan Elias Leonardi Sauer</h3>
+                            </div>
+                            <div class="row">
+                                <h4 class="center">Materia: Practicas Empresariales I</h4>
+                            </div>
+                        </form>
                     </div>
                 </div>
                 <!-- Final del resumen-->

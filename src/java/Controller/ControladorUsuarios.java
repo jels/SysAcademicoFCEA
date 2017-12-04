@@ -17,7 +17,7 @@ public class ControladorUsuarios extends Conexion {
     Usuario us = new Usuario();
     boolean bandera;
     int numero;
-    String dato;
+    String dato ="";
 
     public boolean loginUser(Usuario us) {
         bandera = usMo.existencia(us);

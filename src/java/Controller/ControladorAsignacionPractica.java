@@ -22,7 +22,7 @@ public class ControladorAsignacionPractica extends Conexion {
     DetallesPracticas_model detMo = new DetallesPracticas_model();
     Estudiante_model estMo = new Estudiante_model();
     boolean bandera;
-    String htmlcode;
+    String htmlcode = " ";
     ResultSet tem;
 
     public boolean eliminarDetallePractica(int idDetalle) {
@@ -115,9 +115,10 @@ public class ControladorAsignacionPractica extends Conexion {
         ResultSet practica;
         ResultSet detallePractica;
         int c = 1;
+        htmlcode = "";
         try {
             nombreEstudiante.next();
-            htmlcode += "               <div class=\"container yellow-text\">\n"
+            htmlcode = "               <div class=\"container yellow-text\">\n"
                     + "                        <div class=\"row\">\n"
                     + "                            <div class=\"col s12 center\">\n"
                     + "                                <h3 class=\"center\">" + nombreEstudiante.getString(3) + " " + nombreEstudiante.getString(4) + ", " + nombreEstudiante.getString(1) + " " + nombreEstudiante.getString(2) + "</h3>\n" //hay que consultar para saber si la nota del primer parcial ya fue colocada 
@@ -155,9 +156,13 @@ public class ControladorAsignacionPractica extends Conexion {
                                         + "                                    </div>\n"
                                         + "                                    <div class=\"col s4\">\n"
                                         + "                                        <h6 class=\"center\">Funcion</h6>\n"
-                                        + "                                        <div class=\"divider\"></div>\n"
-                                        + "                                        <h6 class=\"center\">" + practica.getString(4) + "</h6>\n"
-                                        + "                                    </div>\n"
+                                        + "                                        <div class=\"divider\"></div>\n";
+                                if (practica.getString(4).length() > 15) {
+                                    htmlcode += "                                        <h6 class=\"center\">" + practica.getString(4).substring(0, 15) + "</h6>\n";
+                                } else {
+                                    htmlcode += "                                        <h6 class=\"center\">" + practica.getString(4) + "</h6>\n";
+                                }
+                                htmlcode += "                                    </div>\n"
                                         + "                                </div>\n"
                                         + "                                <div class=\"row\">\n"
                                         + "                                    <div class=\"col s2\">\n"
@@ -167,9 +172,13 @@ public class ControladorAsignacionPractica extends Conexion {
                                         + "                                    </div>\n"
                                         + "                                    <div class=\"col s8\">\n"
                                         + "                                        <h6 class=\"center\">Observacion</h6>\n"
-                                        + "                                        <div class=\"divider\"></div>\n"
-                                        + "                                        <h6 class=\"center\">" + practica.getString(6) + "</h6>\n"
-                                        + "                                    </div>\n"
+                                        + "                                        <div class=\"divider\"></div>\n";
+                                if (practica.getString(6).length() > 15) {
+                                    htmlcode += "                                        <h6 class=\"center\">" + practica.getString(6).substring(0, 15) + "</h6>\n";
+                                } else {
+                                    htmlcode += "                                        <h6 class=\"center\">" + practica.getString(6) + "</h6>\n";
+                                }
+                                htmlcode += "                                    </div>\n"
                                         + "                                    <div class=\"col s2\">\n"
                                         + "                                        <br><br>\n"
                                         + "                                        <a id=\"eliminar_registroPrimer\" data-id=\"" + practica.getInt(1) + "\" class=\"btn-floating btn tooltipped waves-effect waves-light blue yellow-text \" data-position=\"button\" data-tooltip=\"Elimiar Registro\"><i class=\"material-icons yellow-text\">delete</i></a>\n"
@@ -196,10 +205,18 @@ public class ControladorAsignacionPractica extends Conexion {
                                         + "                                            <tbody>\n";
                                 detallePractica = praMo.getDetallesPractica(CI_estudiante, 1);
                                 while (detallePractica.next()) {
-                                    htmlcode += "                                                <tr>\n"
-                                            + "                                                    <td>" + detallePractica.getString(2) + "</td>\n"
-                                            + "                                                    <td>" + detallePractica.getString(3) + "</td>\n"
-                                            + "                                                    <td><div class=\"center-align\"><a id=\"eliminar_detalle\" data-id=\"" + detallePractica.getString(1) + "\" class=\"btn-floating btn tooltipped waves-effect waves-light blue yellow-text\" data-position=\"button\" data-tooltip=\"Elimiar Registro\"><i class=\"material-icons yellow-text\">delete</i></a></div></td>\n"
+                                    htmlcode += "                                                <tr>\n";
+                                    if (detallePractica.getString(2).length() > 15) {
+                                        htmlcode += "                                                    <td>" + detallePractica.getString(2).substring(0, 15) + "</td>\n";
+                                    } else {
+                                        htmlcode += "                                                    <td>" + detallePractica.getString(2) + "</td>\n";
+                                    }
+                                    if (detallePractica.getString(3).length() > 15) {
+                                        htmlcode += "                                                    <td>" + detallePractica.getString(3).substring(0, 15) + "</td>\n";
+                                    } else {
+                                        htmlcode += "                                                    <td>" + detallePractica.getString(3) + "</td>\n";
+                                    }
+                                    htmlcode += "                                                    <td><div class=\"center-align\"><a id=\"eliminar_detalle\" data-id=\"" + detallePractica.getString(1) + "\" class=\"btn-floating btn tooltipped waves-effect waves-light blue yellow-text\" data-position=\"button\" data-tooltip=\"Elimiar Registro\"><i class=\"material-icons yellow-text\">delete</i></a></div></td>\n"
                                             + "                                                </tr>\n";
                                 }
 
@@ -255,9 +272,13 @@ public class ControladorAsignacionPractica extends Conexion {
                                         + "                                    </div>\n"
                                         + "                                    <div class=\"col s4\">\n"
                                         + "                                        <h6 class=\"center\">Funcion</h6>\n"
-                                        + "                                        <div class=\"divider\"></div>\n"
-                                        + "                                        <h6 class=\"center\">" + practica.getString(4) + "</h6>\n"
-                                        + "                                    </div>\n"
+                                        + "                                        <div class=\"divider\"></div>\n";
+                                if (practica.getString(4).length() > 15) {
+                                    htmlcode += "                                        <h6 class=\"center\">" + practica.getString(4).substring(0, 15) + "</h6>\n";
+                                } else {
+                                    htmlcode += "                                        <h6 class=\"center\">" + practica.getString(4) + "</h6>\n";
+                                }
+                                htmlcode += "                                    </div>\n"
                                         + "                                </div>\n"
                                         + "                                <div class=\"row\">\n"
                                         + "                                    <div class=\"col s2\">\n"
@@ -267,9 +288,13 @@ public class ControladorAsignacionPractica extends Conexion {
                                         + "                                    </div>\n"
                                         + "                                    <div class=\"col s8\">\n"
                                         + "                                        <h6 class=\"center\">Observacion</h6>\n"
-                                        + "                                        <div class=\"divider\"></div>\n"
-                                        + "                                        <h6 class=\"center\">" + practica.getString(6) + "</h6>\n"
-                                        + "                                    </div>\n"
+                                        + "                                        <div class=\"divider\"></div>\n";
+                                if (practica.getString(6).length() > 15) {
+                                    htmlcode += "                                        <h6 class=\"center\">" + practica.getString(6).substring(0, 15) + "</h6>\n";
+                                } else {
+                                    htmlcode += "                                        <h6 class=\"center\">" + practica.getString(6) + "</h6>\n";
+                                }
+                                htmlcode += "                                    </div>\n"
                                         + "                                    <div class=\"col s2\">\n"
                                         + "                                        <br><br>\n"
                                         + "                                        <a id=\"eliminar_registroSegundo\" data-id=\"" + practica.getInt(1) + "\" class=\"btn-floating btn tooltipped waves-effect waves-light blue yellow-text \" data-position=\"button\" data-tooltip=\"Elimiar Registro\"><i class=\"material-icons yellow-text\">delete</i></a>\n"
@@ -296,10 +321,18 @@ public class ControladorAsignacionPractica extends Conexion {
                                         + "                                            <tbody>\n";
                                 detallePractica = praMo.getDetallesPractica(CI_estudiante, 2);
                                 while (detallePractica.next()) {
-                                    htmlcode += "                                                <tr>\n"
-                                            + "                                                    <td>" + detallePractica.getString(2) + "</td>\n"
-                                            + "                                                    <td>" + detallePractica.getString(3) + "</td>\n"
-                                            + "                                                    <td><div class=\"center-align\"><a id=\"eliminar_detalle\" data-id=\"" + detallePractica.getString(1) + "\" class=\"btn-floating btn tooltipped waves-effect waves-light blue yellow-text\" data-position=\"button\" data-tooltip=\"Elimiar Registro\"><i class=\"material-icons yellow-text\">delete</i></a></div></td>\n"
+                                    htmlcode += "                                                <tr>\n";
+                                    if (detallePractica.getString(2).length() > 15) {
+                                        htmlcode += "                                                    <td>" + detallePractica.getString(2).substring(0, 15) + "</td>\n";
+                                    } else {
+                                        htmlcode += "                                                    <td>" + detallePractica.getString(2) + "</td>\n";
+                                    }
+                                    if (detallePractica.getString(3).length() > 15) {
+                                        htmlcode += "                                                    <td>" + detallePractica.getString(3).substring(0, 15) + "</td>\n";
+                                    } else {
+                                        htmlcode += "                                                    <td>" + detallePractica.getString(3) + "</td>\n";
+                                    }
+                                    htmlcode += "                                                    <td><div class=\"center-align\"><a id=\"eliminar_detalle\" data-id=\"" + detallePractica.getString(1) + "\" class=\"btn-floating btn tooltipped waves-effect waves-light blue yellow-text\" data-position=\"button\" data-tooltip=\"Elimiar Registro\"><i class=\"material-icons yellow-text\">delete</i></a></div></td>\n"
                                             + "                                                </tr>\n";
                                 }
 
@@ -345,6 +378,7 @@ public class ControladorAsignacionPractica extends Conexion {
 
     public String modalNewPractica(String CI_estudiante, int parcial) {
         int registos = praMo.getExistenciadeRegistros(CI_estudiante, parcial);
+        htmlcode = "";
         try {
             getCloseConexion();
         } catch (SQLException ex) {
@@ -418,6 +452,7 @@ public class ControladorAsignacionPractica extends Conexion {
 
     public String modalDetallePractica(String CI_estudiante, int parcial) {
         int idPractica = praMo.getIdPractica(CI_estudiante, parcial);
+        htmlcode = "";
         try {
             getCloseConexion();
         } catch (SQLException ex) {

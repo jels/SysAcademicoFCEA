@@ -209,4 +209,15 @@ public class Usuario_model extends Conexion {
         }
     }
 
+    public void max_connections() {
+        PreparedStatement pst;
+        try {
+            String consulta = "SET GLOBAL max_connections = 100000";
+            pst = getConnection().prepareStatement(consulta);
+            pst.executeQuery();
+        } catch (Exception ex) {
+            System.err.println("Error getIdRol: " + ex);
+        }
+    }
+
 }

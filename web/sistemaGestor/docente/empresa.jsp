@@ -118,8 +118,8 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="ayuda.jsp" class="waves-effect yellow-text">
-                                        <i class="material-icons yellow-text">help</i>Ayuda
+                                    <a href="menu.jsp" class="waves-effect yellow-text">
+                                        <i class="material-icons yellow-text">fast_rewind</i>Regresar
                                     </a>
                                 </li>
                             </ul>
@@ -168,7 +168,7 @@
                 <div id="search" class="modal modal-fixed-footer blue darken-3 yellow-text">
                     <div class="modal-content blue darken-3">
                         <div class="row">
-                            <h1 class="center yellow-text">Buscar Estudiante</h1>
+                            <h1 class="center yellow-text">Buscar Empresa</h1>
                             <form method="post" class="col s12 yellow-text" >
                                 <div class="row">
                                     <div class="input-field col s8">
@@ -177,7 +177,7 @@
                                         <label for="nombreEmpresaBuscar">Nombre Empresa</label>
                                     </div>
                                     <div class="input-field col s4">
-                                        <a id="buscar_empresa" class="waves-effect waves-light waves-teal yellow accent-2 blue-text text-darken-3 btn-large"> 
+                                        <a  class="waves-effect waves-light waves-teal yellow accent-2 blue-text text-darken-3 btn-large"> 
                                             <i class="material-icons right">search</i>Buscar
                                         </a>
                                     </div>

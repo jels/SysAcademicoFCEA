@@ -152,7 +152,7 @@ public class Criterios_model extends Conexion {
                     + "WHERE idCriterios = ? ";
             pst = getConnection().prepareStatement(consulta);
             pst.setString(1, cri.getNombreCriterio());
-            pst.setInt(2, cri.getIdDimension());
+            pst.setInt(2, cri.getIdCriterio());
             return pst.executeUpdate() == 1;
 
         } catch (Exception ex) {
@@ -194,6 +194,23 @@ public class Criterios_model extends Conexion {
         } catch (Exception ex) {
             System.err.println("Error getEstadoCriterio: " + ex);
             return 0;
+        }
+    }
+
+    public ResultSet getDatosCriterio(int idCriterio) {
+        PreparedStatement pst;
+        ResultSet rs;
+        try {
+            String consulta = "SELECT idCriterios, nombreCriterio "
+                    + "FROM criterios "
+                    + "WHERE idCriterios = ?";
+            pst = getConnection().prepareStatement(consulta);
+            pst.setInt(1, idCriterio);
+            rs = pst.executeQuery();
+            return rs;
+        } catch (Exception ex) {
+            System.err.println("Error getDatosCriterio: " + ex);
+            return null;
         }
     }
 

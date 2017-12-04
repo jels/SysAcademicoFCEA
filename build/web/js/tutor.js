@@ -131,23 +131,6 @@ $(function () {
         return false;
     });
 });
-//Ver el reporte para imprimir
-$(function () {
-    $('tr #ver_reporte').click(function (e) {
-        e.preventDefault();
-        var CI_estudiante = $(this).attr('data-id');
-        $('#verReporteEstudiante').html("");
-        $('#verReporte').modal('open');
-        alert(CI_estudiante);
-//        $.post('../../estudiante.do', {
-//            accion: "verNotaAsignada",
-//            CI_estudiante: CI_estudiante
-//        }, function (responseText) {
-//            $('#ver_Nota_Asignada_estudiante').html(responseText);
-//        });
-//        return false;
-    });
-});
 //guardar la practica por el parcial
 $(function () {
     $('#guardarPractica1').click(function (e) {

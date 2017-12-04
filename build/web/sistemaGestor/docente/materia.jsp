@@ -26,6 +26,7 @@
     }
 
     int idMateria = Integer.parseInt(request.getParameter("materia"));
+    String abreviatura = request.getParameter("carrera");
 
 %>
 
@@ -121,8 +122,8 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="ayuda.jsp" class="waves-effect yellow-text">
-                                        <i class="material-icons yellow-text">help</i>Ayuda
+                                    <a href="carrera_ver.jsp?carrera=<%=abreviatura%>" class="waves-effect yellow-text">
+                                        <i class="material-icons yellow-text">fast_rewind</i>Regresar
                                     </a>
                                 </li>
                             </ul>
@@ -143,7 +144,7 @@
 
                 <!-- Inicio del dimensiones-->
                 <div id="dimensiones">
-                    <%=conMat.getViewDimensionesXMat(idMateria)%>
+                    <%=conMat.getViewDimensionesXMat(idMateria, abreviatura)%>
                 </div>
                 <!-- Final del dimensiones-->
 

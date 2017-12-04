@@ -13,7 +13,7 @@ import Model.*;
  */
 public class ControladorRepresentante extends Conexion {
 
-    String htmlcode;
+    String htmlcode = "";
     Representante_model repMo = new Representante_model();
     int contador;
     boolean bandera;

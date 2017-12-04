@@ -3,14 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/fcea/practicas/src/java/Controller/ControladorAsignacionPractica.java</file>
-            <file>file:/D:/fcea/practicas/src/java/Servlets/PracticasCRUD.java</file>
-            <file>file:/D:/fcea/practicas/src/java/Controller/ControladorMateria.java</file>
-            <file>file:/D:/fcea/practicas/src/java/Model/Practicas_model.java</file>
-            <file>file:/D:/fcea/practicas/src/java/Controller/ControladorUsuarios.java</file>
-            <file>file:/D:/fcea/practicas/web/sistemaGestor/tutor/estudiante_ver.jsp</file>
-            <file>file:/D:/fcea/practicas/web/js/tutor.js</file>
-            <file>file:/D:/fcea/practicas/src/java/Model/Practicas.java</file>
+            <file>file:/D:/fcea/practicas/src/java/Servlets/CarreraCRUD.java</file>
         </group>
     </open-files>
 </project-private>

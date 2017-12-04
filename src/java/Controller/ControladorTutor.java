@@ -15,12 +15,13 @@ import java.sql.SQLException;
  */
 public class ControladorTutor extends Conexion {
 
-    String htmlcode;
+    String htmlcode = "";
     int contador;
     boolean bandera;
     Tutor_model tutMo = new Tutor_model();
 
     public String verTutores() {
+        htmlcode = "";
         htmlcode = "          <div class=\"container\">\n"
                 + "                        <div class=\"row\">\n"
                 + "                            <div class=\"col s12\">\n"
@@ -93,14 +94,20 @@ public class ControladorTutor extends Conexion {
         return htmlcode;
     }
 
-    public boolean bajaTutor(String idTutor) {
-
+    public boolean darBajaTutor(int idTutor) {
         try {
-            getCloseConexion();
+            if (tutMo.getEstadoTutor(idTutor) == 1) {
+                bandera = tutMo.bajaTutor(idTutor, 0);
+                getCloseConexion();
+            } else {
+                bandera = tutMo.bajaTutor(idTutor, 1);
+                getCloseConexion();
+            }
+            System.out.println("??" + bandera);
         } catch (Exception e) {
-            System.out.println("Error en bajaTutor.getCloseConexion: " + e);
+            System.out.println("Error en darBajaTutor.getCloseConexion: " + e);
         }
-        return false;
+        return bandera;
     }
 
     public boolean eliminarTutor(String id) {
@@ -113,24 +120,105 @@ public class ControladorTutor extends Conexion {
         return false;
     }
 
-    public boolean newTutor(Tutor tut) {
-
+    public boolean nuevoTutor(Tutor tutor) {
+        bandera = tutMo.crear_tutor(tutor);
         try {
             getCloseConexion();
         } catch (Exception e) {
-            System.out.println("Error en newTutor.getCloseConexion: " + e);
+            System.out.println("Error en nuevoTutor.getCloseConexion: " + e);
         }
-        return tutMo.crear_tutor(tut);
-
+        return bandera;
     }
 
-    public String updateTutor() {
+    public String editarTutor(int idTutor) {
+
+        htmlcode = "";
+        ResultSet tutor = tutMo.getTutor(idTutor);
+        try {
+            tutor.next();
+            htmlcode = "                 <div class=\"container\">\n"
+                    + "                        <div class=\"row\">\n"
+                    + "                            <h1 class=\"center yellow-text\">Actualizar Empresa</h1>\n"
+                    + "                        </div>\n"
+                    + "                        <div class=\"row\">\n"
+                    + "                            <form id=\"updateEmpresa\" class=\"col s12 yellow-text\">\n"
+                    + "                                <div class=\"row\">\n"
+                    + "                                    <div class=\"input-field col s6\">\n"
+                    + "                                        <i class=\"material-icons prefix yellow-text\">store</i>\n"
+                    + "                                        <input id=\"primerNombreTU\" type=\"text\" value=\"" + tutor.getString(2) + "\" class=\"validate\">\n"
+                    + "                                        <label class=\"yellow-text\" for=\"Primer Nombre\">Primer Nombre</label>\n"
+                    + "                                    </div>\n"
+                    + "                                    <div class=\"input-field col s6\">\n"
+                    + "                                        <i class=\"material-icons prefix yellow-text\">directions</i>\n"
+                    + "                                        <input id=\"segundoNombreTU\" type=\"text\" value=\"" + tutor.getString(3) + "\" class=\"validate\">\n"
+                    + "                                        <label class=\"yellow-text\" for=\"Segundo Nombre\">Segundo Nombre</label>\n"
+                    + "                                    </div>\n"
+                    + "                                </div>\n"
+                    + "                                <div class=\"row\">\n"
+                    + "                                    <div class=\"input-field col s6\">\n"
+                    + "                                        <i class=\"material-icons prefix yellow-text\">contacts</i>\n"
+                    + "                                        <input id=\"primerApellidoTU\" type=\"text\" value=\"" + tutor.getString(4) + "\" class=\"validate\">\n"
+                    + "                                        <label class=\"yellow-text\" for=\"Primer Apellido\">Primer Apellido</label>\n"
+                    + "                                    </div>\n"
+                    + "                                    <div class=\"input-field col s6\">\n"
+                    + "                                        <i class=\"material-icons prefix yellow-text\">description</i>\n"
+                    + "                                        <input id=\"segundoApellidoTU\" type=\"text\" value=\"" + tutor.getString(5) + "\" class=\"validate\">\n"
+                    + "                                        <label class=\"yellow-text\" for=\"Segundo Apellido\">Segundo Apellido</label>\n"
+                    + "                                    </div>\n"
+                    + "                                <div class=\"row\">\n"
+                    + "                                    <div class=\"input-field col s4\">\n"
+                    + "                                        <i class=\"material-icons prefix yellow-text\">contacts</i>\n"
+                    + "                                        <input id=\"ciTU\" type=\"text\" value=\"" + tutor.getString(6) + "\" class=\"validate\">\n"
+                    + "                                        <label class=\"yellow-text\" for=\"CI\"># de Carnet</label>\n"
+                    + "                                    </div>\n"
+                    + "                                    <div class=\"input-field col s4\">\n"
+                    + "                                        <i class=\"material-icons prefix yellow-text\">description</i>\n"
+                    + "                                        <input id=\"telefonoTU\" type=\"text\" value=\"" + tutor.getString(7) + "\" class=\"validate\">\n"
+                    + "                                        <label class=\"yellow-text\" for=\"Telefono\">Telefono</label>\n"
+                    + "                                    </div>\n"
+                    + "                                    <div class=\"input-field col s4\">\n"
+                    + "                                        <i class=\"material-icons prefix yellow-text\">description</i>\n"
+                    + "                                        <input id=\"cargoTU\" type=\"text\" value=\"" + tutor.getString(8) + "\" class=\"validate\">\n"
+                    + "                                        <label class=\"yellow-text\" for=\"Cargo\">Cargo</label>\n"
+                    + "                                    </div>\n"
+                    + "                                <div class=\"row\">\n"
+                    + "                                    <div class=\"input-field col s6\">\n"
+                    + "                                        <i class=\"material-icons prefix yellow-text\">contacts</i>\n"
+                    + "                                        <input id=\"fotoTU\" type=\"text\" value=\"" + tutor.getString(9) + "\" class=\"validate\">\n"
+                    + "                                        <label class=\"yellow-text\" for=\"Telefono\">Foto</label>\n"
+                    + "                                    </div>\n"
+                    + "                                    <div class=\"input-field col s6\">\n"
+                    + "                                        <i class=\"material-icons prefix yellow-text\">description</i>\n"
+                    + "                                        <input id=\"fondoTU\" type=\"text\" value=\"" + tutor.getString(10) + "\" class=\"validate\">\n"
+                    + "                                        <label class=\"yellow-text\" for=\"Rubro\">Fondo</label>\n"
+                    + "                                    </div>\n"
+                    + "                                </div>\n"
+                    + "                            </form>\n"
+                    + "                        </div>\n"
+                    + "                        <div class=\"col s6\">\n"
+                    + "                            <button class=\"btn waves-effect waves-light yellow accent-2 blue-text left\" type=\"button\" id=\"actualizarTutor\" data-id=\"" + idTutor + "\">\n"
+                    + "                                Validar y Guardar<i class=\"material-icons right\">save</i>\n"
+                    + "                            </button>\n"
+                    + "                            <br><br><br><br>\n"
+                    + "                        </div>\n"
+                    + "                        <div id=\"notificacionUPTutor\">\n"
+                    + "                        </div>\n"
+                    + "                    </div>";
+            getCloseConexion();
+        } catch (Exception e) {
+            System.out.println("Error en editarEmpresa: " + e);
+        }
+        return htmlcode;
+    }
+
+    public boolean updateTutor(Tutor tut) {
+        bandera = tutMo.actualizar_tutor(tut);
         try {
             getCloseConexion();
         } catch (Exception e) {
             System.out.println("Error en updateTutor.getCloseConexion: " + e);
         }
-        return "";
+        return bandera;
     }
 
     public String modalSearchTutor() {

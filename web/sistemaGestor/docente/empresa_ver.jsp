@@ -122,8 +122,8 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="ayuda.jsp" class="waves-effect yellow-text">
-                                        <i class="material-icons yellow-text">help</i>Ayuda
+                                    <a href="empresa.jsp" class="waves-effect yellow-text">
+                                        <i class="material-icons yellow-text">fast_rewind</i>Regresar
                                     </a>
                                 </li>
                             </ul>
@@ -147,11 +147,9 @@
 
                 <!-- Inicio del editar -->
                 <div id="editar" class="col s12 yellow-text">
-                    <div class="container">
-                        <div class="row">
 
-                        </div>
-                    </div>
+                    <%=conEmp.editarEmpresa(idEmpresa)%>
+
                 </div>
                 <!-- Final del editar -->
 

@@ -23,7 +23,7 @@ public class ControladorEstudiante extends Conexion {
 
     int numero;
     boolean bandera;
-    String htmlcode;
+    String htmlcode = "";
 
     public int cantidadEstudiantes() {
         numero = estMo.contar_estudiantes();
@@ -129,6 +129,7 @@ public class ControladorEstudiante extends Conexion {
         ResultSet rs;
         rs = estMo.ver_estudiante_Tutor(tutor);
         int i = 1;
+        htmlcode = "";
         htmlcode = "          <div class=\"container\">\n"
                 + "                        <div class=\"row\">\n"
                 + "                            <div class=\"col s12\">\n"
@@ -150,7 +151,7 @@ public class ControladorEstudiante extends Conexion {
                 + "                                    <th>Carrera</th>\n"
                 + "                                    <th class=\"center-align\">Evaluar</th>\n"
                 + "                                    <th class=\"center-align\">Ver Notas</th>\n"
-                + "                                    <th class=\"center-align\">Imprimir Evaluacion</th>\n"
+                + "                                    <th class=\"center-align\">Imprimir Evaluaciones</th>\n"
                 + "                                </tr>\n"
                 + "                            </thead>\n"
                 + "                            <tbody>\n";
@@ -171,7 +172,7 @@ public class ControladorEstudiante extends Conexion {
                             + "                    <td>" + rs.getString(9) + "</td>\n"
                             + "                    <td><div class=\"center-align\"><a href=\"estudiante_ver.jsp?ci=" + rs.getString(6) + "\" id=\"asignar_nota_estudiante\" class=\"btn-floating btn tooltipped waves-effect waves-light blue yellow-text\" data-position=\"button\" data-tooltip=\"Asignar Nota\"><i class=\"material-icons yellow-text\">event_note</i></a></div></td>\n"
                             + "                    <td><div class=\"center-align\"><a data-id=\"" + rs.getString(6) + "\" id=\"ver_nota_estudiante\" class=\"btn-floating btn tooltipped waves-effect waves-light blue yellow-text\" data-position=\"button\" data-tooltip=\"Ver Nota\"><i class=\"material-icons yellow-text\">event_note</i></a></div></td>\n"
-                            + "                    <td><div class=\"center-align\"><a data-id=\"" + rs.getString(6) + "\" id=\"ver_reporte\" class=\"btn-floating btn tooltipped waves-effect waves-light blue yellow-text\" data-position=\"button\" data-tooltip=\"Imprimir Evaluacion\"><i class=\"material-icons yellow-text\">print</i></a></div></td>\n";
+                            + "                    <td><div class=\"center-align\"><a href=\"ver_reporte_parcial.jsp?ci=" + rs.getString(6) + "\" id=\"ver_reporte\" class=\"btn-floating btn tooltipped waves-effect waves-light blue yellow-text\" data-position=\"button\" data-tooltip=\"Imprimir Evaluacion\"><i class=\"material-icons yellow-text\">print</i></a></div></td>\n";
                     i++;
 
                 }
@@ -191,8 +192,8 @@ public class ControladorEstudiante extends Conexion {
         ResultSet rs;
         rs = estMo.ver_estudiante();
         int i = 1;
-
-        htmlcode += "          <div class=\"container\">\n"
+        htmlcode = "";
+        htmlcode = "          <div class=\"container\">\n"
                 + "                        <div class=\"row\">\n"
                 + "                            <div class=\"col s12\">\n"
                 + "                                <h1 class=\"center yellow-text\">Estudiantes</h1>\n"
@@ -267,7 +268,7 @@ public class ControladorEstudiante extends Conexion {
     }
 
     public String modalNewEstudiante() {
-
+        htmlcode = "";
         htmlcode = "                <div class=\"modal-content blue darken-3\">\n"
                 + "                        <div class=\"row\">\n"
                 + "                            <h1 class=\"center yellow-text\">Nuevo Estudiante</h1>\n"
@@ -338,6 +339,7 @@ public class ControladorEstudiante extends Conexion {
 
     public String viewUpdateEstudiante(String CI_estudiante) {
         ResultSet datos = estMo.editEstudiante(CI_estudiante);
+        htmlcode = "";
         try {
             if (!datos.next()) {
                 return "";
@@ -406,6 +408,7 @@ public class ControladorEstudiante extends Conexion {
         ResultSet rs;
         int i = 0;
         String rol = conUs.getRol(user);
+        htmlcode = "";
         try {
             switch (rol) {
                 case "Root":

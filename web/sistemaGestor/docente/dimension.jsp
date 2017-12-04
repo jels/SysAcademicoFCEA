@@ -27,6 +27,8 @@
         response.sendRedirect("../../index.jsp");
     }
     int idDimension = Integer.parseInt(request.getParameter("dimension"));
+    int idMateria = Integer.parseInt(request.getParameter("materia"));
+    String abreviatura = request.getParameter("carrera");
 %>
 
 <!DOCTYPE html>
@@ -120,8 +122,8 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="ayuda.jsp" class="waves-effect yellow-text">
-                                        <i class="material-icons yellow-text">help</i>Ayuda
+                                    <a href="materia.jsp?materia=<%=idMateria%>&carrera=<%=abreviatura%>" class="waves-effect yellow-text">
+                                        <i class="material-icons yellow-text">fast_rewind</i>Regresar
                                     </a>
                                 </li>
                             </ul>
@@ -147,7 +149,7 @@
                 <!-- Inicio del criterios -->
                 <div id="criterios" class="col s12 blue darken-3 yellow-text">
 
-                    <%=conMat.getViewCriteriosXDimension(idDimension)%>
+                    <%=conMat.getViewCriteriosXDimension(idDimension, idMateria, abreviatura)%>
 
                 </div>
                 <!-- Final del criterios-->

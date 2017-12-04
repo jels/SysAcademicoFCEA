@@ -18,7 +18,7 @@ public class ControladorNotas extends Conexion {
     Notas_model notMo = new Notas_model();
     Estudiante_model estMo = new Estudiante_model();
 
-    String htmlcode;
+    String htmlcode = "";
     boolean bandera;
     int numero;
 
@@ -26,6 +26,7 @@ public class ControladorNotas extends Conexion {
         ResultSet primerParcial;
         ResultSet segundoParcial;
         ResultSet nombreEstudiante = estMo.getNombreEstudiante(CI_estudiante);
+        htmlcode = "";
         try {
             primerParcial = notMo.getTotalNotasPrimerParcial(CI_estudiante);
             primerParcial.next();
@@ -118,6 +119,7 @@ public class ControladorNotas extends Conexion {
         ResultSet notaFinal = null;
         double calculo = 0;
         ResultSet nombreEstudiante = estMo.getNombreEstudiante(CI_estudiante);
+        htmlcode = "";
         try {
             primerParcial = notMo.getTotalNotasPrimerParcial(CI_estudiante);
             primerParcial.next();
@@ -215,7 +217,6 @@ public class ControladorNotas extends Conexion {
     }
 
     public boolean insertNewNota(int idAsignacionPractica, int idCriterio, int nota, int parcial) {
-
         try {
             if (notMo.newNota(idAsignacionPractica, idCriterio, nota, parcial)) {
                 bandera = true;

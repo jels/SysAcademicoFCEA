@@ -16,7 +16,7 @@ import java.sql.SQLException;
 public class ControladorCarrera extends Conexion {
 
     int numero;
-    String htmlcode;
+    String htmlcode = "";
     boolean bandera;
     Carrera_model carMo = new Carrera_model();
     Materia_model matMo = new Materia_model();
@@ -33,7 +33,7 @@ public class ControladorCarrera extends Conexion {
     }
 
     public String verCarrera(String abreviatura) {
-
+        htmlcode = "";
         try {
             String nombreCarrera = carMo.getNombreCarrera(abreviatura);
             getCloseConexion();
@@ -73,7 +73,6 @@ public class ControladorCarrera extends Conexion {
         } catch (Exception e) {
             System.out.println("Error en cantidadCarreras.getCloseConexion: " + e);
         }
-
         return htmlcode;
     }
 
@@ -81,7 +80,8 @@ public class ControladorCarrera extends Conexion {
         ResultSet carreras;
         carreras = carMo.getCarreras(2);
         int i = 1;
-        htmlcode += "          <div class=\"container\">\n"
+        htmlcode = "";
+        htmlcode = "          <div class=\"container\">\n"
                 + "                        <div class=\"row\">\n"
                 + "                            <div class=\"col s12\">\n"
                 + "                                <h3 class=\"center yellow-text\">Carreras de la</h3>\n"
@@ -204,6 +204,7 @@ public class ControladorCarrera extends Conexion {
 
     public String editarCarrera(String carrera) {
         ResultSet car = carMo.getDatosCarrera(carrera);
+        htmlcode = "";
         try {
             car.next();
             htmlcode = "                <div class=\"container\">\n"
@@ -253,6 +254,7 @@ public class ControladorCarrera extends Conexion {
 
     public String editarCoordinador(String carrera) {
         ResultSet car = carMo.getDatosCarrera(carrera);
+        htmlcode = "";
         try {
             car.next();
             htmlcode = "                <div class=\"container\">\n"
