@@ -17,7 +17,7 @@ public class ControladorUsuarios extends Conexion {
     Usuario us = new Usuario();
     boolean bandera;
     int numero;
-    String dato ="";
+    String dato = "";
 
     public boolean loginUser(Usuario us) {
         bandera = usMo.existencia(us);
@@ -82,6 +82,16 @@ public class ControladorUsuarios extends Conexion {
             getCloseConexion();
         } catch (Exception e) {
             System.out.println("Error en borrarUsuario.getCloseConexion: " + e);
+        }
+        return bandera;
+    }
+
+    public boolean updateUser(Usuario us) {
+        bandera = usMo.actualizar_usuario(us);
+        try {
+            getCloseConexion();
+        } catch (Exception e) {
+            System.out.println("Error en updateUser: " + e);
         }
         return bandera;
     }

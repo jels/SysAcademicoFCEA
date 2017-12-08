@@ -130,6 +130,93 @@ public class ControladorTutor extends Conexion {
         return bandera;
     }
 
+    public String getEditarTutor(int idTutor) {
+        htmlcode = "";
+
+        ResultSet tutor = tutMo.getTutor(idTutor);
+        try {
+            tutor.next();
+            htmlcode = "            <div class=\"container\">\n"
+                    + "                        <div class=\"row\">\n"
+                    + "                            <h3 class=\"center yellow-text\">Actualizar Datos del Tutor</h3>\n"
+                    + "                        </div>\n"
+                    + "                        <div class=\"row\">\n"
+                    + "                            <form id=\"updateTutor\" action=\"../../tutor.do\" class=\"col s12 yellow-text\">\n"
+                    + "                                <div class=\"row\">\n"
+                    + "                                    <div class=\"input-field col s6\">\n"
+                    + "                                        <i class=\"material-icons prefix yellow-text\">assignment_ind</i>\n"
+                    + "                                        <input id=\"pNombreTutorAC\" name=\"pNombreTutorAC\" type=\"text\" value=\"" + tutor.getString(2) + "\" class=\"validate\">\n"
+                    + "                                        <label class=\"yellow-text\" for=\"Primer Nombre\">Primer Nombre</label>\n"
+                    + "                                    </div>\n"
+                    + "                                    <div class=\"input-field col s6\">\n"
+                    + "                                        <i class=\"material-icons prefix yellow-text\">assignment_ind</i>\n"
+                    + "                                        <input id=\"sNombreTutorAC\" name=\"sNombreTutorAC\" type=\"text\" value=\"" + tutor.getString(3) + "\" class=\"validate\">\n"
+                    + "                                        <label class=\"yellow-text\" for=\"Segundo Nombre\">Segundo Nombre</label>\n"
+                    + "                                    </div>\n"
+                    + "                                </div>\n"
+                    + "                                <div class=\"row\">\n"
+                    + "                                    <div class=\"input-field col s6\">\n"
+                    + "                                        <i class=\"material-icons prefix yellow-text\">wc</i>\n"
+                    + "                                        <input id=\"pApellidoTutorAC\" name=\"pApellidoTutorAC\" type=\"text\" value=\"" + tutor.getString(4) + "\"class=\"validate\">\n"
+                    + "                                        <label class=\"yellow-text\" for=\"Primer Apellido\">Primer Apellido</label>\n"
+                    + "                                    </div>\n"
+                    + "                                    <div class=\"input-field col s6\">\n"
+                    + "                                        <i class=\"material-icons prefix yellow-text\">wc</i>\n"
+                    + "                                        <input id=\"sApellidoTutorAC\" name=\"sApellidoTutorAC\" type=\"text\" value=\"" + tutor.getString(5) + "\" class=\"validate\">\n"
+                    + "                                        <label class=\"yellow-text\" for=\"Segundo Apellido\">Segundo Apellido</label>\n"
+                    + "                                    </div>\n"
+                    + "                                </div>\n"
+                    + "                                <div class=\"row\">\n"
+                    + "                                    <div class=\"input-field col s6\">\n"
+                    + "                                        <i class=\"material-icons prefix yellow-text\">fingerprint</i>\n"
+                    + "                                        <input id=\"ciTutorAC\" name=\"ciTutorAC\" type=\"text\" value=\"" + tutor.getString(6) + "\" class=\"validate\">\n"
+                    + "                                        <label class=\"yellow-text\" for=\"CIRep\"># de Carnet</label>\n"
+                    + "                                    </div>\n"
+                    + "                                    <div class=\"input-field col s6\">\n"
+                    + "                                        <i class=\"material-icons prefix yellow-text\">contact_phone</i>\n"
+                    + "                                        <input id=\"telefonoTutorAC\" name=\"telefonoTutorAC\" type=\"text\" value=\"" + tutor.getString(7) + "\" class=\"validate\">\n"
+                    + "                                        <label class=\"yellow-text\" for=\"Telefono\">Telefono</label>\n"
+                    + "                                    </div>\n"
+                    + "                                </div>\n"
+                    + "                                <div class=\"row\">\n"
+                    + "                                    <div class=\"input-field col s6\">\n"
+                    + "                                        <i class=\"material-icons prefix yellow-text\">supervisor_account</i>\n"
+                    + "                                        <input id=\"cargoTutorAC\" name=\"cargoTutorAC\" type=\"text\" value=\"" + tutor.getString(8) + "\" class=\"validate\">\n"
+                    + "                                        <label class=\"yellow-text\" for=\"Cargo\">Cargo</label>\n"
+                    + "                                    </div>\n"
+                    + "                                </div>\n"
+                    + "                                <div class=\"row\">\n"
+                    + "                                    <div class=\"input-field col s6\">\n"
+                    + "                                        <i class=\"material-icons prefix yellow-text\">person</i>\n"
+                    + "                                        <input id=\"userTutorAC\" name=\"userTutorAC\" type=\"text\" value=\"" + tutor.getString(10) + "\" class=\"validate\">\n"
+                    + "                                        <label class=\"yellow-text\" for=\"CIRep\">Usuario</label>\n"
+                    + "                                    </div>\n"
+                    + "                                    <div class=\"input-field col s6\">\n"
+                    + "                                        <i class=\"material-icons prefix yellow-text\">lock_outline</i>\n"
+                    + "                                        <input id=\"passTutorAC\" name=\"passTutorAC\" type=\"text\" value=\"" + tutor.getString(11) + "\" class=\"validate\">\n"
+                    + "                                        <label class=\"yellow-text\" for=\"Telefono\">Contraceña</label>\n"
+                    + "                                    </div>\n"
+                    + "                                </div>\n"
+                    + "                                    <input type=\"hidden\" name=\"idTutor\" id=\"id_tutor\" value=\"" + idTutor + "\"/>\n"
+                    + "                                    <input type=\"hidden\" name=\"accion_tutor\" id=\"accionTutor\" value=\"update_tutor\"/>\n"
+                    + "                            </form>\n"
+                    + "                        </div>\n"
+                    + "                        <div class=\"col s6\">\n"
+                    + "                            <button class=\"btn waves-effect waves-light yellow accent-2 blue-text left\" type=\"button\" id=\"actualizarTutor\" data-id=\"" + tutor.getInt(1) + "\">\n"
+                    + "                                Validar y Guardar<i class=\"material-icons right\">save</i>\n"
+                    + "                            </button>\n"
+                    + "                            <br><br><br><br>\n"
+                    + "                        </div>\n"
+                    + "                        <div id=\"notificacionUPTutor\">\n"
+                    + "                        </div>\n"
+                    + "                    </div>";
+            getCloseConexion();
+        } catch (Exception e) {
+            System.out.println("Error en editarTutor: " + e);
+        }
+        return htmlcode;
+    }
+
     public String editarTutor(int idTutor) {
 
         htmlcode = "";

@@ -86,6 +86,11 @@
                                     </a>
                                 </li>
                                 <li>
+                                    <a href="practicas.jsp" class="waves-effect yellow-text">
+                                        <i class="material-icons yellow-text">format_list_bulleted</i>Practicas
+                                    </a>
+                                </li>
+                                <li>
                                     <a href="docente.jsp" class="waves-effect yellow-text">
                                         <i class="material-icons yellow-text">card_travel</i>Docente
                                     </a>
@@ -117,12 +122,12 @@
                 <div class="row">
 
                     <!-- Inicio del Estudiantes -->
-                    <div class="col s6">
+                    <div class="col s4">
                         <div class="card blue darken-3 yellow-text hoverable">
                             <div class="card-content">
                                 <span class="card-title center"><i class="medium material-icons">face</i></span>
                                 <h5 class="center">Estudiantes</h5>
-                                <p>Son todos los estudiantes que estan registrados en esta gestión academica</p>
+                                <p>Los estudiantes ACTIVOS registrados en esta gestión academica</p>
                             </div>
                             <div class="card-action center">
                                 <h5><a href="estudiante.jsp" class="yellow-text"> <%=conVar.cantidadEstudiantes()%></a></h5>
@@ -131,13 +136,28 @@
                     </div>
                     <!-- Final del Estudiantes-->
 
+                    <!-- Inicio del Practicas -->
+                    <div class="col s4">
+                        <div class="card blue darken-3 yellow-text hoverable">
+                            <div class="card-content">
+                                <span class="card-title center"><i class="medium material-icons">build</i></span>
+                                <h5 class="center">Practicas</h5>
+                                <p>Practicas ACTIVAS Resgitradas durante esta gestion</p>
+                            </div>
+                            <div class="card-action center">
+                                <h5><a href="practicas.jsp" class="yellow-text"><%=conVar.getPracticasActivas()%></a></h5>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Final del Estudiantes-->
+
                     <!-- Inicio del Tutores -->
-                    <div class="col s6">
+                    <div class="col s4">
                         <div class="card blue darken-3 yellow-text hoverable">
                             <div class="card-content">
                                 <span class="card-title center"><i class="medium material-icons">contacts</i></span>
                                 <h5 class="center">Tutores</h5>
-                                <p>Los tutores Activos que existen para poder asignar sus estudiantes</p>
+                                <p>Los Tutores ACTIVOS que estan registrados para asignar practicas</p>
                             </div>
                             <div class="card-action center">
                                 <h5><%=conVar.cantidadTutores()%></h5>

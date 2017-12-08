@@ -42,8 +42,33 @@ public class Representante_model extends Conexion {
 
     }
 
-    public boolean actualizar_representante(Representante rep) {
-        return false;
+    public boolean actualizarRepresentante(Representante rep) {
+        PreparedStatement pst;
+        ResultSet rs;
+        try {
+            String consulta = "UPDATE representante "
+                    + "SET primerNombreRepresentante = ? , "
+                    + "segundoNombreRepresentante = ? , "
+                    + "primerApellidoRepresentante = ? , "
+                    + "seguntoApellidoRepresentante = ? , "
+                    + "ciRepresentante = ? , "
+                    + "telefonoRepresentante = ? , "
+                    + "cargoRepresentante = ? "
+                    + "WHERE idRepresentante = ? ";
+            pst = getConnection().prepareStatement(consulta);
+            pst.setString(1, rep.getPrimerNombrePersona());
+            pst.setString(2, rep.getSegundoNombrePersona());
+            pst.setString(3, rep.getPrimerApellidoPersona());
+            pst.setString(4, rep.getSegundoApellidoPersona());
+            pst.setString(5, rep.getCiPersona());
+            pst.setString(6, rep.getTelefonoPersona());
+            pst.setString(7, rep.getCargoRepresentante());
+            pst.setInt(8, rep.getIdPersona());
+            return pst.executeUpdate() == 1;
+        } catch (Exception ex) {
+            System.err.println("Error actualizarRepresentante: " + ex);
+            return false;
+        }
     }
 
     public int contar_representante() {
@@ -116,6 +141,28 @@ public class Representante_model extends Conexion {
         } catch (Exception ex) {
             System.err.println("Error getIdRepresentante: " + ex);
             return "";
+        }
+    }
+
+    public ResultSet getRepresentanteEmpresa(int idEmpresa) {
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        try {
+            String consulta = "SELECT r.idRepresentante, r.primerNombreRepresentante, "
+                    + "r.segundoNombreRepresentante, r.primerApellidoRepresentante, "
+                    + "r.seguntoApellidoRepresentante, r.ciRepresentante, "
+                    + "r.telefonoRepresentante, r.cargoRepresentante "
+                    + "FROM empresa e, representante r "
+                    + "WHERE e.idRepresentante = r.idRepresentante "
+                    + "AND e.idEmpresa = ? ";
+            pst = getConnection().prepareStatement(consulta);
+            pst.setInt(1, idEmpresa);
+            rs = pst.executeQuery();
+            return rs;
+
+        } catch (Exception ex) {
+            System.err.println("Error getRepresentanteEmpresa: " + ex);
+            return null;
         }
     }
 

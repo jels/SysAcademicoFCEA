@@ -7,6 +7,7 @@ package Servlets;
 
 import Controller.ControladorEmpresa;
 import Controller.ControladorRepresentante;
+import Controller.ControladorTutor;
 import Model.*;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -32,29 +33,29 @@ public class EmpresaCRUD extends HttpServlet {
         PrintWriter out = response.getWriter();
         String accion = request.getParameter("accion");
         System.out.println("Accion: " + accion);
-        String htmlcode;
         Empresa empresa = new Empresa();
         ControladorEmpresa conEmp = new ControladorEmpresa();
         Representante rep = new Representante();
         ControladorRepresentante conRep = new ControladorRepresentante();
+        ControladorTutor conTut = new ControladorTutor();
         //Metodo creado para evitar el uso de muchos servlets 
         // aqui llegan todas las peticiones del usuario para realizar las funciones de:
         // -Crear -Editar -Dar de Baja -Eliminar
         switch (accion) {
             case "crear":
                 System.out.println("llegoooo....sSSSsaldhkasjdh");
-                rep.setPrimerNombrePersona(request.getParameter("primerNombreRepresentante"));
-                rep.setSegundoNombrePersona(request.getParameter("segundoNombreRepresentante"));
-                rep.setPrimerApellidoPersona(request.getParameter("primerApellidoRepresentante"));
-                rep.setSegundoApellidoPersona(request.getParameter("segundoApellidoRepresentante"));
+                rep.setPrimerNombrePersona(ucFirst2(request.getParameter("primerNombreRepresentante")));
+                rep.setSegundoNombrePersona(ucFirst2(request.getParameter("segundoNombreRepresentante")));
+                rep.setPrimerApellidoPersona(ucFirst2(request.getParameter("primerApellidoRepresentante")));
+                rep.setSegundoApellidoPersona(ucFirst2(request.getParameter("segundoApellidoRepresentante")));
                 rep.setCiPersona(request.getParameter("ciRepresentante"));
                 rep.setTelefonoPersona(request.getParameter("celularRepresentante"));
-                rep.setCargoRepresentante(request.getParameter("cargoRepresentante"));
+                rep.setCargoRepresentante(ucFirst2(request.getParameter("cargoRepresentante")));
                 rep.setEstadoPersona(Integer.parseInt(request.getParameter("estadoRepresentante")));
                 if (conRep.newRepresentante(rep)) {
-                    empresa.setNombreEmpresa(request.getParameter("nombreEmpresa"));
-                    empresa.setDireccionEmpresa(request.getParameter("direccionEmpresa"));
-                    empresa.setRubroEmpresa(request.getParameter("rubroEmpresa"));
+                    empresa.setNombreEmpresa(ucFirst2(request.getParameter("nombreEmpresa")));
+                    empresa.setDireccionEmpresa(ucFirst2(request.getParameter("direccionEmpresa")));
+                    empresa.setRubroEmpresa(ucFirst2(request.getParameter("rubroEmpresa")));
                     empresa.setTelefonoEmpresa(request.getParameter("telefonoEmpresa"));
                     empresa.setEstadoEmpresa(Integer.parseInt(request.getParameter("estadoEmpresa")));
                     empresa.setIdRepresentante(conRep.getIdRepresentante(request.getParameter("ciRepresentante")));
@@ -71,10 +72,10 @@ public class EmpresaCRUD extends HttpServlet {
                 System.out.println("NombreEmpresa...: " + request.getParameter("nombreEmpresa"));
                 break;
             case "update":
-                empresa.setNombreEmpresa(request.getParameter("nombreEmpresa"));
-                empresa.setDireccionEmpresa(request.getParameter("direccionEmpresa"));
+                empresa.setNombreEmpresa(ucFirst2(request.getParameter("nombreEmpresa")));
+                empresa.setDireccionEmpresa(ucFirst2(request.getParameter("direccionEmpresa")));
                 empresa.setTelefonoEmpresa(request.getParameter("telefonoEmpresa"));
-                empresa.setRubroEmpresa(request.getParameter("rubroEmpresa"));
+                empresa.setRubroEmpresa(ucFirst2(request.getParameter("rubroEmpresa")));
                 empresa.setIdEmpresa(Integer.parseInt(request.getParameter("idEmpresa")));
 
                 if (conEmp.updateEmpresa(empresa)) {
@@ -91,12 +92,29 @@ public class EmpresaCRUD extends HttpServlet {
                     out.print("false");
                 }
                 break;
-//            case "actualizar":
-//
-//                break;
-//            case "buscar_estudiante":
-//
-//                break;
+            case "update_representante":
+                rep.setPrimerNombrePersona(ucFirst2(request.getParameter("primerNombreRepresentante")));
+                rep.setSegundoNombrePersona(ucFirst2(request.getParameter("segundoNombreRepresentante")));
+                rep.setPrimerApellidoPersona(ucFirst2(request.getParameter("primerApellidoRepresentante")));
+                rep.setSegundoApellidoPersona(ucFirst2(request.getParameter("segundoApellidoRepresentante")));
+                rep.setCiPersona(request.getParameter("ciRepresentante"));
+                rep.setTelefonoPersona(request.getParameter("celularRepresentante"));
+                rep.setCargoRepresentante(ucFirst2(request.getParameter("cargoRepresentante")));
+                rep.setIdPersona(Integer.parseInt(request.getParameter("idRepresentante")));
+
+                if (conRep.updateRepresentante(rep)) {
+                    out.print("true");
+                } else {
+                    out.print("false");
+                }
+                break;
+            case "baja_tutor":
+                if (conTut.darBajaTutor(Integer.parseInt(request.getParameter("idTutor")))) {
+                    out.print("true");
+                } else {
+                    out.print("false");
+                }
+                break;
 //            case "cargar_nota":
 //
 //                break;

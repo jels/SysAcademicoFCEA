@@ -19,20 +19,22 @@ public class AsignacionPracticas {
     private String fechaInicioPractica;
     private String fechaFinPractica;
     private String areaPactica;
-    private int totalHoras;
+    private int estadoPractica;
+    private int aproboPractica;
     private int idDocente;
     private int idEstudiante;
     private int idTutor;
     private int idMateria;
 
-    public AsignacionPracticas(int idAsignacionPractica, String ingresoEstudiante, String gestionAcademica, String fechaInicioPractica, String fechaFinPractica, String areaPactica, int totalHoras, int idDocente, int idEstudiante, int idTutor, int idMateria) {
+    public AsignacionPracticas(int idAsignacionPractica, String ingresoEstudiante, String gestionAcademica, String fechaInicioPractica, String fechaFinPractica, String areaPactica, int estadoPractica, int aproboPractica, int idDocente, int idEstudiante, int idTutor, int idMateria) {
         this.idAsignacionPractica = idAsignacionPractica;
         this.ingresoEstudiante = ingresoEstudiante;
         this.gestionAcademica = gestionAcademica;
         this.fechaInicioPractica = fechaInicioPractica;
         this.fechaFinPractica = fechaFinPractica;
         this.areaPactica = areaPactica;
-        this.totalHoras = totalHoras;
+        this.estadoPractica = estadoPractica;
+        this.aproboPractica = aproboPractica;
         this.idDocente = idDocente;
         this.idEstudiante = idEstudiante;
         this.idTutor = idTutor;
@@ -127,17 +129,31 @@ public class AsignacionPracticas {
     }
 
     /**
-     * @return the totalHoras
+     * @return the estadoPractica
      */
-    public int getTotalHoras() {
-        return totalHoras;
+    public int getEstadoPractica() {
+        return estadoPractica;
     }
 
     /**
-     * @param totalHoras the totalHoras to set
+     * @param estadoPractica the estadoPractica to set
      */
-    public void setTotalHoras(int totalHoras) {
-        this.totalHoras = totalHoras;
+    public void setEstadoPractica(int estadoPractica) {
+        this.estadoPractica = estadoPractica;
+    }
+
+    /**
+     * @return the aproboPractica
+     */
+    public int getAproboPractica() {
+        return aproboPractica;
+    }
+
+    /**
+     * @param aproboPractica the aproboPractica to set
+     */
+    public void setAproboPractica(int aproboPractica) {
+        this.aproboPractica = aproboPractica;
     }
 
     /**

@@ -249,4 +249,95 @@ public class Materia_model extends Conexion {
         }
     }
 
+    public ResultSet getMateriasEstudiante(String CI_estudiante) {
+
+        int idCarrera = getIdCarrera(CI_estudiante);
+
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        try {
+            String consulta = "SELECT m.nombreMateria ,m.idMateria "
+                    + "FROM materia m, carrera c "
+                    + "WHERE c.idCarrera = m.idCarrera "
+                    + "AND c.idCarrera = ? ";
+            pst = getConnection().prepareStatement(consulta);
+            pst.setInt(1, idCarrera);
+            rs = pst.executeQuery();
+            return rs;
+
+        } catch (Exception ex) {
+            System.err.println("Error getMateriasEstudiante: " + ex);
+            return null;
+        }
+    }
+
+    public String getNombreCarrera(String CI_estudiante) {
+
+        int idCarrera = getIdCarrera(CI_estudiante);
+
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        try {
+            String consulta = "SELECT c.nombreCarrera "
+                    + "FROM materia m, carrera c "
+                    + "WHERE c.idCarrera = m.idCarrera "
+                    + "AND c.idCarrera = ? ";
+            pst = getConnection().prepareStatement(consulta);
+            pst.setInt(1, idCarrera);
+            rs = pst.executeQuery();
+            rs.next();
+            return rs.getString(1);
+
+        } catch (Exception ex) {
+            System.err.println("Error getNombreCarrera: " + ex);
+            return null;
+        }
+
+    }
+
+    private int getIdCarrera(String CI_estudiante) {
+        PreparedStatement pst;
+        ResultSet rs;
+        try {
+            String consulta = "SELECT c.idCarrera "
+                    + "FROM asignacionpracticas asp, estudiante e, materia m, carrera c "
+                    + "WHERE e.idEstudiante = asp.idEstudiante "
+                    + "AND c.idCarrera = m.idCarrera "
+                    + "AND m.idMateria = asp.idMateria "
+                    + "AND e.ciEstudiante = ? ";
+            pst = getConnection().prepareStatement(consulta);
+            pst.setString(1, CI_estudiante);
+            rs = pst.executeQuery();
+            rs.next();
+            return rs.getInt(1);//quiere decir que no existe el carrera...
+        } catch (Exception ex) {
+            System.err.println("Error getIdCarrera: " + ex);
+            return 0;
+        }
+    }
+
+    public boolean aproboMateria(String CI_estudiante, int idMateria) {
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        try {
+            String consulta = "SELECT asp.aprobadoMateria "
+                    + "FROM asignacionpracticas asp, estudiante e "
+                    + "WHERE e.idEstudiante = asp.idEstudiante "
+                    + "AND e.ciEstudiante = ? "
+                    + "AND asp.idMateria = ? ";
+            pst = getConnection().prepareStatement(consulta);
+            pst.setString(1, CI_estudiante);
+            pst.setInt(2, idMateria);
+            rs = pst.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) == 1;
+            } else {
+                return false;
+            }
+        } catch (Exception ex) {
+            System.err.println("Error aproboMateria: " + ex);
+            return false;
+        }
+    }
+
 }

@@ -168,7 +168,6 @@
                         </div>
                         <div class="row">
                             <div id="verNotaAsignada"></div>
-
                         </div>
 
                     </div>

@@ -320,4 +320,9 @@ public class Practicas_model extends Conexion {
         }
     }
 
+    public boolean getRealizaPractica(String CI_estudiante) {
+
+        return false;
+    }
+
 }

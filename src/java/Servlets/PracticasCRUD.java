@@ -9,6 +9,8 @@ import Controller.*;
 import Model.*;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -35,9 +37,16 @@ public class PracticasCRUD extends HttpServlet {
         String htmlcode;
 
         ControladorAsignacionPractica conAsp = new ControladorAsignacionPractica();
-
+        ControladorNotas conNot = new ControladorNotas();
+        ControladorEstudiante conEst = new ControladorEstudiante();
+        ControladorMateria conMat = new ControladorMateria();
         Practicas practica = new Practicas();
         DetallesPracticas detalle = new DetallesPracticas();
+        AsignacionPracticas asp = new AsignacionPracticas();
+
+        String CI_estudiante = request.getParameter("CI_estudiante");
+        String apellido_estudiante = request.getParameter("");
+        String tutor = request.getParameter("");
         //Metodo creado para evitar el uso de muchos servlets 
         // aqui llegan todas las peticiones del usuario para realizar las funciones de:
         // -Crear -Editar -Dar de Baja -Eliminar
@@ -71,11 +80,35 @@ public class PracticasCRUD extends HttpServlet {
                     out.print("false");
                 }
                 break;
-            case "crear":
-                out.print("false");
+            case "crear_asignacionPractica":
+
+                int idEstudiante = conEst.getIdEstudiante(CI_estudiante);
+
+                asp.setIdEstudiante(idEstudiante);
+                asp.setIdDocente(Integer.parseInt(request.getParameter("docente")));
+                asp.setIdMateria(Integer.parseInt(request.getParameter("materia")));
+                asp.setIdTutor(Integer.parseInt(request.getParameter("tutor")));
+                asp.setAreaPactica(request.getParameter("areaPractica"));
+                asp.setIngresoEstudiante(request.getParameter("ingresoEs"));
+                asp.setGestionAcademica(request.getParameter("gestionActual"));
+                asp.setFechaInicioPractica(request.getParameter("fechaInicioPra"));
+                asp.setFechaFinPractica(request.getParameter("fechaFinPra"));
+                asp.setAproboPractica(0);
+                asp.setEstadoPractica(1);
+                if (conAsp.newAsignacionPractica(asp)) {
+                    out.print("true");
+                } else {
+                    out.print("false");
+                }
+
                 break;
-            case "update":
-                out.print("false");
+            case "eliminar_asignacionPractica":
+
+                if (conAsp.eliminarAsignacionPractica(Integer.parseInt(request.getParameter("idAsignacion")))) {
+                    out.print("true");
+                } else {
+                    out.print("false");
+                }
                 break;
             case "baja":
                 out.print("false");
@@ -106,6 +139,68 @@ public class PracticasCRUD extends HttpServlet {
 //            case "verNotaAsignada":
 //
 //                break;
+            case "baja_estudiante":
+
+                System.out.println("CI_Estudiante: " + CI_estudiante);
+                if (conEst.bajaEstudiante(CI_estudiante)) {
+                    out.print("true");
+
+                } else {
+                    out.print("false");
+                }
+
+                break;
+            case "eliminar_estudiante":
+                System.out.println("CI_Estudiante: " + CI_estudiante);
+                if (conEst.eliminarEstudiante(CI_estudiante)) {
+                    out.print("true");
+
+                } else {
+                    out.print("false");
+                }
+                break;
+            case "buscar_estudiante":
+                System.out.println("llego hasta aki...buscar_estudiante: " + apellido_estudiante + " " + CI_estudiante);
+                htmlcode = conEst.modalBuscarEstudiante(apellido_estudiante, CI_estudiante, tutor);
+                out.print(htmlcode);
+                break;
+            case "cargar_nota_estudiante":
+                int contnotas = 0;
+                int count = 1;
+                System.out.println("llega a la nota...");
+                int idAsignacionPractica = conEst.getIdAsignacionPractica(CI_estudiante);
+                ResultSet idCriterio = conMat.getListaIDCriterioXEst(CI_estudiante);
+                int parcial = conEst.getPractica(CI_estudiante);
+                try {
+                    while (count <= 20) {
+                        idCriterio.next();
+                        int notas = Integer.parseInt(request.getParameter("nota" + count));
+                        System.out.println("la nota" + count + ": " + notas);
+                        System.out.println("CI_estudiante...!: " + CI_estudiante);
+                        System.out.println("IDcriterio: " + idCriterio.getInt(1));
+                        if (conNot.insertNewNota(idAsignacionPractica, idCriterio.getInt(1), notas, parcial)) {
+                            contnotas++;
+                        }
+                        count++;
+                    }
+                } catch (SQLException | NumberFormatException e) {
+                    System.out.println("Error cargar_nota: " + e);
+                }
+
+                if (contnotas == 20) {
+                    out.print("true");
+                } else {
+                    out.print("false");
+                }
+
+                break;
+            case "verNotaAsignada_estudiante":
+                System.out.println("CI_estudiante: " + CI_estudiante);
+                htmlcode = conNot.getModalVerNota(CI_estudiante);
+                System.out.println("llega al verNotaAsignada");
+                out.print(htmlcode);
+
+                break;
             default:
                 out.print("false");
                 break;

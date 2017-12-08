@@ -40,6 +40,18 @@
         <servlet-name>PracticasCRUD</servlet-name>
         <servlet-class>Servlets.PracticasCRUD</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>newTutor</servlet-name>
+        <servlet-class>Servlets.newTutor</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>NewTutor</servlet-name>
+        <servlet-class>Servlets.NewTutor</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateTutor</servlet-name>
+        <servlet-class>Servlets.UpdateTutor</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/login.do</url-pattern>
@@ -79,6 +91,18 @@
     <servlet-mapping>
         <servlet-name>PracticasCRUD</servlet-name>
         <url-pattern>/practicas.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>newTutor</servlet-name>
+        <url-pattern>/newtut.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>NewTutor</servlet-name>
+        <url-pattern>/newtutor.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateTutor</servlet-name>
+        <url-pattern>/updatetutor.do</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

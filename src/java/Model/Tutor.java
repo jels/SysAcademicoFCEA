@@ -13,15 +13,13 @@ public class Tutor extends Persona {
 
     private String cargoTutor;
     private String fotoTutor;
-    private String fondoTutor;
     private int idUsuario;
     private int idEmpresa;
 
-    public Tutor(String cargoTutor, String fotoTutor, String fondoTutor, int idUsuario, int idEmpresa, int idPersona, String primerNombrePersona, String primerApellidoPersona, String segundoNombrePersona, String segundoApellidoPersona, String ciPersona, String telefonoPersona, int estadoPersona) {
+    public Tutor(String cargoTutor, String fotoTutor, int idUsuario, int idEmpresa, int idPersona, String primerNombrePersona, String primerApellidoPersona, String segundoNombrePersona, String segundoApellidoPersona, String ciPersona, String telefonoPersona, int estadoPersona) {
         super(idPersona, primerNombrePersona, primerApellidoPersona, segundoNombrePersona, segundoApellidoPersona, ciPersona, telefonoPersona, estadoPersona);
         this.cargoTutor = cargoTutor;
         this.fotoTutor = fotoTutor;
-        this.fondoTutor = fondoTutor;
         this.idUsuario = idUsuario;
         this.idEmpresa = idEmpresa;
     }
@@ -55,20 +53,6 @@ public class Tutor extends Persona {
      */
     public void setFotoTutor(String fotoTutor) {
         this.fotoTutor = fotoTutor;
-    }
-
-    /**
-     * @return the fondoTutor
-     */
-    public String getFondoTutor() {
-        return fondoTutor;
-    }
-
-    /**
-     * @param fondoTutor the fondoTutor to set
-     */
-    public void setFondoTutor(String fondoTutor) {
-        this.fondoTutor = fondoTutor;
     }
 
     /**

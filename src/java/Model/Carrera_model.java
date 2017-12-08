@@ -275,4 +275,23 @@ public class Carrera_model extends Conexion {
         }
     }
 
+    public ResultSet getMateriasCarrera(int idCarrera) {
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        try {
+            String consulta = "SELECT m.idMateria, m.nombreMateria "
+                    + "FROM carrera c, materia m "
+                    + "WHERE c.idCarrera = m.idCarrera "
+                    + "AND m.estadoMateria = 1 "
+                    + "AND c.idCarrera = ?  ";
+            pst = getConnection().prepareStatement(consulta);
+            pst.setInt(1, idCarrera);
+            rs = pst.executeQuery();
+            return rs;
+        } catch (Exception ex) {
+            System.err.println("Error getMateriasCarrera: " + ex);
+            return null;
+        }
+    }
+
 }

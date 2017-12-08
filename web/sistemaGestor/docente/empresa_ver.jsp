@@ -4,6 +4,7 @@
     Author     : WarMachine
 --%>
 
+<%@page import="Controller.ControladorRepresentante"%>
 <%@page import="Controller.ControladorEmpresa"%>
 <%@page import="Controller.ControladorVarios"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -32,6 +33,7 @@
 <html lang="en">
     <% ControladorEmpresa conEmp = new ControladorEmpresa(); %>
     <% ControladorVarios conVar = new ControladorVarios();%>
+    <% ControladorRepresentante conRep = new ControladorRepresentante();%>
 
     <%@include file="head.jsp" %>
 
@@ -102,6 +104,11 @@
                                     </a>
                                 </li>
                                 <li>
+                                    <a href="practicas.jsp" class="waves-effect yellow-text">
+                                        <i class="material-icons yellow-text">format_list_bulleted</i>Practicas
+                                    </a>
+                                </li>
+                                <li>
                                     <a href="docente.jsp" class="waves-effect yellow-text">
                                         <i class="material-icons yellow-text">card_travel</i>Docente
                                     </a>
@@ -155,11 +162,9 @@
 
                 <!-- Inicio del representante -->
                 <div id="representante" class="col s12 yellow-text">
-                    <div class="container">
-                        <div class="row">
-                            <h1 class="center yellow-text">Representante</h1>
-                        </div>
-                    </div>
+
+                    <%=conRep.editarRepresentante(idEmpresa)%>
+
                 </div>
                 <!-- Final del representante -->
 
@@ -176,84 +181,78 @@
                             <h1 class="center yellow-text">Nuevo Tutor</h1>
                         </div>
                         <div class="row">
-                            <form method="post" id="crear_tut" class="col s12 yellow-text" enctype="multipart/form-data">
+                            <form method="post" action="../../tutor.do" id="nuevo_tutor" class="col s12 yellow-text" enctype="multipart/form-data">
                                 <div class="row">
                                     <div class="input-field col s4">
                                         <i class="material-icons prefix yellow-text">assignment_ind</i>
-                                        <input id="primerNombreT" type="text" class="validate">
+                                        <input id="primerNombreT" name="primerNombreT" type="text" >
                                         <label class="yellow-text" for="Primer Nombre">Primer Nombre</label>
                                     </div>
                                     <div class="input-field col s4">
                                         <i class="material-icons prefix yellow-text">assignment_ind</i>
-                                        <input id="segundoNombreT" type="text" >
+                                        <input id="segundoNombreT" name="segundoNombreT" type="text" >
                                         <label class="yellow-text" for="Segundo Nombre">Segundo Nombre</label>
                                     </div>
                                     <div class="input-field col s4">
                                         <i class="material-icons prefix yellow-text">wc</i>
-                                        <input id="primerApellidoT" type="text" class="validate">
+                                        <input id="primerApellidoT" name="primerApellidoT" type="text" >
                                         <label class="yellow-text" for="Primer Apellido">Primer Apellido</label>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="input-field col s4">
-                                        <i class="material-icons prefix yellow-text">assignment_ind</i>
-                                        <input id="segundoApellidoT" type="text" class="validate">
+                                        <i class="material-icons prefix yellow-text">wc</i>
+                                        <input id="segundoApellidoT" name="segundoApellidoT" type="text" >
                                         <label class="yellow-text" for="Segundo Apellido">Segundo Apellido</label>
                                     </div>
                                     <div class="input-field col s4">
-                                        <i class="material-icons prefix yellow-text">assignment_ind</i>
-                                        <input id="celularT" type="text" >
+                                        <i class="material-icons prefix yellow-text">contact_phone</i>
+                                        <input id="celularT" name="celularT" type="text" >
                                         <label class="yellow-text" for="celularT">Celular</label>
                                     </div>
                                     <div class="input-field col s4">
-                                        <i class="material-icons prefix yellow-text">wc</i>
-                                        <input id="ciT" type="text" class="validate">
+                                        <i class="material-icons prefix yellow-text">fingerprint</i>
+                                        <input id="ciT" name="ciT" type="text" >
                                         <label class="yellow-text" for="ciT">CI</label>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="input-field col s4">
-                                        <i class="material-icons prefix yellow-text">assignment_ind</i>
-                                        <input id="cargoT" type="text" class="validate">
+                                        <i class="material-icons prefix yellow-text">supervisor_account</i>
+                                        <input id="cargoT" name="cargoT" type="text" >
                                         <label class="yellow-text" for="cargoT">Cargo</label>
                                     </div>
                                     <div class="input-field col s4">
-                                        <i class="material-icons prefix yellow-text">assignment_ind</i>
-                                        <input id="nombreUsuarioT" type="text" >
+                                        <i class="material-icons prefix yellow-text">perm_identity</i>
+                                        <input id="nombreUsuarioT" name="nombreUsuarioT" type="text" >
                                         <label class="yellow-text" for="nombreUsuarioT">Usuario</label>
                                     </div>
                                     <div class="input-field col s4">
-                                        <i class="material-icons prefix yellow-text">wc</i>
-                                        <input id="passUsuarioT" type="password" class="validate">
+                                        <i class="material-icons prefix yellow-text">lock_outline</i>
+                                        <input id="passUsuarioT" name="passUsuarioT" type="password">
                                         <label class="yellow-text" for="passUsuarioT">Contraceña</label>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="file-field input-field col s6">
+                                    <input type="hidden" name="idEmpresa" id="id_empresa" value="<%=idEmpresa%>"/>
+                                    <input type="hidden" name="accion_tutor" id="accionTutor" value="crear_tutor"/>
+                                    <div class="file-field input-field col s12">
                                         <div class="btn blue yellow-text">
                                             <span>Perfil</span>
-                                            <input type="file" id="imagenT">
+                                            <input type="file" name="imagenTutor" id="imagenT">
                                         </div>
                                         <div class="file-path-wrapper">
-                                            <input class="file-path validate" type="text"  placeholder="Seleccione una Foto">
+                                            <input id="imagenT_nombre" name="nombre_imagenT" class="file-path validate" type="text"  placeholder="Seleccione una Foto">
                                         </div>
                                     </div>
-                                    <div class="file-field input-field col s6">
-                                        <div class="btn blue yellow-text">
-                                            <span>Fondo</span>
-                                            <input type="file" id="fondoT">
-                                        </div>
-                                        <div class="file-path-wrapper">
-                                            <input class="file-path validate" type="text"  placeholder="Seleccione una Foto">
-                                        </div>
-                                    </div>
+
                                 </div>
                             </form>
                         </div>
                     </div>
                     <div class="modal-footer blue darken-3 yellow-text">
                         <div class="col s6">
-                            <button class="btn waves-effect waves-light yellow accent-2 blue-text left" type="button" id="crear_tutor"  data-id=<%=idEmpresa%>>
+                            <button class="btn waves-effect waves-light yellow accent-2 blue-text left" id="crear_tutor" data-id=<%=idEmpresa%>>
                                 Validar y Guardar<i class="material-icons right">save</i>
                             </button>
                         </div>

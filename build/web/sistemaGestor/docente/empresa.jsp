@@ -98,6 +98,11 @@
                                     </a>
                                 </li>
                                 <li>
+                                    <a href="practicas.jsp" class="waves-effect yellow-text">
+                                        <i class="material-icons yellow-text">format_list_bulleted</i>Practicas
+                                    </a>
+                                </li>
+                                <li>
                                     <a href="docente.jsp" class="waves-effect yellow-text">
                                         <i class="material-icons yellow-text">card_travel</i>Docente
                                     </a>

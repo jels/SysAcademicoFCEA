@@ -260,7 +260,7 @@ public class ControladorEmpresa extends Conexion {
             empresa.next();
             htmlcode = "                 <div class=\"container\">\n"
                     + "                        <div class=\"row\">\n"
-                    + "                            <h1 class=\"center yellow-text\">Actualizar Empresa</h1>\n"
+                    + "                            <h3 class=\"center yellow-text\">Actualizar Datos de la Empresa</h3>\n"
                     + "                        </div>\n"
                     + "                        <div class=\"row\">\n"
                     + "                            <form id=\"updateEmpresa\" class=\"col s12 yellow-text\">\n"

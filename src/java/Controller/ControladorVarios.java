@@ -39,6 +39,16 @@ public class ControladorVarios extends Conexion {
         return numero;
     }
 
+    public int getPracticasActivas() {
+        numero = aspMo.getCantidadPracticasEstado(1);
+        try {
+            getCloseConexion();
+        } catch (Exception e) {
+            System.out.println("Error en getPracticasActivas.getCloseConexion: " + e);
+        }
+        return numero;
+    }
+
     public int cantidadParciales() {
         numero = praMo.contar_parciales();
         try {
@@ -131,11 +141,11 @@ public class ControladorVarios extends Conexion {
         try {
             usuario.next();
             htmlcode = "<div class=\"background\">\n"
-                    + "     <img src = \"../../img/fcea/docentes/" + usuario.getString(2) + "\">\n"
+                    + "     <img src = \"../../img/fcea/docentes/fondo.jpg\">\n"
                     + "</div>\n"
                     + "<a href =\"#!user\"><img class=\"circle\" src=\"../../img/fcea/docentes/" + usuario.getString(1) + "\"> </a>\n"
-                    + "<a href =\"#!name\"><span class=\"yellow-text name\">" + usuario.getString(4) + " " + usuario.getString(5) + " " + usuario.getString(6) + " " + usuario.getString(7) + "</span></a>\n"
-                    + "<a href =\"#!email\"><span class=\"yellow-text email\">" + usuario.getString(3) + "</span></a>\n";
+                    + "<a href =\"#!name\"><span class=\"yellow-text name\">" + usuario.getString(3) + " " + usuario.getString(4) + " " + usuario.getString(5) + " " + usuario.getString(6) + "</span></a>\n"
+                    + "<a href =\"#!email\"><span class=\"yellow-text email\">" + usuario.getString(2) + "</span></a>\n";
             getCloseConexion();
         } catch (Exception e) {
             System.out.println("Error en getUserViewDocente: " + e);
@@ -149,7 +159,7 @@ public class ControladorVarios extends Conexion {
         try {
             usuario.next();
             htmlcode = "<div class=\"background\">\n"
-                    + "     <img src = \"../../img/root/" + usuario.getString(2) + "\">\n"
+                    + "     <img src = \"../../img/root/fondo.jpg\">\n"
                     + "</div>\n"
                     + "<a href =\"#!user\"><img class=\"circle\" src=\"../../img/root/" + usuario.getString(1) + "\"> </a>\n"
                     + "<a href =\"#!name\"><span class=\"yellow-text name\">Root</span></a>\n"
@@ -167,11 +177,11 @@ public class ControladorVarios extends Conexion {
         try {
             usuario.next();
             htmlcode = "<div class=\"background\">\n"
-                    + "     <img src = \"../../img/fcea/tutores/" + usuario.getString(2) + "\">\n"
+                    + "     <img src = \"../../img/fcea/tutores/fondo.jpg\">\n"
                     + "</div>\n"
                     + "<a href =\"#!user\"><img class=\"circle\" src=\"../../img/fcea/tutores/" + usuario.getString(1) + "\"> </a>\n"
-                    + "<a href =\"#!name\"><span class=\"yellow-text name\">" + usuario.getString(4) + " " + usuario.getString(5) + " " + usuario.getString(6) + " " + usuario.getString(7) + "</span></a>\n"
-                    + "<a href =\"#!email\"><span class=\"yellow-text email\">" + usuario.getString(3) + "</span></a>\n";
+                    + "<a href =\"#!name\"><span class=\"yellow-text name\">" + usuario.getString(3) + " " + usuario.getString(4) + " " + usuario.getString(5) + " " + usuario.getString(6) + "</span></a>\n"
+                    + "<a href =\"#!email\"><span class=\"yellow-text email\">" + usuario.getString(2) + "</span></a>\n";
             getCloseConexion();
         } catch (Exception e) {
             System.out.println("Error en getUserViewTutor: " + e);

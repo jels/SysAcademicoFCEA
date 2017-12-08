@@ -16,18 +16,16 @@ public class Usuario {
     private String passUsuario;
     private int idRol;
     private String imagenUsuario;
-    private String fondoUsuario;
 
     public Usuario() {
     }
 
-    public Usuario(int idUsuario, String nombreUsuario, String passUsuario, int idRol, String imagenUsuario, String fondoUsuario) {
+    public Usuario(int idUsuario, String nombreUsuario, String passUsuario, int idRol, String imagenUsuario) {
         this.idUsuario = idUsuario;
         this.nombreUsuario = nombreUsuario;
         this.passUsuario = passUsuario;
         this.idRol = idRol;
         this.imagenUsuario = imagenUsuario;
-        this.fondoUsuario = fondoUsuario;
     }
 
     /**
@@ -99,19 +97,5 @@ public class Usuario {
     public void setImagenUsuario(String imagenUsuario) {
         this.imagenUsuario = imagenUsuario;
     }
-
-    /**
-     * @return the fondoUsuario
-     */
-    public String getFondoUsuario() {
-        return fondoUsuario;
-    }
-
-    /**
-     * @param fondoUsuario the fondoUsuario to set
-     */
-    public void setFondoUsuario(String fondoUsuario) {
-        this.fondoUsuario = fondoUsuario;
-    }
-
+    
 }

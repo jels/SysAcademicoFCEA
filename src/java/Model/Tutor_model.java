@@ -35,16 +35,18 @@ public class Tutor_model extends Conexion {
 
     public boolean crear_tutor(Tutor tutor) {
         if (existeTutor(tutor.getCiPersona())) {
+            System.out.println("false");
             return false;
         } else {
+            System.out.println("true");
             PreparedStatement pst;
             ResultSet rs;
             try {
                 String consulta = "INSERT INTO tutor(idUsuario, idEmpresa, primerNombreTutor, "
                         + "segundoNombreTutor, primerApellidoTutor, segundoApellidoTutor, "
                         + "ciTutor, telefonoTutor, estadoTutor, "
-                        + "cargoTutor, fotoTutor, fondoTutor) "
-                        + "VALUES ( ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? )";
+                        + "cargoTutor, fotoTutor) "
+                        + "VALUES ( ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? )";
                 pst = getConnection().prepareStatement(consulta);
                 pst.setInt(1, tutor.getIdUsuario());
                 pst.setInt(2, tutor.getIdEmpresa());
@@ -57,7 +59,6 @@ public class Tutor_model extends Conexion {
                 pst.setInt(9, tutor.getEstadoPersona());
                 pst.setString(10, tutor.getCargoTutor());
                 pst.setString(11, tutor.getFotoTutor());
-                pst.setString(12, tutor.getFondoTutor());
                 return pst.executeUpdate() == 1;
             } catch (Exception ex) {
                 System.err.println("Error crear_tutor: " + ex);
@@ -107,7 +108,37 @@ public class Tutor_model extends Conexion {
     }
 
     public boolean actualizar_tutor(Tutor tutor) {
-        return false;
+        if (existeTutor(tutor.getCiPersona())) {
+            return false;
+        } else {
+            PreparedStatement pst;
+            ResultSet rs;
+            try {
+                String consulta = "UPDATE tutor "
+                        + "SET primerNombreTutor = ? , "
+                        + "segundoNombreTutor = ? , "
+                        + "primerApellidoTutor = ? , "
+                        + "segundoApellidoTutor = ? , "
+                        + "ciTutor = ? , "
+                        + "telefonoTutor = ? , "
+                        + "cargoTutor = ? "
+                        + "WHERE idTutor = ? ";
+                pst = getConnection().prepareStatement(consulta);
+                pst.setString(1, tutor.getPrimerNombrePersona());
+                pst.setString(2, tutor.getSegundoNombrePersona());
+                pst.setString(3, tutor.getPrimerApellidoPersona());
+                pst.setString(4, tutor.getSegundoApellidoPersona());
+                pst.setString(5, tutor.getCiPersona());
+                pst.setString(6, tutor.getTelefonoPersona());
+                pst.setString(7, tutor.getCargoTutor());
+                pst.setInt(8, tutor.getIdPersona());
+                return pst.executeUpdate() == 1;
+            } catch (Exception ex) {
+                System.err.println("Error actualizar_tutor: " + ex);
+                return false;
+            }
+        }
+
     }
 
     public int contar_tutor() {
@@ -179,7 +210,7 @@ public class Tutor_model extends Conexion {
             String consulta = "SELECT idTutor, primerNombreTutor, "
                     + "segundoNombreTutor, primerApellidoTutor, "
                     + "segundoApellidoTutor, ciTutor, telefonoTutor, "
-                    + "estadoTutor, cargoTutor, fotoTutor, fondoTutor "
+                    + "estadoTutor, cargoTutor, fotoTutor "
                     + "FROM tutor";
             pst = getConnection().prepareStatement(consulta);
             rs = pst.executeQuery();
@@ -215,7 +246,6 @@ public class Tutor_model extends Conexion {
     }
 
     public ResultSet getTutoresXempresa(int idEmpresa) {
-
         PreparedStatement pst = null;
         ResultSet rs = null;
         try {
@@ -226,7 +256,8 @@ public class Tutor_model extends Conexion {
                     + "t.fotoTutor "
                     + "FROM empresa e, tutor t "
                     + "WHERE e.idEmpresa = t.idEmpresa "
-                    + "AND e.idEmpresa = ? ";
+                    + "AND e.idEmpresa = ? "
+                    + "ORDER BY t.estadoTutor DESC, t.primerApellidoTutor ASC";
             pst = getConnection().prepareStatement(consulta);
             pst.setInt(1, idEmpresa);
             rs = pst.executeQuery();
@@ -242,12 +273,14 @@ public class Tutor_model extends Conexion {
         PreparedStatement pst = null;
         ResultSet rs = null;
         try {
-            String consulta = "SELECT idTutor, primerNombreTutor, "
-                    + "segundoNombreTutor, primerApellidoTutor, "
-                    + "segundoApellidoTutor, ciTutor, telefonoTutor, "
-                    + "cargoTutor ,fotoTutor, fondoTutor "
-                    + "FROM tutor t "
-                    + "WHERE idTutor = ? ";
+            String consulta = "SELECT t.idTutor, t.primerNombreTutor, "
+                    + "t.segundoNombreTutor, t.primerApellidoTutor, "
+                    + "t.segundoApellidoTutor, t.ciTutor, "
+                    + "t.telefonoTutor, t.cargoTutor, "
+                    + "t.fotoTutor, u.nombreUsuario, u.passwordUsuario "
+                    + "FROM tutor t, usuarios u "
+                    + "WHERE u.idUsuario = t.idUsuario "
+                    + "AND t.idTutor = ?  ";
             pst = getConnection().prepareStatement(consulta);
             pst.setInt(1, idTutor);
             rs = pst.executeQuery();

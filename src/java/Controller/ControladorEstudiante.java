@@ -252,7 +252,7 @@ public class ControladorEstudiante extends Conexion {
         return htmlcode;
     }
 
-    public boolean updateEstudiante(Estudiante est) {
+    public boolean updateEstudiante(Estudiante est, String ciPersona) {
         try {
             if (estMo.actualizaEstudiante(est)) {
                 getCloseConexion();
@@ -345,7 +345,8 @@ public class ControladorEstudiante extends Conexion {
                 return "";
             }
             htmlcode = "               <div class=\"container\">\n"
-                    + "                        <form method=\"post\" id=\"estAc\" class=\"col s12 yellow-text\">\n"
+                    + "                        <form method=\"post\" id=\"estAc\" name=\"estAc\" action=\"../../estudiante.do\" class=\"col s12 yellow-text\" enctype=\"multipart/form-data\">\n"
+                    + "                            <input id=\"accion\" name=\"accion\" type=\"hidden\" value=\"update_estudiante\">\n"
                     + "                            <div class=\"row\">\n"
                     + "                                <h1 class=\"center yellow-text\">Actualizar Datos del Estudiante</h1>\n"
                     + "                            </div>\n"
@@ -353,49 +354,61 @@ public class ControladorEstudiante extends Conexion {
                     + "                                <div class=\"row\">\n"
                     + "                                    <div class=\"input-field col s6\">\n"
                     + "                                        <i class=\"material-icons prefix yellow-text\">assignment_ind</i>\n"
-                    + "                                        <input id=\"primerNombreAc\" type=\"text\" value=\"" + datos.getString(2) + "\" class=\"validate\">\n"
+                    + "                                        <input id=\"primerNombreAc\" name=\"primerNombreAc\" type=\"text\" value=\"" + datos.getString(2) + "\" class=\"validate\">\n"
                     + "                                        <label class=\"yellow-text\" for=\"Primer Nombre\">Primer Nombre</label>\n"
                     + "                                    </div>\n"
                     + "                                    <div class=\"input-field col s6\">\n"
                     + "                                        <i class=\"material-icons prefix yellow-text\">assignment_ind</i>\n"
-                    + "                                        <input id=\"segundoNombreAc\" type=\"text\" value=\"" + datos.getString(3) + "\">\n"
+                    + "                                        <input id=\"segundoNombreAc\" name=\"segundoNombreAc\" type=\"text\" value=\"" + datos.getString(3) + "\">\n"
                     + "                                        <label class=\"yellow-text\" for=\"Segundo Nombre\">Segundo Nombre</label>\n"
                     + "                                    </div>\n"
                     + "                                </div>\n"
                     + "                                <div class=\"row\">\n"
                     + "                                    <div class=\"input-field col s6\">\n"
                     + "                                        <i class=\"material-icons prefix yellow-text\">wc</i>\n"
-                    + "                                        <input id=\"primerApellidoAc\" type=\"text\" value=\"" + datos.getString(4) + "\" class=\"validate\">\n"
+                    + "                                        <input id=\"primerApellidoAc\" name=\"primerApellidoAc\" type=\"text\" value=\"" + datos.getString(4) + "\" class=\"validate\">\n"
                     + "                                        <label class=\"yellow-text\" for=\"Primer Apellido\">Primer Apellido</label>\n"
                     + "                                    </div>\n"
                     + "                                    <div class=\"input-field col s6\">\n"
                     + "                                        <i class=\"material-icons prefix yellow-text\">wc</i>\n"
-                    + "                                        <input id=\"segundoApellidoAc\" type=\"text\" value=\"" + datos.getString(5) + "\" class=\"validate\">\n"
+                    + "                                        <input id=\"segundoApellidoAc\" name=\"segundoApellidoAc\" type=\"text\" value=\"" + datos.getString(5) + "\" class=\"validate\">\n"
                     + "                                        <label class=\"yellow-text\" for=\"Segundo Apellido\">Segundo Apellido</label>\n"
                     + "                                    </div>\n"
                     + "                                </div>\n"
                     + "                                <div class=\"row\">\n"
                     + "                                    <div class=\"input-field col s6\">\n"
                     + "                                        <i class=\"material-icons prefix yellow-text\">fingerprint</i>\n"
-                    + "                                        <input id=\"ciAc\" type=\"text\" disabled value=\"" + datos.getString(6) + "\" class=\"validate\">\n"
+                    + "                                        <input id=\"ciAc\" name=\"ciAc\" type=\"text\" value=\"" + datos.getString(6) + "\" class=\"validate\">\n"
                     + "                                        <label class=\"yellow-text\" for=\"ci\"># de Carnet</label>\n"
                     + "                                    </div>\n"
                     + "                                    <div class=\"input-field col s6\">\n"
                     + "                                        <i class=\"material-icons prefix yellow-text\">contact_phone</i>\n"
-                    + "                                        <input id=\"celularAc\" type=\"text\" value=\"" + datos.getString(7) + "\" class=\"validate\">\n"
+                    + "                                        <input id=\"celularAc\" name=\"celularAc\" type=\"text\" value=\"" + datos.getString(7) + "\" class=\"validate\">\n"
                     + "                                        <label class=\"yellow-text\" for=\"celular\">Telefono - Celular</label>\n"
                     + "                                    </div>\n"
                     + "                                </div>\n"
+                    + "                                <div class=\"row\">\n"
+                    + "                                    <div class=\"file-field input-field col s6\">\n"
+                    + "                                        <div class=\"btn blue yellow-text\">\n"
+                    + "                                            <span>Foto</span>\n"
+                    + "                                            <input type=\"file\" id=\"fotoAC\" name=\"fotoAC\">\n"
+                    + "                                        </div>\n"
+                    + "                                        <div class=\"file-path-wrapper\">\n"
+                    + "                                            <input class=\"file-path validate\" name=\"nombre_fotoAC\" id=\"nombre_fotoAC\" type=\"text\" value=\"" + datos.getString(9) + "\"  placeholder=\"Seleccione una Foto\">\n"
+                    + "                                        </div>\n"
+                    + "                                    </div>"
+                    + "                                    <input id=\"ciEstudiante\" name=\"ciEstudiante\" type=\"hidden\" value=\"" + CI_estudiante + "\">\n"
+                    + "                                </div>\n"
                     + "                            </div>\n"
+                    + "                        </form>\n"
                     + "                            <div class=\"col s6\">\n"
-                    + "                                <a class=\"btn waves-effect waves-light yellow accent-2 blue-text left\" type=\"button\" id=\"estudianteAc\">\n"
+                    + "                                <a class=\"btn waves-effect waves-light yellow accent-2 blue-text left\" type=\"button\" id=\"updateEstudiante\">\n"
                     + "                                    Actualizar<i class=\"material-icons right\">save</i>\n"
                     + "                                </a>\n"
+                    + "                            <br><br><br>\n"
                     + "                            </div>\n"
                     + "                            <div id=\"notificacionEstudianteAc\">\n"
                     + "                            </div>\n"
-                    + "                            <br><br><br>\n"
-                    + "                        </form>\n"
                     + "                    </div>";
             getCloseConexion();
         } catch (SQLException ex) {
@@ -519,6 +532,16 @@ public class ControladorEstudiante extends Conexion {
             getCloseConexion();
         } catch (Exception e) {
             System.out.println("Error en cantidadEstudiantes_tutor.getCloseConexion: " + e);
+        }
+        return numero;
+    }
+
+    public int getIdEstudiante(String CI_estudiante) {
+        numero = estMo.getIDEstudiante(CI_estudiante);
+        try {
+            getCloseConexion();
+        } catch (Exception e) {
+            System.out.println("Error en getIdEstudiante.getCloseConexion: " + e);
         }
         return numero;
     }

@@ -51,6 +51,16 @@
                             <li><a href="../../web-fcea/index.jsp" class="tooltipped" data-position="button" data-tooltip="Salir"><i class="material-icons yellow-text">directions_run</i></a></li>
                         </ul>
                     </div>
+                    <div class="container">
+                        <div class="nav-content">
+                            <div class="col s12">
+                                <ul class="tabs blue darken-3 tabs-fixed-width">
+                                    <li class="tab col s3"><a class="yellow-text" href="#resumen">Resumen</a></li>
+                                    <li class="tab col s3"><a class="yellow-text" href="#usuarios">Usuarios</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </nav>
             </div>
 
@@ -86,6 +96,11 @@
                                     </a>
                                 </li>
                                 <li>
+                                    <a href="practicas.jsp" class="waves-effect yellow-text">
+                                        <i class="material-icons yellow-text">format_list_bulleted</i>Practicas
+                                    </a>
+                                </li>
+                                <li>
                                     <a href="docente.jsp" class="waves-effect yellow-text">
                                         <i class="material-icons yellow-text">card_travel</i>Docente
                                     </a>
@@ -106,7 +121,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="" class="waves-effect yellow-text">
+                                    <a href="menu.jsp" class="waves-effect yellow-text">
                                         <i class="material-icons yellow-text">fast_rewind</i>Regresar
                                     </a>
                                 </li>
@@ -118,8 +133,24 @@
             <!-- Final del NAV-->
 
             <!-- Inicio del MENU -->
+            <div class="row blue darken-3 yellow-text">
+
+                <!-- Inicio del resumen-->
+                <div id="resumen" class="col s12 blue darken-3 yellow-text">
 
 
+
+                </div>
+                <!-- Final del resumen-->
+
+                <!-- Inicio del usuarios-->
+                <div id="usuarios" class="col s12 blue darken-3 yellow-text">
+
+
+                </div>
+                <!-- Final del usuarios-->
+
+            </div>
             <!-- Final del MENU -->
 
 

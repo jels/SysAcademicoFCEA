@@ -5,6 +5,8 @@
 --%>
 
 
+<%@page import="Controller.ControladorAsignacionPractica"%>
+<%@page import="Controller.ControladorPracticas"%>
 <%@page import="Controller.ControladorVarios"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
@@ -32,6 +34,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <% ControladorVarios conVar = new ControladorVarios();%>
+    <% ControladorAsignacionPractica conAsp = new ControladorAsignacionPractica();%>
 
     <%@include file="head.jsp" %>
 
@@ -99,6 +102,11 @@
                                     </a>
                                 </li>
                                 <li>
+                                    <a href="practicas.jsp" class="waves-effect yellow-text">
+                                        <i class="material-icons yellow-text">format_list_bulleted</i>Practicas
+                                    </a>
+                                </li>
+                                <li>
                                     <a href="docente.jsp" class="waves-effect yellow-text">
                                         <i class="material-icons yellow-text">card_travel</i>Docente
                                     </a>
@@ -119,7 +127,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="" class="waves-effect yellow-text">
+                                    <a href="estudiante.jsp" class="waves-effect yellow-text">
                                         <i class="material-icons yellow-text">fast_rewind</i>Regresar
                                     </a>
                                 </li>
@@ -136,17 +144,9 @@
 
                 <!-- Inicio del resumen-->
                 <div id="asignacion" class="col s12 blue darken-3 yellow-text">
-                    <a href="javascript:imprimir(parent.contenido)">Impri mir</a>
-                    <div class="container">
-                        <form>
-                            <div class="row">
-                                <h3 class="center">Estudiante: Jonathan Elias Leonardi Sauer</h3>
-                            </div>
-                            <div class="row">
-                                <h4 class="center">Materia: Practicas Empresariales I</h4>
-                            </div>
-                        </form>
-                    </div>
+
+                    <%=conAsp.getAsignacionPractica(CI_estudiante, usuario)%>
+
                 </div>
                 <!-- Final del resumen-->
 

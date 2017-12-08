@@ -7,6 +7,7 @@ package Model;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 /**
  *
@@ -247,6 +248,44 @@ public class Empresa_model extends Conexion {
         } catch (Exception ex) {
             System.err.println("Error actualizarEmpresa: " + ex);
             return false;
+        }
+    }
+
+    public ResultSet getAllEmpresas() {
+
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        try {
+            String consulta = "SELECT idEmpresa, nombreEmpresa "
+                    + "FROM empresa ";
+            pst = getConnection().prepareStatement(consulta);
+            rs = pst.executeQuery();
+            return rs;
+        } catch (Exception ex) {
+            System.err.println("Error getEmpresas: " + ex);
+            return null;
+        }
+
+    }
+
+    public ResultSet getTutorXEmpresa(int idEmpresa) {
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        try {
+            String consulta = "SELECT t.idTutor, t.primerNombreTutor, "
+                    + "t.segundoNombreTutor, t.primerApellidoTutor, "
+                    + "t.segundoApellidoTutor, t.cargoTutor, t.fotoTutor "
+                    + "FROM empresa e, tutor t "
+                    + "WHERE e.idEmpresa = t.idEmpresa "
+                    + "AND t.estadoTutor = 1 "
+                    + "AND e.idEmpresa = ? ";
+            pst = getConnection().prepareStatement(consulta);
+            pst.setInt(1, idEmpresa);
+            rs = pst.executeQuery();
+            return rs;
+        } catch (Exception ex) {
+            System.err.println("Error getTutorXEmpresa: " + ex);
+            return null;
         }
     }
 

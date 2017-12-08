@@ -42,7 +42,7 @@ public class Usuario_model extends Conexion {
             rs = pst.executeQuery();
             return rs.next();
         } catch (Exception ex) {
-            System.err.println("Error_existencia: " + ex);
+            System.err.println("Error_existenciaUser: " + ex);
             return false;
         }
     }
@@ -51,18 +51,17 @@ public class Usuario_model extends Conexion {
         PreparedStatement pst;
         ResultSet rs;
         try {
-            String consulta = "INSERT INTO usuarios(nombreUsuario, passwordUsuario, idRol, imagenUsuario, fondoPerfilUser) "
-                    + "VALUES (?,?,?,?,?)";
+            String consulta = "INSERT INTO usuarios(nombreUsuario, passwordUsuario, idRol, imagenUsuario) "
+                    + "VALUES (?,?,?,?)";
             pst = getConnection().prepareStatement(consulta);
             pst.setString(1, us.getNombreUsuario());
             pst.setString(2, us.getPassUsuario());
             pst.setInt(3, us.getIdRol());
             pst.setString(4, us.getImagenUsuario());
-            pst.setString(5, us.getFondoUsuario());
             return pst.executeUpdate() == 1;
 
         } catch (Exception ex) {
-            System.err.println("Error_existencia: " + ex);
+            System.err.println("Error_crear_usuario: " + ex);
             return false;
         }
 
@@ -89,11 +88,28 @@ public class Usuario_model extends Conexion {
         }
     }
 
+    public boolean existenciaUserAC(Usuario us, int idUsuario) {
+
+        PreparedStatement pst;
+        ResultSet rs;
+        try {
+            String consulta = "SELECT nombreUsuario FROM usuarios WHERE nombreUsuario = ?";
+            pst = getConnection().prepareStatement(consulta);
+            pst.setString(1, us.getNombreUsuario());
+            rs = pst.executeQuery();
+            rs.next();
+            return rs.getInt(1) == idUsuario;
+        } catch (Exception ex) {
+            System.err.println("Error_ existenciaUserAC: " + ex);
+            return false;
+        }
+    }
+
     public String getRol(Usuario us) {
         PreparedStatement pst;
         ResultSet rs;
         try {
-            String consulta = "SELECT r.nombreRol FROM rol r, usuarios u WHERE r.idRol=u.idRol AND u.nombreUsuario = ?";
+            String consulta = "SELECT r.nombreRol FROM rol r, usuarios u WHERE r.idRol = u.idRol AND u.nombreUsuario = ?";
             pst = getConnection().prepareStatement(consulta);
             pst.setString(1, us.getNombreUsuario());
             rs = pst.executeQuery();
@@ -115,7 +131,7 @@ public class Usuario_model extends Conexion {
         ResultSet rs = null;
         System.out.println("id cons: " + user);
         try {
-            String consulta = "SELECT u.imagenUsuario, u.fondoPerfilUser, u.nombreUsuario, "
+            String consulta = "SELECT u.imagenUsuario, u.nombreUsuario, "
                     + "t.primerNombreTutor, t.segundoNombreTutor, t.primerApellidoTutor, "
                     + "t.segundoApellidoTutor, t.cargoTutor "
                     + "FROM tutor t, usuarios u "
@@ -137,7 +153,7 @@ public class Usuario_model extends Conexion {
         ResultSet rs = null;
         System.out.println("id cons: " + user);
         try {
-            String consulta = "SELECT u.imagenUsuario, u.fondoPerfilUser, "
+            String consulta = "SELECT u.imagenUsuario, "
                     + "u.nombreUsuario, d.primerNombreDocente, d.segundoNombreDocente, "
                     + "d.primerApellidoDocente, d.segundoApellidoDocente "
                     + "FROM docente d, usuarios u "
@@ -159,7 +175,7 @@ public class Usuario_model extends Conexion {
         ResultSet rs = null;
         System.out.println("id cons: " + user);
         try {
-            String consulta = "SELECT imagenUsuario, fondoPerfilUser "
+            String consulta = "SELECT imagenUsuario "
                     + "FROM usuarios "
                     + "WHERE nombreUsuario = ?";
             pst = getConnection().prepareStatement(consulta);
@@ -218,6 +234,31 @@ public class Usuario_model extends Conexion {
         } catch (Exception ex) {
             System.err.println("Error getIdRol: " + ex);
         }
+    }
+
+    public boolean actualizar_usuario(Usuario us) {
+        int idUsuario = encontrarID(us);
+        if (!existenciaUserAC(us, idUsuario)) {
+            return false;
+        } else {
+            PreparedStatement pst;
+            ResultSet rs;
+            try {
+                String consulta = "UPDATE usuarios "
+                        + "SET nombreUsuario = ? , "
+                        + "passwordUsuario = ? "
+                        + "WHERE idUsuario = ? ";
+                pst = getConnection().prepareStatement(consulta);
+                pst.setString(6, us.getNombreUsuario());
+                pst.setString(7, us.getPassUsuario());
+                pst.setInt(8, idUsuario);
+                return pst.executeUpdate() == 1;
+            } catch (Exception ex) {
+                System.err.println("Error actualizar_usuario: " + ex);
+                return false;
+            }
+        }
+
     }
 
 }

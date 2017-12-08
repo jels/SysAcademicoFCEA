@@ -44,4 +44,24 @@ public class Docente_model extends Conexion {
         return null;
     }
 
+    public int getIdDocente(String usuario) {
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        try {
+            String consulta = "SELECT d.idDocente "
+                    + "FROM usuarios u, docente d "
+                    + "WHERE u.idUsuario = d.idUsuario "
+                    + "AND u.nombreUsuario = ? ";
+            pst = getConnection().prepareStatement(consulta);
+            pst.setString(1, usuario);
+            rs = pst.executeQuery();
+            rs.next();
+            return rs.getInt(1);
+
+        } catch (Exception ex) {
+            System.err.println("Error getIdDocente: " + ex);
+            return 0;
+        }
+    }
+
 }

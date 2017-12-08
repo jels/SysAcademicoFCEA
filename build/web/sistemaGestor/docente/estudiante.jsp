@@ -99,6 +99,11 @@
                                     </a>
                                 </li>
                                 <li>
+                                    <a href="practicas.jsp" class="waves-effect yellow-text">
+                                        <i class="material-icons yellow-text">format_list_bulleted</i>Practicas
+                                    </a>
+                                </li>
+                                <li>
                                     <a href="docente.jsp" class="waves-effect yellow-text">
                                         <i class="material-icons yellow-text">card_travel</i>Docente
                                     </a>
@@ -119,7 +124,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="" class="waves-effect yellow-text">
+                                    <a href="menu.jsp" class="waves-effect yellow-text">
                                         <i class="material-icons yellow-text">fast_rewind</i>Regresar
                                     </a>
                                 </li>
@@ -160,51 +165,53 @@
                             <h1 class="center yellow-text">Nuevo Estudiante</h1>
                         </div>
                         <div class="row">
-                            <form method="post" id="nuevoest" action="../estudiante.do" class="col s12 yellow-text" enctype="multipart/form-data">
+                            <form method="post" id="formNewEst" name="nuevo_estudiante" action="../../estudiante.do" class="col s12 yellow-text" enctype="multipart/form-data">
+                                <input type="hidden" id="accion" name="accion" value="crear_estudiante" />
                                 <div class="row">
                                     <div class="input-field col s6">
                                         <i class="material-icons prefix yellow-text">assignment_ind</i>
-                                        <input id="primerNombre" type="text" class="validate">
+                                        <input id="primerNombre" name="primerNombre" type="text" class="validate">
                                         <label class="yellow-text" for="Primer Nombre">Primer Nombre</label>
                                     </div>
                                     <div class="input-field col s6">
                                         <i class="material-icons prefix yellow-text">assignment_ind</i>
-                                        <input id="segundoNombre" type="text" >
+                                        <input id="segundoNombre" name="segundoNombre" type="text" >
                                         <label class="yellow-text" for="Segundo Nombre">Segundo Nombre</label>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="input-field col s6">
                                         <i class="material-icons prefix yellow-text">wc</i>
-                                        <input id="primerApellido" type="text" class="validate">
+                                        <input id="primerApellido" name="primerApellido" type="text" class="validate">
                                         <label class="yellow-text" for="Primer Apellido">Primer Apellido</label>
                                     </div>
                                     <div class="input-field col s6">
                                         <i class="material-icons prefix yellow-text">wc</i>
-                                        <input id="segundoApellido" type="text" class="validate">
+                                        <input id="segundoApellido" name="segundoApellido" type="text" class="validate">
                                         <label class="yellow-text" for="Segundo Apellido">Segundo Apellido</label>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="input-field col s6">
                                         <i class="material-icons prefix yellow-text">fingerprint</i>
-                                        <input id="ci" type="text" class="validate">
+                                        <input id="ci" name="ci" type="text" class="validate">
                                         <label class="yellow-text" for="ci"># de Carnet</label>
                                     </div>
                                     <div class="input-field col s6">
                                         <i class="material-icons prefix yellow-text">contact_phone</i>
-                                        <input id="celular" type="text" class="validate">
+                                        <input id="celular" name="celular" type="text" class="validate">
                                         <label class="yellow-text" for="celular">Telefono - Celular</label>
                                     </div>
                                 </div>
                                 <div class="row">
+                                    <input type="hidden" id="idEstudiante" name="idEstudiante" value="" />
                                     <div class="file-field input-field col s6">
                                         <div class="btn blue yellow-text">
                                             <span>Foto</span>
-                                            <input type="file" id="foto">
+                                            <input type="file" id="foto" name="foto">
                                         </div>
                                         <div class="file-path-wrapper">
-                                            <input class="file-path validate" type="text"  placeholder="Seleccione una Foto">
+                                            <input class="file-path validate" name="nombre_foto" id="nombre_foto" type="text"  placeholder="Seleccione una Foto">
                                         </div>
                                     </div>
                                 </div>
@@ -216,7 +223,7 @@
 
                     <div class="modal-footer blue darken-3 yellow-text">
                         <div class="col s6">
-                            <button class="btn waves-effect waves-light yellow accent-2 blue-text left" type="button" id="nuevoestudiante">
+                            <button class="btn waves-effect waves-light yellow accent-2 blue-text left" type="button" id="nuevoestudiante" name="">
                                 Validar y Guardar<i class="material-icons right">save</i>
                             </button>
                         </div>
