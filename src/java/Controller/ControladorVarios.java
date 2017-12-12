@@ -24,6 +24,7 @@ public class ControladorVarios extends Conexion {
     Usuario_model usMo = new Usuario_model();
     AsignacionPracticas_model aspMo = new AsignacionPracticas_model();
     Notas_model notMo = new Notas_model();
+    DecimalFormat df = new DecimalFormat("#.00");
 
     String htmlcode = "";
     int numero;
@@ -250,7 +251,6 @@ public class ControladorVarios extends Conexion {
     }
 
     public String getDatosEstudiante(String CI_estudiante) {
-        DecimalFormat df = new DecimalFormat("#.00");
         ResultSet datos = estMo.getDatosEst(CI_estudiante);
         ResultSet practicasEstudiante = aspMo.getAllPracticasEstudiante(CI_estudiante);
         double notaTotal = 0;
@@ -338,16 +338,19 @@ public class ControladorVarios extends Conexion {
             } else {
                 htmlcode += "                            </div>\n"
                         + "                        </div>\n"
-                        + "                        <div class=\"row\">\n"
-                        + "                            <div class=\"col s12 center-align\">\n"
-                        + "        <a href=\"asignar_practica.jsp?ci=" + CI_estudiante + "\" id=\"asignar_practica\" class=\"waves-effect waves-light waves-teal yellow accent-2 blue-text btn tooltipped\" data-position=\"button\" data-tooltip=\"Asignar Practica\"><i class=\"material-icons left\">clear_all</i>Asignar Practica</a>\n"
-                        + "         <br>\n"
-                        + "         <br>\n"
-                        + "         <br>\n"
-                        + "         <br>\n"
-                        + "                            </div>\n"
-                        + "                        </div>\n"
-                        + "                    </div>\n";
+                        + "                        <div class=\"row\">\n";
+                if (estMo.getEstadoEst(CI_estudiante) == 1) {
+                    htmlcode += "                            <div class=\"col s12 center-align\">\n"
+                            + "                                 <a href=\"asignar_practica.jsp?ci=" + CI_estudiante + "\" id=\"asignar_practica\" class=\"waves-effect waves-light waves-teal yellow accent-2 blue-text btn tooltipped\" data-position=\"button\" data-tooltip=\"Asignar Practica\"><i class=\"material-icons left\">clear_all</i>Asignar Practica</a>\n"
+                            + "                                 <br/> <br/> <br/> <br/>\n"
+                            + "                            </div>\n"
+                            + "                        </div>\n"
+                            + "                    </div>\n";
+                } else {
+                    htmlcode += "                      </div>\n"
+                            + "                    </div>\n";
+                }
+
             }
             getCloseConexion();
         } catch (Exception e) {

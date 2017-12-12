@@ -203,4 +203,27 @@ public class Dimension_model extends Conexion {
             return 0;
         }
     }
+
+    public ResultSet getDimensionesXMateria(String CI_estudiante) {
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        try {
+            String consulta = "SELECT d.idDimensiones, d.nombreDimension "
+                    + "FROM estudiante e, asignacionpracticas asp, "
+                    + "materia m, dimensiones d "
+                    + "WHERE e.idEstudiante = asp.idEstudiante "
+                    + "AND m.idMateria = asp.idMateria "
+                    + "AND m.idMateria = d.idMateria "
+                    + "AND d.estadoDimension = 1 "
+                    + "AND asp.estadoPractica = 1 "
+                    + "AND e.ciEstudiante = ? ";
+            pst = getConnection().prepareStatement(consulta);
+            pst.setString(1, CI_estudiante);
+            rs = pst.executeQuery();
+            return rs;
+        } catch (Exception ex) {
+            System.err.println("Error getDimensionesXMateria: " + ex);
+            return null;
+        }
+    }
 }

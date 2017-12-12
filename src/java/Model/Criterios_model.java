@@ -103,6 +103,38 @@ public class Criterios_model extends Conexion {
         }
     }
 
+    public ResultSet getCriterioXDimnensionYNota(int idDimension, int parcial, String CI_estudiante) {
+
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        try {
+            String consulta = "SELECT c.nombreCriterio, n.nota "
+                    + "FROM estudiante e, asignacionpracticas asp, "
+                    + "materia m, dimensiones d, "
+                    + "criterios c, notas n "
+                    + "WHERE e.idEstudiante = asp.idEstudiante "
+                    + "AND m.idMateria = asp.idMateria "
+                    + "AND m.idMateria = d.idMateria "
+                    + "AND d.idDimensiones = c.idDimensiones "
+                    + "AND c.idCriterios = n.idCriterios "
+                    + "AND asp.idAsignacionPractica = n.idAsignacionPractica "
+                    + "AND n.idParcial = ? "
+                    + "AND asp.estadoPractica = 1 "
+                    + "AND d.idDimensiones = ? "
+                    + "AND e.ciEstudiante = ? ";
+            pst = getConnection().prepareStatement(consulta);
+            pst.setInt(1, parcial);
+            pst.setInt(2, idDimension);
+            pst.setString(3, CI_estudiante);
+            rs = pst.executeQuery();
+            return rs;
+
+        } catch (Exception ex) {
+            System.err.println("Error getCriterioXDimnensionYNota: " + ex);
+            return null;
+        }
+    }
+
     public ResultSet getViewCriterio(int id) {
 
         PreparedStatement pst = null;

@@ -544,4 +544,14 @@ public class ControladorEstudiante extends Conexion {
         return numero;
     }
 
+    public int getEstadoEstudiante(String CI_estudiante) {
+        numero = estMo.getEstadoEst(CI_estudiante);
+        try {
+            getCloseConexion();
+        } catch (Exception e) {
+            System.out.println("Error en getEstadoEstudiante.getCloseConexion: " + e);
+        }
+        return numero;
+    }
+
 }

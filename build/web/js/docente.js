@@ -72,7 +72,7 @@ $(function () {
 
     });
 });
-//Update estudiante
+//Update estudiante error
 $(function () {
     $('#updateEstudiante').click(function (e) {
         e.preventDefault();
@@ -152,9 +152,8 @@ $(function () {
         var opcion = confirm("Desea Cambiar El estado del Estudiante?");
         if (opcion) {
             var CI_estudiante = $(this).attr('data-id');
-            alert(CI_estudiante);
-            $.post('../../estudiante.do', {
-                accion: "baja",
+            $.post('../../practicas.do', {
+                accion: "baja_estudiante",
                 CI_estudiante: CI_estudiante
             }, function (responseText) {
                 if (responseText === "true") {
@@ -272,7 +271,6 @@ $(function () {
         var nota19 = document.getElementById('nota19').value;
         var nota20 = document.getElementById('nota20').value;
         var CI_estudiante = $(this).attr('data-id');
-        alert(CI_estudiante);
         if (nota1 > 0 && nota2 > 0 && nota3 > 0 && nota4 > 0 &&
                 nota5 > 0 && nota6 > 0 && nota7 > 0 && nota8 > 0 &&
                 nota9 > 0 && nota10 > 0 && nota11 > 0 && nota12 > 0 &&
@@ -280,8 +278,8 @@ $(function () {
                 nota17 > 0 && nota18 > 0 && nota19 > 0 && nota20 > 0) {
             var opcion = confirm("Seguro que desea guardar esta Nota?");
             if (opcion) {
-                $.post('../../estudiante.do', {
-                    accion: "cargar_nota",
+                $.post('../../practicas.do', {
+                    accion: "cargar_nota_estudiante",
                     nota1: nota1,
                     nota2: nota2,
                     nota3: nota3,
@@ -310,7 +308,7 @@ $(function () {
                                     <i class=\"material-icons left\">done_all</i>\n\
                                 </a>");
                         setTimeout(function () {
-                            window.location.href = "estudiante.jsp";
+                            location.reload(true);
                         }, 2000);
                     } else {
                         $('#notaGuardada').html("<a class=\"waves-effect waves-light waves-teal yellow red-text btn tooltipped\" data-position=\"button\" data-tooltip=\"Error al Guardar Notas\">\n\

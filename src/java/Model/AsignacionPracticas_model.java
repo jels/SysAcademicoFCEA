@@ -493,4 +493,70 @@ public class AsignacionPracticas_model extends Conexion {
         }
     }
 
+    public String getPeriodoInicioASP(String CI_estudiante) {
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        try {
+            String consulta = "SELECT asp.fechaInicioPractica "
+                    + "FROM estudiante e, asignacionpracticas asp "
+                    + "WHERE e.idEstudiante = asp.idEstudiante "
+                    + "AND asp.estadoPractica = 1 "
+                    + "AND e.ciEstudiante = ? ";
+            pst = getConnection().prepareStatement(consulta);
+            pst.setString(1, CI_estudiante);
+            rs = pst.executeQuery();
+            rs.next();
+            texto = rs.getString(1);
+            return texto;
+        } catch (Exception ex) {
+            System.err.println("Error getPeriodoInicioASP: " + ex);
+            return texto;
+        }
+    }
+
+    public String getPeriodoFinASP(String CI_estudiante) {
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        try {
+            String consulta = "SELECT asp.fechaFinPractica "
+                    + "FROM estudiante e, asignacionpracticas asp "
+                    + "WHERE e.idEstudiante = asp.idEstudiante "
+                    + "AND asp.estadoPractica = 1 "
+                    + "AND e.ciEstudiante = ? ";
+            pst = getConnection().prepareStatement(consulta);
+            pst.setString(1, CI_estudiante);
+            rs = pst.executeQuery();
+            rs.next();
+            texto = rs.getString(1);
+            return texto;
+        } catch (Exception ex) {
+            System.err.println("Error getPeriodoFinASP: " + ex);
+            return texto;
+        }
+    }
+
+    public int getCantidadHorasParcial(String CI_estudiante, int parcial) {
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        try {
+            String consulta = "SELECT p.cantidadHoras "
+                    + "FROM estudiante e, asignacionpracticas asp, practicas p "
+                    + "WHERE e.idEstudiante = asp.idEstudiante "
+                    + "AND asp.idAsignacionPractica = p.idAsignacionPractica "
+                    + "AND p.idParcial = ? "
+                    + "AND asp.estadoPractica = 1 "
+                    + "AND e.ciEstudiante = ? ";
+            pst = getConnection().prepareStatement(consulta);
+            pst.setInt(1, parcial);
+            pst.setString(2, CI_estudiante);
+            rs = pst.executeQuery();
+            rs.next();
+            numero = rs.getInt(1);
+            return numero;
+        } catch (Exception ex) {
+            System.err.println("Error getCantidadHorasParcial: " + ex);
+            return numero;
+        }
+    }
+
 }

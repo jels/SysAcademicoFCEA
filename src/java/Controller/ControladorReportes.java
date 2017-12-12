@@ -25,6 +25,7 @@ public class ControladorReportes extends Conexion {
     Empresa_model empMo = new Empresa_model();
     Practicas_model praMo = new Practicas_model();
     Criterios_model criMo = new Criterios_model();
+    Dimension_model dimMo = new Dimension_model();
     Docente_model docMo = new Docente_model();
     Usuario_model usMo = new Usuario_model();
     Notas_model notMo = new Notas_model();
@@ -268,9 +269,128 @@ public class ControladorReportes extends Conexion {
         return htmlcode;
     }
 
-    public String getReporteParcialTutor(String user, String CI_estudiante, int parcial) {
+    public String getReporteParcialTutor(String CI_estudiante, int parcial) {
 
         htmlcode = "";
+        int c = 1;
+        int n = 0;
+        ResultSet criterios;
+        ResultSet dimensiones;
+        try {
+            dimensiones = dimMo.getDimensionesXMateria(CI_estudiante);
+            while (c <= 4) {
+                dimensiones.next();
+                switch (c) {
+                    case 1:
+                        htmlcode += "              <div class=\"row\">\n "
+                                + "                     <div class=\"col s6\">\n"
+                                + "                            <table class=\"bordered\">\n"
+                                + "                                <thead>\n"
+                                + "                                    <tr>\n"
+                                + "                                        <th>A. " + dimensiones.getString(2) + "</th>\n"
+                                + "                                        <th>Puntaje</th>\n"
+                                + "                                    </tr>\n"
+                                + "                                </thead>\n"
+                                + "                                <tbody>\n";
+                        criterios = criMo.getCriterioXDimnensionYNota(dimensiones.getInt(1), parcial, CI_estudiante);
+                        while (criterios.next()) {
+                            n++;
+                            htmlcode += "                                    <tr>\n"
+                                    + "                                        <td>" + n + ". " + criterios.getString(1) + "</td>\n"
+                                    + "                                        <td><div class=\"center\">" + criterios.getInt(2) + "</div></td>\n"
+                                    + "                                    </tr>\n";
+                        }
+
+                        htmlcode += "                                </tbody>\n"
+                                + "                            </table>\n"
+                                + "                        </div>";
+                        c++;
+                        break;
+                    case 2:
+                        htmlcode += ""
+                                + "                     <div class=\"col s6\">\n"
+                                + "                            <table class=\"bordered\">\n"
+                                + "                                <thead>\n"
+                                + "                                    <tr>\n"
+                                + "                                        <th>A. " + dimensiones.getString(2) + "</th>\n"
+                                + "                                        <th>Puntaje</th>\n"
+                                + "                                    </tr>\n"
+                                + "                                </thead>\n"
+                                + "                                <tbody>\n";
+                        criterios = criMo.getCriterioXDimnensionYNota(dimensiones.getInt(1), parcial, CI_estudiante);
+                        while (criterios.next()) {
+                            n++;
+                            htmlcode += "                                    <tr>\n"
+                                    + "                                        <td>" + n + ". " + criterios.getString(1) + "</td>\n"
+                                    + "                                        <td><div class=\"center\">" + criterios.getInt(2) + "</div></td>\n"
+                                    + "                                    </tr>\n";
+                        }
+
+                        htmlcode += "                                </tbody>\n"
+                                + "                            </table>\n"
+                                + "                        </div>\n"
+                                + "                   </div>\n";
+                        c++;
+                        break;
+                    case 3:
+                        htmlcode += "              <div class=\"row\">\n "
+                                + "                     <div class=\"col s6\">\n"
+                                + "                            <table class=\"bordered\">\n"
+                                + "                                <thead>\n"
+                                + "                                    <tr>\n"
+                                + "                                        <th>A. " + dimensiones.getString(2) + "</th>\n"
+                                + "                                        <th>Puntaje</th>\n"
+                                + "                                    </tr>\n"
+                                + "                                </thead>\n"
+                                + "                                <tbody>\n";
+                        criterios = criMo.getCriterioXDimnensionYNota(dimensiones.getInt(1), parcial, CI_estudiante);
+                        while (criterios.next()) {
+                            n++;
+                            htmlcode += "                                    <tr>\n"
+                                    + "                                        <td>" + n + ". " + criterios.getString(1) + "</td>\n"
+                                    + "                                        <td><div class=\"center\">" + criterios.getInt(2) + "</div></td>\n"
+                                    + "                                    </tr>\n";
+                        }
+                        htmlcode += "                                </tbody>\n"
+                                + "                            </table>\n"
+                                + "                        </div>";
+                        c++;
+                        break;
+                    case 4:
+                        htmlcode += ""
+                                + "                     <div class=\"col s6\">\n"
+                                + "                            <table class=\"bordered\">\n"
+                                + "                                <thead>\n"
+                                + "                                    <tr>\n"
+                                + "                                        <th>A. " + dimensiones.getString(2) + "</th>\n"
+                                + "                                        <th>Puntaje</th>\n"
+                                + "                                    </tr>\n"
+                                + "                                </thead>\n"
+                                + "                                <tbody>\n";
+                        criterios = criMo.getCriterioXDimnensionYNota(dimensiones.getInt(1), parcial, CI_estudiante);
+                        while (criterios.next()) {
+                            n++;
+                            htmlcode += "                                    <tr>\n"
+                                    + "                                        <td>" + n + ". " + criterios.getString(1) + "</td>\n"
+                                    + "                                        <td><div class=\"center\">" + criterios.getInt(2) + "</div></td>\n"
+                                    + "                                    </tr>\n";
+                        }
+
+                        htmlcode += "                                </tbody>\n"
+                                + "                            </table>\n"
+                                + "                        </div>\n"
+                                + "                   </div>\n";
+                        c++;
+                        break;
+                    default:
+                        htmlcode = "";
+                        break;
+                }
+            }
+
+        } catch (Exception e) {
+            System.out.println("Error en getReporteParcialTutor: " + e);
+        }
 
         return htmlcode;
     }
@@ -280,6 +400,57 @@ public class ControladorReportes extends Conexion {
         Calendar fecha = new GregorianCalendar();
         htmlcode = "";
         htmlcode = fecha.get(Calendar.DAY_OF_MONTH) + "/" + fecha.get(Calendar.MONTH) + "/" + fecha.get(Calendar.YEAR);
+        return htmlcode;
+    }
+
+    public String getTotalNotaNumeral(String CI_estudiante, int parcial) {
+        if (parcial == 1) {
+            id = notMo.getNotaPrimerParcial(CI_estudiante) / 2;
+        } else {
+            id = notMo.getNotaSegundoParcial(CI_estudiante) / 2;
+        }
+        return " " + id + " ";
+    }
+
+    public String getTotalNotaLiteral(String CI_estudiante, int parcial) {
+        htmlcode = "";
+        if (parcial == 1) {
+            htmlcode = ntot.convertirLetras(notMo.getNotaPrimerParcial(CI_estudiante) / 2);
+        } else {
+            htmlcode = ntot.convertirLetras(notMo.getNotaSegundoParcial(CI_estudiante) / 2);
+        }
+        return htmlcode;
+    }
+
+    public String getFechaInicioPracticas(String CI_estudiante) {
+        htmlcode = aspMo.getPeriodoInicioASP(CI_estudiante);
+        try {
+            getCloseConexion();
+        } catch (Exception e) {
+            System.out.println("Error en getFechaInicioPracticas: " + e);
+        }
+        return htmlcode;
+    }
+
+    public String getFechaFinPracticas(String CI_estudiante) {
+        htmlcode = aspMo.getPeriodoFinASP(CI_estudiante);
+        try {
+            getCloseConexion();
+        } catch (Exception e) {
+            System.out.println("Error en getFechaFinPracticas: " + e);
+        }
+        return htmlcode;
+    }
+
+    public String getCantidadTotalHoras(String CI_estudiante) {
+
+        id = aspMo.getCantidadHorasParcial(CI_estudiante, 1) + aspMo.getCantidadHorasParcial(CI_estudiante, 2);
+        htmlcode = "" + id;
+        try {
+            getCloseConexion();
+        } catch (Exception e) {
+            System.out.println("Error en getCantidadTotalHoras: " + e);
+        }
         return htmlcode;
     }
 

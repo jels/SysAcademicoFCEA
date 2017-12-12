@@ -140,11 +140,9 @@ public class PracticasCRUD extends HttpServlet {
 //
 //                break;
             case "baja_estudiante":
-
                 System.out.println("CI_Estudiante: " + CI_estudiante);
                 if (conEst.bajaEstudiante(CI_estudiante)) {
                     out.print("true");
-
                 } else {
                     out.print("false");
                 }

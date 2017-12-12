@@ -116,6 +116,7 @@
                         <br/>
                         <br/>
                         <br/>
+                        <br/>
 
                     </div>
                     <div class="row">
@@ -123,117 +124,12 @@
                             <span style="margin-right: 1cm;"><b>III.</b></span>
                             <b>CRITERIOS PARA LA EVALUACION:</b><br/><br/>
                         </p>
-                        <div class="col s6">
-                            <table class="bordered">
-                                <thead>
-                                    <tr>
-                                        <th>A. ORGANIZACION Y EJECUCION DEL TRABAJO</th>
-                                        <th>Puntaje</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>1. Demuestra seguridad y habilidad</td>
-                                        <td><div class="center">10</div></td>
-                                    </tr>
-                                    <tr>
-                                        <td>1. Es capaz de identificar situaciones que requieren la oportuna intervencion profecional en su area de trabajo</td>
-                                        <td><div class="center">10</div></td>
-                                    </tr>
-                                    <tr>
-                                        <td>1. Demuestra seguridad y habilidad</td>
-                                        <td><div class="center">10</div></td>
-                                    </tr>
-                                    <tr>
-                                        <td>1. Demuestra seguridad y habilidad</td>
-                                        <td><div class="center">10</div></td>
-                                    </tr>
-                                    <tr>
-                                        <td>1. Demuestra seguridad y habilidad</td>
-                                        <td><div class="center">10</div></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="col s6">
-                            <table class="bordered">
-                                <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Item Price</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Alvin</td>
-                                        <td>$0.87</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Alan</td>
-                                        <td>$3.76</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Jonathan</td>
-                                        <td>$7.00</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
                     </div>
-                    <div class="row">
-                        <div class="col s6">
-                            <table class="bordered">
-                                <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Item Price</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Alvin</td>
-                                        <td>$0.87</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Alan</td>
-                                        <td>$3.76</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Jonathan</td>
-                                        <td>$7.00</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="col s6">
-                            <table class="bordered">
-                                <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Item Price</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Alvin</td>
-                                        <td>$0.87</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Alan</td>
-                                        <td>$3.76</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Jonathan</td>
-                                        <td>$7.00</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                    <%=conRep.getReporteParcialTutor(CI_estudiante, parcial)%>
                     <div class="row">
                         <p>
                             La nota de practicas que se asigna al estudiante es la suma de los criterios dividido en dos (A+B+C+D)/2:<br/>
-                            TOTAL PUNTAJE:&nbsp; Numeral (<span style="margin-right: 0.5cm;"></span><tt><i><b>100</b></i></tt><span style="margin-right: 0.5cm;"></span>) Literal (<span style="margin-right: 0.5cm;"></span><tt><i><b>CIEN</b></i></tt><span style="margin-right: 0.5cm;"></span>)
+                            TOTAL PUNTAJE:&nbsp; Numeral (<span style="margin-right: 0.5cm;"></span><tt><i><b><%=conRep.getTotalNotaNumeral(CI_estudiante, parcial)%></b></i></tt><span style="margin-right: 0.5cm;"></span>) Literal (<span style="margin-right: 0.5cm;"></span><tt><i><b><%=conRep.getTotalNotaLiteral(CI_estudiante, parcial)%></b></i></tt><span style="margin-right: 0.5cm;"></span>)
                         </p>
                     </div>
                     <div class="row">

@@ -5,6 +5,7 @@
 --%>
 
 
+<%@page import="Controller.ControladorEstudiante"%>
 <%@page import="Controller.ControladorAsignacionPractica"%>
 <%@page import="Controller.ControladorPracticas"%>
 <%@page import="Controller.ControladorVarios"%>
@@ -35,6 +36,7 @@
 <html lang="en">
     <% ControladorVarios conVar = new ControladorVarios();%>
     <% ControladorAsignacionPractica conAsp = new ControladorAsignacionPractica();%>
+    <% ControladorEstudiante conEst = new ControladorEstudiante();%>
 
     <%@include file="head.jsp" %>
 
@@ -145,7 +147,26 @@
                 <!-- Inicio del resumen-->
                 <div id="asignacion" class="col s12 blue darken-3 yellow-text">
 
+                    <%
+                        if (conEst.getEstadoEstudiante(CI_estudiante) == 1) {
+                    %>
+
                     <%=conAsp.getAsignacionPractica(CI_estudiante, usuario)%>
+
+                    <%
+                    } else {
+                    %>
+
+                    <div class="container">
+                        <div class="row">
+                            <h4 class="center">El estudiante se encuentra inactivo</h4>
+                            <h4 class="center red-text">No se le puede asignar Practicas</h4>
+                        </div>
+                    </div>
+
+                    <%
+                        }
+                    %>
 
                 </div>
                 <!-- Final del resumen-->

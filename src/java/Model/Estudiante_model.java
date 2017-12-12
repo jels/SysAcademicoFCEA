@@ -347,7 +347,6 @@ public class Estudiante_model extends Conexion {
             pst.setString(1, ciEstudiante);
             rs = pst.executeQuery();
             rs.next();
-            System.out.println("estado: " + rs.getInt(1));
             return rs.getInt(1);
 
         } catch (Exception ex) {
@@ -432,6 +431,10 @@ public class Estudiante_model extends Conexion {
             System.err.println("Error ver_estudiante_Tutor: " + ex);
             return null;
         }
+    }
+
+    public int getEstadoEst(String ciEstudiante) {
+        return verificarEstado(ciEstudiante);
     }
 
 }

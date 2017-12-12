@@ -8,6 +8,7 @@ package Controller;
 import Model.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 
 /**
  *
@@ -22,6 +23,7 @@ public class ControladorMateria extends Conexion {
     Notas_model notMo = new Notas_model();
     Practicas_model praMo = new Practicas_model();
     AsignacionPracticas_model aspMo = new AsignacionPracticas_model();
+    DecimalFormat df = new DecimalFormat("#.00");
 
     int numero;
     boolean bandera;
@@ -771,7 +773,7 @@ public class ControladorMateria extends Conexion {
         boolean evaluacionCompleta = notMo.evaluacionCompletaDocente(CI_Estudiante);
         int i = 1;
         int c = 1;
-        double nota;
+        double nota = 0;
         htmlcode = "";
         try {
             nombreEstudiante.next();
@@ -782,17 +784,17 @@ public class ControladorMateria extends Conexion {
                             + "       <h3 class=\"center\">" + nombreEstudiante.getString(3) + " " + nombreEstudiante.getString(4) + ", " + nombreEstudiante.getString(1) + " " + nombreEstudiante.getString(2) + "</h3>\n"
                             + "       <div class=\"col s4\">\n"
                             + "              <h4 class=\"center\">Primer Parcial</h4>\n"
-                            + "              <h3 class=\"center\">" + nota + "</h3>\n"
+                            + "              <h3 class=\"center\">" + df.format(nota) + "</h3>\n"
                             + "       </div>\n";
                     nota = (notMo.getNotaSegundoParcial(CI_Estudiante) / 2) * 0.35;
                     htmlcode += "       <div class=\"col s4\">\n"
                             + "              <h4 class=\"center\">Segundo Parcial</h4>\n"
-                            + "              <h3 class=\"center\">" + nota + "</h3>\n"
+                            + "              <h3 class=\"center\">" + df.format(nota) + "</h3>\n"
                             + "       </div>\n";
                     nota = (notMo.getNotaExamenFinal(CI_Estudiante) / 2) * 0.30;
                     htmlcode += "       <div class=\"col s4\">\n"
                             + "             <h4 class=\"center\">Examen Final</h4>\n"
-                            + "             <h3 class=\"center\">" + nota + "</h3>\n"
+                            + "             <h3 class=\"center\">" + df.format(nota) + "</h3>\n"
                             + "       </div>\n"
                             + "</div>";
                 } else if (aproboPrimerParcial) {
@@ -801,13 +803,13 @@ public class ControladorMateria extends Conexion {
                             + "       <h3 class=\"center\">" + nombreEstudiante.getString(3) + " " + nombreEstudiante.getString(4) + ", " + nombreEstudiante.getString(1) + " " + nombreEstudiante.getString(2) + "</h3>\n"
                             + "       <div class=\"col s3\">\n"
                             + "              <h4 class=\"center\">Primer Parcial</h4>\n"
-                            + "              <h3 class=\"center\">" + nota + "</h3>\n"
+                            + "              <h3 class=\"center\">" + df.format(nota) + "</h3>\n"
                             + "       </div>\n";
                     if (aproboSegundoParcial) {
                         nota = (notMo.getNotaSegundoParcial(CI_Estudiante) / 2) * 0.35;
                         htmlcode += "       <div class=\"col s3\">\n"
                                 + "              <h4 class=\"center\">Segundo Parcial</h4>\n"
-                                + "              <h3 class=\"center\">" + nota + "</h3>\n"
+                                + "              <h3 class=\"center\">" + df.format(nota) + "</h3>\n"
                                 + "       </div>\n";
                         if (evaluacionCompleta) {
                         } else {
@@ -959,15 +961,21 @@ public class ControladorMateria extends Conexion {
                 htmlcode += "\n"
                         + "    <div class=\"row\">\n"
                         + "        <h3 class=\"center\">" + nombreEstudiante.getString(3) + " " + nombreEstudiante.getString(4) + ", " + nombreEstudiante.getString(1) + " " + nombreEstudiante.getString(2) + "</h3>\n"
-                        + "    </div>\n"
-                        + "    <div class=\"col s12 center-align\">\n"
-                        + "        <a href=\"asignar_practica.jsp?ci=" + nombreEstudiante.getString(5) + "\" id=\"asignar_practica\" class=\"waves-effect waves-light waves-teal yellow accent-2 blue-text btn tooltipped\" data-position=\"button\" data-tooltip=\"Asignar Practica\"><i class=\"material-icons left\">clear_all</i>Asignar Practica</a>\n"
-                        + "         <br>\n"
-                        + "         <br>\n"
-                        + "         <br>\n"
-                        + "         <br>\n"
-                        + "    </div>\n"
-                        + "";
+                        + "    </div>\n";
+                if (estMo.getEstadoEst(CI_Estudiante) == 1) {
+                    htmlcode += "    <div class=\"col s12 center-align\">\n"
+                            + "        <a href=\"asignar_practica.jsp?ci=" + nombreEstudiante.getString(5) + "\" id=\"asignar_practica\" class=\"waves-effect waves-light waves-teal yellow accent-2 blue-text btn tooltipped\" data-position=\"button\" data-tooltip=\"Asignar Practica\"><i class=\"material-icons left\">clear_all</i>Asignar Practica</a>\n"
+                            + "         <br/><br/><br/><br/>\n"
+                            + "    </div>\n"
+                            + "";
+                } else {
+                    htmlcode += "    <div class=\"col s12 center-align\">\n"
+                            + "             <h3 class=\"center red-text\">El estudiante esta inactivo...</h3>\n"
+                            + "         <br/><br/><br/><br/>\n"
+                            + "    </div>\n"
+                            + "";
+                }
+
             }
             getCloseConexion();
         } catch (Exception e) {

@@ -80,7 +80,7 @@ public class EstudianteCRUD extends HttpServlet {
         est.setCiPersona(campos.get(5));
         est.setFotoEstudiante(img);
         est.setEstadoPersona(1);
-        String ciPersona = campos.get(7);
+        String ciPersona = campos.get(5);
         System.out.println(ciPersona);
         switch (accion) {
             case "crear_estudiante":
