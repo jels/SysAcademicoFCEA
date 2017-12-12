@@ -447,7 +447,6 @@ public class ControladorVarios extends Conexion {
     public String getDatosTutor(String usuario) {
         htmlcode = "";
         ResultSet user = usMo.getDatosUsuario(usuario);
-
         try {
             user.next();
             htmlcode += "         <div class=\"modal-content blue darken-3\">\n"
@@ -493,7 +492,6 @@ public class ControladorVarios extends Conexion {
         } catch (Exception e) {
             System.out.println("Error en getDatosTutor.getCloseConexion: " + e);
         }
-
         return htmlcode;
     }
 

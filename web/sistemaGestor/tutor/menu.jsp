@@ -4,8 +4,6 @@
     Author     : WarMachine
 --%>
 
-
-
 <%@page import="Controller.ControladorEstudiante"%>
 <%@page import="Controller.ControladorVarios"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -28,7 +26,6 @@
 %>
 <!DOCTYPE html>
 <html lang="en">
-
 
     <%@include file="head.jsp" %>
 
