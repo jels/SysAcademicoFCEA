@@ -50,7 +50,7 @@
                         <ul id="nav-mobile" class="right">
                             <li><a href="#" class="tooltipped" data-position="button" data-tooltip="Ayuda"><i class="material-icons yellow-text">help</i></a></li>
                             <li><a href="#" class="tooltipped" data-position="button" data-tooltip="Foro"><i class="material-icons yellow-text">forum</i></a></li>
-                            <li><a href="perfil.jsp" class="tooltipped" data-position="button" data-tooltip="Mi Cuenta"><i class="material-icons yellow-text">account_circle</i></a></li>
+                            <li><a href="#perfil" class="tooltipped" data-position="button" data-tooltip="Mi Cuenta"><i class="material-icons yellow-text">account_circle</i></a></li>
                             <li><a href="../../web-fcea/index.jsp" class="tooltipped" data-position="button" data-tooltip="Salir"><i class="material-icons yellow-text">directions_run</i></a></li>
                         </ul>
                     </div>
@@ -97,8 +97,8 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="ayuda.jsp" class="waves-effect yellow-text">
-                                        <i class="material-icons yellow-text">help</i>Ayuda
+                                    <a href="menu.jsp" class="waves-effect yellow-text">
+                                        <i class="material-icons yellow-text">fast_rewind</i>Regresar
                                     </a>
                                 </li>
                             </ul>
@@ -146,7 +146,7 @@
                     <div class="modal-content blue darken-3">
                         <div class="row">
                             <h1 class="center yellow-text">Buscar Estudiante</h1>
-                            <form method="post" class="col s12 yellow-text" >
+                            <form class="col s12 yellow-text">
                                 <div class="row">
                                     <div class="input-field col s4">
                                         <i class="material-icons prefix">account_circle</i>
@@ -194,7 +194,13 @@
                     <div id="ver_Nota_Asignada_estudiante"></div> 
 
                 </div>
-                <!-- Final del Modal verReporte -->  
+                <!-- Final del Modal verReporte --> 
+
+                <div id="perfil" class="modal blue darken-3 yellow-text">
+
+                    <%=conVar.getDatosTutor(usuario)%>
+
+                </div>
 
             </div>
 

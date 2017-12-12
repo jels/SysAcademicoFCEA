@@ -29,6 +29,16 @@ public class ControladorVarios extends Conexion {
     int numero;
     boolean bandera;
 
+    public String getNombreEstudiante(String CI_estudiante) {
+        htmlcode = estMo.getNombreCompleto(CI_estudiante);
+        try {
+            getCloseConexion();
+        } catch (Exception e) {
+            System.out.println("Error en getNombreEstudiante.getCloseConexion: " + e);
+        }
+        return htmlcode;
+    }
+
     public int cantidadEstudiantes() {
         numero = estMo.contar_estudiantes();
         try {
@@ -427,11 +437,59 @@ public class ControladorVarios extends Conexion {
         } catch (Exception e) {
             System.out.println("Error en getNombreEstudiante: " + e);
         }
+        System.out.println("" + htmlcode);
         return htmlcode;
     }
 
     public String getDatosTutor(String usuario) {
         htmlcode = "";
+        ResultSet user = usMo.getDatosUsuario(usuario);
+
+        try {
+            user.next();
+            htmlcode += "         <div class=\"modal-content blue darken-3\">\n"
+                    + "                    <div class=\"row\">\n"
+                    + "                        <div class=\"col s3\">\n"
+                    + "                            <br>\n"
+                    + "                            <img class=\"responsive-img materialboxed\" src=\"../../img/fcea/tutores/" + user.getString(3) + "\">\n"
+                    + "                        </div>\n"
+                    + "                        <div class=\"col s9\">\n"
+                    + "                            <h4 class=\"center\">" + user.getString(6) + " " + user.getString(7) + ", " + user.getString(4) + " " + user.getString(5) + "</h4>\n"
+                    + "                        </div>\n"
+                    + "                    </div>\n"
+                    + "                    <div class=\"row\">\n"
+                    + "                        <div class=\"col s12\">\n"
+                    + "                            <form class=\"col s12 yellow-text\" >\n"
+                    + "                                <div class=\"row\">\n"
+                    + "                                    <div class=\"input-field col s6\">\n"
+                    + "                                        <i class=\"material-icons prefix\">perm_identity</i>\n"
+                    + "                                        <input id=\"usuario\" name=\"usuario\" class=\"yellow-text\" disabled value=\"" + user.getString(1) + "\" type=\"text\">\n"
+                    + "                                        <label for=\"usuario\">Usuario</label>\n"
+                    + "                                    </div>\n"
+                    + "                                    <div class=\"input-field col s6\">\n"
+                    + "                                        <i class=\"material-icons prefix\">lock_outline</i>\n"
+                    + "                                        <input id=\"pass\" name=\"pass\" value=\"" + user.getString(2) + "\" type=\"text\">\n"
+                    + "                                        <label for=\"pass\">Contraceña</label>\n"
+                    + "                                    </div>\n"
+                    + "                                </div>\n"
+                    + "                            </form>\n"
+                    + "                        </div>\n"
+                    + "                    </div>\n"
+                    + "                </div>\n"
+                    + "\n"
+                    + "                <div class=\"modal-footer blue darken-3 yellow-text\">\n"
+                    + "                    <div class=\"col s6\">\n"
+                    + "                        <a id=\"actualizarUsuarioT\" data-id=\"\" class=\"btn waves-effect waves-light yellow accent-2 blue-text left\" type=\"button\">\n"
+                    + "                            Validar y Guardar<i class=\"material-icons right\">save</i>\n"
+                    + "                        </a>\n"
+                    + "                    </div>\n"
+                    + "                    <div id=\"notificacionACTutor\">\n"
+                    + "                    </div>\n"
+                    + "                </div>";
+            getCloseConexion();
+        } catch (Exception e) {
+            System.out.println("Error en getDatosTutor.getCloseConexion: " + e);
+        }
 
         return htmlcode;
     }

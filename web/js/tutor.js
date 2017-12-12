@@ -9,7 +9,7 @@ $(function () {
         var tutor = $(this).attr('data-id');
         alert(tutor);
         if (apellido_estudiante.length > 0 || CI_estudiante.length > 0) {
-            $.post('../../estudiante.do', {
+            $.post('../../practicas.do', {
                 accion: "buscar_estudiante",
                 apellido_estudiante: apellido_estudiante,
                 CI_estudiante: CI_estudiante,
@@ -63,8 +63,8 @@ $(function () {
                 nota17 > 0 && nota18 > 0 && nota19 > 0 && nota20 > 0) {
             var opcion = confirm("Seguro que desea guardar esta Nota?");
             if (opcion) {
-                $.post('../../estudiante.do', {
-                    accion: "cargar_nota",
+                $.post('../../practicas.do', {
+                    accion: "cargar_nota_estudiante",
                     nota1: nota1,
                     nota2: nota2,
                     nota3: nota3,
@@ -90,10 +90,11 @@ $(function () {
                     if (responseText === "true") {
                         $('#notaGuardada').html("<a class=\"waves-effect waves-light waves-teal yellow green-text btn tooltipped\" data-position=\"button\" data-tooltip=\"Notas Guardadas Correctamente\">\n\
                                     <i class=\"material-icons right\">done_all</i>\n\
+                                        Correcto\n\
                                     <i class=\"material-icons left\">done_all</i>\n\
                                 </a>");
                         setTimeout(function () {
-                            window.location.href = "estudiante.jsp";
+                            location.reload(true);
                         }, 2000);
 
                     } else {
@@ -407,5 +408,47 @@ $(function () {
     });
 });
 
+$(function () {
+    $('#actualizarUsuarioT').click(function (e) {
+        e.preventDefault();
 
+        var usuario = document.getElementById('usuario').value;
+        var pass = document.getElementById('pass').value;
+
+        if (pass.length > 0) {
+            var opcion = confirm("Seguro que desea guardar esta Nota?");
+            if (opcion) {
+                $.post('../../var.do', {
+                    accion: "updatePassT",
+                    usuario: usuario,
+                    pass: pass
+                }, function (responseText) {
+                    if (responseText === "true") {
+                        $('#notificacionACTutor').html("<a class=\"waves-effect waves-light waves-teal yellow green-text btn tooltipped\" data-position=\"button\" data-tooltip=\"Notas Guardadas Correctamente\">\n\
+                                    <i class=\"material-icons right\">done_all</i>\n\
+                                        Actualizado..!!\n\
+                                    <i class=\"material-icons left\">done_all</i>\n\
+                                </a>");
+                        setTimeout(function () {
+                            window.location.href = "../login.jsp";
+                        }, 2000);
+
+                    } else {
+                        $('#notificacionACTutor').html("<a class=\"waves-effect waves-light waves-teal yellow red-text btn tooltipped\" data-position=\"button\" data-tooltip=\"Error al Guardar Notas\">\n\
+                                    <i class=\"material-icons right\">close</i>\n\
+                                    <i class=\"material-icons center\">pan_tool</i>\n\
+                                    <i class=\"material-icons left\">close</i>\n\
+                                </a>");
+                    }
+                });
+            } else {
+
+            }
+
+        } else {
+            alert("Tiene que rellenar alguno de los campos");
+        }
+
+    });
+});
 //Estudiante--Fin

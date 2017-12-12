@@ -230,7 +230,7 @@ public class ControladorAsignacionPractica extends Conexion {
                                         + "                                        <h5 class=\"center\">No Existen registros aun</h5>\n"
                                         + "                                    </div>\n"
                                         + "                                 </div>\n"
-                                        + "                             </div>\n";
+                                        + "                             \n";
                             }
 
                         } else {
@@ -246,7 +246,7 @@ public class ControladorAsignacionPractica extends Conexion {
                     case 2:
                         if (praMo.activoParcial(2) || praMo.getExistenciadeRegistros(CI_estudiante, 2) == 1) {
                             practica = praMo.getDatosPracticaEstudiante(CI_estudiante, 2);
-                            htmlcode += "                   <div class=\"row\">\n"
+                            htmlcode += "                   \n"
                                     + "                            <div class=\"col s6 center\">\n"
                                     + "                                <h4>Segundo Parcial</h4>\n"
                                     + "                                <div class=\"row\">\n"
@@ -357,9 +357,7 @@ public class ControladorAsignacionPractica extends Conexion {
                                     + "                                     <h5 class=\"center\">Disculpe la molestia</h5>\n"
                                     + "                                 </div>\n"
                                     + "                            </div>";
-
                         }
-
                         break;
                     default:
                         break;
@@ -371,7 +369,7 @@ public class ControladorAsignacionPractica extends Conexion {
             System.out.println("Error en verDetallePracticaXtutor: " + e);
         }
         htmlcode += "                </div>\n"
-                + "                    </div>";
+                + "                    ";
         return htmlcode;
     }
 

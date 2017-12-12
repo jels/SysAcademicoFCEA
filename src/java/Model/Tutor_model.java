@@ -14,6 +14,9 @@ import java.sql.ResultSet;
  */
 public class Tutor_model extends Conexion {
 
+    String texto = "";
+    int numero;
+
     public boolean existeTutor(String ciTutor) {
 
         PreparedStatement pst = null;
@@ -289,6 +292,51 @@ public class Tutor_model extends Conexion {
         } catch (Exception ex) {
             System.err.println("Error getTutor: " + ex);
             return null;
+        }
+    }
+
+    public String getNombTutor(String CI_estudiante) {
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        try {
+            String consulta = "SELECT t.primerNombreTutor, t.segundoNombreTutor, "
+                    + "t.primerApellidoTutor, t.segundoApellidoTutor "
+                    + "FROM estudiante e, asignacionpracticas asp, tutor t "
+                    + "WHERE e.idEstudiante = asp.idEstudiante "
+                    + "AND t.idTutor = asp.idTutor "
+                    + "AND asp.estadoPractica = 1 "
+                    + "AND e.ciEstudiante = ? ";
+            pst = getConnection().prepareStatement(consulta);
+            pst.setString(1, CI_estudiante);
+            rs = pst.executeQuery();
+            rs.next();
+            texto = rs.getString(1) + " " + rs.getString(2) + " " + rs.getString(3) + " " + rs.getString(4);
+            return texto;
+        } catch (Exception ex) {
+            System.err.println("Error contar_tutor: " + ex);
+            return texto;
+        }
+    }
+
+    public String getCargoTut(String CI_estudiante) {
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        try {
+            String consulta = "SELECT t.cargoTutor "
+                    + "FROM estudiante e, asignacionpracticas asp, tutor t "
+                    + "WHERE e.idEstudiante = asp.idEstudiante "
+                    + "AND t.idTutor = asp.idTutor "
+                    + "AND asp.estadoPractica = 1 "
+                    + "AND e.ciEstudiante = ? ";
+            pst = getConnection().prepareStatement(consulta);
+            pst.setString(1, CI_estudiante);
+            rs = pst.executeQuery();
+            rs.next();
+            texto = rs.getString(1);
+            return texto;
+        } catch (Exception ex) {
+            System.err.println("Error contar_tutor: " + ex);
+            return texto;
         }
     }
 

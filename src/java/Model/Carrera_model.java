@@ -14,6 +14,9 @@ import java.sql.ResultSet;
  */
 public class Carrera_model extends Conexion {
 
+    int numero;
+    String texto = "";
+
     public int contar_carrera(int idFacultad) {
         PreparedStatement pst = null;
         ResultSet rs = null;
@@ -291,6 +294,29 @@ public class Carrera_model extends Conexion {
         } catch (Exception ex) {
             System.err.println("Error getMateriasCarrera: " + ex);
             return null;
+        }
+    }
+
+    public String getNombreCar(String CI_estudiante) {
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        try {
+            String consulta = "SELECT c.nombreCarrera "
+                    + "FROM estudiante e, asignacionpracticas asp, "
+                    + "materia m, carrera c "
+                    + "WHERE c.idCarrera = m.idCarrera "
+                    + "AND e.idEstudiante = asp.idEstudiante "
+                    + "AND m.idMateria = asp.idMateria "
+                    + "AND e.ciEstudiante = ? ";
+            pst = getConnection().prepareStatement(consulta);
+            pst.setString(1, CI_estudiante);
+            rs = pst.executeQuery();
+            rs.next();
+            texto = rs.getString(1);
+            return texto;
+        } catch (Exception ex) {
+            System.err.println("Error getNombreCar: " + ex);
+            return texto;
         }
     }
 

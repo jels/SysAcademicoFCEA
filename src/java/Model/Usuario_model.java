@@ -249,9 +249,9 @@ public class Usuario_model extends Conexion {
                         + "passwordUsuario = ? "
                         + "WHERE idUsuario = ? ";
                 pst = getConnection().prepareStatement(consulta);
-                pst.setString(6, us.getNombreUsuario());
-                pst.setString(7, us.getPassUsuario());
-                pst.setInt(8, idUsuario);
+                pst.setString(1, us.getNombreUsuario());
+                pst.setString(2, us.getPassUsuario());
+                pst.setInt(3, idUsuario);
                 return pst.executeUpdate() == 1;
             } catch (Exception ex) {
                 System.err.println("Error actualizar_usuario: " + ex);
@@ -259,6 +259,45 @@ public class Usuario_model extends Conexion {
             }
         }
 
+    }
+
+    public ResultSet getDatosUsuario(String usuario) {
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        try {
+            String consulta = "SELECT u.nombreUsuario, u.passwordUsuario, "
+                    + "u.imagenUsuario, t.primerNombreTutor, "
+                    + "t.segundoNombreTutor, t.primerApellidoTutor, "
+                    + "t.segundoApellidoTutor "
+                    + "FROM usuarios u, tutor t "
+                    + "WHERE u.idUsuario = t.idUsuario "
+                    + "AND u.nombreUsuario = ? ";
+            pst = getConnection().prepareStatement(consulta);
+            pst.setString(1, usuario);
+            rs = pst.executeQuery();
+            return rs;
+
+        } catch (Exception ex) {
+            System.err.println("Error getDatosUsuario: " + ex);
+            return null;
+        }
+    }
+
+    public boolean updateUser(Usuario us) {
+        PreparedStatement pst;
+        ResultSet rs;
+        try {
+            String consulta = "UPDATE usuarios "
+                    + "SET passwordUsuario = ? "
+                    + "WHERE nombreUsuario = ? ";
+            pst = getConnection().prepareStatement(consulta);
+            pst.setString(1, us.getPassUsuario());
+            pst.setString(2, us.getNombreUsuario());
+            return pst.executeUpdate() == 1;
+        } catch (Exception ex) {
+            System.err.println("Error updateUser: " + ex);
+            return false;
+        }
     }
 
 }

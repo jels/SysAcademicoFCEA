@@ -63,9 +63,9 @@
                         <div class="nav-content">
                             <div class="col s12">
                                 <ul class="tabs blue darken-3 tabs-fixed-width">
-                                    <li class="tab col s3"><a class="yellow-text" href="#datos">Datos del Estudiante</a></li>
-                                    <li class="tab col s3"><a class="yellow-text" href="#detalle">Detalle Practica</a></li>
-                                    <li class="tab col s3"><a class="yellow-text" href="#evaluacion">Evaluaciones</a></li>
+                                    <li class="tab col s4"><a class="yellow-text" href="#datos">Datos del Estudiante</a></li>
+                                    <li class="tab col s4"><a class="yellow-text" href="#detalle">Detalle Practica</a></li>
+                                    <li class="tab col s4"><a class="yellow-text" href="#evaluacion">Evaluaciones</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -104,8 +104,8 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="ayuda.jsp" class="waves-effect yellow-text">
-                                        <i class="material-icons yellow-text">help</i>Ayuda
+                                    <a href="estudiante.jsp" class="waves-effect yellow-text">
+                                        <i class="material-icons yellow-text">fast_rewind</i>Regresar
                                     </a>
                                 </li>
                             </ul>
@@ -119,7 +119,7 @@
             <div class="row blue darken-3">
 
                 <!-- Inicio del datos -->
-                <div id="datos" class="blue darken-3 yellow-text">
+                <div id="datos" class="col s12 blue darken-3 yellow-text">
 
                     <%=conVar.getDatosEstudianteTutor(CI_estudiante)%>
 
@@ -127,7 +127,7 @@
                 <!-- Fin datos -->
 
                 <!-- Inicio del evaluacion -->
-                <div id="evaluacion" class="blue darken-3 yellow-text">
+                <div id="evaluacion" class="col s12 blue darken-3 yellow-text">
 
                     <%=conMat.getEvaluacion(CI_estudiante)%>
 
@@ -135,7 +135,7 @@
                 <!-- Fin evaluacion -->
 
                 <!-- Inicio del detalle -->
-                <div id="detalle" class="blue darken-3 yellow-text">
+                <div id="detalle" class="col s12 blue darken-3 yellow-text">
 
                     <%=conAsp.verDetallePracticaXtutor(CI_estudiante)%>
 
@@ -169,6 +169,12 @@
 
                 </div> 
                 <!-- Fin newDetallePractica -->
+
+                <div id="perfil" class="modal blue darken-3 yellow-text">
+
+                    <%=conVar.getDatosTutor(usuario)%>
+
+                </div>
 
             </div>
             <!-- Final del MENU -->

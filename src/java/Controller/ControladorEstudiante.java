@@ -150,7 +150,6 @@ public class ControladorEstudiante extends Conexion {
                 + "                                    <th>Materia</th>\n"
                 + "                                    <th>Carrera</th>\n"
                 + "                                    <th class=\"center-align\">Evaluar</th>\n"
-                + "                                    <th class=\"center-align\">Ver Notas</th>\n"
                 + "                                    <th class=\"center-align\">Imprimir Evaluaciones</th>\n"
                 + "                                </tr>\n"
                 + "                            </thead>\n"
@@ -171,8 +170,7 @@ public class ControladorEstudiante extends Conexion {
                             + "                    <td>" + rs.getString(8) + "</td>\n"
                             + "                    <td>" + rs.getString(9) + "</td>\n"
                             + "                    <td><div class=\"center-align\"><a href=\"estudiante_ver.jsp?ci=" + rs.getString(6) + "\" id=\"asignar_nota_estudiante\" class=\"btn-floating btn tooltipped waves-effect waves-light blue yellow-text\" data-position=\"button\" data-tooltip=\"Asignar Nota\"><i class=\"material-icons yellow-text\">event_note</i></a></div></td>\n"
-                            + "                    <td><div class=\"center-align\"><a data-id=\"" + rs.getString(6) + "\" id=\"ver_nota_estudiante\" class=\"btn-floating btn tooltipped waves-effect waves-light blue yellow-text\" data-position=\"button\" data-tooltip=\"Ver Nota\"><i class=\"material-icons yellow-text\">event_note</i></a></div></td>\n"
-                            + "                    <td><div class=\"center-align\"><a href=\"ver_reporte_parcial.jsp?ci=" + rs.getString(6) + "\" id=\"ver_reporte\" class=\"btn-floating btn tooltipped waves-effect waves-light blue yellow-text\" data-position=\"button\" data-tooltip=\"Imprimir Evaluacion\"><i class=\"material-icons yellow-text\">print</i></a></div></td>\n";
+                            + "                    <td><div class=\"center-align\"><a href=\"ver_reportes.jsp?ci=" + rs.getString(6) + "\" id=\"ver_reporte\" class=\"btn-floating btn tooltipped waves-effect waves-light blue yellow-text\" data-position=\"button\" data-tooltip=\"Imprimir Evaluacion\"><i class=\"material-icons yellow-text\">print</i></a></div></td>\n";
                     i++;
 
                 }

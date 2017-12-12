@@ -26,11 +26,24 @@ public class Estudiante_model extends Conexion {
             pst.setString(1, CI_estudiante);
             rs = pst.executeQuery();
             return rs;
-
         } catch (Exception ex) {
             System.err.println("Error getNombreEstudiante: " + ex);
             return null;
         }
+    }
+
+    public String getNombreCompleto(String CI_estudiante) {
+        ResultSet nombre = getNombreEstudiante(CI_estudiante);
+        String nombreCompleto;
+        try {
+            nombre.next();
+            nombreCompleto = nombre.getString(3) + " " + nombre.getString(4) + ", " + nombre.getString(1) + " " + nombre.getString(2);
+            return nombreCompleto;
+        } catch (Exception e) {
+            System.err.println("Error getNombreCompleto: " + e);
+            return "";
+        }
+
     }
 
     public ResultSet getDatosEst(String CI_estudiante) {

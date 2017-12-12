@@ -471,7 +471,6 @@ public class ControladorMateria extends Conexion {
         ResultSet criterios;
         boolean aproboPrimerParcial = notMo.llenoPrimerParcial(CI_Estudiante);
         boolean aproboSegundoParcial = notMo.llenoSegundoParcial(CI_Estudiante);
-        boolean evaluacionCompleta = notMo.evaluacionCompletaDocente(CI_Estudiante);
         boolean primerParcial = praMo.activoParcial(1);
         boolean segundoParcial = praMo.activoParcial(2);
         int i = 1;
@@ -480,30 +479,10 @@ public class ControladorMateria extends Conexion {
         htmlcode = "";
         try {
             nombreEstudiante.next();
-            if (evaluacionCompleta) {
+            if (aproboPrimerParcial) {
                 nota = notMo.getNotaPrimerParcial(CI_Estudiante);
-                htmlcode += "<div class=\"container\">\n"
+                htmlcode += "\n"
                         + "     <div class=\"row\">\n"
-                        + "       <div class=\"col s12\">\n"
-                        + "              <h3 class=\"center\">" + nombreEstudiante.getString(3) + " " + nombreEstudiante.getString(4) + ", " + nombreEstudiante.getString(1) + " " + nombreEstudiante.getString(2) + "</h3>\n"
-                        + "        </div>\n"
-                        + "     </div>\n"
-                        + "     <div class=\"row\">\n"
-                        + "         <div class=\"col s6\">\n"
-                        + "              <h4 class=\"center\">Primer Parcial</h4>\n"
-                        + "              <h3 class=\"center\">" + nota + "</h3>\n"
-                        + "         </div>\n";
-                nota = notMo.getNotaSegundoParcial(CI_Estudiante);
-                htmlcode += "       <div class=\"col s6\">\n"
-                        + "              <h4 class=\"center\">Segundo Parcial</h4>\n"
-                        + "              <h3 class=\"center\">" + nota + "</h3>\n"
-                        + "       </div>\n"
-                        + " </div>\n"
-                        + " </div>\n";
-            } else if (aproboPrimerParcial && segundoParcial) {
-                nota = notMo.getNotaPrimerParcial(CI_Estudiante);
-                htmlcode += ""
-                        + "<div class=\"row\">\n"
                         + "       <h3 class=\"center\">" + nombreEstudiante.getString(3) + " " + nombreEstudiante.getString(4) + ", " + nombreEstudiante.getString(1) + " " + nombreEstudiante.getString(2) + "</h3>\n"
                         + "       <div class=\"col s6\">\n"
                         + "              <h4 class=\"center\">Primer Parcial</h4>\n"
@@ -514,8 +493,9 @@ public class ControladorMateria extends Conexion {
                     htmlcode += "       <div class=\"col s6\">\n"
                             + "              <h4 class=\"center\">Segundo Parcial</h4>\n"
                             + "              <h3 class=\"center\">" + nota + "</h3>\n"
-                            + "       </div>\n";
-                } else {
+                            + "       </div>\n"
+                            + "     </div>\n";
+                } else if (segundoParcial && praMo.getExistenciadeRegistros(CI_Estudiante, 2) == 1) {
                     htmlcode += "      <div class=\"col s6\">\n"
                             + " <div class=\"row\">\n"
                             + "    <form>"
@@ -523,7 +503,6 @@ public class ControladorMateria extends Conexion {
                     htmlcode += "<h5 class=\"center\">Segundo Parcial</h5>\n";
                     dimensiones = dimMo.getDimensiones(idMateria);
                     while (dimensiones.next()) {
-
                         switch (i) {
                             case 1:
                                 htmlcode += "<div class=\"col s6\">\n"
@@ -626,13 +605,21 @@ public class ControladorMateria extends Conexion {
                             + "         </button>\n"
                             + "     <br><br><br><br>\n"
                             + "     </div>\n"
-                            + "     <div id=\"notaGuardada\" class\"col s6 center-aling\">\n"
+                            + "     <div id=\"notaGuardada\" class=\"col s6 center-aling\">\n"
                             + "     </div>\n"
                             + "</div>\n"
                             + "</div>\n"
-                            + "\n";
+                            + "</div>\n";
+                } else {
+                    htmlcode += "                          <div class=\"col s6 center\">\n"
+                            + "                                <h4 class=\"center\">Segundo Parcial</h4>\n"
+                            + "                                <h5 class=\"center\">Aun no esta habilitado el sistema para insertar su evaluacion</h5>\n"
+                            + "                                <h5 class=\"center\">Disculpe la molestia</h5>\n"
+                            + "                            </div>\n"
+                            + "                         </div>\n"
+                            + "                      </div>\n";
                 }
-            } else if (primerParcial) {
+            } else if (primerParcial && praMo.getExistenciadeRegistros(CI_Estudiante, 1) == 1) {
                 htmlcode += "      <div class=\"col s6\">\n"
                         + " <div class=\"row\">\n"
                         + "    <form>"

@@ -14,6 +14,9 @@ import java.sql.ResultSet;
  */
 public class Materia_model extends Conexion {
 
+    String text = "";
+    int numero;
+
     public int countMaterias() {
         PreparedStatement pst = null;
         ResultSet rs = null;
@@ -337,6 +340,50 @@ public class Materia_model extends Conexion {
         } catch (Exception ex) {
             System.err.println("Error aproboMateria: " + ex);
             return false;
+        }
+    }
+
+    public String getSemestreMateria(String CI_estudiante) {
+        PreparedStatement pst;
+        ResultSet rs;
+        try {
+            String consulta = "SELECT m.semestreMateria "
+                    + "FROM estudiante e, asignacionpracticas asp, materia m "
+                    + "WHERE e.idEstudiante = asp.idEstudiante "
+                    + "AND m.idMateria = asp.idMateria "
+                    + "AND asp.estadoPractica = 1 "
+                    + "AND e.ciEstudiante = ? ";
+            pst = getConnection().prepareStatement(consulta);
+            pst.setString(1, CI_estudiante);
+            rs = pst.executeQuery();
+            rs.next();
+            text = rs.getString(1);
+            return text;
+        } catch (Exception ex) {
+            System.err.println("Error getSemestreMateria: " + ex);
+            return text;
+        }
+    }
+
+    public String getMateriaActual(String CI_estudiante) {
+        PreparedStatement pst;
+        ResultSet rs;
+        try {
+            String consulta = "SELECT m.nombreMateria "
+                    + "FROM estudiante e, asignacionpracticas asp, materia m "
+                    + "WHERE e.idEstudiante = asp.idEstudiante "
+                    + "AND m.idMateria = asp.idMateria "
+                    + "AND asp.estadoPractica = 1 "
+                    + "AND e.ciEstudiante = ? ";
+            pst = getConnection().prepareStatement(consulta);
+            pst.setString(1, CI_estudiante);
+            rs = pst.executeQuery();
+            rs.next();
+            text = rs.getString(1);
+            return text;
+        } catch (Exception ex) {
+            System.err.println("Error getMateriaActual: " + ex);
+            return text;
         }
     }
 

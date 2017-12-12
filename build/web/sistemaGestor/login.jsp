@@ -39,7 +39,7 @@
         <div id="login-page" class="row">
             <br><br>
             <div class="col s12 z-depth-4 card-panel">
-                <form action="login.do" class="login-form">
+                <form class="login-form">
                     <div class="row">
                         <div class="input-field col s12 center">
                             <img src="../img/login.png" alt="" class="circle responsive-img valign profile-image-login">

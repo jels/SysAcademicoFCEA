@@ -14,6 +14,9 @@ import java.sql.ResultSet;
  */
 public class Practicas_model extends Conexion {
 
+    int numero;
+    String texto;
+
     public boolean new_Practica(Practicas practica) {
 
         PreparedStatement pst = null;
@@ -323,6 +326,30 @@ public class Practicas_model extends Conexion {
     public boolean getRealizaPractica(String CI_estudiante) {
 
         return false;
+    }
+
+    public String getTotalHors(String CI_estudiante, int parcial) {
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        try {
+            String consulta = "SELECT p.cantidadHoras "
+                    + "FROM estudiante e, asignacionpracticas asp, practicas p "
+                    + "WHERE e.idEstudiante = asp.idEstudiante "
+                    + "AND asp.idAsignacionPractica = p.idAsignacionPractica "
+                    + "AND p.idParcial = ? "
+                    + "AND asp.estadoPractica = 1 "
+                    + "AND e.ciEstudiante = ? ";
+            pst = getConnection().prepareStatement(consulta);
+            pst.setInt(1, parcial);
+            pst.setString(2, CI_estudiante);
+            rs = pst.executeQuery();
+            rs.next();
+            texto = rs.getString(1);
+            return texto;
+        } catch (Exception ex) {
+            System.err.println("Error getTotalHors: " + ex);
+            return texto;
+        }
     }
 
 }

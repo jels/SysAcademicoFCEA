@@ -14,6 +14,9 @@ import java.sql.ResultSet;
  */
 public class AsignacionPracticas_model extends Conexion {
 
+    String texto = "";
+    int numero;
+
     public int getParcialEstudiante(String CI_estudiante) {
 
         int count = 1;
@@ -262,11 +265,11 @@ public class AsignacionPracticas_model extends Conexion {
             pst.setString(1, CI_estudiante);
             rs = pst.executeQuery();
             rs.next();
-            return rs.getString(1);
-
+            texto = rs.getString(1);
+            return texto;
         } catch (Exception ex) {
             System.err.println("Error getIngresoEstudiante: " + ex);
-            return "";
+            return texto;
         }
 
     }
@@ -356,6 +359,137 @@ public class AsignacionPracticas_model extends Conexion {
         } catch (Exception ex) {
             System.err.println("Error getDatosPracticas: " + ex);
             return rs;
+        }
+    }
+
+    public String getGestionAC(String CI_estudiante) {
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        try {
+            String consulta = "SELECT asp.gestionAcademica "
+                    + "FROM estudiante e, asignacionpracticas asp "
+                    + "WHERE e.idEstudiante = asp.idEstudiante "
+                    + "AND asp.estadoPractica = 1 "
+                    + "AND e.ciEstudiante = ? ";
+            pst = getConnection().prepareStatement(consulta);
+            pst.setString(1, CI_estudiante);
+            rs = pst.executeQuery();
+            rs.next();
+            texto = rs.getString(1);
+            return texto;
+        } catch (Exception ex) {
+            System.err.println("Error getGestionAC: " + ex);
+            return texto;
+        }
+    }
+
+    public String getPeriodoInicio(String CI_estudiante) {
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        try {
+            String consulta = "SELECT asp.fechaInicioPractica "
+                    + "FROM estudiante e, asignacionpracticas asp "
+                    + "WHERE  e.idEstudiante = asp.idEstudiante "
+                    + "AND asp.estadoPractica = 1 "
+                    + "AND e.ciEstudiante = ? ";
+            pst = getConnection().prepareStatement(consulta);
+            pst.setString(1, CI_estudiante);
+            rs = pst.executeQuery();
+            rs.next();
+            texto = rs.getString(1);
+            return texto;
+        } catch (Exception ex) {
+            System.err.println("Error getPeriodoInicio: " + ex);
+            return texto;
+        }
+    }
+
+    public String getPeriodoFin(String CI_estudiante) {
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        try {
+            String consulta = "SELECT asp.fechaFinPractica "
+                    + "FROM estudiante e, asignacionpracticas asp "
+                    + "WHERE  e.idEstudiante = asp.idEstudiante "
+                    + "AND asp.estadoPractica = 1 "
+                    + "AND e.ciEstudiante = ? ";
+            pst = getConnection().prepareStatement(consulta);
+            pst.setString(1, CI_estudiante);
+            rs = pst.executeQuery();
+            rs.next();
+            texto = rs.getString(1);
+            return texto;
+        } catch (Exception ex) {
+            System.err.println("Error getPeriodoFin: " + ex);
+            return texto;
+        }
+    }
+
+    public String getAreaPractic(String CI_estudiante) {
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        try {
+            String consulta = "SELECT asp.areaPractica "
+                    + "FROM estudiante e, asignacionpracticas asp "
+                    + "WHERE e.idEstudiante = asp.idEstudiante "
+                    + "AND e.ciEstudiante = ? ";
+            pst = getConnection().prepareStatement(consulta);
+            pst.setString(1, CI_estudiante);
+            rs = pst.executeQuery();
+            rs.next();
+            texto = rs.getString(1);
+            return texto;
+        } catch (Exception ex) {
+            System.err.println("Error getPeriodoFin: " + ex);
+            return texto;
+        }
+    }
+
+    public String getFuncionPar(String CI_estudiante, int parcial) {
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        try {
+            String consulta = "SELECT p.funcionPractica "
+                    + "FROM estudiante e, asignacionpracticas asp, practicas p "
+                    + "WHERE e.idEstudiante = asp.idEstudiante "
+                    + "AND asp.idAsignacionPractica = p.idAsignacionPractica "
+                    + "AND p.idParcial = ? "
+                    + "AND asp.estadoPractica = 1 "
+                    + "AND e.ciEstudiante = ? ";
+            pst = getConnection().prepareStatement(consulta);
+            pst.setInt(1, parcial);
+            pst.setString(2, CI_estudiante);
+            rs = pst.executeQuery();
+            rs.next();
+            texto = rs.getString(1);
+            return texto;
+        } catch (Exception ex) {
+            System.err.println("Error getPeriodoFin: " + ex);
+            return texto;
+        }
+    }
+
+    public ResultSet getTareasParcial(String CI_estudiante, int parcial) {
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        try {
+            String consulta = "SELECT det.tareaAsignada "
+                    + "FROM estudiante e, asignacionpracticas asp, "
+                    + "practicas p, detallepracticas det "
+                    + "WHERE e.idEstudiante = asp.idEstudiante "
+                    + "AND asp.idAsignacionPractica = p.idAsignacionPractica "
+                    + "AND p.idPracticas = det.idPracticas "
+                    + "AND p.idParcial = ? "
+                    + "AND asp.estadoPractica = 1 "
+                    + "AND e.ciEstudiante = ? ";
+            pst = getConnection().prepareStatement(consulta);
+            pst.setInt(1, parcial);
+            pst.setString(2, CI_estudiante);
+            rs = pst.executeQuery();
+            return rs;
+        } catch (Exception ex) {
+            System.err.println("Error getTareasParcial: " + ex);
+            return null;
         }
     }
 

@@ -96,4 +96,15 @@ public class ControladorUsuarios extends Conexion {
         return bandera;
     }
 
+    public boolean actualizarUser(Usuario us) {
+        bandera = usMo.updateUser(us);
+        try {
+            getCloseConexion();
+        } catch (Exception e) {
+            System.out.println("Error: actualizarUser: " + e);
+        }
+        return bandera;
+
+    }
+
 }

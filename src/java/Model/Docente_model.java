@@ -14,6 +14,9 @@ import java.sql.ResultSet;
  */
 public class Docente_model extends Conexion {
 
+    String texto;
+    int numero;
+
     public boolean crear_docente(Docente doc) {
         return false;
     }
@@ -61,6 +64,29 @@ public class Docente_model extends Conexion {
         } catch (Exception ex) {
             System.err.println("Error getIdDocente: " + ex);
             return 0;
+        }
+    }
+
+    public String getNombreDocente(String CI_estudiante) {
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        try {
+            String consulta = "SELECT d.primerNombreDocente, d.segundoNombreDocente, "
+                    + "d.primerApellidoDocente, d.segundoApellidoDocente "
+                    + "FROM estudiante e, asignacionpracticas asp, docente d "
+                    + "WHERE  e.idEstudiante = asp.idEstudiante "
+                    + "AND d.idDocente = asp.idDocente "
+                    + "AND asp.estadoPractica = 1 "
+                    + "AND e.ciEstudiante = ? ";
+            pst = getConnection().prepareStatement(consulta);
+            pst.setString(1, CI_estudiante);
+            rs = pst.executeQuery();
+            rs.next();
+            texto = rs.getString(1) + " " + rs.getString(2) + ", " + rs.getString(3) + " " + rs.getString(4);
+            return texto;
+        } catch (Exception ex) {
+            System.err.println("Error getNombreDocente: " + ex);
+            return texto;
         }
     }
 

@@ -289,4 +289,82 @@ public class Empresa_model extends Conexion {
         }
     }
 
+    public String getNomEmpresa(String CI_estudiante) {
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        try {
+            String consulta = "SELECT emp.nombreEmpresa "
+                    + "FROM estudiante e, asignacionpracticas asp, "
+                    + "tutor t, empresa emp "
+                    + "WHERE e.idEstudiante = asp.idEstudiante "
+                    + "AND emp.idEmpresa = t.idEmpresa "
+                    + "AND t.idTutor = asp.idTutor "
+                    + "AND asp.estadoPractica = 1 "
+                    + "AND e.ciEstudiante = ? ";
+            pst = getConnection().prepareStatement(consulta);
+            pst.setString(1, CI_estudiante);
+            rs = pst.executeQuery();
+            if (rs.next()) {
+                return rs.getString(1);
+            } else {
+                return "";
+            }
+        } catch (Exception ex) {
+            System.err.println("Error getNomEmpresa: " + ex);
+            return "";
+        }
+    }
+    
+    public String getDireccionEmpresa(String CI_estudiante) {
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        try {
+            String consulta = "SELECT emp.direccionEmpresa "
+                    + "FROM estudiante e, asignacionpracticas asp, "
+                    + "tutor t, empresa emp "
+                    + "WHERE e.idEstudiante = asp.idEstudiante "
+                    + "AND emp.idEmpresa = t.idEmpresa "
+                    + "AND t.idTutor = asp.idTutor "
+                    + "AND asp.estadoPractica = 1 "
+                    + "AND e.ciEstudiante = ? ";
+            pst = getConnection().prepareStatement(consulta);
+            pst.setString(1, CI_estudiante);
+            rs = pst.executeQuery();
+            if (rs.next()) {
+                return rs.getString(1);
+            } else {
+                return "";
+            }
+        } catch (Exception ex) {
+            System.err.println("Error getDireccionEmpresa: " + ex);
+            return "";
+        }
+    }
+    
+    public String getTelefonoEmpresa(String CI_estudiante) {
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        try {
+            String consulta = "SELECT emp.telefonoEmpresa "
+                    + "FROM estudiante e, asignacionpracticas asp, "
+                    + "tutor t, empresa emp "
+                    + "WHERE e.idEstudiante = asp.idEstudiante "
+                    + "AND emp.idEmpresa = t.idEmpresa "
+                    + "AND t.idTutor = asp.idTutor "
+                    + "AND asp.estadoPractica = 1 "
+                    + "AND e.ciEstudiante = ? ";
+            pst = getConnection().prepareStatement(consulta);
+            pst.setString(1, CI_estudiante);
+            rs = pst.executeQuery();
+            if (rs.next()) {
+                return rs.getString(1);
+            } else {
+                return "";
+            }
+        } catch (Exception ex) {
+            System.err.println("Error getDireccionEmpresa: " + ex);
+            return "";
+        }
+    }
+
 }

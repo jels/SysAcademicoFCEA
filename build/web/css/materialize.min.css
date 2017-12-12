@@ -28,3 +28,9 @@ body {
 main {
     flex: 1 0 auto;
 }
+
+@page{
+    size:  auto;
+    margin: 0mm;
+    display: none;
+}
