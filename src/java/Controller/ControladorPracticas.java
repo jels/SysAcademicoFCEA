@@ -16,6 +16,7 @@ public class ControladorPracticas extends Conexion {
     boolean bandera;
     Practicas_model praMo = new Practicas_model();
     Notas_model notMo = new Notas_model();
+    AsignacionPracticas_model aspMo = new AsignacionPracticas_model();
 
     public boolean realizaPractica(String CI_estudiante) {
         bandera = praMo.getRealizaPractica(CI_estudiante);
@@ -47,6 +48,36 @@ public class ControladorPracticas extends Conexion {
             getCloseConexion();
         } catch (Exception e) {
             System.out.println("Error en activoConstancia: " + e);
+        }
+        return bandera;
+    }
+
+    public boolean aprobarEstudiante(String CI_estudiante) {
+        bandera = aspMo.aprobar(CI_estudiante);
+        try {
+            getCloseConexion();
+        } catch (Exception e) {
+            System.out.println("Error en aprobarEstudiante: " + e);
+        }
+        return bandera;
+    }
+    
+    public boolean reprobarEstudiante(String CI_estudiante) {
+        bandera = aspMo.reprobo(CI_estudiante);
+        try {
+            getCloseConexion();
+        } catch (Exception e) {
+            System.out.println("Error en reprobarEstudiante: " + e);
+        }
+        return bandera;
+    }
+    
+    public boolean cambiarEstadoPracticas(String CI_estudiante) {
+        bandera = aspMo.finalizar(CI_estudiante);
+        try {
+            getCloseConexion();
+        } catch (Exception e) {
+            System.out.println("Error en cambiarEstadoPracticas: " + e);
         }
         return bandera;
     }

@@ -22,7 +22,7 @@ $(function () {
                 }
             });
         } else {
-            alert("Tiene que rellenar alguno de los campos");
+            alert("Tiene que llenar alguno de los campos");
         }
 
     });
@@ -55,13 +55,12 @@ $(function () {
 
         var CI_estudiante = $(this).attr('data-id');
 
-        alert(CI_estudiante);
         if (nota1 > 0 && nota2 > 0 && nota3 > 0 && nota4 > 0 &&
                 nota5 > 0 && nota6 > 0 && nota7 > 0 && nota8 > 0 &&
                 nota9 > 0 && nota10 > 0 && nota11 > 0 && nota12 > 0 &&
                 nota13 > 0 && nota14 > 0 && nota15 > 0 && nota16 > 0 &&
                 nota17 > 0 && nota18 > 0 && nota19 > 0 && nota20 > 0) {
-            var opcion = confirm("Seguro que desea guardar esta Nota?");
+            var opcion = confirm("Seguro que desea guardar esta nota?");
             if (opcion) {
                 $.post('../../practicas.do', {
                     accion: "cargar_nota_estudiante",
@@ -110,7 +109,7 @@ $(function () {
             }
 
         } else {
-            alert("Tiene que rellenar alguno de los campos");
+            alert("Tiene que llenar todos los campos");
         }
 
     });
@@ -162,7 +161,7 @@ $(function () {
                     <div class=\"col s6\">\n\
                         <button class=\"btn waves-effect waves-light green yellow-text right tooltipped\" type=\"button\" data-position=\"button\" data-tooltip=\"Carrera Creada Correctamente...\">\n\
                             <i class=\"material-icons left\">done_all</i>\n\
-                                Creacion Exitosa.!\n\
+                                Creación exitosa.!\n\
                             <i class=\"material-icons right\">done_all</i>\n\
                         </button>\n\
                     </div>");
@@ -182,7 +181,7 @@ $(function () {
                 });
             }
         } else {
-            alert("Rellene todos los campos");
+            alert("Llene todos los campos");
         }
 
     });
@@ -237,7 +236,7 @@ $(function () {
                 });
             }
         } else {
-            alert("Rellene todos los campos");
+            alert("Llene todos los campos");
         }
 
     });
@@ -247,20 +246,20 @@ $(function () {
     $('#eliminar_registroPrimer').click(function (e) {
         e.preventDefault();
         var idRegistro = $(this).attr('data-id');
-        var opcion = confirm("Seguro que desea Eliminar el Registro?");
+        var opcion = confirm("Seguro que desea eliminar el registro?");
         if (opcion) {
             $.post('../../practicas.do', {
                 accion: "eliminar_registro",
                 idRegistro: idRegistro
             }, function (responseText) {
                 if (responseText === "true") {
-                    alert("Registro Eliminado");
+                    alert("Registro eliminado");
                     setTimeout(function () {
                         location.reload(true);
                     }, 2000);
 
                 } else {
-                    alert("Error al Eliminar el Registro");
+                    alert("Error al eliminar el registro");
                 }
             });
         }
@@ -271,20 +270,20 @@ $(function () {
     $('#eliminar_registroSegundo').click(function (e) {
         e.preventDefault();
         var idRegistro = $(this).attr('data-id');
-        var opcion = confirm("Seguro que desea Eliminar el Registro?");
+        var opcion = confirm("Seguro que desea eliminar el registro?");
         if (opcion) {
             $.post('../../practicas.do', {
                 accion: "eliminar_registro",
                 idRegistro: idRegistro
             }, function (responseText) {
                 if (responseText === "true") {
-                    alert("Registro Eliminado");
+                    alert("Registro eliminado");
                     setTimeout(function () {
                         location.reload(true);
                     }, 2000);
 
                 } else {
-                    alert("Error al Eliminar el Registro");
+                    alert("Error al eliminar el registro");
                 }
             });
         }
@@ -295,20 +294,20 @@ $(function () {
     $('tr #eliminar_detalle').click(function (e) {
         e.preventDefault();
         var idDetalle = $(this).attr('data-id');
-        var opcion = confirm("Seguro que desea Eliminar el Registro?");
+        var opcion = confirm("Seguro que desea eliminar el detalle?");
         if (opcion) {
             $.post('../../practicas.do', {
                 accion: "eliminar_detalle",
                 idDetalle: idDetalle
             }, function (responseText) {
                 if (responseText === "true") {
-                    alert("Detalle Eliminado");
+                    alert("Detalle eliminado");
                     setTimeout(function () {
                         location.reload(true);
                     }, 2000);
 
                 } else {
-                    alert("Error al Eliminar el Detalle");
+                    alert("Error al eliminar el detalle");
                 }
             });
         }
@@ -336,7 +335,7 @@ $(function () {
                     <div class=\"col s6\">\n\
                         <button class=\"btn waves-effect waves-light green yellow-text right tooltipped\" type=\"button\" data-position=\"button\" data-tooltip=\"Carrera Creada Correctamente...\">\n\
                             <i class=\"material-icons left\">done_all</i>\n\
-                                Creacion Exitosa.!\n\
+                                Creación Exitosa.!\n\
                             <i class=\"material-icons right\">done_all</i>\n\
                         </button>\n\
                     </div>");
@@ -382,7 +381,7 @@ $(function () {
                     <div class=\"col s6\">\n\
                         <button class=\"btn waves-effect waves-light green yellow-text right tooltipped\" type=\"button\" data-position=\"button\" data-tooltip=\"Carrera Creada Correctamente...\">\n\
                             <i class=\"material-icons left\">done_all</i>\n\
-                                Creacion Exitosa.!\n\
+                                Creación Exitosa.!\n\
                             <i class=\"material-icons right\">done_all</i>\n\
                         </button>\n\
                     </div>");
@@ -416,7 +415,7 @@ $(function () {
         var pass = document.getElementById('pass').value;
 
         if (pass.length > 0) {
-            var opcion = confirm("Seguro que desea guardar esta Nota?");
+            var opcion = confirm("Seguro que desea guardar esta contraseña?");
             if (opcion) {
                 $.post('../../var.do', {
                     accion: "updatePassT",

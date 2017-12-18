@@ -39,14 +39,14 @@
         <header>
 
             <div class="fixed-action-btn vertical click-to-toggle">
-                <a href="#" class="btn tooltipped button-collapse btn-floating btn-large blue darken-4 pulse" data-activates="slide-out" data-position="left" data-tooltip="Menu">
+                <a href="#" class="btn tooltipped button-collapse btn-floating btn-large blue darken-4 pulse" data-activates="slide-out" data-position="left" data-tooltip="Menú">
                     <i class="material-icons yellow-text">apps</i>
                 </a>
             </div>
             <div class="navbar-fixed">
                 <nav class="blue darken-3">
                     <div class="nav-wrapper">
-                        <a href="#" class="brand-logo center yellow-text hide-on-med-and-down">Sistema Gestor de Practicas</a>
+                        <a href="#" class="brand-logo center yellow-text hide-on-med-and-down">Sistema Gestor de Prácticas</a>
                         <ul id="nav-mobile" class="right">
                             <li><a href="#" class="tooltipped" data-position="button" data-tooltip="Ayuda"><i class="material-icons yellow-text">help</i></a></li>
                             <li><a href="#" class="tooltipped" data-position="button" data-tooltip="Foro"><i class="material-icons yellow-text">forum</i></a></li>
@@ -93,7 +93,7 @@
                                 </li>
                                 <li>
                                     <a href="estudiante.jsp" class="waves-effect yellow-text">
-                                        <i class="material-icons yellow-text">face</i>Estudiante
+                                        <i class="material-icons yellow-text">face</i>Estudiantes
                                     </a>
                                 </li>
                                 <li>
@@ -179,22 +179,6 @@
                     </div>
                 </div>
                 <!-- Final del Modal search --> 
-
-                <!-- Inicio del Modal verNotaAsignada -->
-                <div id="verNotaAsignada" class="modal modal-fixed-footer blue darken-3 yellow-text">
-
-                    <div id="ver_Nota_Asignada_estudiante"></div> 
-
-                </div>
-                <!-- Final del Modal verNotaAsignada --> 
-
-                <!-- Inicio del Modal verReporte -->
-                <div id="verReporte" class="modal modal-fixed-footer blue darken-3 yellow-text">
-
-                    <div id="ver_Nota_Asignada_estudiante"></div> 
-
-                </div>
-                <!-- Final del Modal verReporte --> 
 
                 <div id="perfil" class="modal blue darken-3 yellow-text">
 

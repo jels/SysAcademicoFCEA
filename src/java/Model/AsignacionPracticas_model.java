@@ -559,4 +559,52 @@ public class AsignacionPracticas_model extends Conexion {
         }
     }
 
+    public boolean aprobar(String CI_estudiante) {
+        int idAsignacion = getIdAsignacionPractica(CI_estudiante);
+        PreparedStatement pst = null;
+        try {
+            String consulta = "UPDATE asignacionpracticas "
+                    + "SET aprobadoMateria = 1 "
+                    + "WHERE idAsignacionPractica = ? ";
+            pst = getConnection().prepareStatement(consulta);
+            pst.setInt(1, idAsignacion);
+            return pst.executeUpdate() == 1;
+        } catch (Exception ex) {
+            System.err.println("Error aprobar: " + ex);
+            return false;
+        }
+    }
+
+    public boolean reprobo(String CI_estudiante) {
+        int idAsignacion = getIdAsignacionPractica(CI_estudiante);
+        PreparedStatement pst = null;
+        try {
+            String consulta = "UPDATE asignacionpracticas "
+                    + "SET aprobadoMateria = 0 "
+                    + "WHERE idAsignacionPractica = ? ";
+            pst = getConnection().prepareStatement(consulta);
+            pst.setInt(1, idAsignacion);
+            return pst.executeUpdate() == 1;
+        } catch (Exception ex) {
+            System.err.println("Error reprobo: " + ex);
+            return false;
+        }
+    }
+
+    public boolean finalizar(String CI_estudiante) {
+        int idAsignacion = getIdAsignacionPractica(CI_estudiante);
+        PreparedStatement pst = null;
+        try {
+            String consulta = "UPDATE asignacionpracticas "
+                    + "SET estadoPractica = 0 "
+                    + "WHERE idAsignacionPractica = ? ";
+            pst = getConnection().prepareStatement(consulta);
+            pst.setInt(1, idAsignacion);
+            return pst.executeUpdate() == 1;
+        } catch (Exception ex) {
+            System.err.println("Error finalizar: " + ex);
+            return false;
+        }
+    }
+
 }

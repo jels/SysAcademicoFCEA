@@ -145,7 +145,7 @@ public class ControladorEstudiante extends Conexion {
                 + "                                    <th>#</th>\n"
                 + "                                    <th>Foto</th>\n"
                 + "                                    <th>Nombre Completo</th>\n"
-                + "                                    <th># de Carnet</th>\n"
+                + "                                    <th>N° de Carnet</th>\n"
                 + "                                    <th>Celular</th>\n"
                 + "                                    <th>Materia</th>\n"
                 + "                                    <th>Carrera</th>\n"
@@ -170,7 +170,7 @@ public class ControladorEstudiante extends Conexion {
                             + "                    <td>" + rs.getString(8) + "</td>\n"
                             + "                    <td>" + rs.getString(9) + "</td>\n"
                             + "                    <td><div class=\"center-align\"><a href=\"estudiante_ver.jsp?ci=" + rs.getString(6) + "\" id=\"asignar_nota_estudiante\" class=\"btn-floating btn tooltipped waves-effect waves-light blue yellow-text\" data-position=\"button\" data-tooltip=\"Asignar Nota\"><i class=\"material-icons yellow-text\">event_note</i></a></div></td>\n"
-                            + "                    <td><div class=\"center-align\"><a href=\"ver_reportes.jsp?ci=" + rs.getString(6) + "\" id=\"ver_reporte\" class=\"btn-floating btn tooltipped waves-effect waves-light blue yellow-text\" data-position=\"button\" data-tooltip=\"Imprimir Evaluacion\"><i class=\"material-icons yellow-text\">print</i></a></div></td>\n";
+                            + "                    <td><div class=\"center-align\"><a href=\"ver_reportes.jsp?ci=" + rs.getString(6) + "\" id=\"ver_reporte\" class=\"btn-floating btn tooltipped waves-effect waves-light blue yellow-text\" data-position=\"button\" data-tooltip=\"Imprimir Evaluación\"><i class=\"material-icons yellow-text\">print</i></a></div></td>\n";
                     i++;
 
                 }

@@ -37,14 +37,14 @@
         <!-- Inicio HEADER -->
         <header>
             <div class="fixed-action-btn vertical click-to-toggle">
-                <a href="#" class="btn tooltipped button-collapse btn-floating btn-large blue darken-4 pulse" data-activates="slide-out" data-position="left" data-tooltip="Menu">
+                <a href="#" class="btn tooltipped button-collapse btn-floating btn-large blue darken-4 pulse" data-activates="slide-out" data-position="left" data-tooltip="Menú">
                     <i class="material-icons yellow-text">apps</i>
                 </a>
             </div>
             <div class="navbar-fixed">
                 <nav class="blue darken-3">
                     <div class="nav-wrapper">
-                        <a href="#" class="brand-logo center yellow-text hide-on-med-and-down">Sistema Gestor de Practicas</a>
+                        <a href="#" class="brand-logo center yellow-text hide-on-med-and-down">Sistema Gestor de Prácticas</a>
                         <ul id="nav-mobile" class="right">
                             <li><a href="#" class="tooltipped" data-position="button" data-tooltip="Ayuda"><i class="material-icons yellow-text">help</i></a></li>
                             <li><a href="#" class="tooltipped" data-position="button" data-tooltip="Foro"><i class="material-icons yellow-text">forum</i></a></li>
@@ -93,7 +93,7 @@
                                 </li>
                                 <li>
                                     <a href="estudiante.jsp" class="waves-effect yellow-text">
-                                        <i class="material-icons yellow-text">face</i>Estudiante
+                                        <i class="material-icons yellow-text">face</i>Estudiantes
                                     </a>
                                 </li>
                                 <li>
@@ -135,7 +135,7 @@
                     </div>
                     <div class="row">
                         <div class="container">
-                            <h5 class="center">Aun no esta Habilitado el Parcial</h5>
+                            <h5 class="center">Aún no esta habilitado el parcial</h5>
                             <h5 class="center">Disculpe las molestias</h5>
                         </div>
                     </div>
@@ -171,7 +171,7 @@
                     </div>
                     <div class="row">
                         <div class="container">
-                            <h5 class="center">Aun no esta Habilitado el Parcial</h5>
+                            <h5 class="center">Aún no esta habilitado el parcial</h5>
                             <h5 class="center">Disculpe las molestias</h5>
                         </div>
                     </div>
@@ -208,7 +208,7 @@
                     </div>
                     <div class="row">
                         <div class="container">
-                            <h5 class="center">Aun no esta Habilitado la Constancia</h5>
+                            <h5 class="center">Aún no esta habilitado la constancia</h5>
                             <h5 class="center">Concluya las evaluciones del Primer Parcial y las del Segundo Parcial</h5>
                         </div>
                     </div>

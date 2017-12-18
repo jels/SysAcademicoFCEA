@@ -254,6 +254,7 @@ public class ControladorVarios extends Conexion {
         ResultSet datos = estMo.getDatosEst(CI_estudiante);
         ResultSet practicasEstudiante = aspMo.getAllPracticasEstudiante(CI_estudiante);
         double notaTotal = 0;
+        double notaFinal = 0;
         htmlcode = "";
         try {
             datos.next();
@@ -333,8 +334,32 @@ public class ControladorVarios extends Conexion {
                 htmlcode += "                         </tbody>\n"
                         + "                    </table>\n"
                         + "                            </div>\n"
-                        + "                        </div>\n"
-                        + "                    </div>\n";
+                        + "                        </div>\n";
+                if (notMo.evaluacionCompletaDocente(CI_estudiante)) {
+                    htmlcode += "                   <div class=\"row\">\n"
+                            + "                            <div class=\"col s12\">\n"
+                            + "                                <h3 class=\"center\">Opciones de Final de Semestre</h3>\n"
+                            + "                            </div>\n";
+                    notaFinal = (((notMo.getNotaPrimerParcial(CI_estudiante) / 2) * 0.35) + ((notMo.getNotaSegundoParcial(CI_estudiante) / 2) * 0.35) + ((notMo.getNotaExamenFinal(CI_estudiante) / 2) * 0.3));
+                    if (notaFinal >= 50.5) {
+                        htmlcode += "                            <div class=\"col s6 center\">\n"
+                                + "                                <h4 class=\"center\">Aprobar</h4>\n"
+                                + "                                <a id=\"aprobar_estudiante\" data-id=\"" + CI_estudiante + "\" class=\"btn-floating btn tooltipped waves-effect waves-light blue yellow-text\" data-position=\"button\" data-tooltip=\"Aprobar\"><i class=\"material-icons yellow-text\">visibility</i></a>\n"
+                                + "                            </div>\n";
+                    } else {
+                        htmlcode += "                            <div class=\"col s6 center\">\n"
+                                + "                                <h4 class=\"center\">Reprobar</h4>\n"
+                                + "                                <a id=\"reprobar_estudiante\" data-id=\"" + CI_estudiante + "\" class=\"btn-floating btn tooltipped waves-effect waves-light blue yellow-text\" data-position=\"button\" data-tooltip=\"Reprobar\"><i class=\"material-icons yellow-text\">visibility</i></a>\n"
+                                + "                            </div>\n";
+                    }
+
+                    htmlcode += "                            <div class=\"col s6 center\">\n"
+                            + "                                <h4 class=\"center\">Finalizar?</h4>\n"
+                            + "                                <a id=\"finalizar_evaluacion_estudiante\" data-id=\"" + CI_estudiante + "\" class=\"btn-floating btn tooltipped waves-effect waves-light blue yellow-text\" data-position=\"button\" data-tooltip=\"Finalizar - Archivar\"><i class=\"material-icons yellow-text\">visibility</i></a>\n"
+                            + "                            </div>\n"
+                            + "                        </div>";
+                }
+                htmlcode += "                    </div>\n";
             } else {
                 htmlcode += "                            </div>\n"
                         + "                        </div>\n"
@@ -348,7 +373,7 @@ public class ControladorVarios extends Conexion {
                             + "                    </div>\n";
                 } else {
                     htmlcode += "                      </div>\n"
-                            + "                    </div>\n";
+                            + "                   </div>\n";
                 }
 
             }
@@ -381,7 +406,7 @@ public class ControladorVarios extends Conexion {
                     + "                                <h4><i class=\"material-icons yellow-text small\">fingerprint</i>  CI:  " + datos.getString(5) + "</h4>\n"
                     + "                            </div>\n"
                     + "                            <div class=\"col s6\">\n"
-                    + "                                <h4><i class=\"material-icons yellow-text small\">contacts</i>  Telefono: " + datos.getString(6) + "</h4>\n"
+                    + "                                <h4><i class=\"material-icons yellow-text small\">contacts</i>  Teléfono: " + datos.getString(6) + "</h4>\n"
                     + "                            </div>\n"
                     + "                        </div>\n"
                     + "                        <div class=\"row\">\n"
@@ -471,7 +496,7 @@ public class ControladorVarios extends Conexion {
                     + "                                    <div class=\"input-field col s6\">\n"
                     + "                                        <i class=\"material-icons prefix\">lock_outline</i>\n"
                     + "                                        <input id=\"pass\" name=\"pass\" value=\"" + user.getString(2) + "\" type=\"text\">\n"
-                    + "                                        <label for=\"pass\">Contraceña</label>\n"
+                    + "                                        <label for=\"pass\">Contraseña</label>\n"
                     + "                                    </div>\n"
                     + "                                </div>\n"
                     + "                            </form>\n"

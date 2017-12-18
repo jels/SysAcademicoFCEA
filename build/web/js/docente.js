@@ -1445,7 +1445,6 @@ $(function () {
                     CI_estudiante: CI_estudiante
 
                 }, function (responseText) {
-                    alert(responseText);
                     if (responseText === "true") {
                         $('#notificacionAsignacionPractica').html("\
                     <div class=\"col s6\">\n\
@@ -1476,7 +1475,7 @@ $(function () {
 
     });
 });
-
+//eliminar Asignacion Practica
 $(function () {
     $('tr #eliminar_asignacionPractica').click(function (e) {
         e.preventDefault();
@@ -1493,13 +1492,81 @@ $(function () {
                         location.reload(true);
                     }, 2000);
                 } else {
-                    alert("Error al Eliminar Asignacion");
+                    alert("Error al Eliminar practica");
                 }
             });
         }
     });
 });
-
+//Aprobar al estudiante
+$(function () {
+    $('#aprobar_estudiante').click(function (e) {
+        e.preventDefault();
+        var CI_estudiante = $(this).attr('data-id');
+        var opcion = confirm("Desea Aprobar al estudiante?");
+        if (opcion) {
+            $.post('../../practicas.do', {
+                accion: "aprobar_estudiante",
+                CI_estudiante: CI_estudiante
+            }, function (responseText) {
+                if (responseText === "true") {
+                    alert("Estudiante Aprobado");
+                    setTimeout(function () {
+                        location.reload(true);
+                    }, 1000);
+                } else {
+                    alert("Error al aprobar al estudiante");
+                }
+            });
+        }
+    });
+});
+//Reprobar al estudiante
+$(function () {
+    $('#reprobar_estudiante').click(function (e) {
+        e.preventDefault();
+        var CI_estudiante = $(this).attr('data-id');
+        var opcion = confirm("Desea Reprobar al estudiante?");
+        if (opcion) {
+            $.post('../../practicas.do', {
+                accion: "reprobar_estudiante",
+                CI_estudiante: CI_estudiante
+            }, function (responseText) {
+                if (responseText === "true") {
+                    alert("Estudiante Reprobado");
+                    setTimeout(function () {
+                        location.reload(true);
+                    }, 1000);
+                } else {
+                    alert("Error al reprobar al estudiante");
+                }
+            });
+        }
+    });
+});
+//cambiar el estado de la practica
+$(function () {
+    $('#finalizar_evaluacion_estudiante').click(function (e) {
+        e.preventDefault();
+        var CI_estudiante = $(this).attr('data-id');
+        var opcion = confirm("Desea Archivar la Practica?");
+        if (opcion) {
+            $.post('../../practicas.do', {
+                accion: "baja_practica_estudiante",
+                CI_estudiante: CI_estudiante
+            }, function (responseText) {
+                if (responseText === "true") {
+                    alert("Practica Archivada");
+                    setTimeout(function () {
+                        location.reload(true);
+                    }, 1000);
+                } else {
+                    alert("Error al archivar practica");
+                }
+            });
+        }
+    });
+});
 //Practicas---Fin...
 
 

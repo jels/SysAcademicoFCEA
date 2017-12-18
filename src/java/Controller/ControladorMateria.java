@@ -615,7 +615,7 @@ public class ControladorMateria extends Conexion {
                 } else {
                     htmlcode += "                          <div class=\"col s6 center\">\n"
                             + "                                <h4 class=\"center\">Segundo Parcial</h4>\n"
-                            + "                                <h5 class=\"center\">Aun no esta habilitado el sistema para insertar su evaluacion</h5>\n"
+                            + "                                <h5 class=\"center\">Aún no esta habilitado el sistema para insertar su evaluación</h5>\n"
                             + "                                <h5 class=\"center\">Disculpe la molestia</h5>\n"
                             + "                            </div>\n"
                             + "                         </div>\n"
@@ -737,7 +737,7 @@ public class ControladorMateria extends Conexion {
                         + ""
                         + "         <div class=\"col s6\">\n"
                         + "             <h4 class=\"center\">Segundo Parcial</h4>\n"
-                        + "             <h4 class=\"yellow accent-2 red-text center\">Aun sin Asignar Nota</h4>\n"
+                        + "             <h4 class=\"yellow accent-2 red-text center\">Aún sin asignar nota</h4>\n"
                         + "         </div>\n"
                         + "     \n"
                         + "\n";
@@ -750,7 +750,7 @@ public class ControladorMateria extends Conexion {
                         + "                        </div>\n"
                         + "                        <div class=\"row\">\n"
                         + "                            <div class=\"col s12\">\n"
-                        + "                                <h4 class=\"center\">Aun no esta habilitado el sistema para insertar su evaluacion</h4>\n"
+                        + "                                <h4 class=\"center\">Aún no esta habilitado el sistema para insertar su evaluación</h4>\n"
                         + "                                <h4 class=\"center\">Disculpe la molestia</h4>\n"
                         + "                            </div>\n"
                         + "                        </div>\n"

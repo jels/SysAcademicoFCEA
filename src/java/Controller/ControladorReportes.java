@@ -48,10 +48,18 @@ public class ControladorReportes extends Conexion {
 
     public boolean getEvaluacionCompleta(String CI_estudiante, int parcial) {
         try {
-            if (parcial == 1) {
-                bandera = notMo.llenoPrimerParcial(CI_estudiante);
-            } else {
-                bandera = notMo.llenoSegundoParcial(CI_estudiante);
+            switch (parcial) {
+                case 1:
+                    bandera = notMo.llenoPrimerParcial(CI_estudiante);
+                    break;
+                case 2:
+                    bandera = notMo.llenoSegundoParcial(CI_estudiante);
+                    break;
+                case 3:
+                    bandera = notMo.evaluacionCompletaDocente(CI_estudiante);
+                    break;
+                default:
+                    break;
             }
             getCloseConexion();
         } catch (Exception e) {
@@ -245,7 +253,7 @@ public class ControladorReportes extends Conexion {
             }
             switch (id) {
                 case 0:
-                    htmlcode += "<br/><br/><span style=\"margin-right: 1cm;\"></span><span style=\"margin-right: 0.8cm;\"></span><tt><i><b><span style=\"margin-right: 0.5cm;\">-</span>No se Registraron Tareas</b></i></tt><br/><br/><br/>";
+                    htmlcode += "<br/><br/><span style=\"margin-right: 1cm;\"></span><span style=\"margin-right: 0.8cm;\"></span><tt><i><b><span style=\"margin-right: 0.5cm;\">-</span>No se registraron tareas</b></i></tt><br/><br/><br/>";
                     break;
                 case 1:
                     htmlcode += "<br/><br/><br/><br/>";

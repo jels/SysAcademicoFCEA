@@ -135,7 +135,7 @@ public class ControladorAsignacionPractica extends Conexion {
                                     + "                                <h4>Primer Parcial</h4>\n"
                                     + "                                <div class=\"row\">\n"
                                     + "                                    <div class=\"col s12\">\n"
-                                    + "                                        <h4 class=\"center yellow-text\">Periodo de Evaluacion</h4>\n"
+                                    + "                                        <h4 class=\"center yellow-text\">Periodo de Evaluación</h4>\n"
                                     + "                                        <a href=\"#newPracticaPrimer\" class=\"btn waves-effect waves-light yellow accent-2 blue-text center modal-trigger\" type=\"button\" id=\"\">\n"
                                     + "                                            Nuevo Detalle<i class=\"material-icons left\">save</i>\n"
                                     + "                                        </a>\n"
@@ -154,7 +154,7 @@ public class ControladorAsignacionPractica extends Conexion {
                                         + "                                        <h6 class=\"center\">" + practica.getString(3) + "</h6>\n"
                                         + "                                    </div>\n"
                                         + "                                    <div class=\"col s4\">\n"
-                                        + "                                        <h6 class=\"center\">Funcion</h6>\n"
+                                        + "                                        <h6 class=\"center\">Función</h6>\n"
                                         + "                                        <div class=\"divider\"></div>\n";
                                 if (practica.getString(4).length() > 15) {
                                     htmlcode += "                                        <h6 class=\"center\">" + practica.getString(4).substring(0, 15) + "</h6>\n";
@@ -170,7 +170,7 @@ public class ControladorAsignacionPractica extends Conexion {
                                         + "                                        <h6 class=\"center\">" + practica.getString(5) + "</h6>\n"
                                         + "                                    </div>\n"
                                         + "                                    <div class=\"col s8\">\n"
-                                        + "                                        <h6 class=\"center\">Observacion</h6>\n"
+                                        + "                                        <h6 class=\"center\">Observación</h6>\n"
                                         + "                                        <div class=\"divider\"></div>\n";
                                 if (practica.getString(6).length() > 15) {
                                     htmlcode += "                                        <h6 class=\"center\">" + practica.getString(6).substring(0, 15) + "</h6>\n";
@@ -185,7 +185,7 @@ public class ControladorAsignacionPractica extends Conexion {
                                         + "                                </div>\n"
                                         + "                                <div class=\"row\">\n"
                                         + "                                    <div class=\"col s12\">\n"
-                                        + "                                        <h4 class=\"center yellow-text\">Detalle del Perdiodo de Evaluacion</h4>\n"
+                                        + "                                        <h4 class=\"center yellow-text\">Detalle del Periodo de Evaluación</h4>\n"
                                         + "                                        <a href=\"#newDetallePracticaPrimer\" class=\"btn waves-effect waves-light yellow accent-2 blue-text center modal-trigger\" type=\"button\" id=\"\">\n"
                                         + "                                            Nuevo Detalle<i class=\"material-icons left\">save</i>\n"
                                         + "                                        </a>\n"
@@ -197,7 +197,7 @@ public class ControladorAsignacionPractica extends Conexion {
                                         + "                                            <thead>\n"
                                         + "                                                <tr>\n"
                                         + "                                                    <th>Tarea</th>\n"
-                                        + "                                                    <th>Descripcion</th>\n"
+                                        + "                                                    <th>Descripción</th>\n"
                                         + "                                                    <th class=\"center-align\">Eliminar</th>\n"
                                         + "                                                </tr>\n"
                                         + "                                            </thead>\n"
@@ -227,7 +227,7 @@ public class ControladorAsignacionPractica extends Conexion {
                             } else {
                                 htmlcode += "                                <div class=\"row\">\n"
                                         + "                                    <div class=\"col s12\">\n"
-                                        + "                                        <h5 class=\"center\">No Existen registros aun</h5>\n"
+                                        + "                                        <h5 class=\"center\">No Existen registros aún</h5>\n"
                                         + "                                    </div>\n"
                                         + "                                 </div>\n"
                                         + "                             \n";
@@ -236,7 +236,7 @@ public class ControladorAsignacionPractica extends Conexion {
                         } else {
                             htmlcode += "                          <div class=\"col s6 center\">\n"
                                     + "                                <h4 class=\"center\">Primer Parcial</h4>\n"
-                                    + "                                <h5 class=\"center\">Aun no esta habilitado el sistema para insertar su evaluacion</h5>\n"
+                                    + "                                <h5 class=\"center\">Aún no esta habilitado el sistema para insertar su evaluación</h5>\n"
                                     + "                                <h5 class=\"center\">Disculpe la molestia</h5>\n"
                                     + "                            </div>";
 
@@ -251,7 +251,7 @@ public class ControladorAsignacionPractica extends Conexion {
                                     + "                                <h4>Segundo Parcial</h4>\n"
                                     + "                                <div class=\"row\">\n"
                                     + "                                    <div class=\"col s12\">\n"
-                                    + "                                        <h4 class=\"center yellow-text\">Periodo de Evaluacion</h4>\n"
+                                    + "                                        <h4 class=\"center yellow-text\">Periodo de Evaluación</h4>\n"
                                     + "                                        <a href=\"#newPracticaSegundo\" class=\"btn waves-effect waves-light yellow accent-2 blue-text center modal-trigger\" type=\"button\" id=\"\">\n"
                                     + "                                            Nuevo Detalle<i class=\"material-icons left\">save</i>\n"
                                     + "                                        </a>\n"
@@ -270,7 +270,7 @@ public class ControladorAsignacionPractica extends Conexion {
                                         + "                                        <h6 class=\"center\">" + practica.getString(3) + "</h6>\n"
                                         + "                                    </div>\n"
                                         + "                                    <div class=\"col s4\">\n"
-                                        + "                                        <h6 class=\"center\">Funcion</h6>\n"
+                                        + "                                        <h6 class=\"center\">Función</h6>\n"
                                         + "                                        <div class=\"divider\"></div>\n";
                                 if (practica.getString(4).length() > 15) {
                                     htmlcode += "                                        <h6 class=\"center\">" + practica.getString(4).substring(0, 15) + "</h6>\n";
@@ -286,7 +286,7 @@ public class ControladorAsignacionPractica extends Conexion {
                                         + "                                        <h6 class=\"center\">" + practica.getString(5) + "</h6>\n"
                                         + "                                    </div>\n"
                                         + "                                    <div class=\"col s8\">\n"
-                                        + "                                        <h6 class=\"center\">Observacion</h6>\n"
+                                        + "                                        <h6 class=\"center\">Observación</h6>\n"
                                         + "                                        <div class=\"divider\"></div>\n";
                                 if (practica.getString(6).length() > 15) {
                                     htmlcode += "                                        <h6 class=\"center\">" + practica.getString(6).substring(0, 15) + "</h6>\n";
@@ -301,7 +301,7 @@ public class ControladorAsignacionPractica extends Conexion {
                                         + "                                </div>\n"
                                         + "                                <div class=\"row\">\n"
                                         + "                                    <div class=\"col s12\">\n"
-                                        + "                                        <h4 class=\"center yellow-text\">Detalle del Perdiodo de Evaluacion</h4>\n"
+                                        + "                                        <h4 class=\"center yellow-text\">Detalle del Periodo de Evaluación</h4>\n"
                                         + "                                        <a href=\"#newDetallePracticaSegundo\" class=\"btn waves-effect waves-light yellow accent-2 blue-text center modal-trigger\" type=\"button\" id=\"\">\n"
                                         + "                                            Nuevo Detalle<i class=\"material-icons left\">save</i>\n"
                                         + "                                        </a>\n"
@@ -313,7 +313,7 @@ public class ControladorAsignacionPractica extends Conexion {
                                         + "                                            <thead>\n"
                                         + "                                                <tr>\n"
                                         + "                                                    <th>Tarea</th>\n"
-                                        + "                                                    <th>Descripcion</th>\n"
+                                        + "                                                    <th>Descripción</th>\n"
                                         + "                                                    <th class=\"center-align\">Eliminar</th>\n"
                                         + "                                                </tr>\n"
                                         + "                                            </thead>\n"
@@ -343,7 +343,7 @@ public class ControladorAsignacionPractica extends Conexion {
                             } else {
                                 htmlcode += "                                <div class=\"row\">\n"
                                         + "                                    <div class=\"col s12\">\n"
-                                        + "                                        <h5 class=\"center\">No Existen registros aun</h5>\n"
+                                        + "                                        <h5 class=\"center\">No Existen registros aún</h5>\n"
                                         + "                                    </div>\n"
                                         + "                                 </div>\n"
                                         + "                             </div>\n";
@@ -353,7 +353,7 @@ public class ControladorAsignacionPractica extends Conexion {
                             htmlcode += "                          <div class=\"col s6 center\">\n"
                                     + "                                <h4 class=\"center\">Segundo Parcial</h4>\n"
                                     + "                                <div class=\"row\">\n"
-                                    + "                                     <h5 class=\"center\">Aun no esta habilitado el sistema para insertar su evaluacion</h5>\n"
+                                    + "                                     <h5 class=\"center\">Aún no esta habilitado el sistema para insertar su evaluación</h5>\n"
                                     + "                                     <h5 class=\"center\">Disculpe la molestia</h5>\n"
                                     + "                                 </div>\n"
                                     + "                            </div>";
@@ -384,8 +384,8 @@ public class ControladorAsignacionPractica extends Conexion {
         if (registos == 1) {
             htmlcode = "                 <div class=\"modal-content blue darken-3\">\n"
                     + "                        <div class=\"row\">\n"
-                    + "                            <h3 class=\"center\">Ya Existe un registro guardado</h3>\n"
-                    + "                            <h5 class=\"center\">Si quiere cambiar algun dato Elimine previamente el registro anterior</h5>\n"
+                    + "                            <h3 class=\"center\">Ya existe un registro guardado</h3>\n"
+                    + "                            <h5 class=\"center\">Si quiere cambiar algún dato elimine previamente el registro anterior</h5>\n"
                     + "                        </div>\n"
                     + "                    </div>\n"
                     + "                    <div class=\"modal-footer blue darken-3 yellow-text\">\n"
@@ -396,7 +396,7 @@ public class ControladorAsignacionPractica extends Conexion {
         } else {
             htmlcode = "                 <div class=\"modal-content blue darken-3\">\n"
                     + "                        <div class=\"row\">\n"
-                    + "                            <h5 class=\"center\">Ingresar los datos del periodo de practica a evaluar</h5>\n"
+                    + "                            <h5 class=\"center\">Ingresar los datos del periodo de práctica a evaluar</h5>\n"
                     + "                        </div>\n"
                     + "                        <div class=\"row\">\n"
                     + "                            <form method=\"post\" id=\"newPrac\" class=\"col s12 yellow-text\">\n"
@@ -416,7 +416,7 @@ public class ControladorAsignacionPractica extends Conexion {
                     + "                                    <div class=\"input-field col s6\">\n"
                     + "                                        <i class=\"material-icons prefix yellow-text\">assignment</i>\n"
                     + "                                        <input id=\"funcionPracticante" + parcial + "\" type=\"text\" class=\"validate\">\n"
-                    + "                                        <label class=\"yellow-text\" for=\"Funcion Practicante\">Funcion Practicante</label>\n"
+                    + "                                        <label class=\"yellow-text\" for=\"Funcion Practicante\">Función Practicante</label>\n"
                     + "                                    </div>\n"
                     + "                                    <div class=\"input-field col s6\">\n"
                     + "                                        <i class=\"material-icons prefix yellow-text\">assessment</i>\n"
@@ -428,7 +428,7 @@ public class ControladorAsignacionPractica extends Conexion {
                     + "                                    <div class=\"input-field col s12\">\n"
                     + "                                        <i class=\"material-icons prefix yellow-text\">comment</i>\n"
                     + "                                        <input id=\"observacionEstudiante" + parcial + "\" type=\"text\" class=\"validate\" placeholder=\"Sin Observaciones\">\n"
-                    + "                                        <label class=\"yellow-text\" for=\"Observacion Estudiante\" >Observacion Estudiante</label>\n"
+                    + "                                        <label class=\"yellow-text\" for=\"Observacion Estudiante\" >Observación Estudiante</label>\n"
                     + "                                    </div>\n"
                     + "                                </div>\n"
                     + "                            </form>\n"
@@ -470,7 +470,7 @@ public class ControladorAsignacionPractica extends Conexion {
                 + "                                    <div class=\"input-field col s6\">\n"
                 + "                                        <i class=\"material-icons prefix yellow-text\">comment</i>\n"
                 + "                                        <input id=\"observacionTarea" + parcial + "\" type=\"text\" class=\"validate\">\n"
-                + "                                        <label class=\"yellow-text\" for=\"Observacion Tarea\">Observacion Tarea</label>\n"
+                + "                                        <label class=\"yellow-text\" for=\"Observacion Tarea\">Observación Tarea</label>\n"
                 + "                                    </div>\n"
                 + "                                </div>\n"
                 + "                            </form>\n"
@@ -758,7 +758,7 @@ public class ControladorAsignacionPractica extends Conexion {
                     + "                                        <th>Materia</th>\n"
                     + "                                        <th>Carrera</th>\n"
                     + "                                        <th>Tutor</th>\n"
-                    + "                                        <th class=\"center\">Ver - Reportes</th>\n"
+                    + "                                        <th class=\"center\">Ver</th>\n"
                     + "                                        <th class=\"center\">Eliminar</th>\n"
                     + "                                    </tr>\n"
                     + "                                </thead>\n"
@@ -771,7 +771,7 @@ public class ControladorAsignacionPractica extends Conexion {
                         + "                                        <td>" + practicas.getString(6) + "</td>\n"
                         + "                                        <td>" + practicas.getString(7) + "</td>\n"
                         + "                                        <td>" + practicas.getString(10) + " " + practicas.getString(11) + ", " + practicas.getString(8) + " " + practicas.getString(9) + "</td>\n"
-                        + "                                        <td><div class=\"center-align\"><a href=\"ver_practicas.jsp?ci=" + practicas.getString(1) + "\"  class=\"btn-floating btn tooltipped waves-effect waves-light blue yellow-text\" data-position=\"button\" data-tooltip=\"Ver - Reportes\"><i class=\"material-icons yellow-text\">event_note</i></a></div></td>\n"
+                        + "                                        <td><div class=\"center-align\"><a href=\"estudiante_ver.jsp?ci=" + practicas.getString(1) + "\"  class=\"btn-floating btn tooltipped waves-effect waves-light blue yellow-text\" data-position=\"button\" data-tooltip=\"Ver\"><i class=\"material-icons yellow-text\">event_note</i></a></div></td>\n"
                         + "                                        <td><div class=\"center-align\"><a data-id=\"" + practicas.getString(12) + "\" id=\"eliminar_asignacionPractica\" name=\"eliminar_asignacionPractica\" class=\"btn-floating btn tooltipped waves-effect waves-light blue yellow-text\" data-position=\"button\" data-tooltip=\"Eliminar\"><i class=\"material-icons yellow-text\">delete</i></a></div></td>\n"
                         + "                                    </tr>\n";
             }

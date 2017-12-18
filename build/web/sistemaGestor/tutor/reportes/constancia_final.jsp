@@ -51,7 +51,7 @@
                                 <u>
                                     <font size=5>
                                     CONSTANCIA <br/>
-                                    DE PRACTICA PRE PROFESIONAL
+                                    DE PRÁCTICA PRE PROFESIONAL
                                     </font><br/>
                                 </u>
                             </p>
@@ -65,7 +65,7 @@
                             <p>
                                 <font size=4>Por medio de la presente dejo constancia que el Sr. Srta </font>....................................<br/>
                                 <font size=5><span style="margin-right: 4cm;"></span><tt><i><b><%=conRep.getNombreEstudiante(CI_estudiante)%></b></i></tt></font><br/>
-                            <font size=1>(Nombres y Apellidos del solicitante, tal cual la partida de nacimiento)</font> ,<font size=4> identificado (a) con CI No</font> : <font size=5><tt><i><b><%=CI_estudiante%></b></i></tt></font> , <br/>
+                            <font size=1>(Nombres y Apellidos del solicitante, tal cual la partida de nacimiento)</font> ,<font size=4> identificado (a) con CI N°</font> : <font size=5><tt><i><b><%=CI_estudiante%></b></i></tt></font> , <br/>
                             <font size=4>ha realizado sus Prácticas Pre-Profesionales en nuestra Empresa</font><br/>
                             <font size=5><tt><i><b><%=conRep.getNombreEmpresa(CI_estudiante)%></b></i></tt></font> <font size=4>en el Área de</font> <br/>
                             <font size=5><tt><i><b><%=conRep.getAreaPractica(CI_estudiante)%></b></i></tt></font> <font size=4>realizando las funciones de</font> <br/>
@@ -81,7 +81,7 @@
                     <div class="row">
                         <div class="col s12 left-align">
                             <p>
-                                <i><font size=3>Lugar y Fecha: </font> <font size=3> Cbba - <%=conRep.getFechaSistema()%></font></i>
+                                <i><font size=3>Lugar y Fecha: </font> <font size=3> Cbba - <%=conRep.getFechaFinPracticas(CI_estudiante) %></font></i>
                             </p>
                         </div>
                     </div>

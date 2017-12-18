@@ -5,6 +5,7 @@
 --%>
 
 
+<%@page import="Controller.ControladorPracticas"%>
 <%@page import="Controller.ControladorMateria"%>
 <%@page import="Controller.ControladorEstudiante"%>
 <%@page import="Controller.ControladorVarios"%>
@@ -36,6 +37,7 @@
     <% ControladorVarios conVar = new ControladorVarios();%>
     <% ControladorEstudiante conEst = new ControladorEstudiante();%>
     <% ControladorMateria conMat = new ControladorMateria();%>
+    <% ControladorPracticas conPra = new ControladorPracticas();%>
 
 
     <%@include file="head.jsp" %>
@@ -65,7 +67,7 @@
                             <div class="col s12">
                                 <ul class="tabs blue darken-3 tabs-fixed-width">
                                     <li class="tab col s3"><a class="yellow-text" href="#datos">Datos del Estudiante</a></li>
-                                    <li class="tab col s3"><a class="yellow-text" href="#notas">Notas</a></li>
+                                    <li class="tab col s3"><a class="yellow-text" href="#notas">Evaluaciones</a></li>
                                     <li class="tab col s3"><a class="yellow-text" href="#update">Actualizar</a></li>
                                 </ul>
                             </div>
@@ -153,12 +155,19 @@
                 <!-- Inicio del notas -->
                 <div id="notas" class="blue darken-3 yellow-text">
                     <%=conMat.getEvaluacionDocente(CI_estudiante)%>
+
+                    <br/>
+                    <br/>
+
+
                 </div>
                 <!-- Final del notas-->
 
                 <!-- Inicio del update -->
                 <div id="update" class="blue darken-3 yellow-text">
+
                     <%=conEst.viewUpdateEstudiante(CI_estudiante)%>
+
                 </div>
                 <!-- Final del update-->
 
@@ -200,6 +209,7 @@
                         </button>
                     </div>
                 </div>
+
                 <!-- Final del search-->
 
             </div>

@@ -40,6 +40,7 @@ public class PracticasCRUD extends HttpServlet {
         ControladorNotas conNot = new ControladorNotas();
         ControladorEstudiante conEst = new ControladorEstudiante();
         ControladorMateria conMat = new ControladorMateria();
+        ControladorPracticas conPra = new ControladorPracticas();
         Practicas practica = new Practicas();
         DetallesPracticas detalle = new DetallesPracticas();
         AsignacionPracticas asp = new AsignacionPracticas();
@@ -47,6 +48,7 @@ public class PracticasCRUD extends HttpServlet {
         String CI_estudiante = request.getParameter("CI_estudiante");
         String apellido_estudiante = request.getParameter("");
         String tutor = request.getParameter("");
+
         //Metodo creado para evitar el uso de muchos servlets 
         // aqui llegan todas las peticiones del usuario para realizar las funciones de:
         // -Crear -Editar -Dar de Baja -Eliminar
@@ -136,9 +138,6 @@ public class PracticasCRUD extends HttpServlet {
                 }
 
                 break;
-//            case "verNotaAsignada":
-//
-//                break;
             case "baja_estudiante":
                 System.out.println("CI_Estudiante: " + CI_estudiante);
                 if (conEst.bajaEstudiante(CI_estudiante)) {
@@ -198,6 +197,27 @@ public class PracticasCRUD extends HttpServlet {
                 System.out.println("llega al verNotaAsignada");
                 out.print(htmlcode);
 
+                break;
+            case "aprobar_estudiante":
+                if (conPra.aprobarEstudiante(CI_estudiante)) {
+                    out.print("true");
+                } else {
+                    out.print("false");
+                }
+                break;
+            case "reprobar_estudiante":
+                if (conPra.reprobarEstudiante(CI_estudiante)) {
+                    out.print("true");
+                } else {
+                    out.print("false");
+                }
+                break;
+            case "baja_practica_estudiante":
+                if (conPra.cambiarEstadoPracticas(CI_estudiante)) {
+                    out.print("true");
+                } else {
+                    out.print("false");
+                }
                 break;
             default:
                 out.print("false");

@@ -50,25 +50,25 @@
                         <div class="input-field col s12">
                             <i class="material-icons prefix">perm_identity</i>
                             <input id="username" type="text" class="validate">
-                            <label for="username" >Username</label>
+                            <label for="username" >Usuario</label>
                         </div>
                     </div>
                     <div class="row margin">
                         <div class="input-field col s12">
                             <i class="material-icons prefix">lock_outline</i>
                             <input id="password" type="password"  class="validate">
-                            <label for="password">Password</label>
+                            <label for="password">Contraseña</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s12">
-                            <input type="button" id="enviardatos" value="Iniciar Sesion" class="btn waves-effect waves-light col s12"/>
+                            <input type="button" id="enviardatos" value="Iniciar Sesión" class="btn waves-effect waves-light col s12"/>
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="input-field col s12">
-                            <p class="margin right-align medium-small"><a href="#">Olvidaste Tu Contraceña?</a></p>
+                            <p class="margin right-align medium-small"><a href="#">Olvidaste Tu Contraseña?</a></p>
                         </div>          
                     </div>
                 </form>
