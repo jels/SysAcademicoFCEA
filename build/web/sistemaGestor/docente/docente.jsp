@@ -38,14 +38,14 @@
         <!-- Inicio HEADER -->
         <header>
             <div class="fixed-action-btn vertical click-to-toggle">
-                <a href="#" class="btn tooltipped button-collapse btn-floating btn-large blue darken-4 pulse" data-activates="slide-out" data-position="left" data-tooltip="Menu">
+                <a href="#" class="btn tooltipped button-collapse btn-floating btn-large blue darken-4 pulse" data-activates="slide-out" data-position="left" data-tooltip="Menú">
                     <i class="material-icons yellow-text">apps</i>
                 </a>
             </div>
             <div class="navbar-fixed">
                 <nav class="blue darken-3">
                     <div class="nav-wrapper">
-                        <a href="#" class="brand-logo center yellow-text hide-on-med-and-down">Sistema Gestor de Practicas</a>
+                        <a href="#" class="brand-logo center yellow-text hide-on-med-and-down">Sistema Gestor de Prácticas</a>
                         <ul id="nav-mobile" class="right">
                             <li><a href="#" class="tooltipped" data-position="button" data-tooltip="Ayuda"><i class="material-icons yellow-text">help</i></a></li>
                             <li><a href="#" class="tooltipped" data-position="button" data-tooltip="Foro"><i class="material-icons yellow-text">forum</i></a></li>
@@ -93,17 +93,17 @@
                                 </li>
                                 <li>
                                     <a href="estudiante.jsp" class="waves-effect yellow-text">
-                                        <i class="material-icons yellow-text">face</i>Estudiante
+                                        <i class="material-icons yellow-text">face</i>Estudiantes
                                     </a>
                                 </li>
                                 <li>
                                     <a href="practicas.jsp" class="waves-effect yellow-text">
-                                        <i class="material-icons yellow-text">format_list_bulleted</i>Practicas
+                                        <i class="material-icons yellow-text">format_list_bulleted</i>Prácticas
                                     </a>
                                 </li>
                                 <li>
                                     <a href="docente.jsp" class="waves-effect yellow-text">
-                                        <i class="material-icons yellow-text">card_travel</i>Docente
+                                        <i class="material-icons yellow-text">card_travel</i>Docentes
                                     </a>
                                 </li>
                                 <li>

@@ -38,14 +38,14 @@
         <!-- Inicio HEADER -->
         <header>
             <div class="fixed-action-btn vertical click-to-toggle">
-                <a href="#" class="btn tooltipped button-collapse btn-floating btn-large blue darken-4 pulse" data-activates="slide-out" data-position="left" data-tooltip="Menu">
+                <a href="#" class="btn tooltipped button-collapse btn-floating btn-large blue darken-4 pulse" data-activates="slide-out" data-position="left" data-tooltip="Menú">
                     <i class="material-icons yellow-text">apps</i>
                 </a>
             </div>
             <div class="navbar-fixed">
                 <nav class="blue darken-3">
                     <div class="nav-wrapper">
-                        <a href="#" class="brand-logo center yellow-text hide-on-med-and-down">Sistema Gestor de Practicas</a>
+                        <a href="#" class="brand-logo center yellow-text hide-on-med-and-down">Sistema Gestor de Prácticas</a>
                         <ul id="nav-mobile" class="right">
                             <li><a href="#" class="tooltipped" data-position="button" data-tooltip="Ayuda"><i class="material-icons yellow-text">help</i></a></li>
                             <li><a href="#" class="tooltipped" data-position="button" data-tooltip="Foro"><i class="material-icons yellow-text">forum</i></a></li>
@@ -94,17 +94,17 @@
                                 </li>
                                 <li>
                                     <a href="estudiante.jsp" class="waves-effect yellow-text">
-                                        <i class="material-icons yellow-text">face</i>Estudiante
+                                        <i class="material-icons yellow-text">face</i>Estudiantes
                                     </a>
                                 </li>
                                 <li>
                                     <a href="practicas.jsp" class="waves-effect yellow-text">
-                                        <i class="material-icons yellow-text">format_list_bulleted</i>Practicas
+                                        <i class="material-icons yellow-text">format_list_bulleted</i>Prácticas
                                     </a>
                                 </li>
                                 <li>
                                     <a href="docente.jsp" class="waves-effect yellow-text">
-                                        <i class="material-icons yellow-text">card_travel</i>Docente
+                                        <i class="material-icons yellow-text">card_travel</i>Docentes
                                     </a>
                                 </li>
                                 <li>
@@ -220,14 +220,14 @@
                                     <div class="input-field col s6">
                                         <i class="material-icons prefix yellow-text">directions</i>
                                         <input id="direccionEmpresa" type="text" >
-                                        <label class="yellow-text" for="Direccion Empresa">Direccion</label>
+                                        <label class="yellow-text" for="Direccion Empresa">Dirección</label>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="input-field col s6">
                                         <i class="material-icons prefix yellow-text">contacts</i>
                                         <input id="telefonoEmpresa" type="text" class="validate">
-                                        <label class="yellow-text" for="Telefono Empresa">Telefono</label>
+                                        <label class="yellow-text" for="Telefono Empresa">Teléfono</label>
                                     </div>
                                     <div class="input-field col s6">
                                         <i class="material-icons prefix yellow-text">description</i>
@@ -264,12 +264,12 @@
                                     <div class="input-field col s6">
                                         <i class="material-icons prefix yellow-text">fingerprint</i>
                                         <input id="ciRepresentante" type="text" class="validate">
-                                        <label class="yellow-text" for="ciRepresentante"># de Carnet</label>
+                                        <label class="yellow-text" for="ciRepresentante">N° de Carnet</label>
                                     </div>
                                     <div class="input-field col s6">
                                         <i class="material-icons prefix yellow-text">contact_phone</i>
                                         <input id="celularRepresentante" type="text" class="validate">
-                                        <label class="yellow-text" for="celularRepresentante">Telefono - Celular</label>
+                                        <label class="yellow-text" for="celularRepresentante">Teléfono - Celular</label>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -299,23 +299,6 @@
 
                 </div>
                 <!-- Final del new --> 
-
-                <!-- Inicio del Modal verNotaAsignada -->
-                <div id="verNotaAsignada" class="modal modal-fixed-footer blue darken-3 yellow-text">
-
-                    <div id="ver_Nota_Asignada_estudiante"></div> 
-
-                </div>
-                <!-- Final del verNotaAsignada --> 
-
-                <!-- Inicio del Modal verReporte -->
-                <div id="verReporte" class="modal modal-fixed-footer blue darken-3 yellow-text">
-
-                    <div id="ver_Nota_Asignada_estudiante"></div> 
-
-                </div>
-                <!-- Final del verReporte --> 
-
 
             </div>
 

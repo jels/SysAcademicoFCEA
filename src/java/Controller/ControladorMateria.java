@@ -103,7 +103,7 @@ public class ControladorMateria extends Conexion {
             getCloseConexion();
             htmlcode = "<div class=\"container\">\n"
                     + "                        <div class=\"col s12 center\">\n"
-                    + "                            <h5>Dimension</h5>\n"
+                    + "                            <h5>Dimensión</h5>\n"
                     + "                            <h3>" + nombreDimension + "</h3>\n"
                     + "                        </div>\n"
                     + "                        <div class=\"col s12 center\">\n"
@@ -124,7 +124,7 @@ public class ControladorMateria extends Conexion {
             dimension.next();
             htmlcode = "           <div class=\"container\">\n"
                     + "                        <div class=\"row\">\n"
-                    + "                            <h1 class=\"center yellow-text\">Actualizar Dimension</h1>\n"
+                    + "                            <h1 class=\"center yellow-text\">Actualizar Dimensión</h1>\n"
                     + "                        </div>\n"
                     + "                        <div class=\"row\">\n"
                     + "                            <form id=\"updateDimension\" class=\"col s12 yellow-text\">\n"
@@ -132,7 +132,7 @@ public class ControladorMateria extends Conexion {
                     + "                                    <div class=\"input-field col s6\">\n"
                     + "                                        <i class=\"material-icons prefix yellow-text\">assignment_ind</i>\n"
                     + "                                        <input id=\"nombreDimensionAC\" type=\"text\" value=\"" + dimension.getString(2) + "\" class=\"validate\">\n"
-                    + "                                        <label class=\"yellow-text\" for=\"Nombre Materia\">Nombre Dimension</label>\n"
+                    + "                                        <label class=\"yellow-text\" for=\"Nombre Materia\">Nombre Dimensión</label>\n"
                     + "                                    </div>\n"
                     + "                                </div>\n"
                     + "                            </form>\n"
@@ -329,7 +329,7 @@ public class ControladorMateria extends Conexion {
                 + "                                <tr>\n"
                 + "                                    <th>#</th>\n"
                 + "                                    <th>Nombre</th>\n"
-                + "                                    <th>Descripcion</th>\n"
+                + "                                    <th>Descripción</th>\n"
                 + "                                    <th>Semestre</th>\n"
                 + "                                    <th>Horas</th>\n"
                 + "                                    <th>Estado</th>\n"
@@ -817,7 +817,7 @@ public class ControladorMateria extends Conexion {
                                     + " <div class=\"row\">\n"
                                     + "    <form>"
                                     + "       \n";
-                            htmlcode += "<h5 class=\"center\">Evaluacion Examen Final</h5>\n";
+                            htmlcode += "<h5 class=\"center\">Evaluación Final</h5>\n";
                             dimensiones = dimMo.getDimensiones(idMateria);
                             while (dimensiones.next()) {
                                 switch (i) {
@@ -930,11 +930,11 @@ public class ControladorMateria extends Conexion {
                     } else {
                         htmlcode += "       <div class=\"col s4\">\n"
                                 + "              <h4 class=\"center\">Segundo Parcial</h4>\n"
-                                + "              <h4 class=\"yellow accent-2 red-text center\">Aun sin Asignar Nota</h4>\n"
+                                + "              <h4 class=\"yellow accent-2 red-text center\">Aún sin asignar nota</h4>\n"
                                 + "         </div>\n"
                                 + "         <div class=\"col s4\">\n"
-                                + "              <h4 class=\"center\">Examen Final</h4>\n"
-                                + "              <h4 class=\"yellow accent-2 red-text center\">Asignacion no Disponible Aun</h4>\n"
+                                + "              <h4 class=\"center\">Exámen Final</h4>\n"
+                                + "              <h4 class=\"yellow accent-2 red-text center\">Asignación no disponible aún</h4>\n"
                                 + "          </div>\n"
                                 + "</div>";
                     }
@@ -944,15 +944,15 @@ public class ControladorMateria extends Conexion {
                             + "             <h3 class=\"center\">" + nombreEstudiante.getString(3) + " " + nombreEstudiante.getString(4) + ", " + nombreEstudiante.getString(1) + " " + nombreEstudiante.getString(2) + "</h3>\n"
                             + "         <div class=\"col s4\">\n"
                             + "             <h4 class=\"center\">Primer Parcial</h4>\n"
-                            + "             <h4 class=\"yellow accent-2 red-text center\">Aun sin Asignar Nota</h4>\n"
+                            + "             <h4 class=\"yellow accent-2 red-text center\">Aún sin asignar nota</h4>\n"
                             + "         </div>\n"
                             + "         <div class=\"col s4\">\n"
                             + "             <h4 class=\"center\">Segundo Parcial</h4>\n"
-                            + "             <h4 class=\"yellow accent-2 red-text center\">Aun sin Asignar Nota</h4>\n"
+                            + "             <h4 class=\"yellow accent-2 red-text center\">Aún sin asignar nota</h4>\n"
                             + "         </div>\n"
                             + "         <div class=\"col s4\">\n"
-                            + "             <h4 class=\"center\">Examen Final</h4>\n"
-                            + "             <h4 class=\"yellow accent-2 red-text center\">Asignacion no Disponible Aun</h4>\n"
+                            + "             <h4 class=\"center\">Exámen Final</h4>\n"
+                            + "             <h4 class=\"yellow accent-2 red-text center\">Asignación no disponible aún</h4>\n"
                             + "         </div>\n"
                             + "     </div>\n"
                             + "</div>\n";
@@ -1055,12 +1055,12 @@ public class ControladorMateria extends Conexion {
                     + "                                    <div class=\"input-field col s6\">\n"
                     + "                                        <i class=\"material-icons prefix yellow-text\">wc</i>\n"
                     + "                                        <input id=\"horasPracticasAC\" type=\"number\" value=\"" + materia.getInt(6) + "\" class=\"validate\">\n"
-                    + "                                        <label class=\"yellow-text\" for=\"Horas Practicas\">Horas Practicas</label>\n"
+                    + "                                        <label class=\"yellow-text\" for=\"Horas Practicas\">Horas Prácticas</label>\n"
                     + "                                    </div>\n"
                     + "                                    <div class=\"input-field col s6\">\n"
                     + "                                        <i class=\"material-icons prefix yellow-text\">wc</i>\n"
                     + "                                        <input id=\"descripcionMateriaAC\" type=\"text\" value=\"" + materia.getString(4) + "\" class=\"validate\">\n"
-                    + "                                        <label class=\"yellow-text\" for=\"Descripcion Materia\">Descripcion Materia</label>\n"
+                    + "                                        <label class=\"yellow-text\" for=\"Descripcion Materia\">Descripción Materia</label>\n"
                     + "                                    </div>\n"
                     + "                                </div>\n"
                     + "                            </form>\n"

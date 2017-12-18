@@ -36,14 +36,14 @@
         <!-- Inicio HEADER -->
         <header>
             <div class="fixed-action-btn vertical click-to-toggle">
-                <a href="#" class="btn tooltipped button-collapse btn-floating btn-large blue darken-4 pulse" data-activates="slide-out" data-position="left" data-tooltip="Menu">
+                <a href="#" class="btn tooltipped button-collapse btn-floating btn-large blue darken-4 pulse" data-activates="slide-out" data-position="left" data-tooltip="Menú">
                     <i class="material-icons yellow-text">apps</i>
                 </a>
             </div>
             <div class="navbar-fixed">
                 <nav class="blue darken-3">
                     <div class="nav-wrapper">
-                        <a href="#" class="brand-logo center yellow-text hide-on-med-and-down">Sistema Gestor de Practicas</a>
+                        <a href="#" class="brand-logo center yellow-text hide-on-med-and-down">Sistema Gestor de Prácticas</a>
                         <ul id="nav-mobile" class="right">
                             <li><a href="#" class="tooltipped" data-position="button" data-tooltip="Ayuda"><i class="material-icons yellow-text">help</i></a></li>
                             <li><a href="#" class="tooltipped" data-position="button" data-tooltip="Foro"><i class="material-icons yellow-text">forum</i></a></li>
@@ -82,17 +82,17 @@
                                 </li>
                                 <li>
                                     <a href="estudiante.jsp" class="waves-effect yellow-text">
-                                        <i class="material-icons yellow-text">face</i>Estudiante
+                                        <i class="material-icons yellow-text">face</i>Estudiantes
                                     </a>
                                 </li>
                                 <li>
                                     <a href="practicas.jsp" class="waves-effect yellow-text">
-                                        <i class="material-icons yellow-text">format_list_bulleted</i>Practicas
+                                        <i class="material-icons yellow-text">format_list_bulleted</i>Prácticas
                                     </a>
                                 </li>
                                 <li>
                                     <a href="docente.jsp" class="waves-effect yellow-text">
-                                        <i class="material-icons yellow-text">card_travel</i>Docente
+                                        <i class="material-icons yellow-text">card_travel</i>Docentes
                                     </a>
                                 </li>
                                 <li>
@@ -127,7 +127,7 @@
                             <div class="card-content">
                                 <span class="card-title center"><i class="medium material-icons">face</i></span>
                                 <h5 class="center">Estudiantes</h5>
-                                <p>Los estudiantes ACTIVOS registrados en esta gestión academica</p>
+                                <p>Los estudiantes ACTIVOS registrados en esta gestión académica</p>
                             </div>
                             <div class="card-action center">
                                 <h5><a href="estudiante.jsp" class="yellow-text"> <%=conVar.cantidadEstudiantes()%></a></h5>
@@ -141,8 +141,8 @@
                         <div class="card blue darken-3 yellow-text hoverable">
                             <div class="card-content">
                                 <span class="card-title center"><i class="medium material-icons">build</i></span>
-                                <h5 class="center">Practicas</h5>
-                                <p>Practicas ACTIVAS Resgitradas durante esta gestion</p>
+                                <h5 class="center">Prácticas</h5>
+                                <p>Prácticas ACTIVAS resgitradas durante esta gestión</p>
                             </div>
                             <div class="card-action center">
                                 <h5><a href="practicas.jsp" class="yellow-text"><%=conVar.getPracticasActivas()%></a></h5>
@@ -157,7 +157,7 @@
                             <div class="card-content">
                                 <span class="card-title center"><i class="medium material-icons">contacts</i></span>
                                 <h5 class="center">Tutores</h5>
-                                <p>Los Tutores ACTIVOS que estan registrados para asignar practicas</p>
+                                <p>Los Tutores ACTIVOS que están registrados para asignar prácticas</p>
                             </div>
                             <div class="card-action center">
                                 <h5><%=conVar.cantidadTutores()%></h5>
@@ -175,7 +175,7 @@
                             <div class="card-content">
                                 <span class="card-title center"><i class="material-icons">card_travel</i></span>
                                 <h5 class="center">Parciales</h5>
-                                <p class="truncate">Una descripcion de los la tabla Parciales</p>
+                                <p class="truncate">Una descripción de los la tabla parciales</p>
                             </div>
                             <div class="card-action center">
                                 <h5><a href="parciales.jsp" class="yellow-text"><%=conVar.cantidadParciales()%></a></h5>
@@ -190,7 +190,7 @@
                             <div class="card-content">
                                 <span class="card-title center"><i class="material-icons">format_list_bulleted</i></span>
                                 <h5 class="center">Carreras</h5>
-                                <p class="truncate">Una descripcion de los la tabla Carreras</p>
+                                <p class="truncate">Una descripción de los la tabla carreras</p>
                             </div>
                             <div class="card-action center">
                                 <h5><a href="carrera.jsp" class="yellow-text"><%=conVar.cantidadCarreras()%></a></h5>
@@ -205,7 +205,7 @@
                             <div class="card-content">
                                 <span class="card-title center"><i class="material-icons">store</i></span>
                                 <h5 class="center">Empresas</h5>
-                                <p class="truncate">Una descripcion de los la tabla Empresas</p>
+                                <p class="truncate">Una descripción de los la tabla empresas</p>
                             </div>
                             <div class="card-action center">
                                 <h5><a href="empresa.jsp" class="yellow-text"><%=conVar.cantidadEmpresas()%></a></h5>

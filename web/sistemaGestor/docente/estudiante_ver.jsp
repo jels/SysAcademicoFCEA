@@ -47,14 +47,14 @@
         <!-- Inicio HEADER -->
         <header>
             <div class="fixed-action-btn vertical click-to-toggle">
-                <a href="#" class="btn tooltipped button-collapse btn-floating btn-large blue darken-4 pulse" data-activates="slide-out" data-position="left" data-tooltip="Menu">
+                <a href="#" class="btn tooltipped button-collapse btn-floating btn-large blue darken-4 pulse" data-activates="slide-out" data-position="left" data-tooltip="Menú">
                     <i class="material-icons yellow-text">apps</i>
                 </a>
             </div>
             <div class="navbar-fixed">
                 <nav class="blue darken-3">
                     <div class="nav-wrapper">
-                        <a href="#" class="brand-logo center yellow-text hide-on-med-and-down">Sistema Gestor de Practicas</a>
+                        <a href="#" class="brand-logo center yellow-text hide-on-med-and-down">Sistema Gestor de Prácticas</a>
                         <ul id="nav-mobile" class="right">
                             <li><a href="#" class="tooltipped" data-position="button" data-tooltip="Ayuda"><i class="material-icons yellow-text">help</i></a></li>
                             <li><a href="#" class="tooltipped" data-position="button" data-tooltip="Foro"><i class="material-icons yellow-text">forum</i></a></li>
@@ -103,17 +103,17 @@
                                 </li>
                                 <li>
                                     <a href="estudiante.jsp" class="waves-effect yellow-text">
-                                        <i class="material-icons yellow-text">face</i>Estudiante
+                                        <i class="material-icons yellow-text">face</i>Estudiantes
                                     </a>
                                 </li>
                                 <li>
                                     <a href="practicas.jsp" class="waves-effect yellow-text">
-                                        <i class="material-icons yellow-text">format_list_bulleted</i>Practicas
+                                        <i class="material-icons yellow-text">format_list_bulleted</i>Prácticas
                                     </a>
                                 </li>
                                 <li>
                                     <a href="docente.jsp" class="waves-effect yellow-text">
-                                        <i class="material-icons yellow-text">card_travel</i>Docente
+                                        <i class="material-icons yellow-text">card_travel</i>Docentes
                                     </a>
                                 </li>
                                 <li>
@@ -170,47 +170,6 @@
 
                 </div>
                 <!-- Final del update-->
-
-                <!-- Inicio del search -->
-                <div id="search" class="modal modal-fixed-footer blue darken-3 yellow-text ">
-                    <div class="modal-content blue darken-3">
-                        <div class="row">
-                            <h1 class="center yellow-text">Buscar Estudiante</h1>
-                            <form method="post" class="col s12 yellow-text" >
-                                <div class="row">
-                                    <div class="input-field col s4">
-                                        <i class="material-icons prefix">account_circle</i>
-                                        <input id="apellido_estudiante" type="text">
-                                        <label for="apellido_estudiante">Apellido</label>
-                                    </div>
-                                    <div class="input-field col s4">
-                                        <i class="material-icons prefix">contact_mail</i>
-                                        <input id="ci_estudiante" type="text">
-                                        <label for="ci_estudiante"># de Carnet</label>
-                                    </div>
-                                    <div class="input-field col s4">
-                                        <a id="buscar_estudiante" data-id="<%=usuario%>" class="waves-effect waves-light waves-teal yellow accent-2 blue-text text-darken-3 btn-large"> 
-                                            <i class="material-icons right">search</i>Buscar
-                                        </a>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="row">
-                            <div id="ver_estudiante_buscado"></div>
-
-                        </div>
-
-                    </div>
-
-                    <div class="modal-footer blue darken-3 yellow-text">
-                        <button class="modal-action modal-close waves-effect waves-teal yellow accent-2 blue-text text-darken-3 waves-yellow btn-flat">
-                            Cerrar<i class="material-icons right">clear_all</i>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Final del search-->
 
             </div>
             <!-- Final del MENU -->
