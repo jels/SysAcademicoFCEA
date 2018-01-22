@@ -30,7 +30,7 @@
 %>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
     <% ControladorEmpresa conEmp = new ControladorEmpresa(); %>
     <% ControladorVarios conVar = new ControladorVarios();%>
     <% ControladorRepresentante conRep = new ControladorRepresentante();%>

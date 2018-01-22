@@ -33,7 +33,7 @@
 %>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
     <% ControladorVarios conVar = new ControladorVarios();%>
     <% ControladorEstudiante conEst = new ControladorEstudiante();%>
     <% ControladorMateria conMat = new ControladorMateria();%>
@@ -67,6 +67,7 @@
                             <div class="col s12">
                                 <ul class="tabs blue darken-3 tabs-fixed-width">
                                     <li class="tab col s3"><a class="yellow-text" href="#datos">Datos del Estudiante</a></li>
+                                    <li class="tab col s3"><a class="yellow-text" href="#detalle">Detalle Práctica</a></li>
                                     <li class="tab col s3"><a class="yellow-text" href="#notas">Evaluaciones</a></li>
                                     <li class="tab col s3"><a class="yellow-text" href="#update">Actualizar</a></li>
                                 </ul>
@@ -147,13 +148,19 @@
             <div class="row blue darken-3">
 
                 <!-- Inicio del datos -->
-                <div id="datos" class="col s12">
+                <div id="datos" class="col s12 blue darken-3 yellow-text">
                     <%=conVar.getDatosEstudiante(CI_estudiante)%>
                 </div>
                 <!-- Final del datos-->
 
+                <!-- Inicio del detalle -->
+                <div id="detalle" class="col s12 blue darken-3 yellow-text">
+                    <h2 class="center">Proximamente</h2>
+                </div>
+                <!-- Final del detalle-->
+
                 <!-- Inicio del notas -->
-                <div id="notas" class="blue darken-3 yellow-text">
+                <div id="notas" class="col s12 blue darken-3 yellow-text">
                     <%=conMat.getEvaluacionDocente(CI_estudiante)%>
 
                     <br/>
@@ -164,7 +171,7 @@
                 <!-- Final del notas-->
 
                 <!-- Inicio del update -->
-                <div id="update" class="blue darken-3 yellow-text">
+                <div id="update" class="col s12 blue darken-3 yellow-text">
 
                     <%=conEst.viewUpdateEstudiante(CI_estudiante)%>
 

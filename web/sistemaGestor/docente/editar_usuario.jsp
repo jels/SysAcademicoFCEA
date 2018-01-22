@@ -28,7 +28,7 @@
 %>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
     <% ControladorVarios conVar = new ControladorVarios();%>
 
     <%@include file="head.jsp" %>

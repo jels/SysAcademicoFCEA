@@ -342,22 +342,18 @@ public class ControladorVarios extends Conexion {
                             + "                            </div>\n";
                     notaFinal = (((notMo.getNotaPrimerParcial(CI_estudiante) / 2) * 0.35) + ((notMo.getNotaSegundoParcial(CI_estudiante) / 2) * 0.35) + ((notMo.getNotaExamenFinal(CI_estudiante) / 2) * 0.3));
                     if (notaFinal >= 50.5) {
-                        htmlcode += "                            <div class=\"col s6 center\">\n"
+                        htmlcode += "                            <div class=\"col s12 center\">\n"
                                 + "                                <h4 class=\"center\">Aprobar</h4>\n"
                                 + "                                <a id=\"aprobar_estudiante\" data-id=\"" + CI_estudiante + "\" class=\"btn-floating btn tooltipped waves-effect waves-light blue yellow-text\" data-position=\"button\" data-tooltip=\"Aprobar\"><i class=\"material-icons yellow-text\">visibility</i></a>\n"
-                                + "                            </div>\n";
+                                + "                            </div>\n"
+                                + "                        </div>";
                     } else {
-                        htmlcode += "                            <div class=\"col s6 center\">\n"
+                        htmlcode += "                            <div class=\"col s12 center\">\n"
                                 + "                                <h4 class=\"center\">Reprobar</h4>\n"
                                 + "                                <a id=\"reprobar_estudiante\" data-id=\"" + CI_estudiante + "\" class=\"btn-floating btn tooltipped waves-effect waves-light blue yellow-text\" data-position=\"button\" data-tooltip=\"Reprobar\"><i class=\"material-icons yellow-text\">visibility</i></a>\n"
-                                + "                            </div>\n";
+                                + "                            </div>\n"
+                                + "                        </div>";
                     }
-
-                    htmlcode += "                            <div class=\"col s6 center\">\n"
-                            + "                                <h4 class=\"center\">Finalizar?</h4>\n"
-                            + "                                <a id=\"finalizar_evaluacion_estudiante\" data-id=\"" + CI_estudiante + "\" class=\"btn-floating btn tooltipped waves-effect waves-light blue yellow-text\" data-position=\"button\" data-tooltip=\"Finalizar - Archivar\"><i class=\"material-icons yellow-text\">visibility</i></a>\n"
-                            + "                            </div>\n"
-                            + "                        </div>";
                 }
                 htmlcode += "                    </div>\n";
             } else {

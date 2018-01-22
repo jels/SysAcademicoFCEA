@@ -27,7 +27,7 @@
 %>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
     <% ControladorVarios conVar = new ControladorVarios();%>
     <% ControladorCarrera conCar = new ControladorCarrera();%>
     <%@include file="head.jsp" %>

@@ -212,13 +212,6 @@ public class PracticasCRUD extends HttpServlet {
                     out.print("false");
                 }
                 break;
-            case "baja_practica_estudiante":
-                if (conPra.cambiarEstadoPracticas(CI_estudiante)) {
-                    out.print("true");
-                } else {
-                    out.print("false");
-                }
-                break;
             default:
                 out.print("false");
                 break;

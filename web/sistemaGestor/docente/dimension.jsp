@@ -32,7 +32,7 @@
 %>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
     <% ControladorVarios conVar = new ControladorVarios();%>
     <% ControladorMateria conMat = new ControladorMateria();%>
     <%@include file="head.jsp" %>

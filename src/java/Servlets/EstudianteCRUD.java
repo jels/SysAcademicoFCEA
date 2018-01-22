@@ -37,17 +37,19 @@ public class EstudianteCRUD extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        response.setContentType("text/html; charset=iso-8859-1");
+        response.setContentType("text/html; charset=ISO-8859-1");
+        request.setCharacterEncoding("ISO-8859-1");
         PrintWriter out = response.getWriter();
 
         FileItemFactory file_factory = new DiskFileItemFactory();
         ServletFileUpload sfu = new ServletFileUpload(file_factory);
 
         ArrayList<String> campos = new ArrayList<>();
-        String img = "";
+        ArrayList<String> img = new ArrayList<>();
 
-        String archivourl = "D:\\fcea\\practicas\\web\\fcea\\estudiantes\\";
+        String archivourl = "..\\img\\fcea\\estudiantes\\";
         int c = 0;
+        int a = 0;
         try {
             List items = sfu.parseRequest(request);
 
@@ -56,7 +58,8 @@ public class EstudianteCRUD extends HttpServlet {
                 if (!item.isFormField()) {
                     File archivo = new File(archivourl + item.getName());
                     item.write(archivo);
-                    img = item.getName();
+                    img.add(item.getName());
+                    a++;
                 } else {
                     c++;
                     campos.add(item.getString());
@@ -66,7 +69,7 @@ public class EstudianteCRUD extends HttpServlet {
 
         }
         String accion = campos.get(0);
-        System.out.println("Accion: " + accion + " c" + c);
+        System.out.println("Accion: " + accion + " c" + c + " a" + a);
 
         ControladorEstudiante conEst = new ControladorEstudiante();
         Estudiante est = new Estudiante();
@@ -78,7 +81,7 @@ public class EstudianteCRUD extends HttpServlet {
         est.setTelefonoPersona(campos.get(6));
         System.out.println("tel " + campos.get(6));
         est.setCiPersona(campos.get(5));
-        est.setFotoEstudiante(img);
+        est.setFotoEstudiante(img.get(0));
         est.setEstadoPersona(1);
         String ciPersona = campos.get(5);
         System.out.println(ciPersona);
@@ -101,7 +104,6 @@ public class EstudianteCRUD extends HttpServlet {
                 out.print("false");
                 break;
         }
-
     }
 
     private String ucFirst2(String str) {

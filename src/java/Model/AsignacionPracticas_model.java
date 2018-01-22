@@ -383,17 +383,20 @@ public class AsignacionPracticas_model extends Conexion {
         }
     }
 
-    public String getPeriodoInicio(String CI_estudiante) {
+    public String getPeriodoInicio(String CI_estudiante, int parcial) {
         PreparedStatement pst = null;
         ResultSet rs = null;
         try {
-            String consulta = "SELECT asp.fechaInicioPractica "
-                    + "FROM estudiante e, asignacionpracticas asp "
-                    + "WHERE  e.idEstudiante = asp.idEstudiante "
+            String consulta = "SELECT p.fechaInicioEvaluacion "
+                    + "FROM estudiante e, asignacionpracticas asp, practicas p "
+                    + "WHERE e.idEstudiante = asp.idEstudiante "
+                    + "AND asp.idAsignacionPractica = p.idAsignacionPractica "
                     + "AND asp.estadoPractica = 1 "
+                    + "AND p.idParcial = ? "
                     + "AND e.ciEstudiante = ? ";
             pst = getConnection().prepareStatement(consulta);
-            pst.setString(1, CI_estudiante);
+            pst.setInt(1, parcial);
+            pst.setString(2, CI_estudiante);
             rs = pst.executeQuery();
             rs.next();
             texto = rs.getString(1);
@@ -404,17 +407,20 @@ public class AsignacionPracticas_model extends Conexion {
         }
     }
 
-    public String getPeriodoFin(String CI_estudiante) {
+    public String getPeriodoFin(String CI_estudiante, int parcial) {
         PreparedStatement pst = null;
         ResultSet rs = null;
         try {
-            String consulta = "SELECT asp.fechaFinPractica "
-                    + "FROM estudiante e, asignacionpracticas asp "
-                    + "WHERE  e.idEstudiante = asp.idEstudiante "
+            String consulta = "SELECT p.fechaFinEvaluacion "
+                    + "FROM estudiante e, asignacionpracticas asp, practicas p "
+                    + "WHERE e.idEstudiante = asp.idEstudiante "
+                    + "AND asp.idAsignacionPractica = p.idAsignacionPractica "
                     + "AND asp.estadoPractica = 1 "
+                    + "AND p.idParcial = ? "
                     + "AND e.ciEstudiante = ? ";
             pst = getConnection().prepareStatement(consulta);
-            pst.setString(1, CI_estudiante);
+            pst.setInt(1, parcial);
+            pst.setString(2, CI_estudiante);
             rs = pst.executeQuery();
             rs.next();
             texto = rs.getString(1);
@@ -564,7 +570,8 @@ public class AsignacionPracticas_model extends Conexion {
         PreparedStatement pst = null;
         try {
             String consulta = "UPDATE asignacionpracticas "
-                    + "SET aprobadoMateria = 1 "
+                    + "SET aprobadoMateria = 1, "
+                    + "estadoPractica = 0 "
                     + "WHERE idAsignacionPractica = ? ";
             pst = getConnection().prepareStatement(consulta);
             pst.setInt(1, idAsignacion);
@@ -581,6 +588,7 @@ public class AsignacionPracticas_model extends Conexion {
         try {
             String consulta = "UPDATE asignacionpracticas "
                     + "SET aprobadoMateria = 0 "
+                    + "estadoPractica = 0 "
                     + "WHERE idAsignacionPractica = ? ";
             pst = getConnection().prepareStatement(consulta);
             pst.setInt(1, idAsignacion);

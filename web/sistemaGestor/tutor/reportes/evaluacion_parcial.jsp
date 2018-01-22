@@ -88,7 +88,7 @@
                             <b>DATOS GENERALES:</b><br/><br/>
                             <span style="margin-right: 1cm;"></span><span style="margin-right: 0.5cm;">1.</span>Practicante: &nbsp; <tt><i><b><%=conRep.getNombreEstudiante(CI_estudiante)%></b></i></tt><br/>
                         <span style="margin-right: 1cm;"></span><span style="margin-right: 0.5cm;">2.</span>Periodo de evaluación:<br/>
-                        <span style="margin-right: 1cm;"></span><span style="margin-right: 0.8cm;"></span>Del: &nbsp; <tt><i><b><%=conRep.getPeriodoEvaluacionInicio(CI_estudiante)%></b></i></tt><span style="margin-right: 2cm;"></span>Al: &nbsp; <tt><i><b><%=conRep.getPeriodoEvaluacionFin(CI_estudiante)%></b></i></tt><span style="margin-right: 3cm;"></span>Total Hrs: &nbsp;<tt><i><b><%=conRep.getTotalHoras(CI_estudiante, parcial)%></b></i></tt><br/>
+                        <span style="margin-right: 1cm;"></span><span style="margin-right: 0.8cm;"></span>Del: &nbsp; <tt><i><b><%=conRep.getPeriodoEvaluacionInicio(CI_estudiante, parcial)%></b></i></tt><span style="margin-right: 2cm;"></span>Al: &nbsp; <tt><i><b><%=conRep.getPeriodoEvaluacionFin(CI_estudiante, parcial)%></b></i></tt><span style="margin-right: 3cm;"></span>Total Hrs: &nbsp;<tt><i><b><%=conRep.getTotalHoras(CI_estudiante, parcial)%></b></i></tt><br/>
                         <span style="margin-right: 1cm;"></span><span style="margin-right: 0.5cm;">3.</span>Razon Social de la Empresa / Institución:<br/>
                         <span style="margin-right: 1cm;"></span><span style="margin-right: 0.8cm;"></span><tt><i><b><%=conRep.getNombreEmpresa(CI_estudiante)%></b></i></tt><br/>
                         <span style="margin-right: 1cm;"></span><span style="margin-right: 0.8cm;"></span>Dirección: &nbsp; <tt><i><b><%=conRep.getDireccionEmpresa(CI_estudiante)%></b></i></tt><span style="margin-right: 1cm;"></span>Teléfono: &nbsp; <tt><i><b><%=conRep.getTelefonoEmpresa(CI_estudiante)%></b></i></tt><br/>
@@ -135,7 +135,7 @@
                     <div class="row">
                         <div class="col s12 right-align">
                             <p>
-                                Lugar y Fecha : Cbba - <%=conRep.getFechaFinPracticas(CI_estudiante) %>
+                                Lugar y Fecha : Cbba - <%=conRep.getPeriodoEvaluacionFin(CI_estudiante, parcial)%>
                             </p>
                         </div>
                     </div>

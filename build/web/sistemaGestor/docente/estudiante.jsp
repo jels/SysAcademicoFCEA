@@ -6,8 +6,7 @@
 
 <%@page import="Controller.ControladorEstudiante"%>
 <%@page import="Controller.ControladorVarios"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="ISO-8859-1"%>
-
+<%@page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
 <%
     HttpSession objsession = request.getSession(false);
     String usuario = (String) objsession.getAttribute("usuario");
@@ -27,7 +26,7 @@
 %>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
     <% ControladorVarios conVar = new ControladorVarios();%>
     <% ControladorEstudiante conEst = new ControladorEstudiante();%>
 
@@ -204,14 +203,14 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <input type="hidden" id="idEstudiante" name="idEstudiante" value="" />
-                                    <div class="file-field input-field col s6">
+                                    <input type="hidden" id="idEstudiante" name="idEstudiante" value="null" />
+                                    <div class="file-field input-field col s12">
                                         <div class="btn blue yellow-text">
-                                            <span>Foto</span>
-                                            <input type="file" id="foto" name="foto">
+                                            <span>Perfil</span>
+                                            <input type="file" name="imagenEst" id="imagenE">
                                         </div>
                                         <div class="file-path-wrapper">
-                                            <input class="file-path validate" name="nombre_foto" id="nombre_foto" type="text"  placeholder="Seleccione una Foto">
+                                            <input id="imagenE_nombre" name="nombre_imagenE" class="file-path validate" type="text"  placeholder="Seleccione una Foto">
                                         </div>
                                     </div>
                                 </div>

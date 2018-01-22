@@ -138,8 +138,8 @@ public class ControladorReportes extends Conexion {
         return htmlcode;
     }
 
-    public String getPeriodoEvaluacionInicio(String CI_estudiante) {
-        htmlcode = aspMo.getPeriodoInicio(CI_estudiante);
+    public String getPeriodoEvaluacionInicio(String CI_estudiante, int parcial) {
+        htmlcode = aspMo.getPeriodoInicio(CI_estudiante, parcial);
         try {
             getCloseConexion();
         } catch (Exception e) {
@@ -148,8 +148,8 @@ public class ControladorReportes extends Conexion {
         return htmlcode;
     }
 
-    public String getPeriodoEvaluacionFin(String CI_estudiante) {
-        htmlcode = aspMo.getPeriodoFin(CI_estudiante);
+    public String getPeriodoEvaluacionFin(String CI_estudiante, int parcial) {
+        htmlcode = aspMo.getPeriodoFin(CI_estudiante, parcial);
         try {
             getCloseConexion();
         } catch (Exception e) {

@@ -28,7 +28,7 @@
 %>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
     <% ControladorVarios conVar = new ControladorVarios();%>
     <% ControladorAsignacionPractica conAsp = new ControladorAsignacionPractica();%>
 
@@ -58,9 +58,9 @@
                         <div class="nav-content">
                             <div class="col s12">
                                 <ul class="tabs blue darken-3 tabs-fixed-width">
-                                    <li class="tab col s3"><a class="yellow-text" href="#resumen">Resumen Actual</a></li>
-                                    <li class="tab col s3"><a class="yellow-text" href="#activos">Prácticas Activas</a></li>
-                                    <li class="tab col s3"><a class="yellow-text" href="#archivo">Archivo</a></li>
+                                    <li class="tab col s4"><a class="yellow-text" href="#resumen">Resumen Actual</a></li>
+                                    <li class="tab col s4"><a class="yellow-text" href="#activos">Prácticas Activas</a></li>
+                                    <li class="tab col s4"><a class="yellow-text" href="#archivo">Archivo</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -149,8 +149,21 @@
                             <h1 class="center"><%=conAsp.contarPracticasEstado(1)%></h1>                            
                         </div>
                         <div class="row">
-                            <h3 class="center">Prácticas Archivadas</h3>
-                            <h2 class="center"><%=conAsp.contarPracticasEstado(0)%></h2>
+                            <div class="col s12">
+                                <h2 class="center">Estudiantes evaluados por parcial</h2>
+                            </div>
+                            <div class="col s4">
+                                <h3 class="center">1<sup>er</sup> Parcial</h3>
+                                <h2 class="center"><%=conAsp.contarPracticasEstado(1)%></h2>
+                            </div>
+                            <div class="col s4">
+                                <h3 class="center">2<sup>do</sup> Parcial</h3>
+                                <h2 class="center"><%=conAsp.contarPracticasEstado(1)%></h2>
+                            </div>
+                            <div class="col s4">
+                                <h3 class="center">Examen Final</h3>
+                                <h2 class="center"><%=conAsp.contarPracticasEstado(1)%></h2>
+                            </div>
                         </div>
                     </div>
 

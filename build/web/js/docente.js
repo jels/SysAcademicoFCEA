@@ -11,7 +11,7 @@ $(function () {
         var ciEstudiante = document.getElementById('ci').value;
         var bandera = false;
         var imagen = false;
-        var imagenE = document.getElementById('foto').files;
+        var imagenE = document.getElementById('imagenE').files;
         if (imagenE.length === 1) {
             for (var i = 0; i < imagenE.length; i++) {
                 var name = imagenE[i].name;
@@ -1539,29 +1539,6 @@ $(function () {
                     }, 1000);
                 } else {
                     alert("Error al reprobar al estudiante");
-                }
-            });
-        }
-    });
-});
-//cambiar el estado de la practica
-$(function () {
-    $('#finalizar_evaluacion_estudiante').click(function (e) {
-        e.preventDefault();
-        var CI_estudiante = $(this).attr('data-id');
-        var opcion = confirm("Desea Archivar la Practica?");
-        if (opcion) {
-            $.post('../../practicas.do', {
-                accion: "baja_practica_estudiante",
-                CI_estudiante: CI_estudiante
-            }, function (responseText) {
-                if (responseText === "true") {
-                    alert("Practica Archivada");
-                    setTimeout(function () {
-                        location.reload(true);
-                    }, 1000);
-                } else {
-                    alert("Error al archivar practica");
                 }
             });
         }
